@@ -209,14 +209,14 @@ def iter_skill_files(skill_dir):
 
 
 # 将一个 skill 的全部文件上传到 GitHub
-# overwrite=True 时获取现有文件 SHA 并执行更新；False 时仅新建
+# overwrite=True 时跳过 GitHub 上已存在的文件；False 时仅新建
 def do_upload_skill(token, repo, skill_name, local_path, overwrite=False):
     skill_dir = Path(local_path) / skill_name
     ok = True
     for fp, rel in iter_skill_files(skill_dir):
+        sha = get_file_sha(token, repo, rel) if overwrite else None
         with open(fp, "rb") as f:
             content = f.read()
-        sha    = get_file_sha(token, repo, rel) if overwrite else None
         action = "更新" if sha else "上传"
         resp, status = put_file(token, repo, rel, content, f"{action} {rel}", sha=sha)
         if status in (200, 201):
