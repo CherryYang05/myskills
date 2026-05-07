@@ -2,7 +2,7 @@
 """
 skill-sync -- 管理 skills 与 GitHub 仓库的同步
 """
-import json, os, shutil, subprocess, sys, tempfile
+import json, os, shutil, subprocess, sys, tempfile, urllib.error, urllib.request
 from pathlib import Path
 
 CONFIG_FILE = Path.home() / ".skill-sync-config.json"
@@ -15,7 +15,6 @@ def run(cmd, check=True):
     return r
 
 def gh(token, method, url, data=None):
-    import urllib.request, urllib.error, base64
     headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json", "Content-Type": "application/json"}
     body = json.dumps(data).encode() if data else None
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
