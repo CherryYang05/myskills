@@ -100,6 +100,79 @@ def _skill_files(skill_dir):
         if any(p in SKIP for p in parts): continue
         yield fp, fp.relative_to(skill_dir.parent).as_posix()
 
+def _read_skill_desc(skill_dir):
+    """从 SKILL.md frontmatter 读取 description"""
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists(): return ""
+    content = skill_md.read_text(encoding="utf-8")
+    if not content.startswith("---"): return ""
+    parts = content.split("---", 2)
+    if len(parts) < 3: return ""
+    for line in parts[1].strip().split("\n"):
+        if line.strip().startswith("description:"):
+            return line.split(":", 1)[1].strip()
+    return ""
+
+def _update_readme(repo_dir):
+    """根据仓库中的 skills 自动更新 README.md"""
+    skills = []
+    for d in sorted(repo_dir.iterdir()):
+        if not d.is_dir() or d.name.startswith(".") or d.name in SKIP: continue
+        if not (d / "SKILL.md").exists(): continue
+        desc = _read_skill_desc(d)
+        skills.append((d.name, desc))
+    if not skills: return
+    table = "\n".join(f"| {name} | {desc} |" for name, desc in skills)
+    readme = f"""# myskills
+
+个人 Agent Skills 仓库，支持 Claude Code、OpenCode、Codex 等 Agent。
+
+## 第一次安装
+
+将以下提示词粘贴给 Agent，让她自动完成安装：
+
+---
+
+**请帮我安装 skills 仓库：**
+
+~~~text
+请执行以下步骤：
+1. 运行：git clone https://github.com/CherryYang05/myskills.git ~/.claude/skills
+2. 运行：python ~/.claude/skills/skill-sync/scripts/skill_sync.py config
+3. 如果提示未配置，请运行：python ~/.claude/skills/skill-sync/scripts/skill_sync.py config set
+4. 输入 GitHub Token（如果需要）：YOUR_GITHUB_TOKEN
+5. 输入仓库名：CherryYang05/myskills
+6. 完成后运行 list-local 验证
+~~~
+
+---
+
+## 已收录的 Skills
+
+| Skill | 说明 |
+|-------|------|
+{table}
+
+## 常用同步命令
+
+~~~bash
+# 上传本地 skills 到 GitHub
+python ~/.claude/skills/skill-sync/scripts/skill_sync.py upload <name>
+python ~/.claude/skills/skill-sync/scripts/skill_sync.py do-upload <name>
+
+# 从 GitHub 安装 skills 到本地
+python ~/.claude/skills/skill-sync/scripts/skill_sync.py install <name>
+python ~/.claude/skills/skill-sync/scripts/skill_sync.py do-install <name>
+~~~
+
+## 注意
+
+- git 需已配置（Agent 会提示用户配置）
+- 配置文件：`~/.skill-sync-config.json`
+"""
+    (repo_dir / "README.md").write_text(readme, encoding="utf-8")
+    print("  [OK] README.md 已更新")
+
 def cmd_upload(args, cfg):
     path = Path(cfg["local_skills_path"])
     local = sorted(d.name for d in path.iterdir() if d.is_dir() and (d / "SKILL.md").exists()) if path.exists() else []
@@ -116,24 +189,28 @@ def cmd_do_upload(args, cfg):
     token, repo, base = cfg["github_token"], cfg["github_repo"], Path(cfg["local_skills_path"])
     tmp = Path(tempfile.mkdtemp())
     run(f"git clone --depth=1 https://{token}@github.com/{repo}.git {tmp}/repo")
+    repo_dir = tmp / "repo"
+    uploaded = []
     for name in args:
         src = base / name
         if not src.exists(): print(f"[ERROR] 不存在: {src}"); continue
         files = list(_skill_files(src))
         if not files: print(f"[WARN] {name} 无文件"); continue
-        # 复制到克隆的仓库
-        dst = tmp / "repo" / name
+        dst = repo_dir / name
         if dst.exists(): shutil.rmtree(dst)
         shutil.copytree(src, dst)
-        os.chdir(tmp / "repo")
+        uploaded.append(name)
+        for _, rel in files: print(f"  [OK] {rel}")
+    if uploaded:
+        _update_readme(repo_dir)
+        os.chdir(repo_dir)
         run("git add .")
-        r = run(f'git commit -m "sync: upload {name}"')
+        msg = "sync: upload " + ", ".join(uploaded)
+        r = run(f'git commit -m "{msg}"')
         if r.returncode == 0:
             r = run("git push")
-        if r.returncode == 0:
-            for _, rel in files: print(f"  [OK] {rel}")
-        else:
-            print(f"  [ERROR] {name} 上传失败")
+        if r.returncode != 0:
+            print(f"  [ERROR] 推送失败")
     os.chdir("/")
     shutil.rmtree(tmp, ignore_errors=True)
 

@@ -48,6 +48,10 @@ python <SCRIPT> config profile add <name> <path>
 python <SCRIPT> config profile set <name>
 ```
 
+## README 自动更新
+
+上传（`do-upload`）或更新（`do-update`）skill 到 GitHub 时，脚本会自动读取每个 skill 的 `SKILL.md` frontmatter，重新生成仓库 `README.md` 中的 skill 列表表格。
+
 ## 配置
 
 `~/.skill-sync-config.json`：GitHub token、仓库名、各环境路径 profile
