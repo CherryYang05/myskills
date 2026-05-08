@@ -30,7 +30,7 @@
 | skill-creator | 创建和优化 Skills |
 | skill-iterate | 人工标注驱动的 Skill 自迭代优化 |
 | skill-os-setup | 维护 EasyNewOS 仓库（Win/macOS/Linux 系统配置） |
-| tech-blog-writer | 将技术对话整理成发布级中文博客 |
+| skill-blog-writer | 将技术对话整理成发布级中文博客 |
 
 ## 常用同步命令
 
