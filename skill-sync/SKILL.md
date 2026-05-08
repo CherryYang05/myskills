@@ -7,6 +7,17 @@ description: 管理 Agent Skills 与 GitHub 仓库的双向同步。
 
 本地 skills 与 GitHub 仓库双向同步。
 
+## 用户确认规则
+
+**每次与 GitHub 仓库交互（拉取或推送）前，必须先向用户展示操作摘要并等待确认，确认后才能执行。** 具体包括：
+
+- `do-upload <name>` — 推送前列出将上传的 skill 名称，询问用户确认
+- `do-update <name>` — 推送前列出将更新的 skill 名称，询问用户确认
+- `do-install <name>` — 拉取前列出将安装的 skill 名称，询问用户确认
+- 更新仓库 README — 推送前展示将要变更的内容，询问用户确认
+
+不需要确认的操作：`list-local`、`list-remote`、`diff`、`config`（这些是只读查询）。
+
 ## 脚本路径（固定）
 
 | 系统 | 路径 |
