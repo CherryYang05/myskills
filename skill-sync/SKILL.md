@@ -48,9 +48,16 @@ python <SCRIPT> config profile add <name> <path>
 python <SCRIPT> config profile set <name>
 ```
 
-## README 自动更新
+## 同步后更新仓库 README
 
-上传（`do-upload`）或更新（`do-update`）skill 到 GitHub 时，脚本会自动读取每个 skill 的 `SKILL.md` frontmatter，重新生成仓库 `README.md` 中的 skill 列表表格。
+每次执行 upload / update / install 完成后，必须同步更新 GitHub 仓库的 `README.md`：
+
+1. 通过 GitHub API 获取当前仓库 README 内容和 SHA
+2. 读取仓库中所有 skill 的 `SKILL.md` frontmatter 中的 `description` 字段
+3. 重新生成 `## 已收录的 Skills` 表格部分（保留 README 其余内容不变）
+4. 通过 GitHub API（PUT `repos/{owner}/{repo}/contents/README.md`）提交更新
+
+GitHub API 所需的 token 和 repo 从 `~/.skill-sync-config.json` 中读取。
 
 ## 配置
 
