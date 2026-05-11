@@ -1,7 +1,6 @@
 ---
 name: skill-sync
 description: 管理 Agent Skills 与 GitHub 仓库的双向同步。
-short_description: Skills 与 GitHub 仓库双向同步
 ---
 
 # skill-sync
@@ -137,9 +136,10 @@ python /home/claude/skill_sync.py update-readme
 
 ## 同步后更新仓库 README
 
-每次执行 upload / update / push 完成后，必须同步更新 GitHub 仓库的 `README.md`：
+每次执行 upload / update / push 完成后，必须同步更新 GitHub 仓库 `README.md` 中的 `## 已收录的 Skills` 表格。
 
-1. 通过 GitHub API 获取当前仓库 README 内容和 SHA
-2. 读取仓库中所有 skill 的 `SKILL.md` frontmatter 中的 `description` 字段
-3. 重新生成 `## 已收录的 Skills` 表格部分（保留 README 其余内容不变）
-4. 通过 GitHub API（PUT `repos/{owner}/{repo}/contents/README.md`）提交更新
+**description 写作规范**：表格中每个 skill 的 description 用一句话简短总结功能即可，不要直接复制 frontmatter 中的完整 description。
+
+更新方式（任选其一）：
+- **脚本**：`python <SCRIPT> update-readme`（自动从 frontmatter 截取，可能较长，推送后可手动精简）
+- **手动**：clone 仓库后直接编辑 README.md 中的表格，commit & push

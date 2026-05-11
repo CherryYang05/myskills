@@ -390,25 +390,19 @@ def cmd_update_readme(args, cfg):
 
 
 def _read_skill_description(skill_dir):
-    """从 SKILL.md frontmatter 读取描述，优先 short_description，回退 description"""
+    """从 SKILL.md frontmatter 读取 description"""
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
         return ""
-    content = skill_md.read_text(encoding="utf-8", errors="replace")
-    if content.startswith("---"):
-        end = content.find("---", 3)
+    raw = skill_md.read_text(encoding="utf-8", errors="replace")
+    if raw.startswith("---"):
+        end = raw.find("---", 3)
         if end != -1:
-            fm = content[3:end]
-            short_desc = desc = ""
+            fm = raw[3:end]
             for line in fm.split("\n"):
-                stripped = line.strip()
-                if stripped.startswith("short_description:"):
-                    short_desc = stripped.split(":", 1)[1].strip()
-                elif stripped.startswith("description:"):
-                    desc = stripped.split(":", 1)[1].strip()
-            if short_desc:
-                return short_desc
-            return desc[:117] + "..." if len(desc) > 120 else desc
+                if line.strip().startswith("description:"):
+                    desc = line.split(":", 1)[1].strip()
+                    return desc[:117] + "..." if len(desc) > 120 else desc
     return ""
 
 
@@ -440,19 +434,17 @@ def _update_readme_via_api(token, repo, root_data):
         sdata, sst = gh(token, "GET", skill_url)
         desc = ""
         if sst == 200 and "content" in sdata:
-            content = base64.b64decode(sdata["content"]).decode("utf-8", errors="replace")
-            if content.startswith("---"):
-                end = content.find("---", 3)
+            file_content = base64.b64decode(sdata["content"]).decode("utf-8", errors="replace")
+            if file_content.startswith("---"):
+                end = file_content.find("---", 3)
                 if end != -1:
-                    fm = content[3:end]
-                    short_desc = full_desc = ""
+                    fm = file_content[3:end]
                     for line in fm.split("\n"):
-                        stripped = line.strip()
-                        if stripped.startswith("short_description:"):
-                            short_desc = stripped.split(":", 1)[1].strip()
-                        elif stripped.startswith("description:"):
-                            full_desc = stripped.split(":", 1)[1].strip()
-                    desc = short_desc if short_desc else (full_desc[:117] + "..." if len(full_desc) > 120 else full_desc)
+                        if line.strip().startswith("description:"):
+                            desc = line.split(":", 1)[1].strip()
+                            if len(desc) > 120:
+                                desc = desc[:117] + "..."
+                            break
         skills_info.append((d, desc))
 
     table_section = _generate_skills_table(skills_info)
