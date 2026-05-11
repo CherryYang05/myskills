@@ -26,13 +26,13 @@
 
 | Skill | Description |
 |-------|-------------|
-| [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐。这是一个通用的skill,指导用户通过思维链(CoT)的方式分步骤对存量DT用例进行分析和增量补充。当用户提到DT用例增强、用例补充、增量用例等关键词时,应使用此skill。**重要*... |
-| [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例。这是一个通用的的skill,指导用户通过思维链(CoT)的方式分步骤生成高质量的DT测试用例。当用户提到DT用例生成、测试用例生成、LLT测试等关键词时,应使用此skill。特别适用... |
-| [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章。当用户说"帮我整理成博客"、"生成博客"、"写成文章"、"整理一下"、"出一篇博客"，或者明确说"教程类博客"/"技术解析博客"时，必须立即触发本技能。即使用户只是... |
-| [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a... |
-| [skill-iterate](./skill-iterate) | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好。当用户说"优化 skill"、"改进 skill"、"记住这个问题"、"以后不要再这样"、"这个问题每次都出现"、"改进博客 skill"... |
-| [skill-os-setup](./skill-os-setup) | 用于维护 EasyNewOS 仓库。当用户提到"更新README"、"修改README"、"扩展EasyNewOS"、"增加脚本"、"添加新内容到EasyNewOS"、"提交到GitHub"、"推送到github"、"按照现有结构扩展... |
-| [skill-sync](./skill-sync) | 管理 Agent Skills 与 GitHub 仓库的双向同步。 |
+| [dt-case-enhancer](./dt-case-enhancer) | 对存量 DT 用例进行分析和增量补充 |
+| [dt-case-generator](./dt-case-generator) | 基于 CoT 分步骤生成高质量 DT 测试用例 |
+| [skill-blog-writer](./skill-blog-writer) | 将技术对话整理成发布级中文博客文章 |
+| [skill-creator](./skill-creator) | 创建、修改和评估 Agent Skills |
+| [skill-iterate](./skill-iterate) | 人工标注驱动的 Skill 输出质量自迭代优化 |
+| [skill-os-setup](./skill-os-setup) | 维护 EasyNewOS 新系统配置仓库 |
+| [skill-sync](./skill-sync) | Skills 与 GitHub 仓库双向同步 |
 
 ## 常用同步命令
 
