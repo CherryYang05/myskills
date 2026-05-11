@@ -2,11 +2,12 @@
 """
 skill-sync -- 管理 skills 与 GitHub 仓库的同步
 """
-import json, os, shutil, subprocess, sys, tempfile, urllib.error, urllib.request
+import base64, json, os, re, shutil, subprocess, sys, tempfile, urllib.error, urllib.request
 from pathlib import Path
 
 CONFIG_FILE = Path.home() / ".skill-sync-config.json"
 SKIP = {"__pycache__", ".git", "node_modules"}
+
 
 def run(cmd, check=True):
     r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
@@ -14,73 +15,157 @@ def run(cmd, check=True):
         print(f"  [ERROR] {r.stderr.strip()}")
     return r
 
+
 def gh(token, method, url, data=None):
-    headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json", "Content-Type": "application/json"}
+    headers = {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json",
+    }
     body = json.dumps(data).encode() if data else None
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(req) as r: return json.loads(r.read()), r.status
+        with urllib.request.urlopen(req) as r:
+            return json.loads(r.read()), r.status
     except urllib.error.HTTPError as e:
-        try: return json.loads(e.read()), e.code
-        except: return {"error": str(e)}, e.code
+        try:
+            return json.loads(e.read()), e.code
+        except:
+            return {"error": str(e)}, e.code
+
 
 def load_config():
-    if not CONFIG_FILE.exists(): return {}
-    with open(CONFIG_FILE) as f: return json.load(f)
+    if not CONFIG_FILE.exists():
+        return {}
+    with open(CONFIG_FILE) as f:
+        return json.load(f)
+
+
+def _detect_local_skills_path():
+    """检测当前环境的 skills 路径"""
+    if Path("/mnt/skills/user").exists():
+        return "/mnt/skills/user"
+    home = Path(os.environ.get("USERPROFILE", str(Path.home())))
+    return str(home / ".claude" / "skills")
+
 
 def require_config():
     c = load_config()
     if not c.get("github_token") or not c.get("github_repo"):
-        print("[ERROR] 未配置，请运行 python skill_sync.py config set"); sys.exit(1)
+        print("[ERROR] 未配置，请运行: python skill_sync.py config init --token <TOKEN> --repo <OWNER/REPO>")
+        sys.exit(1)
     profile = c.get("active_profile", "default")
     profiles = c.get("profiles", {})
     if profile not in profiles:
-        lp = c.get("local_skills_path", str(Path.home() / ".claude" / "skills"))
+        lp = c.get("local_skills_path", _detect_local_skills_path())
         return {"github_token": c["github_token"], "github_repo": c["github_repo"], "local_skills_path": lp}
     lp = profiles[profile].get("local_skills_path", "")
-    return {"github_token": c["github_token"], "github_repo": c["github_repo"], "local_skills_path": str(Path(lp).expanduser()) if lp else str(Path.home() / ".claude" / "skills")}
+    return {
+        "github_token": c["github_token"],
+        "github_repo": c["github_repo"],
+        "local_skills_path": str(Path(lp).expanduser()) if lp else _detect_local_skills_path(),
+    }
+
+
+# ── config 命令 ──────────────────────────────────────────────
 
 def config_show():
     c = load_config()
-    if not c: print("[WARN] 未配置"); return
-    token = c.get("github_token", ""); masked = ("*" * max(0, len(token)-4) + token[-4:]) if token else "(未设置)"
-    print(f"github_token : {masked}")
-    print(f"github_repo  : {c.get('github_repo', '(未设置)')}")
+    if not c:
+        print("[WARN] 未配置")
+        return
+    token = c.get("github_token", "")
+    masked = ("*" * max(0, len(token) - 4) + token[-4:]) if token else "(未设置)"
+    print(f"github_token  : {masked}")
+    print(f"github_repo   : {c.get('github_repo', '(未设置)')}")
     print(f"active_profile: {c.get('active_profile', 'default')}")
     profiles = c.get("profiles", {})
     for n, i in profiles.items():
         m = " *" if n == c.get("active_profile") else "  "
         print(f"{m} {n}: {i.get('local_skills_path', '')}")
 
-def config_set(args):
+
+def config_init(args):
+    """非交互式配置：config init --token <T> --repo <R> [--local-path <P>] [--profile <N>]"""
+    token = repo = local_path = None
+    profile = "default"
+    i = 0
+    while i < len(args):
+        if args[i] == "--token" and i + 1 < len(args):
+            token = args[i + 1]; i += 2
+        elif args[i] == "--repo" and i + 1 < len(args):
+            repo = args[i + 1]; i += 2
+        elif args[i] == "--local-path" and i + 1 < len(args):
+            local_path = args[i + 1]; i += 2
+        elif args[i] == "--profile" and i + 1 < len(args):
+            profile = args[i + 1]; i += 2
+        else:
+            i += 1
+    if not token or not repo:
+        print("[ERROR] 必须提供 --token 和 --repo")
+        sys.exit(1)
+    if local_path is None:
+        local_path = _detect_local_skills_path()
     c = load_config()
-    cur = c.get("github_token", ""); hint = f"当前: ...{cur[-4:]}" if len(cur) > 4 else "未设置"
+    c["github_token"] = token
+    c["github_repo"] = repo
+    profiles = c.setdefault("profiles", {})
+    profiles[profile] = {"local_skills_path": local_path, "description": f"init on {sys.platform}"}
+    c["active_profile"] = profile
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(c, f, indent=2)
+    try:
+        os.chmod(CONFIG_FILE, 0o600)
+    except:
+        pass
+    print(f"[OK] 配置已保存: repo={repo}, profile={profile}, path={local_path}")
+
+
+def config_set(args):
+    """交互式配置（仅本地终端环境可用）"""
+    c = load_config()
+    cur = c.get("github_token", "")
+    hint = f"当前: ...{cur[-4:]}" if len(cur) > 4 else "未设置"
     val = input(f"GitHub Token ({hint}): ").strip()
-    if val: c["github_token"] = val
+    if val:
+        c["github_token"] = val
     val = input(f"GitHub 仓库 (user/repo) [{c.get('github_repo', '')}]: ").strip()
-    if val: c["github_repo"] = val
+    if val:
+        c["github_repo"] = val
     profiles = c.setdefault("profiles", {})
     if not profiles:
-        lp = str(Path.home() / ".claude" / "skills")
+        lp = _detect_local_skills_path()
         profiles["default"] = {"local_skills_path": lp, "description": "默认"}
         c["active_profile"] = "default"
-    with open(CONFIG_FILE, "w") as f: json.dump(c, f, indent=2)
+    with open(CONFIG_FILE, "w") as f:
+        json.dump(c, f, indent=2)
     print(f"[OK] 配置已保存")
+
+
+# ── list / diff 命令 ─────────────────────────────────────────
 
 def cmd_list_local(args, cfg):
     path = Path(cfg["local_skills_path"])
-    if not path.exists(): print("本地暂无 skills"); return
+    if not path.exists():
+        print("本地暂无 skills")
+        return
     skills = sorted(d.name for d in path.iterdir() if d.is_dir() and (d / "SKILL.md").exists())
     print(f"本地 skills ({len(skills)} 个)  路径: {cfg['local_skills_path']}")
-    for s in skills: print(f"  - {s}")
+    for s in skills:
+        print(f"  - {s}")
+
 
 def cmd_list_remote(args, cfg):
     url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
     data, st = gh(cfg["github_token"], "GET", url)
-    if st != 200: print(f"[ERROR] 获取失败: {data.get('message')}"); return
+    if st != 200:
+        print(f"[ERROR] 获取失败: {data.get('message')}")
+        return
     dirs = sorted(i["name"] for i in data if i["type"] == "dir")
     print(f"GitHub skills ({len(dirs)} 个)  仓库: {cfg['github_repo']}")
-    for s in dirs: print(f"  - {s}")
+    for s in dirs:
+        print(f"  - {s}")
+
 
 def cmd_diff(args, cfg):
     path = Path(cfg["local_skills_path"])
@@ -89,16 +174,59 @@ def cmd_diff(args, cfg):
     data, st = gh(cfg["github_token"], "GET", url)
     remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
     print(f"[DIFF] 本地: {len(local)} 个  GitHub: {len(remote)} 个")
-    for s in sorted(local - remote): print(f"  [LOCAL] {s}")
-    for s in sorted(remote - local): print(f"  [REMOTE] {s}")
-    for s in sorted(local & remote): print(f"  [BOTH] {s}")
+    for s in sorted(local - remote):
+        print(f"  [LOCAL] {s}")
+    for s in sorted(remote - local):
+        print(f"  [REMOTE] {s}")
+    for s in sorted(local & remote):
+        print(f"  [BOTH] {s}")
+
+
+# ── 通用 git push 逻辑 ──────────────────────────────────────
 
 def _skill_files(skill_dir):
     for fp in sorted(skill_dir.rglob("*")):
-        if not fp.is_file(): continue
+        if not fp.is_file():
+            continue
         parts = fp.relative_to(skill_dir).parts
-        if any(p in SKIP for p in parts): continue
+        if any(p in SKIP for p in parts):
+            continue
         yield fp, fp.relative_to(skill_dir.parent).as_posix()
+
+
+def _git_push(token, repo, skill_name, src_dir):
+    """通用 git clone → copy → commit → push"""
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        r = run(f"git clone --depth=1 https://{token}@github.com/{repo}.git {tmp}/repo")
+        if r.returncode != 0:
+            print(f"[ERROR] git clone 失败")
+            return False
+        dst = tmp / "repo" / skill_name
+        if dst.exists():
+            shutil.rmtree(dst)
+        shutil.copytree(src_dir, dst)
+        os.chdir(tmp / "repo")
+        run("git add .")
+        r = run(f'git commit -m "sync: update {skill_name}"')
+        if r.returncode != 0:
+            print(f"[INFO] {skill_name} 无变更")
+            return True
+        r = run("git push")
+        if r.returncode == 0:
+            files = list(_skill_files(dst))
+            for _, rel in files:
+                print(f"  [OK] {rel}")
+            return True
+        else:
+            print(f"[ERROR] {skill_name} 推送失败")
+            return False
+    finally:
+        os.chdir("/")
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+# ── upload / update / install 命令 ───────────────────────────
 
 def cmd_upload(args, cfg):
     path = Path(cfg["local_skills_path"])
@@ -107,57 +235,54 @@ def cmd_upload(args, cfg):
     data, st = gh(cfg["github_token"], "GET", url)
     remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
     targets = [s for s in (args or local) if s in local and s not in remote]
-    if not targets: print("[OK] 无新 skills"); return
+    if not targets:
+        print("[OK] 无新 skills")
+        return
     print(f"[UPLOAD] 将上传 {len(targets)} 个: {', '.join(targets)}")
     print(f"##CONFIRM_UPLOAD## {json.dumps(targets)}")
 
+
 def cmd_do_upload(args, cfg):
-    if not args: return
-    token, repo, base = cfg["github_token"], cfg["github_repo"], Path(cfg["local_skills_path"])
-    tmp = Path(tempfile.mkdtemp())
-    run(f"git clone --depth=1 https://{token}@github.com/{repo}.git {tmp}/repo")
+    if not args:
+        return
+    base = Path(cfg["local_skills_path"])
     for name in args:
         src = base / name
-        if not src.exists(): print(f"[ERROR] 不存在: {src}"); continue
-        files = list(_skill_files(src))
-        if not files: print(f"[WARN] {name} 无文件"); continue
-        # 复制到克隆的仓库
-        dst = tmp / "repo" / name
-        if dst.exists(): shutil.rmtree(dst)
-        shutil.copytree(src, dst)
-        os.chdir(tmp / "repo")
-        run("git add .")
-        r = run(f'git commit -m "sync: upload {name}"')
-        if r.returncode == 0:
-            r = run("git push")
-        if r.returncode == 0:
-            for _, rel in files: print(f"  [OK] {rel}")
-        else:
-            print(f"  [ERROR] {name} 上传失败")
-    os.chdir("/")
-    shutil.rmtree(tmp, ignore_errors=True)
+        if not src.exists():
+            print(f"[ERROR] 不存在: {src}")
+            continue
+        _git_push(cfg["github_token"], cfg["github_repo"], name, src)
+
 
 def cmd_install(args, cfg):
     url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
     data, st = gh(cfg["github_token"], "GET", url)
-    if st != 200: print(f"[ERROR] 获取失败: {data.get('message')}"); return
+    if st != 200:
+        print(f"[ERROR] 获取失败: {data.get('message')}")
+        return
     targets = args or [i["name"] for i in data if i["type"] == "dir"]
     print(f"[INSTALL] 将安装到 {cfg['local_skills_path']}: {', '.join(targets)}")
     print(f"##CONFIRM_INSTALL## {json.dumps(targets)}")
 
+
 def cmd_do_install(args, cfg):
-    if not args: return
+    if not args:
+        return
     token, repo, base = cfg["github_token"], cfg["github_repo"], Path(cfg["local_skills_path"])
     tmp = Path(tempfile.mkdtemp())
     run(f"git clone --depth=1 https://{token}@github.com/{repo}.git {tmp}/repo")
     for name in args:
         src = tmp / "repo" / name
-        if not src.exists(): print(f"[ERROR] GitHub 上不存在: {name}"); continue
+        if not src.exists():
+            print(f"[ERROR] GitHub 上不存在: {name}")
+            continue
         dst = base / name
-        if dst.exists(): shutil.rmtree(dst)
+        if dst.exists():
+            shutil.rmtree(dst)
         shutil.copytree(src, dst)
         print(f"[OK] {name} -> {dst}")
     shutil.rmtree(tmp, ignore_errors=True)
+
 
 def cmd_update(args, cfg):
     path = Path(cfg["local_skills_path"])
@@ -166,15 +291,123 @@ def cmd_update(args, cfg):
     data, st = gh(cfg["github_token"], "GET", url)
     remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
     targets = sorted(s for s in (args or local) if s in local and s in remote)
-    if not targets: print("[OK] 无可更新"); return
+    if not targets:
+        print("[OK] 无可更新")
+        return
     print(f"[UPDATE] 将更新: {', '.join(targets)}")
     print(f"##CONFIRM_UPDATE## {json.dumps(targets)}")
+
 
 def cmd_do_update(args, cfg):
     cmd_do_upload(args, cfg)
 
+
+# ── push 命令（从任意路径推送） ──────────────────────────────
+
+def cmd_push(args, cfg):
+    """从任意本地路径推送到 GitHub 仓库。
+    用法: push <skill-name> <source-dir-or-file>
+    如果 source 是目录，其中须含 SKILL.md；如果是 SKILL.md 文件本身，用其父目录。
+    """
+    if len(args) < 2:
+        print("[ERROR] 用法: push <skill-name> <source-dir-or-file>")
+        return
+    name, src = args[0], Path(args[1])
+    if not src.exists():
+        print(f"[ERROR] 路径不存在: {src}")
+        return
+    # 如果是文件，转为其所在目录
+    if src.is_file():
+        if src.name == "SKILL.md":
+            src = src.parent
+        else:
+            print(f"[ERROR] 文件必须是 SKILL.md，实际: {src.name}")
+            return
+    if not (src / "SKILL.md").exists():
+        print(f"[ERROR] {src} 中未找到 SKILL.md")
+        return
+    print(f"[PUSH] 将推送 {name} (从 {src})")
+    print(f"##CONFIRM_PUSH## {json.dumps([name, str(src)])}")
+
+
+def cmd_do_push(args, cfg):
+    """执行 push"""
+    if len(args) < 2:
+        return
+    name, src = args[0], Path(args[1])
+    if src.is_file():
+        src = src.parent
+    _git_push(cfg["github_token"], cfg["github_repo"], name, src)
+
+
+# ── README 更新 ──────────────────────────────────────────────
+
+def cmd_update_readme(args, cfg):
+    """更新 GitHub 仓库 README.md 中的 skills 列表"""
+    token, repo = cfg["github_token"], cfg["github_repo"]
+
+    url = f"https://api.github.com/repos/{repo}/contents/"
+    data, st = gh(token, "GET", url)
+    if st != 200:
+        print(f"[ERROR] 获取仓库内容失败: {data.get('message')}")
+        return
+    dirs = sorted(i["name"] for i in data if i["type"] == "dir" and i["name"] not in SKIP)
+
+    skills_info = []
+    for d in dirs:
+        skill_url = f"https://api.github.com/repos/{repo}/contents/{d}/SKILL.md"
+        sdata, sst = gh(token, "GET", skill_url)
+        desc = ""
+        if sst == 200 and "content" in sdata:
+            content = base64.b64decode(sdata["content"]).decode("utf-8", errors="replace")
+            if content.startswith("---"):
+                end = content.find("---", 3)
+                if end != -1:
+                    fm = content[3:end]
+                    for line in fm.split("\n"):
+                        if line.strip().startswith("description:"):
+                            desc = line.split(":", 1)[1].strip()
+                            if len(desc) > 120:
+                                desc = desc[:117] + "..."
+                            break
+        skills_info.append((d, desc))
+
+    table_lines = ["## 已收录的 Skills", "", "| Skill | Description |", "|-------|-------------|"]
+    for sname, desc in skills_info:
+        table_lines.append(f"| [{sname}](./{sname}) | {desc} |")
+    table_section = "\n".join(table_lines)
+
+    readme_url = f"https://api.github.com/repos/{repo}/contents/README.md"
+    rdata, rst = gh(token, "GET", readme_url)
+
+    if rst == 200 and "content" in rdata:
+        readme_content = base64.b64decode(rdata["content"]).decode("utf-8", errors="replace")
+        sha = rdata["sha"]
+        pattern = r"## 已收录的 Skills.*?(?=\n## |\Z)"
+        if re.search(pattern, readme_content, re.DOTALL):
+            new_content = re.sub(pattern, table_section + "\n", readme_content, flags=re.DOTALL)
+        else:
+            new_content = readme_content.rstrip() + "\n\n" + table_section + "\n"
+    else:
+        sha = None
+        new_content = f"# {repo.split('/')[-1]}\n\nAgent Skills 仓库。\n\n{table_section}\n"
+
+    put_data = {
+        "message": "docs: update skills table in README",
+        "content": base64.b64encode(new_content.encode()).decode(),
+    }
+    if sha:
+        put_data["sha"] = sha
+    result, status = gh(token, "PUT", readme_url, put_data)
+    if status in (200, 201):
+        print(f"[OK] README 已更新 ({len(skills_info)} 个 skills)")
+    else:
+        print(f"[ERROR] README 更新失败: {result.get('message', '')}")
+
+
+# ── 入口 ─────────────────────────────────────────────────────
+
 COMMANDS = {
-    "config": (config_show, config_set),
     "list-local": (cmd_list_local,),
     "list-remote": (cmd_list_remote,),
     "diff": (cmd_diff,),
@@ -184,14 +417,23 @@ COMMANDS = {
     "do-install": (cmd_do_install,),
     "update": (cmd_update,),
     "do-update": (cmd_do_update,),
+    "push": (cmd_push,),
+    "do-push": (cmd_do_push,),
+    "update-readme": (cmd_update_readme,),
 }
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2: print(__doc__); sys.exit(1)
+    if len(sys.argv) < 2:
+        print(__doc__)
+        sys.exit(1)
     cmd = sys.argv[1]
+
     if cmd == "config":
-        if len(sys.argv) > 2 and sys.argv[2] == "set":
-            config_set(sys.argv[2:])
+        sub = sys.argv[2] if len(sys.argv) > 2 else "show"
+        if sub == "init":
+            config_init(sys.argv[3:])
+        elif sub == "set":
+            config_set(sys.argv[3:])
         else:
             config_show()
     elif cmd in COMMANDS:
