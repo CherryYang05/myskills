@@ -32,6 +32,48 @@ def gh(token, method, url, data=None):
             return json.loads(e.read()), e.code
         except:
             return {"error": str(e)}, e.code
+    except urllib.error.URLError:
+        # api.github.com 可能被网络策略屏蔽
+        return {"error": "network unreachable"}, 0
+
+
+def _clone_repo(token, repo):
+    """克隆仓库到临时目录，返回 Path。调用方负责 shutil.rmtree 清理。"""
+    tmp = Path(tempfile.mkdtemp())
+    r = run(f"git clone --depth=1 https://{token}@github.com/{repo}.git {tmp}/repo", check=False)
+    if r.returncode != 0:
+        shutil.rmtree(tmp, ignore_errors=True)
+        return None
+    return tmp / "repo"
+
+
+def _list_remote_skills_via_api(token, repo):
+    """通过 API 获取远端 skill 列表，失败返回 None"""
+    url = f"https://api.github.com/repos/{repo}/contents/"
+    data, st = gh(token, "GET", url)
+    if st == 200:
+        return set(i["name"] for i in data if i["type"] == "dir")
+    return None
+
+
+def _list_remote_skills_via_git(token, repo):
+    """通过 git clone 获取远端 skill 列表"""
+    repo_dir = _clone_repo(token, repo)
+    if not repo_dir:
+        return None
+    try:
+        return set(d.name for d in repo_dir.iterdir()
+                   if d.is_dir() and d.name not in SKIP and (d / "SKILL.md").exists())
+    finally:
+        shutil.rmtree(repo_dir.parent, ignore_errors=True)
+
+
+def _list_remote_skills(token, repo):
+    """获取远端 skill 列表，优先 API，失败回退 git clone"""
+    result = _list_remote_skills_via_api(token, repo)
+    if result is not None:
+        return result
+    return _list_remote_skills_via_git(token, repo) or set()
 
 
 def load_config():
@@ -156,12 +198,11 @@ def cmd_list_local(args, cfg):
 
 
 def cmd_list_remote(args, cfg):
-    url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
-    data, st = gh(cfg["github_token"], "GET", url)
-    if st != 200:
-        print(f"[ERROR] 获取失败: {data.get('message')}")
+    remote = _list_remote_skills(cfg["github_token"], cfg["github_repo"])
+    if not remote and remote is not None:
+        print("GitHub 上暂无 skills")
         return
-    dirs = sorted(i["name"] for i in data if i["type"] == "dir")
+    dirs = sorted(remote)
     print(f"GitHub skills ({len(dirs)} 个)  仓库: {cfg['github_repo']}")
     for s in dirs:
         print(f"  - {s}")
@@ -170,9 +211,7 @@ def cmd_list_remote(args, cfg):
 def cmd_diff(args, cfg):
     path = Path(cfg["local_skills_path"])
     local = set(d.name for d in path.iterdir() if d.is_dir() and (d / "SKILL.md").exists()) if path.exists() else set()
-    url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
-    data, st = gh(cfg["github_token"], "GET", url)
-    remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
+    remote = _list_remote_skills(cfg["github_token"], cfg["github_repo"])
     print(f"[DIFF] 本地: {len(local)} 个  GitHub: {len(remote)} 个")
     for s in sorted(local - remote):
         print(f"  [LOCAL] {s}")
@@ -231,9 +270,7 @@ def _git_push(token, repo, skill_name, src_dir):
 def cmd_upload(args, cfg):
     path = Path(cfg["local_skills_path"])
     local = sorted(d.name for d in path.iterdir() if d.is_dir() and (d / "SKILL.md").exists()) if path.exists() else []
-    url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
-    data, st = gh(cfg["github_token"], "GET", url)
-    remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
+    remote = _list_remote_skills(cfg["github_token"], cfg["github_repo"])
     targets = [s for s in (args or local) if s in local and s not in remote]
     if not targets:
         print("[OK] 无新 skills")
@@ -255,12 +292,11 @@ def cmd_do_upload(args, cfg):
 
 
 def cmd_install(args, cfg):
-    url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
-    data, st = gh(cfg["github_token"], "GET", url)
-    if st != 200:
-        print(f"[ERROR] 获取失败: {data.get('message')}")
+    remote = _list_remote_skills(cfg["github_token"], cfg["github_repo"])
+    if not remote:
+        print("[ERROR] 获取远端 skills 失败")
         return
-    targets = args or [i["name"] for i in data if i["type"] == "dir"]
+    targets = args or sorted(remote)
     print(f"[INSTALL] 将安装到 {cfg['local_skills_path']}: {', '.join(targets)}")
     print(f"##CONFIRM_INSTALL## {json.dumps(targets)}")
 
@@ -287,9 +323,7 @@ def cmd_do_install(args, cfg):
 def cmd_update(args, cfg):
     path = Path(cfg["local_skills_path"])
     local = set(d.name for d in path.iterdir() if d.is_dir() and (d / "SKILL.md").exists()) if path.exists() else set()
-    url = f"https://api.github.com/repos/{cfg['github_repo']}/contents/"
-    data, st = gh(cfg["github_token"], "GET", url)
-    remote = set(i["name"] for i in data if i["type"] == "dir") if st == 200 else set()
+    remote = _list_remote_skills(cfg["github_token"], cfg["github_repo"])
     targets = sorted(s for s in (args or local) if s in local and s in remote)
     if not targets:
         print("[OK] 无可更新")
@@ -343,16 +377,57 @@ def cmd_do_push(args, cfg):
 # ── README 更新 ──────────────────────────────────────────────
 
 def cmd_update_readme(args, cfg):
-    """更新 GitHub 仓库 README.md 中的 skills 列表"""
+    """更新 GitHub 仓库 README.md 中的 skills 列表（优先 API，回退 git）"""
     token, repo = cfg["github_token"], cfg["github_repo"]
 
+    # 尝试 API 方式
     url = f"https://api.github.com/repos/{repo}/contents/"
     data, st = gh(token, "GET", url)
-    if st != 200:
-        print(f"[ERROR] 获取仓库内容失败: {data.get('message')}")
-        return
-    dirs = sorted(i["name"] for i in data if i["type"] == "dir" and i["name"] not in SKIP)
+    if st == 200:
+        _update_readme_via_api(token, repo, data)
+    else:
+        _update_readme_via_git(token, repo)
 
+
+def _read_skill_description(skill_dir):
+    """从 SKILL.md frontmatter 读取 description"""
+    skill_md = skill_dir / "SKILL.md"
+    if not skill_md.exists():
+        return ""
+    content = skill_md.read_text(encoding="utf-8", errors="replace")
+    if content.startswith("---"):
+        end = content.find("---", 3)
+        if end != -1:
+            fm = content[3:end]
+            for line in fm.split("\n"):
+                if line.strip().startswith("description:"):
+                    desc = line.split(":", 1)[1].strip()
+                    return desc[:117] + "..." if len(desc) > 120 else desc
+    return ""
+
+
+def _generate_skills_table(skills_info):
+    """生成 Markdown 表格"""
+    lines = ["## 已收录的 Skills", "", "| Skill | Description |", "|-------|-------------|"]
+    for name, desc in skills_info:
+        lines.append(f"| [{name}](./{name}) | {desc} |")
+    return "\n".join(lines)
+
+
+def _apply_table_to_readme(readme_content, table_section, repo):
+    """将表格写入 README 内容"""
+    if readme_content:
+        pattern = r"## 已收录的 Skills.*?(?=\n## |\Z)"
+        if re.search(pattern, readme_content, re.DOTALL):
+            return re.sub(pattern, table_section + "\n", readme_content, flags=re.DOTALL)
+        else:
+            return readme_content.rstrip() + "\n\n" + table_section + "\n"
+    return f"# {repo.split('/')[-1]}\n\nAgent Skills 仓库。\n\n{table_section}\n"
+
+
+def _update_readme_via_api(token, repo, root_data):
+    """通过 GitHub API 更新 README"""
+    dirs = sorted(i["name"] for i in root_data if i["type"] == "dir" and i["name"] not in SKIP)
     skills_info = []
     for d in dirs:
         skill_url = f"https://api.github.com/repos/{repo}/contents/{d}/SKILL.md"
@@ -372,37 +447,58 @@ def cmd_update_readme(args, cfg):
                             break
         skills_info.append((d, desc))
 
-    table_lines = ["## 已收录的 Skills", "", "| Skill | Description |", "|-------|-------------|"]
-    for sname, desc in skills_info:
-        table_lines.append(f"| [{sname}](./{sname}) | {desc} |")
-    table_section = "\n".join(table_lines)
-
+    table_section = _generate_skills_table(skills_info)
     readme_url = f"https://api.github.com/repos/{repo}/contents/README.md"
     rdata, rst = gh(token, "GET", readme_url)
-
-    if rst == 200 and "content" in rdata:
-        readme_content = base64.b64decode(rdata["content"]).decode("utf-8", errors="replace")
-        sha = rdata["sha"]
-        pattern = r"## 已收录的 Skills.*?(?=\n## |\Z)"
-        if re.search(pattern, readme_content, re.DOTALL):
-            new_content = re.sub(pattern, table_section + "\n", readme_content, flags=re.DOTALL)
-        else:
-            new_content = readme_content.rstrip() + "\n\n" + table_section + "\n"
-    else:
-        sha = None
-        new_content = f"# {repo.split('/')[-1]}\n\nAgent Skills 仓库。\n\n{table_section}\n"
-
-    put_data = {
-        "message": "docs: update skills table in README",
-        "content": base64.b64encode(new_content.encode()).decode(),
-    }
+    readme_content = base64.b64decode(rdata["content"]).decode("utf-8", errors="replace") if rst == 200 and "content" in rdata else ""
+    sha = rdata.get("sha") if rst == 200 else None
+    new_content = _apply_table_to_readme(readme_content, table_section, repo)
+    put_data = {"message": "docs: update skills table in README", "content": base64.b64encode(new_content.encode()).decode()}
     if sha:
         put_data["sha"] = sha
     result, status = gh(token, "PUT", readme_url, put_data)
     if status in (200, 201):
         print(f"[OK] README 已更新 ({len(skills_info)} 个 skills)")
     else:
-        print(f"[ERROR] README 更新失败: {result.get('message', '')}")
+        print(f"[WARN] API 更新失败，回退到 git 方式")
+        _update_readme_via_git(token, repo)
+
+
+def _update_readme_via_git(token, repo):
+    """通过 git clone → edit → push 更新 README"""
+    repo_dir = _clone_repo(token, repo)
+    if not repo_dir:
+        print("[ERROR] git clone 失败")
+        return
+
+    try:
+        # 扫描所有 skill 目录
+        dirs = sorted(d.name for d in repo_dir.iterdir()
+                       if d.is_dir() and d.name not in SKIP and (d / "SKILL.md").exists())
+        skills_info = [(d, _read_skill_description(repo_dir / d)) for d in dirs]
+        table_section = _generate_skills_table(skills_info)
+
+        # 读取或创建 README
+        readme_path = repo_dir / "README.md"
+        readme_content = readme_path.read_text(encoding="utf-8", errors="replace") if readme_path.exists() else ""
+        new_content = _apply_table_to_readme(readme_content, table_section, repo)
+        readme_path.write_text(new_content, encoding="utf-8")
+
+        # commit & push
+        os.chdir(repo_dir)
+        run("git add README.md")
+        r = run('git commit -m "docs: update skills table in README"')
+        if r.returncode != 0:
+            print("[INFO] README 无变更")
+            return
+        r = run("git push")
+        if r.returncode == 0:
+            print(f"[OK] README 已更新 ({len(skills_info)} 个 skills)")
+        else:
+            print("[ERROR] README 推送失败")
+    finally:
+        os.chdir("/")
+        shutil.rmtree(repo_dir.parent, ignore_errors=True)
 
 
 # ── 入口 ─────────────────────────────────────────────────────
