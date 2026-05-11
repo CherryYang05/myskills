@@ -1,6 +1,7 @@
 ---
 name: dt-case-enhancer
 description: 使用CodeAgent对已有DT用例进行增强补齐。这是一个通用的skill,指导用户通过思维链(CoT)的方式分步骤对存量DT用例进行分析和增量补充。当用户提到DT用例增强、用例补充、增量用例等关键词时,应使用此skill。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。
+short_description: 对存量 DT 用例进行分析和增量补充
 ---
 
 # DT用例增强Skill

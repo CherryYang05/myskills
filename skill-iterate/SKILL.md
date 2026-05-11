@@ -1,6 +1,7 @@
 ---
 name: skill-iterate
 description: 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好。当用户说"优化 skill"、"改进 skill"、"记住这个问题"、"以后不要再这样"、"这个问题每次都出现"、"改进博客 skill"、"改进 llt skill" 时触发。注意：只想修改当前输出（"重新写一下"、"改这里"）时不触发，让原始 skill 处理。
+short_description: 人工标注驱动的 Skill 输出质量自迭代优化
 ---
 
 # Skill Iterate

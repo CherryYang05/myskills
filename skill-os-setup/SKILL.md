@@ -1,6 +1,7 @@
 ---
 name: skill-os-setup
 description: 用于维护 EasyNewOS 仓库。当用户提到"更新README"、"修改README"、"扩展EasyNewOS"、"增加脚本"、"添加新内容到EasyNewOS"、"提交到GitHub"、"推送到github"、"按照现有结构扩展"、"按照我的风格"，或对仓库进行任何维护操作时触发。这个仓库用于新系统（Win、macOS、Linux）配置，包含软件安装、系统配置、脚本等。
+short_description: 维护 EasyNewOS 新系统配置仓库
 ---
 
 # EasyNewOS 仓库维护指南

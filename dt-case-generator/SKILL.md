@@ -1,6 +1,7 @@
 ---
 name: dt-case-generator
 description: 使用CodeAgent生成DT(开发者自测试)用例。这是一个通用的的skill,指导用户通过思维链(CoT)的方式分步骤生成高质量的DT测试用例。当用户提到DT用例生成、测试用例生成、LLT测试等关键词时,应使用此skill。特别适用于大颗粒特性(如2w行代码规模)的DT用例生成。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。
+short_description: 基于 CoT 分步骤生成高质量 DT 测试用例
 ---
 
 # DT用例生成Skill

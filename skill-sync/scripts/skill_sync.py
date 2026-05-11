@@ -390,7 +390,7 @@ def cmd_update_readme(args, cfg):
 
 
 def _read_skill_description(skill_dir):
-    """从 SKILL.md frontmatter 读取 description"""
+    """从 SKILL.md frontmatter 读取描述，优先 short_description，回退 description"""
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.exists():
         return ""
@@ -399,10 +399,16 @@ def _read_skill_description(skill_dir):
         end = content.find("---", 3)
         if end != -1:
             fm = content[3:end]
+            short_desc = desc = ""
             for line in fm.split("\n"):
-                if line.strip().startswith("description:"):
-                    desc = line.split(":", 1)[1].strip()
-                    return desc[:117] + "..." if len(desc) > 120 else desc
+                stripped = line.strip()
+                if stripped.startswith("short_description:"):
+                    short_desc = stripped.split(":", 1)[1].strip()
+                elif stripped.startswith("description:"):
+                    desc = stripped.split(":", 1)[1].strip()
+            if short_desc:
+                return short_desc
+            return desc[:117] + "..." if len(desc) > 120 else desc
     return ""
 
 
@@ -439,12 +445,14 @@ def _update_readme_via_api(token, repo, root_data):
                 end = content.find("---", 3)
                 if end != -1:
                     fm = content[3:end]
+                    short_desc = full_desc = ""
                     for line in fm.split("\n"):
-                        if line.strip().startswith("description:"):
-                            desc = line.split(":", 1)[1].strip()
-                            if len(desc) > 120:
-                                desc = desc[:117] + "..."
-                            break
+                        stripped = line.strip()
+                        if stripped.startswith("short_description:"):
+                            short_desc = stripped.split(":", 1)[1].strip()
+                        elif stripped.startswith("description:"):
+                            full_desc = stripped.split(":", 1)[1].strip()
+                    desc = short_desc if short_desc else (full_desc[:117] + "..." if len(full_desc) > 120 else full_desc)
         skills_info.append((d, desc))
 
     table_section = _generate_skills_table(skills_info)

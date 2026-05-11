@@ -1,6 +1,7 @@
 ---
 name: skill-sync
 description: 管理 Agent Skills 与 GitHub 仓库的双向同步。
+short_description: Skills 与 GitHub 仓库双向同步
 ---
 
 # skill-sync
