@@ -30,6 +30,7 @@
 | [dt-case-generator](./dt-case-generator) | 基于 CoT 分步骤生成高质量 DT 测试用例 |
 | [skill-blog-writer](./skill-blog-writer) | 将技术对话整理成发布级中文博客文章 |
 | [skill-creator](./skill-creator) | 创建、修改和评估 Agent Skills |
+| [skill-dev-flow](./skill-dev-flow) | Agent 驱动的完整开发流程（需求拆分到收尾归档） |
 | [skill-iterate](./skill-iterate) | 人工标注驱动的 Skill 输出质量自迭代优化 |
 | [skill-os-setup](./skill-os-setup) | 维护 EasyNewOS 新系统配置仓库 |
 | [skill-sync](./skill-sync) | Skills 与 GitHub 仓库双向同步 |
