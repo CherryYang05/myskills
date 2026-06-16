@@ -1,69 +1,52 @@
 ---
 name: skill-sync
-description: 管理 Agent Skills 与 GitHub 仓库的双向同步。
+description: 在 Agent 对话中同步本地 Agent Skills 与 GitHub 仓库。~/.claude/skills 本身是 git 工作树，用原生 git 推送/拉取/查看差异，并自动维护仓库 README。当用户说"同步 skill""推送 skill 到 github""把这个 skill 推上去""拉取远端 skill""看看本地和仓库的差别""列出仓库 skills""安装 skills 仓库"时触发。
 ---
 
 # skill-sync
 
-本地 skills 与 GitHub 仓库双向同步。**全程走 git（HTTPS + token），不使用 GitHub REST API。**
+`~/.claude/skills` 是 GitHub 仓库的 **git 工作树**，多机之间用**原生 git** 同步。Claude Code 与 OpenCode 都直接读取该目录，一份源两个工具共用。
 
-## 工作机制
+**本 skill 不封装同步逻辑**——同步就是几条 git 命令，由 Agent 直接执行；唯一的脚本 `scripts/gen_readme.py` 只做 git 不做的事（生成仓库 README）。
 
-- 维护一个持久缓存仓库 `~/.skill-sync-cache/<repo>`：仅首次完整 `git clone` 一次，之后每次同步只做 `fetch + reset`，不再重复克隆。
-- `push` / `pull` **默认只预览**变更；只有加 `--apply` 才真正提交推送 / 写入本地。
-- 仓库 `README.md` 的「已收录的 Skills」表格和「常用同步命令」段由脚本在每次 `push` 时**自动生成**（从各 skill 的 `SKILL.md` frontmatter `description` 提取），无需手动维护，也不依赖 REST API。
+约定：下文 `$D` 代表 skills 目录（Claude Code 默认 `~/.claude/skills`，即本仓库根）。
 
-## 用户确认规则
-
-**执行任何会推送到 GitHub 或写入本地的操作前，必须先展示预览摘要并等待用户确认。** 具体：
-
-- `push <name>`（不带 `--apply`）— 只读预览，列出将提交的文件变更；展示给用户确认
-- `push <name> --apply` — 真正推送，**仅在用户确认后执行**
-- `pull <name>`（不带 `--apply`）— 只读预览，列出将覆盖/新增的本地 skill；展示给用户确认
-- `pull <name> --apply` — 真正写入本地，**仅在用户确认后执行**
-
-不需要确认的只读操作：`status`、`config`。
-
-## 脚本路径（固定）
-
-| 系统 | 路径 |
-|------|------|
-| Windows | `%USERPROFILE%\.claude\skills\skill-sync\scripts\skill_sync.py` |
-| Linux/macOS | `~/.claude/skills/skill-sync/scripts/skill_sync.py` |
-
-## 命令
+## 同步命令（原生 git）
 
 ```bash
-# 查看配置
-python <SCRIPT> config
+# 看本地未提交的改动
+git -C $D status
 
-# 查看状态：本地 vs 仓库差异（只读）
-#   NEW=仅本地  REMOTE=仅远程  SAME=一致  MOD=内容不同
-python <SCRIPT> status
+# 看本地与远端差异（远端领先了哪些 / 即将拉到什么）
+git -C $D fetch && git -C $D log --oneline HEAD..origin/master
 
-# 推送本地 → GitHub（先预览，再 --apply）
-python <SCRIPT> push              # 全部本地 skill
-python <SCRIPT> push <name> ...   # 指定 skill
-python <SCRIPT> push --apply      # 确认后执行
+# 推送：全部改动
+git -C $D add -A && git -C $D commit -m "更新 skills" && git -C $D push
 
-# 拉取 GitHub → 本地（先预览，再 --apply）
-python <SCRIPT> pull              # 全部
-python <SCRIPT> pull <name> ...   # 指定
-python <SCRIPT> pull --apply      # 确认后执行
+# 推送：仅某个 skill（不误带其他改动）
+git -C $D add <skill> && git -C $D commit -m "更新 <skill>" && git -C $D push
+
+# 拉取：先看会变什么，确认后再拉
+git -C $D fetch && git -C $D diff HEAD origin/master --stat
+git -C $D pull
+
+# 列出已收录的 skills（或直接看仓库 README 表格）
+ls $D
 ```
 
-旧命令 `upload`/`do-upload`/`update`/`do-update`/`install`/`do-install`/`list-local`/`list-remote`/`diff` 仍作为别名映射到新命令，保持向后兼容。
+提交时 pre-commit 钩子会自动刷新 README（启用一次：`git -C $D config core.hooksPath skill-sync/hooks`）；也可手动刷新：`python $D/skill-sync/scripts/gen_readme.py`。
 
-## Profile 管理
+## Agent 行为准则（重要）
 
-```bash
-python <SCRIPT> config profile list
-python <SCRIPT> config profile add <name> <path>
-python <SCRIPT> config profile set <name>
-```
+1. **推送前确认。** `git push` 前先 `git -C $D status` 或 `git -C $D diff --cached --stat`，把将提交的内容展示给用户并等待确认。
+2. **拉取覆盖保护。** `git pull` 前先 `git -C $D fetch` + `git -C $D diff HEAD origin/master --stat`，告知用户哪些本地文件会被改动，确认后再 pull。若本地有未提交改动，先提示用户以免冲突丢失。
+3. **指定 skill 推送**用 `git add <skill>`，不要 `add -A` 误带无关改动。
+4. **不提交敏感信息**（token、密钥）。仓库公开可见。
 
-## 配置
+## README 维护
 
-`~/.skill-sync-config.json`：GitHub token、仓库名、各环境路径 profile。
+仓库 `README.md` 三段（安装提示词 / Skills 表格 / 注意事项）由 `scripts/gen_readme.py` 生成，pre-commit 钩子自动调用，无需手改。新增/删除 skill 后提交时表格会自动更新。
 
-> 注意：该 token 仅用于 git over HTTPS（clone/fetch/push）。本仓库**不使用 GitHub REST API**，因此 token 无需具备 API 权限。token 不会写入缓存仓库的 `.git/config`（fetch/push 时以参数形式临时传入）。
+## 多机安装
+
+把仓库 `README.md` 第一段「安装」的提示词发给新机器上的 Agent 即可——它会把仓库设为该机 `~/.claude/skills` 的工作树并启用钩子。OpenCode 无需额外配置（它会自动识别 `~/.claude/skills`）。

@@ -1,30 +1,24 @@
 # myskills
 
-个人 Agent Skills 仓库，支持 Claude Code、OpenCode、Codex 等 Agent。
+> 个人 Agent Skills 仓库，多机同步。`~/.claude/skills` 本身是本仓库的 git 工作树；Claude Code 与 OpenCode 都直接读取该目录，一份源两个工具共用。
 
-## 第一次安装
+## 一、安装（交给 Agent）
 
-将以下提示词粘贴给 Agent，让她自动完成安装：
+把下面整段发给你的 Agent，它会自动完成安装：
 
----
+```text
+请帮我安装 skills 仓库 CherryYang05/myskills（它会成为我本机 ~/.claude/skills 的 git 工作树）：
+1. 若 ~/.claude/skills 已存在且非空：进入该目录依次执行
+   git init && git remote add origin https://github.com/CherryYang05/myskills.git
+   && git fetch origin && git reset --hard origin/master
+   && git branch --set-upstream-to=origin/master master
+   若不存在：直接 git clone https://github.com/CherryYang05/myskills.git ~/.claude/skills
+2. 启用 README 自动生成钩子：git -C ~/.claude/skills config core.hooksPath skill-sync/hooks
+3. 运行 git -C ~/.claude/skills status 验证
+（OpenCode 用户无需额外配置：OpenCode 会自动识别 ~/.claude/skills）
+```
 
-**请帮我安装 skills 仓库：**
-
-~~~text
-请执行以下步骤：
-1. 运行：git clone https://github.com/CherryYang05/myskills.git ~/.claude/skills
-2. 运行：python ~/.claude/skills/skill-sync/scripts/skill_sync.py config
-3. 如果提示未配置，请运行：python ~/.claude/skills/skill-sync/scripts/skill_sync.py config set
-4. 输入 GitHub Token（如果需要）：YOUR_GITHUB_TOKEN
-5. 输入仓库名：CherryYang05/myskills
-6. 完成后运行 list-local 验证
-~~~
-
----
-
-## 已收录的 Skills
-
-
+## 二、已收录的 Skills
 
 | Skill | Description |
 |-------|-------------|
@@ -35,28 +29,11 @@
 | [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
 | [skill-iterate](./skill-iterate) | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skill-os-setup) | 用于维护 EasyNewOS 仓库 |
-| [skill-sync](./skill-sync) | 管理 Agent Skills 与 GitHub 仓库的双向同步 |
+| [skill-sync](./skill-sync) | 在 Agent 对话中同步本地 Agent Skills 与 GitHub 仓库 |
 
-## 常用同步命令
+## 三、注意事项
 
-
-
-~~~bash
-# 查看状态：本地 vs 仓库差异（只读，不改动任何东西）
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py status
-
-# 推送本地 skills 到 GitHub（默认仅预览，加 --apply 才推送）
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py push              # 同步全部本地 skill
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py push <name> ...   # 仅同步指定 skill
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py push --apply      # 确认后执行
-
-# 从 GitHub 拉取到本地（默认仅预览，加 --apply 才写入）
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py pull              # 全部
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py pull <name> ...   # 指定
-python ~/.claude/skills/skill-sync/scripts/skill_sync.py pull --apply      # 确认后执行
-~~~
-
-## 注意
-
-- git 需已配置（Agent 会提示用户配置）
-- 配置文件：`~/.skill-sync-config.json`
+- **同步即原生 git**：改完某 skill 后 `git add <skill> && git commit -m "…" && git push`；拉取用 `git pull`（覆盖本地前先 `git fetch && git diff HEAD origin/master` 确认）。
+- 本 README 的表格由 `skill-sync/scripts/gen_readme.py` 自动生成（pre-commit 钩子每次提交时刷新），**请勿手改表格**。
+- 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
+- 完整同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
