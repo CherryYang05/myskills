@@ -66,4 +66,4 @@ python <SCRIPT> config profile set <name>
 
 `~/.skill-sync-config.json`：GitHub token、仓库名、各环境路径 profile。
 
-> 注意：该 token 仅用于 git over HTTPS（clone/fetch/push）。本仓库**不使用 GitHub REST API**，因此 token 无需具备 API 权限。
+> 注意：该 token 仅用于 git over HTTPS（clone/fetch/push）。本仓库**不使用 GitHub REST API**，因此 token 无需具备 API 权限。token 不会写入缓存仓库的 `.git/config`（fetch/push 时以参数形式临时传入）。

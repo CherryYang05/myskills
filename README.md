@@ -25,18 +25,20 @@
 ## 已收录的 Skills
 
 
+
 | Skill | Description |
 |-------|-------------|
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章 |
-| [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, an… |
-| [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务）… |
+| [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and… |
+| [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
 | [skill-iterate](./skill-iterate) | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skill-os-setup) | 用于维护 EasyNewOS 仓库 |
 | [skill-sync](./skill-sync) | 管理 Agent Skills 与 GitHub 仓库的双向同步 |
 
 ## 常用同步命令
+
 
 
 ~~~bash

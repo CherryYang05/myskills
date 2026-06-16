@@ -45,6 +45,9 @@ def require_config():
 def authed_url(cfg):
     return f"https://{cfg['github_token']}@github.com/{cfg['github_repo']}.git"
 
+def clean_url(cfg):
+    return f"https://github.com/{cfg['github_repo']}.git"
+
 def scrub(text, token):
     return (text or "").replace(token, "***")
 
@@ -56,28 +59,38 @@ def git(cache, *args, check=False):
 
 _TOKEN = ""  # 运行期填充，供 scrub 使用
 
+def fetch_remote(cfg, cache):
+    """用带 token 的 URL 拉取最新，但 token 不写入 .git/config。"""
+    return subprocess.run(
+        ["git", "-C", str(cache), "fetch", "--quiet", authed_url(cfg),
+         "+refs/heads/*:refs/remotes/origin/*"],
+        capture_output=True, text=True)
+
+def push_remote(cfg, cache, branch):
+    return subprocess.run(
+        ["git", "-C", str(cache), "push", "--quiet", authed_url(cfg), branch],
+        capture_output=True, text=True)
+
 def ensure_cache(cfg):
     """确保缓存仓库存在并同步到远程最新，返回 (cache_path, branch)。"""
     global _TOKEN
     _TOKEN = cfg["github_token"]
     CACHE_ROOT.mkdir(exist_ok=True)
-    name = cfg["github_repo"].split("/")[1]
-    cache = CACHE_ROOT / name
-    url = authed_url(cfg)
+    cache = CACHE_ROOT / cfg["github_repo"].split("/")[1]
 
     if (cache / ".git").is_dir():
-        r = subprocess.run(["git", "-C", str(cache), "fetch", "--quiet", "origin"],
-                           capture_output=True, text=True)
-        if r.returncode != 0:
+        if fetch_remote(cfg, cache).returncode != 0:
             shutil.rmtree(cache, ignore_errors=True)  # 缓存损坏，重建
 
     if not (cache / ".git").is_dir():
         print(f"[缓存] 首次克隆 {cfg['github_repo']} → {cache}")
-        r = subprocess.run(["git", "clone", "--quiet", url, str(cache)],
+        r = subprocess.run(["git", "clone", "--quiet", authed_url(cfg), str(cache)],
                            capture_output=True, text=True)
         if r.returncode != 0:
             print("[ERROR] clone 失败:", scrub(r.stderr.strip(), _TOKEN))
             sys.exit(1)
+        # 抹掉 origin URL 里的 token，缓存仓库的 .git/config 只留干净地址
+        git(cache, "remote", "set-url", "origin", clean_url(cfg))
 
     branch = git(cache, "rev-parse", "--abbrev-ref", "HEAD").stdout.strip() or "master"
     git(cache, "reset", "--hard", "--quiet", f"origin/{branch}")
@@ -123,10 +136,15 @@ def read_desc(skill_md):
     if not dm:
         return ""
     desc = dm.group(1).strip().strip("\"'")
-    # 取第一句（中文。或英文. ），再限长
-    first = re.split(r"。|\.\s", desc)[0].strip()
+    # 取第一个句子单元：中文句末标点 / 破折号 / 英文句末
+    first = re.split(r"[。！？]|——|\.\s|;\s", desc)[0].strip().rstrip("，,、；; ")
     if len(first) > 60:
-        first = first[:57] + "…"
+        cut = first[:60]
+        # 回退到最后一个空格或标点，避免砍断英文单词
+        m = re.search(r"^(.*[\s，,、；;])\S+$", cut)
+        if m and len(m.group(1).strip()) >= 20:
+            cut = m.group(1)
+        first = cut.rstrip("，,、；; ") + "…"
     return first
 
 # ----------------------------- README -----------------------------
@@ -245,8 +263,12 @@ def cmd_push(args, cfg):
     if not targets:
         print("[OK] 没有可推送的 skill"); return
 
+    base = Path(cfg["local_skills_path"])
     for n in targets:
-        copy_skill(Path(cfg["local_skills_path"]) / n, cache / n)
+        dst = cache / n
+        if dst.exists() and same_tree(base / n, dst):
+            continue  # 内容已一致，跳过复制
+        copy_skill(base / n, dst)
     update_readme(cache)
     git(cache, "add", "-A")
     stat = git(cache, "diff", "--cached", "--stat").stdout.strip()
@@ -263,11 +285,20 @@ def cmd_push(args, cfg):
 
     msg = f"sync: 更新 {', '.join(targets)}"
     git(cache, "commit", "--quiet", "-m", msg)
-    r = git(cache, "push", "--quiet", "origin", branch, check=True)
+    r = push_remote(cfg, cache, branch)
+    if r.returncode != 0:
+        # 可能远程已被更新（非快进），同步后将本地提交 rebase 到最新再重试一次
+        fetch_remote(cfg, cache)
+        rb = git(cache, "rebase", f"origin/{branch}")
+        if rb.returncode != 0:
+            git(cache, "rebase", "--abort")
+            print(f"[ERROR] 远程有新提交且无法自动合并，请手动处理缓存仓库：{cache}")
+            return
+        r = push_remote(cfg, cache, branch)
     if r.returncode == 0:
         print(f"[OK] 已推送 {len(targets)} 个 skill + README 到 {cfg['github_repo']}")
     else:
-        print("[ERROR] 推送失败（见上方信息）")
+        print("[ERROR] 推送失败:", scrub(r.stderr.strip(), _TOKEN))
 
 def cmd_pull(args, cfg):
     apply = "--apply" in args
