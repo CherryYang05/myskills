@@ -19,6 +19,7 @@ def main():
 
     install_to = Path(args.install_to) if args.install_to else (
         Path(os.environ.get("USERPROFILE", Path.home())) / ".claude" / "skills"
+    )
     skill_path = install_to / SKILL_NAME
 
     # git clone 到临时目录
