@@ -27,6 +27,7 @@
 | [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章 |
 | [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and… |
 | [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
+| [skill-dev-sop](./skill-dev-sop) | 固化 Agent 驱动的通用软件开发标准流程 |
 | [skill-iterate](./skill-iterate) | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skill-os-setup) | 用于维护 EasyNewOS 仓库 |
 | [skill-sync](./skill-sync) | 在 Agent 对话中同步本地 Agent Skills 与 GitHub 仓库 |
