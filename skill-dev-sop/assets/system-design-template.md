@@ -31,6 +31,8 @@ Author: <你> | Last-updated: <YYYY-MM-DD> | Status: Draft
 - 允许：
 - **禁止**（显式写出，比只写允许更有效）：
 
+<!-- 确认后把上述规则落成依赖护栏工具的规则文件（import-linter / dependency-cruiser / ArchUnit / depguard），接进 CI/测试命令，见 P2。 -->
+
 ### 依赖关系图
 
 <!-- 文字或简单 ASCII 图均可，模块依赖图必须是有向无环图（DAG）。出现环立即处理，不要留到实现阶段。 -->

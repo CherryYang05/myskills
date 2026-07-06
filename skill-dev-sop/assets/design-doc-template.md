@@ -27,6 +27,12 @@ Author: <你> | Last-updated: <YYYY-MM-DD> | Status: Draft
 <!-- 给实现设护栏，挡住自由发挥。 -->
 -
 
+## Acceptance Criteria（中等功能无独立需求文档时填）
+
+<!-- 有独立需求文档时删掉本节，直接引用 docs/requirements/<req>.md 的 AC 编号。 -->
+<!-- EARS 句式 + AC-n 编号，是 P5 测试先行和 P6 回链验收的锚点。 -->
+- [ ] AC-1:
+
 ## Design
 
 ### Interfaces / APIs
@@ -50,6 +56,7 @@ Author: <你> | Last-updated: <YYYY-MM-DD> | Status: Draft
 - 依赖了哪些模块？是否引入了系统设计里依赖方向规则之外的新依赖？
 - 会不会导致循环依赖？如果会，怎么解决（拆接口 / 引入事件回调 / 提取共享模块）？
 - 本功能的代码将放在哪个目录？是否符合项目的文件分类规范（feature-based / layer-based）？
+- 是否需要随本设计更新依赖护栏规则文件（新增允许的依赖要先登记，不要靠豁免）？
 
 ## Alternatives Considered
 
