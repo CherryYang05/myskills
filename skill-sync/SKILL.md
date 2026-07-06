@@ -38,10 +38,11 @@ ls $D
 
 ## Agent 行为准则（重要）
 
-1. **推送前确认。** `git push` 前先 `git -C $D status` 或 `git -C $D diff --cached --stat`，把将提交的内容展示给用户并等待确认。
+1. **推送前确认，并展示内容摘要。** `git push` 前先 `git -C $D status` 和 `git -C $D diff --cached`（不要只看 `--stat`），在对话中用自然语言总结本次增加/改动/删除了什么实质内容（新增了哪个 skill、改了哪些行为规则、删了哪些文件），而不只是文件名和行数，再等待用户确认。
 2. **拉取覆盖保护。** `git pull` 前先 `git -C $D fetch` + `git -C $D diff HEAD origin/master --stat`，告知用户哪些本地文件会被改动，确认后再 pull。若本地有未提交改动，先提示用户以免冲突丢失。
 3. **指定 skill 推送**用 `git add <skill>`，不要 `add -A` 误带无关改动。
 4. **不提交敏感信息**（token、密钥）。仓库公开可见。
+5. **删除操作同样要摘要。** 删除 skill 或文件（`git rm`、手动删除后 `git add`）时，同样在对话中列出被删除的文件/skill 及删除原因（如用户说明的），再走上面第 1 条的确认流程。
 
 ## README 维护
 
