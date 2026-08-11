@@ -1,0 +1,4 @@
+interface:
+  display_name: "Develop Software"
+  short_description: "按风险分级执行软件架构设计、功能实现、验证评审与文档治理"
+  default_prompt: "Use $develop-software to implement this software change with the appropriate level of design, testing, and documentation."
