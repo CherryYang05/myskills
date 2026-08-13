@@ -61,7 +61,7 @@ ADR accepted 不得被写成 Feature current。Feature implemented 不得被写�
 
 ## 6. Closure-time compaction
 
-P7 至少检查：
+任务关闭时至少检查：
 
 1. Plan/issue 是否真实反映剩余工作；
 2. Spec、ADR、System Design 与代码是否存在冲突；

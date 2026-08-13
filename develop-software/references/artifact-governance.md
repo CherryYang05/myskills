@@ -1,5 +1,7 @@
 # Artifact governance
 
+本 Reference 是可选治理模块。只有项目初始化明确启用了稳定 Feature/ADR/Plan 体系时才采用；轻量项目可以继续使用 issue、PR 或现有 RFC，不需要为了模板完整而引入这些 Artifact。
+
 ## 1. Artifact 不是同一种事实
 
 | Artifact | 它回答的问题 | Source of truth 内容 | 默认写语义 |
@@ -17,6 +19,8 @@
 Source of truth 不是一条全局优先级链。代码说明“现在发生什么”，accepted Spec 说明“应该发生什么”；冲突表示工作未完成，不能静默选择一方。
 
 ## 2. 稳定 ID
+
+仅在项目启用相应 Artifact 后应用以下规则：
 
 - Feature 使用项目内唯一、单调分配且永不复用的 `F-NNNN`。
 - 文件名以完整 ID 开头：`F-NNNN-<slug>.md`。
@@ -83,6 +87,7 @@ draft ──> active ──> completed
 
 ```text
 docs/project/project-brief.md
+docs/project/roadmap.md
 docs/architecture/system-design.md
 docs/specs/F-NNNN-<slug>.md
 docs/adr/ADR-NNNN-<slug>.md

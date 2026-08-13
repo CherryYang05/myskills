@@ -1,116 +1,157 @@
-# Lifecycle and routing
+# Workflow composition and task routing
 
 ## Contents
 
-1. Discovery before process
-2. Lane 判定
-3. 风险覆盖规则
-4. Phase 进入与退出
-5. 何时需要用户 Gate
-6. 既有项目接入
-7. 常见误路由
+1. 组合原则
+2. 项目画像
+3. 模块选择
+4. 校准示例
+5. 固化日常任务路由
+6. 既有项目迁移
+7. 重新校准与反模式
 
-## 1. Discovery before process
+## 1. 组合原则
 
-先建立 repository truth，再决定流程。最小 discovery 顺序：
+`develop-software` 不把同一套 CodeSpec 式流程安装到所有仓库。先识别项目需要，再从 Artifact、验证、架构和文档治理模块中组合最小充分集合。
 
-1. 当前目录生效的 Agent/Contributor 指令；
-2. `git status`、当前 diff、分支和用户已有改动；
-3. Roadmap、System Design、相关 Spec/ADR/Plan；
-4. 当前代码、测试、schema、CLI/API 生成物和 CI；
-5. 必要时才读取历史提交、issue 或外部资料。
+遵守三条约束：
 
-输出应区分：已验证事实、合理推断、待确认问题。聊天历史不能覆盖仓库事实。
+1. **仓库自包含**：初始化结束后，普通开发依赖 repository instructions、代码、测试和项目文档，而不是依赖再次调用 Skill。
+2. **风险局部升级**：某个高风险变化只升级相关决策、计划和验证，不自动把整个项目升级为最重流程。
+3. **机械规则下沉**：能由工具确定的规则进入 test、lint、CI 或 validator；Agent 指令负责上下文与判断边界。
 
-## 2. Lane 判定
+## 2. 项目画像
 
-### Small / Mechanical
+从仓库证据和用户目标判断：
 
-只有同时满足以下条件才使用轻量 lane：
-
-- 目标与解法明确；
-- 影响局部、容易回滚；
-- 不改变稳定公共契约、架构边界或持久状态；
-- 不引入高风险 cross-cutting concern；
-- 可以用现有测试或一个小型回归证据验证。
-
-典型例子：typo、格式、无行为变化的 rename、局部空指针修复、已有模式下的小配置修正。
-
-### Feature
-
-满足任一信号时创建或更新 Feature Spec：
-
-- 新增或改变用户/调用方可观察行为；
-- 存在非显然取舍或失败语义；
-- 跨多个文件、组件或接口；
-- 需要独立 Acceptance Criteria 才能判断完成；
-- Small lane 在调查中暴露出更大范围。
-
-### Architecture / New Project
-
-满足任一信号时进入完整 lane：
-
-- 从零建立项目或大型子系统；
-- 改变模块职责、dependency direction、trust boundary 或 deployment topology；
-- 引入高代价、跨模块、难逆转的技术决定；
-- 需要重塑多个 Feature 的顺序或公共基线。
-
-代码量不是可靠信号。一个五行 schema 变化可能是 Architecture risk；一个批量格式化可以仍是 Mechanical。
-
-## 3. 风险覆盖规则
-
-从以下维度选择最高风险 lane：
-
-| 维度 | 低风险 | 升级信号 |
+| 维度 | 轻量信号 | 增强治理信号 |
 |---|---|---|
-| 行为 | 内部等价变换 | 新用户场景、公共输出变化 |
-| 数据 | 无持久化 | schema、migration、兼容或数据丢失 |
-| 安全 | 无边界变化 | 权限、secrets、不可信输入、外部写入 |
-| 执行 | 同步且局部 | retry、timeout、cancel、concurrency、recovery |
-| 架构 | 遵循现有模式 | 新依赖方向、公共 abstraction、production dependency |
-| 发布 | 易回滚 | 不可逆 rollout、多版本共存、协议兼容 |
+| 生命周期 | spike、课程项目、短期脚本 | 长期产品、基础设施、公共开源项目 |
+| 协作 | 单人、单 session | 多人、多 Agent、跨团队或跨 session |
+| 行为契约 | 内部使用、可随时改 | public API、协议、文件格式、兼容承诺 |
+| 状态 | 无持久化、易重建 | schema、migration、数据保留、恢复 |
+| 副作用 | 本地且可回滚 | 外部写入、收费 API、部署、不可逆操作 |
+| 架构 | 单模块、边界显然 | 多模块、依赖方向、部署/信任边界 |
+| 交付 | 一次完成 | milestone、多个 outcome、rollout 窗口 |
+| 审计 | 无正式审批 | 合规、决策 owner、证据留存 |
 
-若多个 lane 信号冲突，采用最高风险 lane；在证据显示风险更低后可以降级，并记录理由。
+不要机械打分。画像只用于解释为什么选择或省略某个模块。
 
-## 4. Phase 进入与退出
+## 3. 模块选择
 
-- **R0 Route & Discover**：得到当前行为证据、受影响范围、lane 和未知项。
-- **P0 Frame**：得到可判断的 Goals、Non-goals、AC。新项目使用 Project Brief；Feature 使用 Spec；Small 可留在 issue/对话。
-- **P1 Architect**：得到 current-state System Design、依赖方向和必要 ADR。普通 Feature 不重写全局架构。
-- **P2 Bootstrap Controls**：得到可运行的 build/test/lint/CI/architecture checks。既有项目只补当前风险需要的缺口。
-- **P3 Shape Work**：把大型范围切成稳定 Feature；确定依赖和交付顺序，不把 milestone 编进 ID。远期 backlog 只登记 ID/outcome/dependency，不预建空 Spec/Plan。
-- **P4 Specify, Decide & Plan**：Spec accepted；相关 ADR accepted；必要 Plan active 前没有实现性开放问题。
-- **P5 Execute Slices**：每次只推进一个可验证 slice；失败时保留可诊断证据。
-- **P6 Verify & Review**：完成 AC evidence、风险测试、架构检查和范围 review。
-- **P7 Close & Compact**：迁移状态，同步变化的事实，删除/合并临时状态，准确记录限制。
+### 始终保留的项目基线
 
-允许回退：实现中发现行为契约缺口时回 P4；发现系统边界错误时回 P1；发现工程基线不足时按需进入 P2。Phase 不是单向瀑布。
+- 权威 repository instructions；
+- 可复制运行的 build/test/static-check 命令；
+- 项目地图、source of truth 和修改边界；
+- 保存用户已有改动、只报告实际验证结果等基本执行规则；
+- 与当前风险匹配的 Definition of Done。
 
-## 5. 何时需要用户 Gate
+### 条件模块
 
-暂停并请求决定，仅限：
+| 模块 | 启用信号 | 不启用时的替代 |
+|---|---|---|
+| Project Brief | 新的长期项目、大型 Epic、总体边界易漂移 | README 中的简短目标/非目标 |
+| System Design | 多组件、状态所有权、依赖或部署边界 | AGENTS/README 中的短项目地图 |
+| Roadmap | 多个 outcome、依赖或 milestone | issue list 或当前任务清单 |
+| Feature Spec | 行为契约需稳定引用和跨 session 保持 | issue/PR 中写 AC |
+| Stable Feature ID | Feature 多、会跨 milestone 或需长期链接 | issue number 或普通文件名 |
+| ADR | 高代价、跨模块、难逆转的决定 | Spec/PR 中记录局部取舍 |
+| Implementation Plan | 多个可验证切片、迁移、并行或长周期 | Spec/issue 中的短实现清单 |
+| Artifact validator | 已采用严格命名、状态和关系 | docs lint 或人工 review |
+| Architecture guard | 违规可机械判断且代价不低 | 明确 review Gate |
+| Release/migration control | 多版本、数据或部署风险 | 普通测试与发布说明 |
 
-- 两种方案会产生显著不同的用户行为、长期成本或风险；
-- Acceptance Criteria、Non-goals 或兼容边界不明确；
-- 需要接受 Spec/ADR，但当前请求没有授权代表项目所有者作决定；
-- 需要不可逆变更、外部副作用、新权限或额外资源；
-- 证据与用户描述冲突且无法安全判断。
+模板是素材，不是表格税。选择模块后仍要删除与项目无关的字段。
 
-其余情况继续安全、可逆的工作，并在更新中显式写明假设。
+## 4. 校准示例
 
-## 6. 既有项目接入
+以下只是校准点，不是固定 profile：
 
-不要先生成整套空文档。按实际任务渐进接入：
+### 轻量
 
-1. 保留现有 issue/RFC/ADR 体系，先映射而不是迁移；
-2. 为当前非平凡 Feature 分配下一个稳定 `F-NNNN`；
-3. 只补与当前风险相关的 System Design 段落和机械护栏；
-4. 关闭任务时清理重复 source of truth；
-5. 等出现第二次真实需求后，再决定是否需要统一目录和 validator。
+个人博客主题、小型脚本或短期原型通常只需要：
 
-## 7. 常见误路由
+- 简洁 `AGENTS.md`；
+- 真实 build/test/preview 命令；
+- 目录地图和少量架构约束；
+- issue 或对话级 AC；
+- 最小 CI。
 
-- “只改几行”不等于 Small；迁移、安全和协议变更必须升级。
-- “新项目”不等于立即写十份文档；先 Project Brief、System Design 和第一批 Feature。
-- “有 Spec”不等于必须有独立 Plan；单切片且低风险时可以省略。
-- “没有自动化测试”不等于可以无证据关闭；可用 characterization、manual、benchmark 或 operational evidence，但要说明限制。
+默认不创建 `F-NNNN`、ADR、Plan 目录。出现安全、发布或 migration 风险时只增加对应控制。
+
+### 中等
+
+长期维护的 Agent runtime、开发工具或开源基础设施通常需要：
+
+- `AGENTS.md`、Project Brief、current System Design 和 Roadmap；
+- 非平凡行为使用稳定 Feature Spec；
+- 高代价决定使用 ADR；
+- 只有多切片或高风险 Feature 才使用独立 Plan；
+- build/test/lint/architecture checks 进入 CI；
+- Artifact 数量增加后再启用 validator。
+
+### 严格
+
+多团队、强审计、关键数据或发布代价高的系统可以采用完整 CodeSpec 式治理：
+
+- 全量稳定 ID、状态机、审批 owner 与关系校验；
+- 每个非平凡 Feature 的 Spec 和证据映射；
+- 架构/数据/安全决策 ADR；
+- migration、rollout、recovery Plan；
+- CI validator、兼容测试与独立 review Gate。
+
+严格不是成熟度的同义词。超过风险和协作需要的流程会制造空文档、状态漂移和虚假 Gate。
+
+## 5. 固化日常任务路由
+
+把适合项目的路由写进 repository instructions，而不是要求每次调用 Skill。可从以下通用形态裁剪：
+
+| 变化 | 默认处理 | 升级信号 |
+|---|---|---|
+| Mechanical | 不新建 Artifact；做最小改动和 targeted verification | 实际改变行为、契约或风险边界 |
+| Behavior | 在项目选定的 Spec/issue 中明确 AC；按需制定切片 | 跨 session、多个调用方、失败语义复杂 |
+| Architecture / high risk | 先处理边界和决定，再实现；增加风险测试与 rollback | security、data、external write、compatibility、concurrency |
+
+即使项目未启用 Feature Spec，以下变化也不能按普通小修处理：
+
+- 权限、secrets、不可信输入或 trust boundary；
+- schema、migration、数据丢失或 recovery；
+- 外部副作用、重试、幂等或不可逆操作；
+- public API、protocol、file format 或 backward compatibility；
+- concurrency、consistency、资源上限或 production dependency。
+
+Repository instructions 应明确这些变化使用什么实际载体：Feature Spec、RFC、issue、ADR、Plan、测试或审批，而不是引用一个抽象 lane 名称后把判断留给聊天。
+
+## 6. 既有项目迁移
+
+按以下顺序最小迁移：
+
+1. 识别已有权威文件和重复规则；
+2. 保留现有 RFC、issue、ADR、目录和编号体系；
+3. 先修正 repository instructions 和真实验证命令；
+4. 只补当前已存在的架构、数据和发布风险；
+5. 用一项真实工作验证路由是否够用；
+6. 出现第二次真实需求后，再决定是否引入统一模板或 validator；
+7. 删除被替代的重复 SOP，避免两个权威来源。
+
+不要先批量生成历史 Spec，不要给远期 backlog 建空 Plan，也不要仅为了目录一致性迁移稳定链接。
+
+## 7. 重新校准与反模式
+
+需要重新校准的信号：
+
+- 项目从原型转为长期维护或正式发布；
+- 协作者、执行器、仓库或部署边界增加；
+- 数据、安全、兼容、合规或恢复要求发生结构性变化；
+- 文档和实现持续漂移，或现有流程明显妨碍交付；
+- 多份 Agent/Contributor 指令互相冲突。
+
+常见反模式：
+
+- 在 Global instructions 中要求所有软件任务调用 `develop-software`；
+- 用 Skill 本身保存项目状态；
+- 新项目第一天就生成完整 Spec/ADR/Plan 树；
+- 为了“流程完整”保留没有决策作用的 Gate；
+- 把不能机械验证的口号伪装成 CI 规则；
+- 只因 diff 小就忽略 migration、安全、协议或外部副作用。

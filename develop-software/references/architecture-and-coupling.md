@@ -86,7 +86,7 @@ Hooks 提供快速反馈，CI 是共享权威 Gate。不要把必须执行的规
 2. formatter/lint/type check 中适合该栈的部分；
 3. 模块边界和一条可运行的 architecture guard；
 4. CI 执行相同权威命令；
-5. Repository `AGENTS.md` 只记录项目命令、风险和不变量；
+5. Repository `AGENTS.md` 自包含项目命令、日常变更路由、风险、不变量和完成条件；
 6. 第一条端到端 smoke path。
 
 不要在第一天预建所有未来目录、抽象和部署系统。让真实 Feature 验证边界。

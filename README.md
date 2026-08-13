@@ -22,7 +22,7 @@
 
 | Skill | Description |
 |-------|-------------|
-| [develop-software](./develop-software) | 按风险分级执行通用软件工程生命周期，包括任务路由、稳定 Feature ID、Spec/ADR/Plan 状态机… |
+| [develop-software](./develop-software) | 为软件项目一次性初始化或重新校准 Agent 开发工作流 |
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章 |

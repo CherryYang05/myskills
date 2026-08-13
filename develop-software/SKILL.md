@@ -1,181 +1,170 @@
 ---
 name: develop-software
-description: 按风险分级执行通用软件工程生命周期，包括任务路由、稳定 Feature ID、Spec/ADR/Plan 状态机、Vertical Slice、架构与耦合护栏、证据驱动验证和文档治理。用于新项目、架构级变更、非平凡 Feature、bug fix、refactor、migration、implementation planning、testing、code review 或工程收尾；小改动走轻量路径，高风险改动采用匹配风险的 Artifact 与 Gate。适用于 Python、C++、Rust、TypeScript 等技术栈，以及 Codex、ChatGPT、Claude Code 或其他 coding agent。
+description: 为软件项目一次性初始化或重新校准 Agent 开发工作流。用于用户明确要求初始化新项目、为既有仓库搭建或固化开发 SOP、生成 AGENTS.md，或按项目实际需要配置 Spec、ADR、Plan、验证与文档结构时。把选定规则写入仓库供后续 Agent 直接遵循；不要用于普通功能开发、bug 修复、重构、测试或代码评审，也不要在每个需求中重复运行。
 ---
 
 # Develop Software
 
-按风险而不是代码行数决定流程成本。核心路径是：
+把本 Skill 当作**项目工作流初始化器**，而不是所有软件任务都要经过的运行时 SOP：
 
-> 路由任务 → 选择最少必要 Artifact → 纵向切片实现 → 用实际证据关闭
+> 项目事实与风险 → 选择必要模块 → 固化到仓库 → 后续 Agent 直接按仓库规则工作
 
-不要为了展示流程而创建文档，也不要因改动很小就忽略安全、持久化、并发或公共契约风险。
+一个项目通常只运行一次。只有项目阶段、团队协作、风险边界或治理需求发生实质变化时，才显式重新校准。
 
-## 执行合同
+## 完成定义
 
-- 先读取当前目录适用的 `AGENTS.md`、`CLAUDE.md` 或其他 repository instructions。
-- 以仓库中的代码、测试、生成物和已接受 Artifact 判断项目事实；聊天记录只提供意图，不是 source of truth。
-- 保留用户已有改动。先检查 status 和 diff，只修改当前任务范围内的文件。
-- 使用仓库现有的语言、目录、命令和文档约定；没有约定时再采用本 Skill 的默认值。
-- Artifact 使用仓库主要文档语言；技术术语、命令、ID 和文件名保持原文。
-- 只报告实际运行过的验证。无法运行时说明原因、未验证范围和风险，不得写成“已通过”。
-- 多 Agent、worktree、hooks 和特定 IDE 都是可选执行手段，不是完成条件。
+初始化完成后应满足：
 
-## 第一步：发现并路由
+- 后续 Agent 不加载本 Skill，也能从仓库文件知道如何开发、验证和收尾；
+- `AGENTS.md` 或仓库既有指令包含真实命令、source of truth、变更路由、风险规则与完成条件；
+- 只创建项目确实需要的 Artifact、模板和检查，不生成整套空目录；
+- 能机械判断的规则由 test、lint、CI、schema check 或脚本执行；
+- 同一事实只有一个权威位置，项目不依赖某次聊天保存关键状态。
 
-每次任务先做最小 discovery：
+不要在这里实现业务 Feature。若用户同时要求初始化和开发，先完成可独立验收的工作流初始化，再按新写入的仓库规则处理开发任务。
 
-1. 读取项目指令、仓库状态和当前 diff。
-2. 找到相关架构、Feature Spec、ADR、active Plan、roadmap、代码和测试。
-3. 核对当前行为、目标行为、风险边界与未知项。
-4. 判定 lane，简短告知用户路径后继续；只有阻塞性问题才暂停等待。
+## 1. 识别已有工作流
 
-| Lane | 典型信号 | 默认路径 | 默认 Artifact |
-|---|---|---|---|
-| **Small / Mechanical** | typo、格式、局部 bug、行为不变的机械重构，解法明确且风险局部 | R0 → P5 → P6-lite → P7-lite | 不新建 Spec/ADR/Plan；bug 应补匹配风险的回归证据 |
-| **Feature** | 新的可观察行为、非显然取舍、多个文件或模块、公共接口变化 | R0 → P0-lite → P4 → P5 → P6 → P7 | `F-NNNN` Feature Spec；满足 Plan 门槛时增加 Implementation Plan |
-| **Architecture / New Project** | 新项目、系统边界或依赖方向变化、跨模块高代价决策 | R0 → P0 → P1 → P2 → P3 → P4 → P5 → P6 → P7 | Project Brief、System Design、Feature Specs；必要 ADR 和 Plans |
+先读取并检查：
 
-以下任一项出现时，不得仅因 diff 小而留在 Small lane：
+1. 当前目录适用的 `AGENTS.md`、`CLAUDE.md`、contributor guide 和其他 repository instructions；
+2. `git status`、当前 diff 和用户已有改动；
+3. README、roadmap、architecture、RFC/Spec、ADR、Plan、issue 模板和文档索引；
+4. build、test、format、lint、type check、CI、hooks 和发布命令；
+5. 代码中的真实模块边界、持久化状态、外部接口与高风险副作用。
 
-- security / trust boundary、privacy、secrets 或权限；
-- persistence schema、migration、数据丢失或 recovery；
-- external side effect、重试、幂等或不可逆操作；
-- public API / protocol / file format / backward compatibility；
-- concurrency、consistency、memory ordering 或资源上限；
-- 新 production dependency、架构边界或依赖方向例外。
+若仓库已经有自洽工作流，不要再次铺设模板。只在用户明确要求重新校准时审计差距并做最小迁移。保留现有命名与目录，优先映射，不为符合本 Skill 的默认布局批量搬家。
 
-完整判定和升降级规则见 [lifecycle-and-routing.md](references/lifecycle-and-routing.md)。
+只把仓库证据或用户明确说明的内容写成事实。不要猜测 owner、支持版本、用户、期限、质量目标或已接受决定；未知内容保留为 `draft`、assumption 或 Open question。
 
-## Checkpoint 与授权
+## 2. 建立项目画像
 
-不要把“每个 Phase 都等确认”当成流程正确性。仅在以下情况暂停：
+根据证据判断以下维度；只有缺失信息会实质改变选择时才提问：
 
-- 目标、范围或验收标准存在会改变实现方向的歧义；
-- 需要用户在多个高代价方案中做取舍；
-- 操作不可逆、超出已有授权或会影响外部系统；
-- Spec/ADR 的 `accepted` 需要项目所有者批准，且当前请求没有明确授权；
-- 仓库状态、权限或失败使继续执行不安全。
+- 项目是 spike、短期个人工具，还是长期维护的产品/基础设施；
+- 单人还是多人/多 Agent 协作，工作是否跨 session、branch 或团队；
+- 是否存在 public API、持久化数据、migration、外部写入或兼容承诺；
+- security、privacy、concurrency、recovery、performance 和 release 风险；
+- 是否需要审计、审批、稳定 ID、里程碑与可恢复的实施状态；
+- 现有工具链能机械执行哪些规则。
 
-若用户已经明确批准一个范围清楚的实现，可以在解决开放问题后完成相应 Gate，不重复索取形式化确认。
+不要用代码行数或“新项目”三个字直接推导重型流程。完整组合方法见 [lifecycle-and-routing.md](references/lifecycle-and-routing.md)。
 
-## 生命周期
+## 3. 选择工作流模块
 
-| Phase | 目的 | 何时执行 | Gate |
-|---|---|---|---|
-| **R0 Route & Discover** | 建立仓库事实，选择 lane | 每次 | 当前行为、范围和风险有证据 |
-| **P0 Frame** | 定义问题、Goals、Non-goals、Acceptance Criteria | Feature / Architecture；Small 仅口头或 issue 级 | 成功条件可判断 |
-| **P1 Architect** | 定义当前系统边界、依赖方向和关键质量属性 | 新项目或架构级变化 | 边界与不变量明确；高代价决定有 ADR |
-| **P2 Bootstrap Controls** | 补齐 build/test/lint/CI/architecture guard 和项目指令 | 新项目，或既有项目缺少必要基线时按需 | 关键规则有可执行命令；能机械化的已落到工具 |
-| **P3 Shape Work** | 建立稳定 Feature、依赖关系和交付顺序 | 新项目、大型 Epic | Feature 边界可独立验收，ID 与 milestone 解耦；不为远期 backlog 预建空 Plan |
-| **P4 Specify, Decide & Plan** | 接受行为契约、必要决策和纵向切片 | Feature / Architecture | Spec accepted；相关 ADR accepted；Plan 可执行 |
-| **P5 Execute Slices** | 一次实现一个可观察、可验证切片 | 有实现工作时 | 每个完成切片有命令、结果和 rollback point |
-| **P6 Verify & Review** | 用 AC evidence、风险测试、架构检查和 diff review 找问题 | 所有代码变化 | 必要证据已实际运行，无未解决阻塞问题 |
-| **P7 Close & Compact** | 迁移状态、同步当前事实、清理临时状态 | 所有任务 | DoD 满足，剩余工作和限制准确 |
+从下表组合最少必要集合，不把任一档位当作固定套餐：
 
-`P2` 是一次性或按需工程基线，不是每个 Feature 都重复执行。不要为了保留编号强制经过无关 Phase。
+| 模块 | 默认 | 选择条件 |
+|---|---|---|
+| Repository instructions | 必选 | 所有项目；优先完善已有文件 |
+| 权威 build/test/static-check 命令 | 必选 | 有可执行代码的项目 |
+| Project Brief | 按需 | 新的长期项目或大型 Epic 需要稳定总体边界 |
+| Current System Design | 按需 | 模块、状态、部署或依赖边界不再显然 |
+| Roadmap | 按需 | 存在多个可独立交付 outcome、依赖或 milestone |
+| Feature Spec 与稳定 `F-NNNN` | 按需 | 行为契约需跨 session/协作者长期保持 |
+| ADR | 按需 | 决策跨模块、代价高、难逆转或需要保留理由 |
+| Implementation Plan | 按需 | 多纵向切片、长周期、高风险迁移或 rollout |
+| Artifact validator | 按需 | 已采用稳定 ID/状态机，且机械校验收益高于维护成本 |
+| CI / architecture guard | 按需强化 | 规则可机械化，或违规代价较高 |
+| 执行器 wrapper | 按需 | 执行器不能直接读取权威 repository instructions |
 
-## Artifact 选择
+风险可以升级某个模块，但不必升级整套流程。例如一个小项目出现不可逆 migration 时，可以只增加 ADR、迁移 Plan 和 recovery test，而不启用完整 Feature 编号体系。
 
-### Project Brief
+## 4. 先给出选择清单
 
-仅用于新项目或大型 Epic，定义项目问题、总体范围和成功条件。复制 [project-brief-template.md](assets/project-brief-template.md)。
+在写入前给用户一份简短清单：
 
-### System Design
+```text
+项目画像：
+保留：
+新增：
+明确省略：
+关键理由：
+```
 
-描述**当前**系统边界、模块职责、依赖方向和机械护栏。它是慢变 current-state 文档，不是冻结的历史快照。复制 [system-design-template.md](assets/system-design-template.md)，重大变化通过 ADR 保留原因，再同步正文。
+用户明确要求初始化或重新校准，已经授权安全、可逆且范围清楚的仓库内修改。仅在会覆盖现有权威内容、存在两个高代价方向、需要不可逆操作或目标仍有阻塞性歧义时暂停确认。
 
-### Feature Spec
+初始化授权不等于批准新写入的产品或架构语义。新 Project Brief、Feature Spec 与 ADR 默认保持 `draft` / `proposed`；只有用户已明确接受其实际内容时才迁移为 `accepted`。
 
-每个非平凡可观察行为使用稳定 `F-NNNN`。ID 在项目内唯一、不得复用，与 milestone/release 解耦；Feature 移动 milestone 时只修改属性，不重编号。复制 [feature-spec-template.md](assets/feature-spec-template.md)。
+## 5. 固化到仓库
 
-### ADR
+### Repository instructions
 
-只记录跨模块、影响长期边界、代价高或难以逆转的决定。不要把 ADR 当开发日记。复制 [adr-template.md](assets/adr-template.md)。
+以 [agents-template.md](assets/agents-template.md) 为素材，生成项目自包含的 `AGENTS.md` 或完善既有权威文件：
 
-### Implementation Plan
+- 写入真实可执行的 build/test/lint/architecture 命令；
+- 写入项目地图、架构不变量、风险边界与禁止操作；
+- 写入适合该项目的日常变更路由和 Artifact 触发条件；
+- 写入 Definition of Done、文档同步面与授权边界；
+- 链接项目的 architecture、roadmap、Spec/ADR/Plan 索引。
 
-当实现包含多个独立切片、跨边界迁移、并行/长周期工作或高风险 rollout 时创建。单一、短小且可一次验证的 Feature 可省略独立 Plan，但仍须在 Spec/issue 中写明验证和回滚。复制 [implementation-plan-template.md](assets/implementation-plan-template.md)。
+不要让 `AGENTS.md` 要求普通任务再次调用 `develop-software`。不要把当前 Feature 进度或整套模板正文塞入其中。
 
-只为已选入近期实施、Spec 已进入实质定义的 Feature 创建 Plan；Roadmap backlog 只登记稳定 ID、outcome 和依赖，不批量生成空 Spec/Plan。
+### Docs 与 Artifact
 
-状态、关系和 source-of-truth 规则见 [artifact-governance.md](references/artifact-governance.md)。
+只复制已选择模块的素材，并按项目删减模板字段：
 
-## 实现规则
+- Project Brief：[project-brief-template.md](assets/project-brief-template.md)
+- System Design：[system-design-template.md](assets/system-design-template.md)
+- Roadmap：[roadmap-template.md](assets/roadmap-template.md)
+- Feature Spec：[feature-spec-template.md](assets/feature-spec-template.md)
+- ADR：[adr-template.md](assets/adr-template.md)
+- Implementation Plan：[implementation-plan-template.md](assets/implementation-plan-template.md)
 
-### Small / Mechanical
+默认可使用 `docs/project/`、`docs/architecture/`、`docs/specs/`、`docs/adr/` 和 `docs/plans/`，但已有仓库约定优先。不要创建空 Spec、空 ADR、远期空 Plan 或没有 owner 的占位文档。
 
-1. 证明范围确实局部；bug 先建立能复现问题的证据。
-2. 做最小改动，避免顺手重构。
-3. 运行最窄相关测试，再运行项目要求的 lint/type/architecture checks。
-4. 只在可观察行为、用户文档或 release policy 要求时更新文档/CHANGELOG。
-5. 报告 observable result、验证和剩余风险。
+需要稳定 Artifact 状态时读取 [artifact-governance.md](references/artifact-governance.md)；需要架构护栏时读取 [architecture-and-coupling.md](references/architecture-and-coupling.md)；需要纵向切片和证据规则时分别读取 [planning-and-vertical-slices.md](references/planning-and-vertical-slices.md) 与 [verification-and-review.md](references/verification-and-review.md)。
 
-### Feature / Architecture
+### 机械规则与可移植性
 
-1. 先完成并接受 Spec；需要 ADR 时先决定，不用代码暗中替代决策。
-2. 需要 Plan 时按最小端到端 observable behavior 拆分，不按 `model → DAO → service → API → test` 横向铺开。
-3. 每个 slice 明确 behavior、contracts、interfaces/adapters、state/persistence、tests/evidence、verification command、expected result 和 rollback point。
-4. 优先 test-first；探索、characterization 或难以自动化的场景允许先调查，但关闭前必须补齐风险匹配的证据。
-5. 发现 Spec 缺口、架构例外或风险升级时，停止当前 slice，更新相应 Artifact 并重新过 Gate。
-6. 逐条建立 `AC → Evidence` 映射。映射允许多对多，不伪造“一条 AC 对一个测试”的形式关系。
+- 将确定性规则接入项目自己的 test、lint、CI 或脚本，不只写在 prompt 中；
+- 若启用 Artifact validator，将脚本复制或适配到仓库并写入权威验证命令，不让项目运行依赖本 Skill 的安装路径；
+- 对只能读取 `CLAUDE.md` 的执行器，使用 [claude-wrapper-template.md](assets/claude-wrapper-template.md) 引用 `AGENTS.md`，不维护第二份 SOP；
+- 不在 Global instructions 中配置“每个软件任务都调用本 Skill”。跨执行器规则见 [executor-portability.md](references/executor-portability.md)。
 
-切片方法见 [planning-and-vertical-slices.md](references/planning-and-vertical-slices.md)。验证与 review 见 [verification-and-review.md](references/verification-and-review.md)。
+## 6. 验证初始化结果
 
-## 架构与机械护栏
+至少检查：
 
-按以下链路治理耦合：
+1. 新增文件没有未替换占位符、空章节、断链或重复 source of truth；
+2. `AGENTS.md` 足以让一个不了解本次对话的 Agent 找到权威上下文并执行常见任务；
+3. 写入的命令确实存在；能安全运行时实际运行，不能运行时标明原因；
+4. 选择的 Artifact 状态、ID 与关系可以自洽；启用 validator 时运行其测试和一次项目扫描；
+5. wrapper、CI 和文档索引都指向同一套权威规则；
+6. 普通 Feature、bug fix、refactor、test 或 review 不需要重新调用本 Skill。
 
-> System Design → dependency direction → architecture invariant → machine-enforceable guard → Feature coupling assessment → implementation check → review
+## 7. 交付初始化结果
 
-优先使用项目栈适配的 import/dependency lint、architecture test、schema compatibility test、CI 或 hooks；Agent 指令只能指导，不能代替强制层。选择原则和示例见 [architecture-and-coupling.md](references/architecture-and-coupling.md)。
+向用户报告：
 
-## 关闭条件
-
-关闭 Feature 前必须回答：
-
-- Acceptance Criteria 是否满足，证据在哪里？
-- Implementation 和所有必须 slice 是否完成？
-- Relevant tests/checks 是否实际运行并通过？
-- Spec、ADR、System Design、生成物与代码是否一致？
-- 用户文档、运维文档、migration/release notes 是否需要同步？
-- Verification commands、observable result 和 known limitations 是什么？
-- Plan 是否准确反映未完成工作？
-
-只有以上条件成立，才能把 Plan 标为 `completed`、Feature 标为 `implemented`。`ADR accepted`、`code written`、`tests passed`、`Feature implemented` 和 `released` 是不同事实，不得互相替代。
-
-文档更新、supersede 与 compaction 规则见 [documentation-governance.md](references/documentation-governance.md)。
+1. 采用的项目工作流及选择理由；
+2. 新增、修改和明确省略的模块；
+3. 后续 Agent 从哪些仓库文件开始工作；
+4. 实际运行的验证命令与结果；
+5. 何种项目变化才需要再次运行本 Skill。
 
 ## Resource 路由
 
-| 当前任务 | 必读 Reference | 常用 Asset |
+| 初始化决策 | 必读 Reference | 常用 Asset |
 |---|---|---|
-| 路由、Phase、旧项目接入 | `lifecycle-and-routing.md` | `project-brief-template.md` |
-| 创建/迁移 Spec、ADR、Plan | `artifact-governance.md` | 对应三个模板 |
-| 新项目、边界、依赖或 cross-cutting 风险 | `architecture-and-coupling.md` | `system-design-template.md`、`agents-template.md` |
-| 规划或执行多个切片 | `planning-and-vertical-slices.md` | `implementation-plan-template.md` |
-| 测试、验收、review、DoD | `verification-and-review.md` | Plan 的 Final verification |
-| 文档同步、漂移、归档、收尾 | `documentation-governance.md` | 各 Artifact 状态字段 |
-| Global/Repository 指令或跨执行器接入 | `executor-portability.md` | `agents-template.md`、`claude-wrapper-template.md` |
+| 工作流裁剪、已有项目迁移、日常任务路由 | `lifecycle-and-routing.md` | `agents-template.md` |
+| 启用 Feature/ADR/Plan 状态与稳定 ID | `artifact-governance.md` | 对应 Artifact 模板 |
+| 建立系统边界、依赖方向或机械护栏 | `architecture-and-coupling.md` | `system-design-template.md` |
+| 配置多切片或跨 session 计划 | `planning-and-vertical-slices.md` | `implementation-plan-template.md` |
+| 配置验证矩阵、review 与 DoD | `verification-and-review.md` | `agents-template.md` |
+| 配置文档同步、current/accepted/planned 分层 | `documentation-governance.md` | Project/Artifact 模板 |
+| 接入 Codex、Claude Code 或其他执行器 | `executor-portability.md` | `agents-template.md`、wrapper |
 
-不要一次性读取所有 references；只加载当前决策需要的文件。
+不要一次性加载或复制所有资源。选择某个模块时才读取对应 Reference，并把必要规则改写为项目自己的、可长期维护的版本。
 
-## 机械验证 Artifact
+## 再次运行的边界
 
-项目采用默认目录时运行：
+仅在以下情况显式重新运行：
 
-```bash
-python3 <skill-dir>/scripts/validate_artifacts.py <project-root> --strict-sections
-```
+- 新建独立项目或大型子系统；
+- 项目从 spike 进入长期维护，或从单人进入多人/多 Agent 协作；
+- public contract、数据、安全、发布或合规风险发生结构性变化；
+- 现有 SOP 明显过轻、过重、互相冲突或已经漂移；
+- 用户明确要求迁移、审计或重新裁剪工作流。
 
-自定义目录时使用 `--spec-dir`、`--adr-dir`、`--plan-dir`。脚本只检查 ID、Front Matter、状态、关系、active Plan 唯一性和 completed Plan 完整性；它不能判断设计质量，也不能证明测试真的覆盖 AC。
-
-## 最终交付格式
-
-向用户返回：
-
-1. 完成的 observable outcome；
-2. 创建或迁移的 Artifact 与状态；
-3. 实际运行的命令和结果；
-4. 未完成工作、无法验证项和 known limitations；
-5. 若有，下一项最小可执行工作。
+普通开发任务直接遵循初始化后写入仓库的规则。

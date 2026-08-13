@@ -58,7 +58,7 @@ Delete this comment. Do not create a Project Brief for an ordinary Feature or sm
 
 ## Initial system boundary
 
-<!-- 哪些系统/团队/数据在边界内外？需要 P1 决定什么？ -->
+<!-- 哪些系统/团队/数据在边界内外？哪些架构问题仍待决定？ -->
 
 ## Initial Feature map
 
