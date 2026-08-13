@@ -22,7 +22,7 @@
 
 | Skill | Description |
 |-------|-------------|
-| [develop-software](./develop-software) | 为软件项目一次性初始化或重新校准 Agent 开发工作流 |
+| [develop-software](./develop-software) | 为软件项目初始化 Simple、Medium 或 Complex 三档 SDD 工作流 |
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章 |

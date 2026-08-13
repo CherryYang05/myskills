@@ -1,7 +1,7 @@
 interface:
   display_name: "Develop Software"
-  short_description: "一次性初始化、裁剪并固化项目级 Agent 软件开发工作流"
-  default_prompt: "Use $develop-software to initialize a project-specific Agent development workflow for this repository."
+  short_description: "用 Simple、Medium 或 Complex 模板初始化项目 SDD"
+  default_prompt: "Use $develop-software to choose and initialize a reusable SDD profile for this project."
 
 policy:
   allow_implicit_invocation: false
