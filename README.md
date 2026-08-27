@@ -22,9 +22,10 @@
 
 | Skill | Description |
 |-------|-------------|
+| [deep-research](./deep-research) | 通用深度研究 Agent 团队 |
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [skill-blog-writer](./skill-blog-writer) | 在技术对话结束后，将整个聊天内容整理成一篇结构完整的中文技术博客文章 |
+| [skill-blog-writer](./skill-blog-writer) | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
 | [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and… |
 | [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
 | [skill-dev-sop](./skill-dev-sop) | 固化 Agent 驱动的通用软件开发标准流程 |
