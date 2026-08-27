@@ -1,6 +1,6 @@
 ---
 name: 深度研究
-description: "通用深度研究 Agent 团队。14-Agent 流水线，用于任意主题的严谨学术研究。8 种模式：完整研究、快速简报、论文评审、文献综述、事实查核、三维文献扫描、苏格拉底引导研究对话、系统性综述（可选荟萃分析）。涵盖研究问题构建、苏格拉底引导、方法论设计、系统性文献检索、来源验证、跨源综合分析、偏倚风险评估、荟萃分析、APA 7.0 报告编撰、主编评审、魔鬼代言人挑战、伦理审查，以及研究后文献监测。触发词：research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘."
+description: "由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式。8 种模式：完整研究、快速简报、论文评审、文献综述、事实查核、三维文献扫描、苏格拉底引导研究对话、系统性综述（可选荟萃分析）。涵盖研究问题构建、苏格拉底引导、方法论设计、系统性文献检索、来源验证、跨源综合分析、偏倚风险评估、荟萃分析、APA 7.0 报告编撰、主编评审、魔鬼代言人挑战、伦理审查，以及研究后文献监测。触发词：research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘."
 metadata:
   version: "2.11.1"
   last_updated: "2026-07-11"
