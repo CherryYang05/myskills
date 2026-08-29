@@ -26,7 +26,7 @@
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [humanizer-zh](./humanizer-zh) | 去除文本中的 AI 生成痕迹 |
-| [humanizer](./humanizer) | Rewrite AI-sounding text so it reads naturally without changing what it… |
+| [humanizer](./humanizer) | Rewrite AI-sounding text so it reads naturally without… |
 | [skill-blog-writer](./skill-blog-writer) | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
 | [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and… |
 | [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
