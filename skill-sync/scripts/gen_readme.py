@@ -30,10 +30,25 @@ def read_desc(skill_md):
         return ""
     m = re.search(r"^---\s*$(.*?)^---\s*$", text, re.S | re.M)
     fm = m.group(1) if m else text
-    dm = re.search(r"^description:\s*(.+)$", fm, re.M)
+    dm = re.search(r"^description:\s*(.*)$", fm, re.M)
     if not dm:
         return ""
-    desc = dm.group(1).strip().strip("\"'")
+
+    raw = dm.group(1).strip()
+    if raw in {"|", ">", "|-", ">-", "|+", ">+"}:
+        block = []
+        for line in fm[dm.end():].splitlines():
+            if not line.strip():
+                if block:
+                    break
+                continue
+            if not line[0].isspace():
+                break
+            block.append(line.strip())
+        desc = " ".join(block)
+    else:
+        desc = raw.strip("\"'")
+
     first = re.split(r"[。！？]|——|\.\s|;\s", desc)[0].strip().rstrip("，,、；; ")
     if len(first) > 60:
         cut = first[:60]
