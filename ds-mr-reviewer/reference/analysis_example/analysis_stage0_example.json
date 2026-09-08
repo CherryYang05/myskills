@@ -1,0 +1,39 @@
+{
+  "change_intention": "修复QKD交叉删除场景下，二次鉴权操作日志重复记录的问题（第一次鉴权请求抛异常时不应记录日志）",
+  "change_type": "缺陷修复",
+  "core_files": [
+    "sharing/src/main/java/com/huawei/ncet/transnewebservice/sharing/operationlog/TransNeWebBaseOperationLog.java"
+  ],
+  "mr_summary": "【修改背景】QKD交叉删除时，二次鉴权会发起两次接口调用：1）判断是否需要二次鉴权（会抛出SECONDARY_AUTH_REQIRE错误码）；2）实际鉴权并执行操作。第一次接口调用虽然返回错误，但操作日志记录为失败，实际操作成功后又记录一条成功日志，导致同一次业务操作有两条日志记录。\n\n【修改方案】1）在操作日志切面增加扩展机制，重写isEnabledWhenCreateOpLog方法，在记录前判断是否为需要二次鉴权的异常响应，如果是则跳过日志记录；2）新增populateSecondaryAuthMsg方法重载，自动识别二次鉴权场景的消息补充。",
+  "file_analysis": {
+    "sharing/src/main/java/com/huawei/ncet/transnewebservice/sharing/operationlog/TransNeWebBaseOperationLog.java": {
+      "responsibility": "操作日志切面基类，继承自HttpContextAwareOperationLog，负责记录用户在界面上的操作日志。关键方法包括isEnabledWhenCreateOpLog（判断是否需要记录日志）和populateSecondaryAuthMsg（补充二次鉴权信息）。",
+      "modification_impact": "修改了操作日志记录的判断逻辑，影响所有继承TransNeWebBaseOperationLog的子类的操作日志记录行为。如果判断逻辑有误，可能导致：1）应该记录的操作日志被错误跳过；2）不应记录的操作日志被错误记录。",
+      "key_findings": [
+        "修改重写了isEnabledWhenCreateOpLog方法，通过errorCode判断是否为SECONDARY_AUTH_REQIRE（错误码21001807），如果是则不记录操作日志",
+        "新增isNeedSecondAuthException方法用于判断是否为需要二次鉴权的异常",
+        "新增isSecondAuthException方法用于判断是否为二次鉴权失败（复用SharingErrorCode.isSecondAuthException）",
+        "新增getErrorCode方法从response中提取errorCode",
+        "修改populateSecondaryAuthMsg方法重载，通过isSecondAuthException()而非参数控制逻辑",
+        "新增Ints.tryParse用于安全解析整数"
+      ],
+      "initial_risk": "中",
+      "identified_risks": [
+        {
+          "id": 1,
+          "problem": "isNeedSecondAuthException判断逻辑遗漏了部分需要跳过操作日志的场景",
+          "location": "TransNeWebBaseOperationLog.java:isNeedSecondAuthException方法（第131-135行）",
+          "description": "在QKD交叉删除场景下，二次鉴权流程包含两个阶段：1）判断是否需要二次鉴权（抛出SECONDARY_AUTH_REQIRE错误码）；2）实际鉴权并执行操作。当前代码只判断了SECONDARY_AUTH_REQIRE（错误码21001807），但如果response不是BaseRsp类型（如其他RpcResponse），则getErrorCode()返回null，isNeedSecondAuthException()返回false，导致第一次鉴权请求被当作普通失败处理，操作日志被错误记录。",
+          "mitigation": "建议：1）确认所有二次鉴权相关接口的response类型是否都继承BaseRsp；2）如果不是，需要扩展getErrorCode()方法处理其他response类型；3）建议增加单元测试覆盖不同response类型的场景。"
+        },
+        {
+          "id": 2,
+          "problem": "新增的populateSecondaryAuthMsg重载方法可能导致消息重复追加",
+          "location": "TransNeWebBaseOperationLog.java:populateSecondaryAuthMsg方法（第96-99行）",
+          "description": "新增的populateSecondaryAuthMsg(String msg)重载方法内部调用populateSecondaryAuthMsg(msg, !isSecondAuthException())，其中isSecondAuthException()判断的是当前response是否为二次鉴权失败。但在某些边界场景下，如果既满足二次鉴权条件又满足其他错误条件，可能导致二次鉴权消息被重复追加。",
+          "mitigation": "建议：1）检查现有调用populateSecondaryAuthMsg的所有场景，确认新增重载是否会影响原有逻辑；2）增加日志记录便于问题追溯；3）建议增加单元测试验证不同错误码组合下的行为。"
+        }
+      ]
+    }
+  }
+}

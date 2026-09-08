@@ -1,0 +1,73 @@
+{
+  "risk_level": "中",
+  "issue_count": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+  },
+  "high_risks": [],
+  "medium_risks": [
+    {
+      "id": 1,
+      "problem": "isNeedSecondAuthException判断逻辑遗漏了部分需要跳过操作日志的场景",
+      "problem_code": "if (isNeedSecondAuthException()) {",
+      "file_path": "src/main/java/com/huawei/TransNeWebBaseOperationLog.java",
+      "line_number": 131,
+      "description": "在QKD交叉删除场景下，二次鉴权流程包含两个阶段：1）判断是否需要二次鉴权（抛出SECONDARY_AUTH_REQIRE错误码）；2）实际鉴权并执行操作。当前代码只判断了SECONDARY_AUTH_REQIRE（错误码21001807），但如果response不是BaseRsp类型（如其他RpcResponse），则getErrorCode()返回null，isNeedSecondAuthException()返回false，导致第一次鉴权请求被当作普通失败处理，操作日志被错误记录。",
+      "mitigation": "建议：1）确认所有二次鉴权相关接口的response类型是否都继承BaseRsp；2）如果不是，需要扩展getErrorCode()方法处理其他response类型；3）建议增加单元测试覆盖不同response类型的场景。"
+    },
+    {
+      "id": 2,
+      "problem": "新增的populateSecondaryAuthMsg重载方法可能导致消息重复追加",
+      "problem_code": "populateSecondaryAuthMsg(msg, !isSecondAuthException())",
+      "file_path": "src/main/java/com/huawei/TransNeWebBaseOperationLog.java",
+      "line_number": 96,
+      "description": "新增的populateSecondaryAuthMsg(String msg)重载方法内部调用populateSecondaryAuthMsg(msg, !isSecondAuthException())，其中isSecondAuthException()判断的是当前response是否为二次鉴权失败。但在某些边界场景下，如果既满足二次鉴权条件又满足其他错误条件，可能导致二次鉴权消息被重复追加。",
+      "mitigation": "建议：1）检查现有调用populateSecondaryAuthMsg的所有场景，确认新增重载是否会影响原有逻辑；2）增加日志记录便于问题追溯；3）建议增加单元测试验证不同错误码组合下的行为。"
+    }
+  ],
+  "low_risks": [],
+  "validation_scenarios": [
+    {
+      "scenario": "QKD交叉删除场景：第一次接口调用（需要二次鉴权）应不记录操作日志，第二次接口调用（实际鉴权成功）应记录一条成功日志",
+      "priority": "高",
+      "test_type": "功能",
+      "related_files": [
+        "TransNeWebBaseOperationLog.java"
+      ]
+    },
+    {
+      "scenario": "QKD交叉删除场景：第一次接口调用返回SECONDARY_AUTH_REQIRE错误码（21001807），应跳过操作日志记录",
+      "priority": "高",
+      "test_type": "边界",
+      "related_files": [
+        "TransNeWebBaseOperationLog.java"
+      ]
+    },
+    {
+      "scenario": "二次鉴权成功后，实际操作失败（错误码在SECONDARY_AUTH_SHARINGERRORCODE集合中）的场景",
+      "priority": "中",
+      "test_type": "功能",
+      "related_files": [
+        "TransNeWebBaseOperationLog.java"
+      ]
+    },
+    {
+      "scenario": "response类型不是BaseRsp的场景（如RpcResponse），验证getErrorCode()是否正确处理",
+      "priority": "中",
+      "test_type": "边界",
+      "related_files": [
+        "TransNeWebBaseOperationLog.java"
+      ]
+    },
+    {
+      "scenario": "populateSecondaryAuthMsg重载方法与原方法的调用场景区分是否正确",
+      "priority": "中",
+      "test_type": "功能",
+      "related_files": [
+        "TransNeWebBaseOperationLog.java"
+      ]
+    }
+  ],
+  "recommended_action": "可以通过"
+}

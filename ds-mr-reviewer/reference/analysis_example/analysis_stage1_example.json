@@ -1,0 +1,25 @@
+{
+  "rules_applied": 17,
+  "rules_related": 4,
+  "rules_violated": 0,
+  "selfCheck": {
+    "COM-001": "不涉及",
+    "JAVA-SEC-001": "通过",
+    "JAVA-SEC-002": "通过",
+    "JAVA-CON-001": "通过",
+    "JAVA-CODE-001": "通过",
+    "JAVA-CODE-002": "不涉及",
+    "JAVA-CODE-003": "通过",
+    "JAVA-CODE-004": "不涉及",
+    "JAVA-CODE-005": "通过",
+    "JAVA-CODE-006": "不涉及",
+    "JAVA-CODE-007": "通过",
+    "JAVA-CODE-008": "不涉及",
+    "JAVA-PERF-001": "通过",
+    "JAVA-PERF-002": "通过",
+    "JAVA-PERF-003": "通过",
+    "JAVA-ARCH-001": "不涉及",
+    "JAVA-COM-001": "不涉及"
+  },
+  "violation_details": []
+}
