@@ -23,6 +23,7 @@
 | Skill | Description |
 |-------|-------------|
 | [deep-research](./deep-research) | 由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式 |
+| [ds-mr-reviewer](./ds-mr-reviewer) | MR代码检视工具 |
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [humanizer-zh](./humanizer-zh) | 去除文本中的 AI 生成痕迹 |
