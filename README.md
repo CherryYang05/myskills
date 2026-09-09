@@ -20,16 +20,15 @@
 
 ## 二、已收录的 Skills
 
-| Skill | Description |
-|-------|-------------|
+| Skill | 简介 |
+|-------|------|
 | [deep-research](./deep-research) | 由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式 |
 | [ds-mr-reviewer](./ds-mr-reviewer) | MR代码检视工具 |
 | [dt-case-enhancer](./dt-case-enhancer) | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [humanizer-zh](./humanizer-zh) | 去除文本中的 AI 生成痕迹 |
-| [humanizer](./humanizer) | Rewrite AI-sounding text so it reads naturally without… |
+| [humanizer](./humanizer) | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
 | [skill-blog-writer](./skill-blog-writer) | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
-| [skill-creator](./skill-creator) | Create new skills, modify and improve existing skills, and… |
+| [skill-creator](./skill-creator) | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
 | [skill-dev-flow](./skill-dev-flow) | 固化 Agent 驱动的完整开发流程 |
 | [skill-dev-sop](./skill-dev-sop) | 固化 Agent 驱动的通用软件开发标准流程 |
 | [skill-iterate](./skill-iterate) | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |

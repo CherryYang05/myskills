@@ -9,6 +9,13 @@ import re, subprocess
 from pathlib import Path
 
 
+# README 使用独立的中文概括；各 skill 的触发描述仍由 SKILL.md 维护。
+README_SUMMARIES = {
+    "humanizer": "识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。",
+    "skill-creator": "创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。",
+}
+
+
 def repo_root():
     r = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True)
     if r.returncode == 0 and r.stdout.strip():
@@ -50,12 +57,6 @@ def read_desc(skill_md):
         desc = raw.strip("\"'")
 
     first = re.split(r"[。！？]|——|\.\s|;\s", desc)[0].strip().rstrip("，,、；; ")
-    if len(first) > 60:
-        cut = first[:60]
-        m2 = re.search(r"^(.*[\s，,、；;])\S+$", cut)
-        if m2 and len(m2.group(1).strip()) >= 20:
-            cut = m2.group(1)
-        first = cut.rstrip("，,、；; ") + "…"
     return first
 
 
@@ -64,9 +65,12 @@ def skill_dirs(root):
 
 
 def build_table(root):
-    rows = ["| Skill | Description |", "|-------|-------------|"]
+    rows = ["| Skill | 简介 |", "|-------|------|"]
     for n in skill_dirs(root):
-        rows.append(f"| [{n}](./{n}) | {read_desc(root / n / 'SKILL.md')} |")
+        desc = README_SUMMARIES.get(n)
+        if desc is None:
+            desc = read_desc(root / n / "SKILL.md")
+        rows.append(f"| [{n}](./{n}) | {desc} |")
     return "\n".join(rows)
 
 
