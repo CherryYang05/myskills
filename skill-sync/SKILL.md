@@ -1,17 +1,43 @@
 ---
 name: skill-sync
-description: 在 Agent 对话中同步本地 Agent Skills 与 GitHub 仓库。~/.claude/skills 本身是 git 工作树，用原生 git 推送/拉取/查看差异，并自动维护仓库 README。当用户说"同步 skill""推送 skill 到 github""把这个 skill 推上去""拉取远端 skill""看看本地和仓库的差别""列出仓库 skills""安装 skills 仓库"时触发。
+description: 在 Agent 对话中安装、更新 Agent Skills，或同步 skill 源码与 GitHub 仓库。使用 npx skills 管理安装，用原生 git 推送、拉取和查看源码差异，并自动维护仓库 README。当用户说"同步 skill""推送 skill 到 github""把这个 skill 推上去""拉取远端 skill""看看本地和仓库的差别""列出仓库 skills""安装 skills 仓库""更新 skills"时触发。
 ---
 
 # skill-sync
 
-`~/.claude/skills` 是 GitHub 仓库的 **git 工作树**，多机之间用**原生 git** 同步。Claude Code 与 OpenCode 都直接读取该目录，一份源两个工具共用。
+使用 `npx skills` 安装和更新技能；在 Git 源码工作树中维护技能、生成 README 并推送到 GitHub。安装位置由 CLI 根据所选 Agent 和安装范围管理，不能默认把安装目录当作源码仓库。
 
-**本 skill 不封装同步逻辑**——同步就是几条 git 命令，由 Agent 直接执行；唯一的脚本 `scripts/gen_readme.py` 只做 git 不做的事（生成仓库 README）。
+默认安装源为 `CherryYang05/myskills`；用户指定其他仓库时，替换为实际的 `owner/repo`。所需环境为 Node.js、npm 和 Git。
 
-约定：下文 `$D` 代表 skills 目录（Claude Code 默认 `~/.claude/skills`，即本仓库根）。
+## 安装与更新
 
-## 同步命令（原生 git）
+```bash
+# 查看仓库中可安装的 skills
+npx skills add CherryYang05/myskills --list
+
+# 全局安装，按提示选择 skill 和 Agent
+npx skills add CherryYang05/myskills --global
+
+# 仅安装指定 skill
+npx skills add CherryYang05/myskills --skill ds-mr-reviewer --global
+
+# 为 Claude Code 和 OpenCode 安装全部 skills
+npx skills add CherryYang05/myskills --skill '*' --agent claude-code opencode --global
+
+# 查看已安装的全局 skills
+npx skills list --global
+
+# 更新指定的全局 skill
+npx skills update ds-mr-reviewer --global
+```
+
+`--skill` 匹配 `SKILL.md` 的 `name` 字段，以 `--list` 显示的名称为准。项目级安装需在目标项目目录中运行 `add` 并去掉 `--global`；更新项目级技能使用 `npx skills update <name> --project`。`npx skills update --global` 会更新 CLI 管理的所有全局 skills，包含其他仓库的技能，仅在用户需要这一范围时使用。
+
+更新或重新安装前，检查目标安装目录是否有用户修改；先保存需要保留的内容。若用户要把安装目录中的修改推回 GitHub，先与源码工作树比较，再将指定 skill 的改动同步到源码中提交。
+
+## 源码同步（原生 git）
+
+下文 `$D` 代表已验证的源码仓库根目录。先查找已有工作树，通过 `git -C "$D" rev-parse --show-toplevel` 和 `git -C "$D" remote -v` 确认路径与远端。若尚未克隆，将仓库克隆到独立开发目录，例如 `~/code/myskills`，再设置 `$D`。已有位于 `~/.claude/skills` 的 Git 工作树可继续作为源码维护；迁移安装方式时先保留本地修改，不要对已有技能目录执行 `git reset --hard`。
 
 ```bash
 # 看本地未提交的改动
@@ -34,7 +60,7 @@ git -C $D pull
 ls $D
 ```
 
-提交时 pre-commit 钩子会自动刷新 README（启用一次：`git -C $D config core.hooksPath skill-sync/hooks`）；也可手动刷新：`python $D/skill-sync/scripts/gen_readme.py`。
+提交时 pre-commit 钩子会自动刷新 README（在源码工作树中启用一次：`git -C "$D" config core.hooksPath skill-sync/hooks`）；也可手动刷新：`python3 "$D/skill-sync/scripts/gen_readme.py"`。推送后，用 `npx skills update <name> --global` 更新相应的全局安装，项目级安装改用 `--project`。
 
 ## Agent 行为准则（重要）
 
@@ -46,8 +72,10 @@ ls $D
 
 ## README 维护
 
-仓库 `README.md` 三段（安装提示词 / Skills 表格 / 注意事项）由 `scripts/gen_readme.py` 生成，pre-commit 钩子自动调用，无需手改。新增/删除 skill 后提交时表格会自动更新。
+仓库 `README.md` 的安装说明、Skills 表格及更新与维护说明由 `scripts/gen_readme.py` 整体生成。修改说明时编辑脚本模板；新增/删除 skill 后生成表格。脚本中的中文简介覆盖项用于提供完整概括，其余简介取自各 `SKILL.md`。
+
+运行源码工作树中的脚本；通过 CLI 安装的 `skill-sync` 目录不包含完整仓库，脚本会拒绝在该目录中生成 README。pre-commit 钩子仅在源码工作树中启用。
 
 ## 多机安装
 
-把仓库 `README.md` 第一段「安装」的提示词发给新机器上的 Agent 即可——它会把仓库设为该机 `~/.claude/skills` 的工作树并启用钩子。OpenCode 无需额外配置（它会自动识别 `~/.claude/skills`）。
+在新机器上执行 `npx skills add CherryYang05/myskills --global`，选择需要的技能与 Agent。后续用 `npx skills update <name> --global` 更新已安装的技能；需要开发时另行准备源码工作树。

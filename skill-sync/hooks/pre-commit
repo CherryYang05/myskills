@@ -1,5 +1,5 @@
 #!/bin/sh
-# 提交前自动刷新仓库 README（Skills 表格等三段）。
+# 提交前自动刷新仓库 README（安装说明、Skills 表格与维护说明）。
 # 启用方式（每台机器一次）：git config core.hooksPath skill-sync/hooks
 root="$(git rev-parse --show-toplevel)" || exit 0
 cd "$root" || exit 0
