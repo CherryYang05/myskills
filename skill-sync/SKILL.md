@@ -72,7 +72,7 @@ ls $D
 
 ## README 维护
 
-仓库 `README.md` 的安装说明、Skills 表格及更新与维护说明由 `scripts/gen_readme.py` 整体生成。修改说明时编辑脚本模板；新增/删除 skill 后生成表格。脚本中的中文简介覆盖项用于提供完整概括，其余简介取自各 `SKILL.md`。Skills 表格必须包含“来源”列：本仓库原创内容标记为“自研”；基于外部 GitHub 仓库引入、翻译或改编的 Skill 标记为带上游链接的“外部参考”。Skill 名称必须链接到本仓库对应 Skill 目录。外部来源统一维护在 `scripts/gen_readme.py` 的 `EXTERNAL_SOURCES` 映射中；新增、删除或更换外部上游时同步更新该映射。
+仓库 `README.md` 的安装说明、Skills 表格及更新与维护说明由 `scripts/gen_readme.py` 整体生成。修改说明时编辑脚本模板；新增/删除 skill 后生成表格。脚本中的中文简介覆盖项用于提供完整概括，其余简介取自各 `SKILL.md`。Skills 表格必须包含“来源”和“同步版本”列：本仓库原创内容标记为“自研”，同步版本显示“—”；基于外部 GitHub 仓库引入、翻译、封装或改编的 Skill 标记为带上游链接的“外部参考”，并显示当前仓库实际同步到的上游版本。上游有正式版本号时记录版本号；没有正式版本号时记录对应的上游 commit 短 SHA。Skill 名称必须链接到本仓库对应 Skill 目录。外部来源和同步版本统一维护在 `scripts/gen_readme.py` 的 `EXTERNAL_SOURCES` 映射中；新增、删除、更换外部上游或同步上游更新时必须同步更新该映射并重新生成 README。不得把“latest”作为同步版本，因为它无法证明仓库内容对应哪个具体上游状态。
 
 运行源码工作树中的脚本；通过 CLI 安装的 `skill-sync` 目录不包含完整仓库，脚本会拒绝在该目录中生成 README。pre-commit 钩子仅在源码工作树中启用。
 
