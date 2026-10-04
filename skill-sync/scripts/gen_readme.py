@@ -91,7 +91,7 @@ def build_table(root):
             desc = read_desc(root / n / "SKILL.md")
         source_info = EXTERNAL_SOURCES.get(n)
         source = f"[外部参考]({source_info['url']})" if source_info else "自研"
-        version = f"\`{source_info['version']}\`" if source_info else "—"
+        version = f"`{source_info['version']}`" if source_info else "—"
         rows.append(f"| [{n}](./{n}) | {source} | {version} | {desc} |")
     return "\n".join(rows)
 
