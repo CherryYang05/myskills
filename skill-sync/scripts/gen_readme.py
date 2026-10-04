@@ -18,9 +18,18 @@ README_SUMMARIES = {
 # 仅登记基于外部 GitHub 项目引入、翻译或改编的 Skill。
 # 未登记的 Skill 默认视为本仓库自研；新增外部 Skill 时必须同时补充此映射。
 EXTERNAL_SOURCES = {
-    "deep-research": "https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research",
-    "humanizer": "https://github.com/blader/humanizer",
-    "skill-creator": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+    "deep-research": {
+        "url": "https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research",
+        "version": "v2.11.1",
+    },
+    "humanizer": {
+        "url": "https://github.com/blader/humanizer",
+        "version": "v3.1.0",
+    },
+    "skill-creator": {
+        "url": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+        "version": "b9e19e6",
+    },
 }
 
 
@@ -75,14 +84,15 @@ def skill_dirs(root):
 
 
 def build_table(root):
-    rows = ["| Skill | 来源 | 简介 |", "|-------|------|------|"]
+    rows = ["| Skill | 来源 | 同步版本 | 简介 |", "|-------|------|----------|------|"]
     for n in skill_dirs(root):
         desc = README_SUMMARIES.get(n)
         if desc is None:
             desc = read_desc(root / n / "SKILL.md")
-        source_url = EXTERNAL_SOURCES.get(n)
-        source = f"[外部参考]({source_url})" if source_url else "自研"
-        rows.append(f"| [{n}](./{n}) | {source} | {desc} |")
+        source_info = EXTERNAL_SOURCES.get(n)
+        source = f"[外部参考]({source_info['url']})" if source_info else "自研"
+        version = f"\`{source_info['version']}\`" if source_info else "—"
+        rows.append(f"| [{n}](./{n}) | {source} | {version} | {desc} |")
     return "\n".join(rows)
 
 
@@ -152,7 +162,7 @@ git config core.hooksPath skill-sync/hooks
 
 已有源码工作树可以继续使用。源码通过 `git add`、`git commit`、`git push` 推送，拉取远端修改使用 `git pull`；提交后再用 `npx skills update` 更新本机已安装的技能。
 
-- 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址维护在 `EXTERNAL_SOURCES` 中，未登记项默认标记为“自研”。
+- 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址和当前同步版本维护在 `EXTERNAL_SOURCES` 中，未登记项默认标记为“自研”。有正式版本号时记录版本号；没有版本号时记录已同步的上游 commit 短 SHA。
 - 在源码仓库中运行 `python3 skill-sync/scripts/gen_readme.py` 可手动刷新 README；启用上述 pre-commit 钩子后，每次提交会自动刷新。
 - 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
 - 完整安装、同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
