@@ -32,20 +32,20 @@ npx skills add CherryYang05/myskills --skill '*' --agent claude-code opencode --
 
 ## 二、已收录的 Skills
 
-| Skill | 来源 | 简介 |
-|-------|------|------|
-| [deep-research](./deep-research) | [外部参考](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) | 由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式 |
-| [ds-mr-reviewer](./ds-mr-reviewer) | 自研 | MR代码检视工具 |
-| [dt-case-enhancer](./dt-case-enhancer) | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
-| [dt-case-generator](./dt-case-generator) | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [humanizer](./humanizer) | [外部参考](https://github.com/blader/humanizer) | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
-| [skill-blog-writer](./skill-blog-writer) | 自研 | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
-| [skill-creator](./skill-creator) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
-| [skill-dev-flow](./skill-dev-flow) | 自研 | 固化 Agent 驱动的完整开发流程 |
-| [skill-dev-sop](./skill-dev-sop) | 自研 | 固化 Agent 驱动的通用软件开发标准流程 |
-| [skill-iterate](./skill-iterate) | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
-| [skill-os-setup](./skill-os-setup) | 自研 | 用于维护 EasyNewOS 仓库 |
-| [skill-sync](./skill-sync) | 自研 | 在 Agent 对话中安装、更新 Agent Skills，或同步 skill 源码与 GitHub 仓库 |
+| Skill | 来源 | 同步版本 | 简介 |
+|-------|------|----------|------|
+| [deep-research](./deep-research) | [外部参考](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) | `v2.11.1` | 由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式 |
+| [ds-mr-reviewer](./ds-mr-reviewer) | 自研 | — | MR代码检视工具 |
+| [dt-case-enhancer](./dt-case-enhancer) | 自研 | — | 使用CodeAgent对已有DT用例进行增强补齐 |
+| [dt-case-generator](./dt-case-generator) | 自研 | — | 使用CodeAgent生成DT(开发者自测试)用例 |
+| [humanizer](./humanizer) | [外部参考](https://github.com/blader/humanizer) | `v3.1.0` | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
+| [skill-blog-writer](./skill-blog-writer) | 自研 | — | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
+| [skill-creator](./skill-creator) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | `b9e19e6` | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
+| [skill-dev-flow](./skill-dev-flow) | 自研 | — | 固化 Agent 驱动的完整开发流程 |
+| [skill-dev-sop](./skill-dev-sop) | 自研 | — | 固化 Agent 驱动的通用软件开发标准流程 |
+| [skill-iterate](./skill-iterate) | 自研 | — | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
+| [skill-os-setup](./skill-os-setup) | 自研 | — | 用于维护 EasyNewOS 仓库 |
+| [skill-sync](./skill-sync) | 自研 | — | 在 Agent 对话中安装、更新 Agent Skills，或同步 skill 源码与 GitHub 仓库 |
 
 ## 三、更新与管理
 
@@ -74,7 +74,7 @@ git config core.hooksPath skill-sync/hooks
 
 已有源码工作树可以继续使用。源码通过 `git add`、`git commit`、`git push` 推送，拉取远端修改使用 `git pull`；提交后再用 `npx skills update` 更新本机已安装的技能。
 
-- 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址维护在 `EXTERNAL_SOURCES` 中，未登记项默认标记为“自研”。
+- 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址和当前同步版本维护在 `EXTERNAL_SOURCES` 中，未登记项默认标记为“自研”。有正式版本号时记录版本号；没有版本号时记录已同步的上游 commit 短 SHA。
 - 在源码仓库中运行 `python3 skill-sync/scripts/gen_readme.py` 可手动刷新 README；启用上述 pre-commit 钩子后，每次提交会自动刷新。
 - 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
 - 完整安装、同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
