@@ -288,7 +288,7 @@ ARS 流水线分 6 个阶段运行。两种调用模式：
 
 路由至模式 B 需要明确的用户信号——`/ars-<mode>` 斜杠命令或 `[direct-mode]` 前缀。含糊的跨阶段输入默认进入澄清流程（依据 `.claude/CLAUDE.md` 路由纪律 + `shared/references/intent_clarification_protocol.md`）。
 
-**强制执行 (v3.9.2)：** Bucket A Agent 的阶段边界阻断 + 咨询验证器（本 skill 仅含提示层防护，脚本层执行需依赖外部编排环境）+ hook 启用运行时中的确定性 PreToolUse 写入范围守卫 (#134 rescope, PR #294)。多阶段封套保持前向范围 (#134 Slices 3-5)。
+**强制执行 (v3.9.2)：** Bucket A Agent 的阶段边界阻断 + 咨询验证器（本 skill 仅含提示层防护，脚本层执行需依赖外部编排环境）+ 仅在安装了相应 hook、且 Bucket A 角色以其独立 Agent 类型作为子 Agent 调度时生效的 PreToolUse 写入范围守卫；在主会话中内联运行时，默认仅由提示词中的阶段边界约束提供保护（#973），不可把 hook 的保护范围表述为覆盖所有执行路径 (#134 rescope, PR #294)。多阶段封套保持前向范围 (#134 Slices 3-5)。
 
 ---
 
