@@ -137,6 +137,7 @@ DISTRIBUTIONAL_SKEW_ADVISORY:
 - **主要发现**：[2-3 个主要发现]
 - **方法论**：[简要方法描述]
 - **质量**：[优势与局限]
+- **方法学弱点**：[遵守 `references/method_weaknesses.md`；证据不足时标记 `not assessed (read scope: ...)`]
 - **贡献**：[对我们理解的增量]
 ```
 
@@ -420,6 +421,7 @@ v3.9.0 将 contamination_signals 从单索引（Semantic Scholar）扩展为三�
    - Relevance: ...
    - Key Findings: ...
    - Quality: Level [I-VII]
+   - Method weaknesses: ...（仅在有充分原文证据时填写）
 
 2. ...
 

@@ -108,7 +108,7 @@ User Input
 |------|------|
 | **适用场景** | 需要系统的文献搜索和综合分析，但不需要完整的研究报告 |
 | **不适用** | 需要带有原创分析的完整报告；仅需验证少量事实；需要方法论设计 |
-| **典型用户** | 正在撰写论文文献综述章节的研究生、进行系统性综述的研究团队、课程作业 |
+| **典型用户** | 正在撰写论文文献综述章节的研究生、课程作业（系统性综述应由研究者明确选择 `systematic-review` 模式） |
 | **预期产出** | 附注参考文献列表 + 综合分析（1,500-4,000词），包括主题分类、证据矩阵、研究空白 |
 | **预期对话轮次** | 1-2轮（确认搜索范围） |
 | **激活的 Agent** | 3 个（Biblio + Verification + Synthesis） |
@@ -118,7 +118,6 @@ User Input
 ```
 "Literature review on SDGs in higher education"
 "Literature review: the evolution of quality assurance in Taiwan's higher education"
-"Systematic review of AI-assisted assessment"
 ```
 
 ---
@@ -128,7 +127,7 @@ User Input
 | 项目 | 说明 |
 |------|------|
 | **适用场景** | 需要以稳定的 WHY/HOW/WHAT 框架进行论文筛选对比，比完整文献综述更轻量 |
-| **不适用** | 需要完整的证据矩阵、主题综合或 PRISMA 级覆盖（请升级至 `lit-review` / `systematic-review`）；需要验证特定事实（`fact-check`） |
+| **不适用** | 需要完整的证据矩阵或主题综合（请升级至 `lit-review`）；PRISMA 系统性综述仅在研究者明确选择后进入 `systematic-review`；需要验证特定事实（`fact-check`） |
 | **典型用户** | 探索新领域的研究人员、筛选阅读清单的学生、任何需要决定深入阅读哪些论文的人 |
 | **预期产出** | 逐篇 WHY/HOW/WHAT 筛选 + 跨论文综合（共同 WHY、分歧 HOW、最强 WHAT、未解决空白）（800-2,000词） |
 | **预期对话轮次** | 1-2轮（确认候选论文集） |
@@ -238,7 +237,7 @@ User Input
 socratic → full              苏格拉底模式完成后继续进行完整研究
 socratic → academic-paper    苏格拉底模式完成后直接撰写论文
 lit-review → full            文献综述后需要完整分析
-lit-review → systematic-review  初步文献调研后需要正式 PRISMA 合规
+lit-review → systematic-review  研究者在初步调研后明确选择系统性综述（不能由系统自动升级）
 fact-check → full            事实核查后需要更深入研究
 quick → full                 快速研究后发现值得深入
 review → full                审查后需要重新研究

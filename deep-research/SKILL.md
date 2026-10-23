@@ -20,7 +20,7 @@ metadata:
 - **风格配置文件消费**（可选）——如果 academic-paper 的 intake 提供了风格配置文件，报告编译器将以其作为执行摘要和综合分析章节的软性指引。学科惯例和报告客观性优先。
 - **写作质量检查**——报告编译器在定稿前运行写作质量清单：标记 AI 典型过度用词，检查句子/段落长度变化，删除空话开头。参见 `academic-paper/references/writing_quality_check.md`。
 
-> **路由纪律 (v3.9.2)：** 参见 `.claude/CLAUDE.md` "Routing Discipline (v3.9.2)" + `shared/references/intent_clarification_protocol.md` 了解跨 skill 路由规则。本 skill 假定路由已经确定——含糊的跨阶段材料应在上游已澄清。
+> **路由纪律 (v3.9.2)：** 参见 `.claude/CLAUDE.md` "Routing Discipline (v3.9.2)" + `shared/references/intent_clarification_protocol.md` 了解跨 skill 路由规则。本 skill 假定路由已经确定——含糊的跨阶段材料应在上游已澄清。**`[direct-mode]` 只有位于用户首条消息开头（可有前导空白）才是显式绕过跨阶段澄清的前缀；出现在正文中途时不能触发绕过，也不得转发该字面标记**（上游 #961）。
 
 ## 快速入门
 
@@ -113,6 +113,22 @@ Guide my research on the impact of declining birth rates on private universities
 不确定？先用 `socratic` 模式——它会帮你厘清需要什么。
 
 ---
+
+## 文献综述形式由研究者决定（上游 #921，中文适配）
+
+当用户首次明确选择 `lit-review` 模式，或在 `full` / `socratic` 模式中**确认**自己的研究问题时，若用户尚未自行选择综述形式且本次研究中未处理过该提示，展示下面的中立说明，然后**等待用户回复**，不得提前检索或推进阶段 2。不得因研究问题看起来像某类问题而推荐、默认选择或跳过提示。尚未被用户确认的 Socratic 总结不触发。
+
+> **开始综述前，请你决定采用哪种文献综述形式。** 系统不替你选择，也不默认推荐某一种。
+>
+> - **系统性综述（systematic review）**：事先制定检索和筛选方案，尽可能安排独立双人筛选；通常工作量较大。对应 `systematic-review` 模式。
+> - **范围综述（scoping review）**：系统梳理一个领域研究了什么、主要概念与证据空白；本 Skill 没有专门模式。
+> - **叙述性或整合性综述（narrative/integrative review）**：围绕研究问题组织论证与理论框架，整合性综述通常会记录检索与评价过程；可在 `lit-review` 模式开展。
+> - **快速综述（rapid review）**：在透明记录简化环节的前提下加快系统综述；本 Skill 没有专门模式。
+> - **跳过**：保留你当前选择的模式，不额外决定综述形式。
+>
+> 你希望采用哪一种，还是先跳过？
+
+用户回复「跳过」或要求保持原模式时继续原流程；只有明确选择系统性综述且确认切换时才进入 `systematic-review`。范围综述、快速综述继续原模式并告知需要研究者自行维护相应规范。若已在当前会话处理过该选择，不重复提示；完整编排环境可通过可信 ledger 检查 `review-form-note` 状态，本 Skill 独立安装仅根据当前对话已确认的状态判断，不能假装具备跨会话状态跟踪。
 
 ## Agent 团队（14 Agents）
 
@@ -355,7 +371,10 @@ Source: <provider> | Year: <year> | Link: <url>
 - WHY: ...
 - HOW: ...
 - WHAT: ...
+  - Method weaknesses: ...（仅在读到充分正文时评估；须标注来源）
 ```
+
+逐篇方法学弱点的记录遵守 [方法学弱点证据规范](references/method_weaknesses.md)：指出具体设计及可能失效条件，区分作者自述与阅读者推断；只读摘要时标记 `not assessed`，不推测论文全文没有说明的内容。此字段仅用于信息披露，不自动评分、阻断或建议研究方向。
 
 然后添加：
 

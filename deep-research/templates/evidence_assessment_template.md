@@ -44,10 +44,11 @@
 - **研究设计**: [description]
 - **样本**: [size, selection, representativeness]
 - **分析方法**: [appropriate for design?]
-- **局限性是否承认**: [Yes / Partially / No]
+- **局限性是否承认**: [Yes / Partially / No（列出实际核对章节）/ not assessed (read scope: ...)]
+- **方法学弱点**: [参照 `references/method_weaknesses.md`；逐条标注来源与阅读范围，证据不足写 not assessed]
 - **可重复性**: [Yes / Partially / No]
 
-**方法评级**: [Excellent / Good / Adequate / Weak / Flawed]
+**方法评级**: [Excellent / Good / Adequate / Weak / Flawed / Not assessed (read scope: ...)]
 
 #### 5. 时效性
 - **出版年份**: [YYYY]
@@ -87,6 +88,10 @@
 ### 备注
 [Any additional observations, caveats, or context]
 ```
+
+## 方法学弱点补充规则（上游 #916）
+
+详见 `references/method_weaknesses.md`。每条记录都要注明已阅读范围、具体设计或测量选择、导致偏差的条件、以及 `author-acknowledged`（带原文位置）或 `reader-inferred`（未经验证的推断）标签。仅有摘要或目录时输出 `not assessed (read scope: abstract_only/toc_only/unknown)`。此信息字段不改变既有证据等级或方法评级门控。
 
 ## 批量评估摘要
 
