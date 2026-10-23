@@ -10,9 +10,11 @@
 
 ## 目的
 
-为 v3.9.0 跨索引三角验证 (cross-index triangulation) 提供第三个书目索引查询，依据规范 v3.9.0 §3.5。Crossref 是 DOI 的权威注册机构——对带有 DOI 的期刊文章覆盖最强。专著 (monograph) / 章节 (chapter) 覆盖不完整（取决于出版商参与度）。v3.9.0 将 `crossref_unmatched` 作为三个信号之一暴露，依据 R-L3-2-A 处理（默认为咨询性质；用户启用的 `contamination_triangulation` 严格策略可将 k=3 三角验证信号提升为终端阻断——参见 `shared/references/firm_rules.md`）。
+为 v3.9.0 跨索引三角验证 (cross-index triangulation) 提供第三个书目索引查询，依据规范 v3.9.0 §3.5。Crossref 是 DOI 注册机构（Registration Agency）之一，并不代表整个 DOI 系统。中文文献 DOI 还可能由 ISTIC 或 CNKI 注册，Crossref 查询未命中不能单独作为文献不存在或伪造的证据。专著 (monograph) / 章节 (chapter) 覆盖不完整（取决于出版商参与度）。v3.9.0 将 `crossref_unmatched` 作为三个信号之一暴露，依据 R-L3-2-A 处理（默认为咨询性质；用户启用的 `contamination_triangulation` 严格策略可将 k=3 三角验证信号提升为终端阻断——参见 `shared/references/firm_rules.md`）。
 
 结构与 `semantic_scholar_api_protocol.md` 和 `openalex_api_protocol.md` 保持一致。
+
+> **中文 DOI 兼容性（上游 #595）**：优先核对 DOI 的注册机构（例如 DOI RA 查询）；对 ISTIC/CNKI 文献需另行确认原始中文题名、刊名及标识符。仅能确认 DOI 存在时，应记录「标识符存在，书目信息未证实」，不得自动判定标题匹配。参见 [中文文献核验协议](chinese_literature_api_protocol.md)。本仓库未包含上游 `chinese_literature_client.py`，该协议仅供手动/编排层核验，不能宣称已接入自动验证门控。
 
 ## 查询模式
 

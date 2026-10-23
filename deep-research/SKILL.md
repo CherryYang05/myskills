@@ -594,12 +594,16 @@ deep-research (systematic-review) + academic-paper -> PRISMA 系统性综述论�
 
 | 项目 | 内容 |
 |------|------|
-| Skill 版本 | 2.11.0 |
+| Skill 版本 | 2.11.1（上游基线；含选择性修复，见本地同步说明） |
 | 最后更新 | 2026-07-11 |
 | 维护者 | Cheng-I Wu |
 | 依赖 Skill | academic-paper v1.0+（下游） |
 
 ---
+
+## 本地上游同步说明
+
+本仓库保留中文定制和独立安装降级策略。上游基线仍为 `v2.11.1`；部分安全与 Socratic 修复已选择性移植，**尚未完成对上游 `deep-research` 2.12.1 的全量同步**。参见 [本地同步记录](references/local_sync_notes.md)。缺失的 `academic-pipeline/`、`shared/` 与可信脚本需要单独集成和验证。
 
 ## 版本历史
 

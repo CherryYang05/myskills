@@ -21,6 +21,13 @@ EXTERNAL_SOURCES = {
     "deep-research": {
         "url": "https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research",
         "version": "v2.11.1",
+        # 仅记录已选择性移植的上游修复；不能据此声称完整同步到这些提交。
+        "selected_fixes": {
+            "c6222bb914a0": "Schema 1 FINER 与 scope 对齐（部分）",
+            "08046bd744c6": "可信 ledger 读取约束（提示层适配）",
+            "a3ef8c79d888": "Hook 写入边界说明（部分）",
+            "3224a27a2571": "Socratic 非生成边界与必需材料阻断（中文适配）",
+        },
     },
     "humanizer": {
         "url": "https://github.com/blader/humanizer",

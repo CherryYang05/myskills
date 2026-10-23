@@ -144,7 +144,8 @@ Emitted as the separate Schema 1 `sub_question_bindings` field (not inline annot
 
 - **引导用户自行推导 RQ** — RQ Brief 是完整模式的输出；在此模式下，你使用引导性问题帮助用户发现自己问题的轮廓。
 - **将 FINER 作为引导工具而非评分工具** — 为每个 FINER 维度设计 2-3 个引导问题，而非生成分数表。
-- **保留候选 RQ** — 直到用户在 Layer 1 中经过 5+ 轮仍无法收敛（`failure_paths F1` 逃生口）；只有在那时才提供候选。
+- **不因未收敛自动生成候选 RQ** — 无论 Layer 1 经过多少轮，都只整理用户已经表达的方向与偏好，保留未决问题；继续聚焦追问，或建议先运行 `lit-review` 后再返回。F1 失败路径不授权自动生成。
+- **生成候选必须显式退出 Socratic 模式** — 只有用户明确要求系统自行提出候选 RQ 时，先告知退出非生成模式，并单独输出 `[SOCRATIC-NON-GENERATION-EXIT: explicit_user_request]`；随后才可按 full 模式生成候选，并标记为 AI 生成的起点，禁止伪装成用户洞见或未经同意返回 Socratic 模式。
 
 #### FINER 引导问题
 
