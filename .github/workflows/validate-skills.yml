@@ -39,10 +39,20 @@ jobs:
           print(f"Validated {len(skills)} skills, {len(sources)} external source records")
           PY
       - name: Validate external SKILL.md frontmatter
+        shell: bash
         run: |
-          python skill-creator/scripts/quick_validate.py deep-research
-          python skill-creator/scripts/quick_validate.py humanizer
-          python skill-creator/scripts/quick_validate.py skill-creator
+          python - <<'PY'
+          import importlib.util
+          import subprocess
+          import sys
+          from pathlib import Path
+          root = Path.cwd()
+          spec = importlib.util.spec_from_file_location("gen_readme", root / "skill-sync/scripts/gen_readme.py")
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          for name in sorted(module.EXTERNAL_SOURCES):
+              subprocess.run([sys.executable, "skill-creator/scripts/quick_validate.py", name], check=True)
+          PY
       - name: Check README generation is reproducible
         run: |
           python3 skill-sync/scripts/gen_readme.py
