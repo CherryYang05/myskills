@@ -81,6 +81,18 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(plan['status'], 'up_to_date')
         self.assertFalse(plan['report_changed'])
 
+    def test_monthly_health_is_stable_within_a_month(self):
+        plans = [(self.plan(self.before), self.before, self.before)]
+        sync.record_monthly_health(self.root, plans, '2026-11')
+        path = self.root / 'docs/upstream-reports/health.json'
+        original = path.read_bytes()
+        changed = copy.deepcopy(plans)
+        changed[0][0]['commit'] = 'e' * 40
+        sync.record_monthly_health(self.root, changed, '2026-11')
+        self.assertEqual(path.read_bytes(), original)
+        sync.record_monthly_health(self.root, changed, '2026-12')
+        self.assertNotEqual(path.read_bytes(), original)
+
     def test_policy_change_reconsiders_previously_reported_candidate(self):
         review = copy.deepcopy(self.info)
         review['sync']['mode'] = 'review'

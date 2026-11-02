@@ -82,6 +82,6 @@ ls $D
 
 ## GitHub 自动检查上游
 
-源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 21:00 检查 `upstreams.json`。mirror 策略只有在本地文件及权限与 `synced_commit` 一致时才生成更新候选；review 策略只生成报告，不能把 `last_reported` 当成已同步版本。任务只创建 PR，不自动合并。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
+源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 21:00 检查 `upstreams.json`。mirror 策略只有在本地文件及权限与 `synced_commit` 一致时才生成更新候选；review 策略只生成报告，不能把 `last_reported` 当成已同步版本。任务创建机器人候选 PR，派发只读完整校验，确认相同提交成功且主分支未前进后自动合并；不会自动合并其他 PR。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
 
 通过 marketplace 安装到本机 Codex 的技能，需单独刷新来源；更新 GitHub 仓库不等于更新 ChatGPT 个人空间手动上传的技能。

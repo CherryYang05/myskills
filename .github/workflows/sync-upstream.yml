@@ -6,13 +6,14 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: Inspect only; do not create a pull request
+        description: Inspect only; do not create or merge a pull request
         type: boolean
         default: false
   pull_request:
     paths:
       - '.github/workflows/sync-upstream.yml'
       - 'skill-sync/scripts/sync_upstream.py'
+      - 'skill-sync/scripts/auto_merge_upstream.py'
       - 'skill-sync/upstreams.json'
 
 permissions:
@@ -49,6 +50,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write # Dispatch read-only validation for the candidate commit.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -73,7 +75,7 @@ jobs:
           paths = list(config) + ['skill-sync/upstreams.json', 'README.md', '.agents/plugins/marketplace.json', 'docs/upstream-reports']
           subprocess.run(['git', 'add', '--', *[p for p in paths if Path(p).exists()]], check=True)
           PY
-      - name: Create one review PR per candidate diff
+      - name: Create candidate PR, validate its exact commit, and merge
         env:
           GH_TOKEN: ${{ github.token }}
           BASE_BRANCH: ${{ github.event.repository.default_branch }}
@@ -86,11 +88,21 @@ jobs:
             echo 'No new skill changes or reports.' >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+          base_sha=$(git rev-parse HEAD)
           digest=$(git diff --cached --binary | sha256sum | cut -c1-16)
-          branch="automation/upstream-$digest"
+          branch="automation/upstream-${base_sha:0:12}-$digest"
           existing=$(gh pr list --repo "$REPOSITORY" --state all --head "$branch" --json url --jq '.[0].url // empty')
           if [ -n "$existing" ]; then
-            echo "Candidate already has a PR: $existing" >> "$GITHUB_STEP_SUMMARY"
+            state=$(gh pr view "$existing" --repo "$REPOSITORY" --json state --jq '.state')
+            if [ "$state" = OPEN ]; then
+              git fetch origin "$branch"
+              test "$(git write-tree)" = "$(git rev-parse 'FETCH_HEAD^{tree}')"
+              head_sha=$(git rev-parse FETCH_HEAD)
+              number=$(gh pr view "$existing" --repo "$REPOSITORY" --json number --jq '.number')
+              python3 skill-sync/scripts/auto_merge_upstream.py --pr "$number" --branch "$branch" --head "$head_sha" --base-sha "$base_sha"
+            else
+              echo "Candidate PR is already $state: $existing" >> "$GITHUB_STEP_SUMMARY"
+            fi
             exit 0
           fi
           git switch -c "$branch"
@@ -106,13 +118,16 @@ jobs:
           import os
           from pathlib import Path
           report = json.loads((Path(os.environ['RUNNER_TEMP']) / 'upstream-report.json').read_text())
-          lines = ['Automatically prepared upstream candidates. No automatic merge.', '', '| Skill | Result | File differences |', '|---|---|---|']
+          lines = ['Automatically prepared upstream candidates. Auto-merge follows successful exact-commit validation.', '', '| Skill | Result | File differences |', '|---|---|---|']
           for entry in report['skills']:
               lines.append(f"| {entry['skill']} | {entry['status']} | {len(entry['changes'])} |")
-          lines += ['', 'Review reports are in docs/upstream-reports/. Review and blocked skills retain their source files and synchronized versions.', '', 'Upstream code was read as data, not executed during synchronization. PR validation may require **Approve workflows to run** when created with GITHUB_TOKEN.', '', os.environ['RUN_URL']]
+          lines += ['', 'Review reports are in docs/upstream-reports/. Review and blocked skills retain their source files and synchronized versions.', '', 'The workflow dispatches read-only Validate Skills on this exact candidate commit, waits for success, verifies PR ownership/scope and unchanged head/base, then merges without a manual approval step.', '', os.environ['RUN_URL']]
           (Path(os.environ['RUNNER_TEMP']) / 'upstream-pr.md').write_text('\n'.join(lines) + '\n')
           PY
-          gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore: skill upstream updates and review reports' --body-file "$RUNNER_TEMP/upstream-pr.md" >> "$GITHUB_STEP_SUMMARY"
+          pr_url=$(gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore: skill upstream updates and review reports' --body-file "$RUNNER_TEMP/upstream-pr.md")
+          echo "$pr_url" >> "$GITHUB_STEP_SUMMARY"
+          number=$(gh pr view "$pr_url" --repo "$REPOSITORY" --json number --jq '.number')
+          python3 skill-sync/scripts/auto_merge_upstream.py --pr "$number" --branch "$branch" --head "$(git rev-parse HEAD)" --base-sha "$base_sha"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
