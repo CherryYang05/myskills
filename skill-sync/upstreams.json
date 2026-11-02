@@ -1,0 +1,46 @@
+{
+  "deep-research": {
+    "url": "https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research",
+    "version": "v2.11.1",
+    "selected_fixes": {
+      "c6222bb914a0": "Schema 1 FINER 与 scope 对齐（部分）",
+      "08046bd744c6": "可信 ledger 读取约束（提示层适配）",
+      "a3ef8c79d888": "Hook 写入边界说明（部分）",
+      "3224a27a2571": "Socratic 非生成边界与必需材料阻断（中文适配）",
+      "0d1779075745": "逐源方法学弱点及来源标记（中文适配）",
+      "c5c1b454cc57": "综述形式选择提示（中文适配）",
+      "ebc21bf24296": "direct-mode 前缀边界（中文适配）"
+    },
+    "sync": {
+      "repository": "Imbad0202/academic-research-skills",
+      "path": "deep-research",
+      "ref": "main",
+      "mode": "review"
+    }
+  },
+  "humanizer": {
+    "url": "https://github.com/blader/humanizer",
+    "version": "v3.1.0",
+    "sync": {
+      "repository": "blader/humanizer",
+      "path": "",
+      "ref": "main",
+      "mode": "mirror",
+      "files": [
+        "SKILL.md"
+      ],
+      "synced_commit": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8"
+    }
+  },
+  "skill-creator": {
+    "url": "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+    "version": "b9e19e6",
+    "sync": {
+      "repository": "anthropics/skills",
+      "path": "skills/skill-creator",
+      "ref": "main",
+      "mode": "mirror",
+      "synced_commit": "b9e19e6f44773509fbdd7001d77ff41a49a486c1"
+    }
+  }
+}
