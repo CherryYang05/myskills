@@ -32,6 +32,8 @@ npx skills add CherryYang05/myskills --skill '*' --agent claude-code opencode --
 
 ## 二、已收录的 Skills
 
+GitHub marketplace 清单位于 [`.agents/plugins/marketplace.json`](./.agents/plugins/marketplace.json)，提供各技能的独立条目。工作区管理员可通过 **Admin → Plugins → Add → Import marketplace** 导入本仓库，并跟随 `master` 分支接收每日同步。个人空间手动上传的技能不会因此自动更新；完整的安装、迁移边界及维护步骤见 [marketplace 使用说明](./docs/marketplace.md)。
+
 | Skill | 来源 | 同步版本 | 简介 |
 |-------|------|----------|------|
 | [deep-research](./deep-research) | [外部参考](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) | `v2.11.1` | 由 14 个专业 Agent 组成的通用深度研究流水线，支持文献综述、事实查核、论文评审、系统性综述等 8 种研究模式 |
@@ -76,5 +78,6 @@ git config core.hooksPath skill-sync/hooks
 
 - 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址和当前同步版本维护在 `EXTERNAL_SOURCES` 中，未登记项默认标记为“自研”。有正式版本号时记录版本号；没有版本号时记录已同步的上游 commit 短 SHA。同步版本仅表示本仓库已同步的状态，并不保证它仍是上游最新版本。
 - 在源码仓库中运行 `python3 skill-sync/scripts/gen_readme.py` 可手动刷新 README；启用上述 pre-commit 钩子后，每次提交会自动刷新。
+- 新增、删除技能或修改技能名称后，运行 `python3 skill-sync/scripts/gen_marketplace.py` 重新生成 marketplace 清单（需要 PyYAML）；CI 使用 `--check` 检查清单是否完整且与源码一致。
 - 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
 - 完整安装、同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
