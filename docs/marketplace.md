@@ -31,7 +31,7 @@
 
 上述每日自动同步属于工作区管理功能。个人 Plus 空间如果没有 **Admin → Plugins → Import marketplace** 入口，仅有本仓库清单并不能自动更新已经手动上传的技能。
 
-本清单面向官方工作区的 skill package 导入路径。桌面本地 marketplace 是另一条分发路径；不同客户端对直接技能包的支持和刷新行为需实测，不能将桌面安装视为网页或手机端已经同步。若客户端要求显式 plugin manifest，应另行按该客户端的插件格式打包，而不是声称此清单已在所有客户端验证。
+本清单也已在 Codex CLI 0.166.0-alpha.5.1 实测：可通过 `codex plugin marketplace add CherryYang05/myskills --ref master` 添加来源，再用 `codex plugin add humanizer@cherry-myskills` 等命令安装独立技能包。首次启用时先合并清单到 master。使用 `codex plugin marketplace upgrade cherry-myskills` 刷新来源；不要把本机安装视为网页或手机端已经同步，也不要将显式刷新当作每日自动更新保证。
 
 当前个人空间的可靠替代仍是：在 GitHub 维护和校验版本，再通过技能编辑器或上传入口更新安装内容。不要把 GitHub 代码更新、skills CLI 更新和 ChatGPT 云端安装更新混为一谈。
 
@@ -50,7 +50,7 @@ python3 skill-sync/scripts/gen_readme.py
 
 CI 会检查清单是否完整、名称是否合法且唯一、各技能 frontmatter 是否具有名称和描述，以及生成结果是否与已提交清单一致。生成器使用现有 `gen_readme.py` 的目录发现规则，避免 README 和 marketplace 漏掉不同技能。
 
-本地检查通过只证明仓库清单和内容符合这些检查，不能代替 ChatGPT 的实际导入及同步验证。
+本机 Codex 安装与刷新已实测；工作区云端实际导入和同步仍需管理员在目标工作区验证。GitHub 上游维护工作流见 [上游同步](./upstream-sync.md)。
 
 ## 官方依据
 

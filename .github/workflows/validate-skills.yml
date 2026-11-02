@@ -21,6 +21,10 @@ jobs:
         run: python -m pip install --disable-pip-version-check pyyaml
       - name: Check marketplace covers all skill packages
         run: python3 skill-sync/scripts/gen_marketplace.py --check
+      - name: Validate upstream configuration
+        run: python3 skill-sync/scripts/sync_upstream.py --validate-config
+      - name: Test upstream update safeguards
+        run: python3 -m unittest discover -s skill-sync/tests -v
       - name: Validate source/version mapping
         shell: bash
         run: |

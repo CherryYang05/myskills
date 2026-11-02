@@ -1,0 +1,121 @@
+name: Sync Skill Upstreams
+
+on:
+  schedule:
+    - cron: '0 13 * * 5' # Friday 21:00 Asia/Shanghai
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Inspect only; do not create a pull request
+        type: boolean
+        default: false
+  pull_request:
+    paths:
+      - '.github/workflows/sync-upstream.yml'
+      - 'skill-sync/scripts/sync_upstream.py'
+      - 'skill-sync/upstreams.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream-sync-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    if: github.event_name == 'pull_request' || inputs.dry_run == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check pyyaml
+      - name: Inspect current upstreams without changing source
+        run: python3 skill-sync/scripts/sync_upstream.py --report "$RUNNER_TEMP/upstream-report.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: upstream-preview
+          path: ${{ runner.temp }}/upstream-report.json
+
+  sync:
+    if: github.event_name != 'pull_request' && inputs.dry_run != true && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check pyyaml
+      - name: Test trusted synchronization code
+        run: python3 -m unittest discover -s skill-sync/tests -v
+      - name: Prepare candidate changes
+        run: |
+          python3 skill-sync/scripts/sync_upstream.py --apply --report "$RUNNER_TEMP/upstream-report.json"
+          python3 skill-sync/scripts/gen_readme.py
+          python3 skill-sync/scripts/gen_marketplace.py
+          python3 skill-sync/scripts/gen_marketplace.py --check
+      - name: Stage only maintained skill and generated files
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          config = json.loads(Path('skill-sync/upstreams.json').read_text())
+          paths = list(config) + ['skill-sync/upstreams.json', 'README.md', '.agents/plugins/marketplace.json', 'docs/upstream-reports']
+          subprocess.run(['git', 'add', '--', *[p for p in paths if Path(p).exists()]], check=True)
+          PY
+      - name: Create one review PR per candidate diff
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --cached --quiet; then
+            echo 'No new skill changes or reports.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          digest=$(git diff --cached --binary | sha256sum | cut -c1-16)
+          branch="automation/upstream-$digest"
+          existing=$(gh pr list --repo "$REPOSITORY" --state all --head "$branch" --json url --jq '.[0].url // empty')
+          if [ -n "$existing" ]; then
+            echo "Candidate already has a PR: $existing" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git switch -c "$branch"
+          git -c core.hooksPath=/dev/null -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: prepare skill upstream updates and review reports'
+          if [ -n "$(git ls-remote --heads origin "$branch")" ]; then
+            git fetch origin "$branch"
+            test "$(git rev-parse 'HEAD^{tree}')" = "$(git rev-parse 'FETCH_HEAD^{tree}')"
+          else
+            git push origin "HEAD:refs/heads/$branch"
+          fi
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          report = json.loads((Path(os.environ['RUNNER_TEMP']) / 'upstream-report.json').read_text())
+          lines = ['Automatically prepared upstream candidates. No automatic merge.', '', '| Skill | Result | File differences |', '|---|---|---|']
+          for entry in report['skills']:
+              lines.append(f"| {entry['skill']} | {entry['status']} | {len(entry['changes'])} |")
+          lines += ['', 'Review reports are in docs/upstream-reports/. Review and blocked skills retain their source files and synchronized versions.', '', 'Upstream code was read as data, not executed during synchronization. PR validation may require **Approve workflows to run** when created with GITHUB_TOKEN.', '', os.environ['RUN_URL']]
+          (Path(os.environ['RUNNER_TEMP']) / 'upstream-pr.md').write_text('\n'.join(lines) + '\n')
+          PY
+          gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore: skill upstream updates and review reports' --body-file "$RUNNER_TEMP/upstream-pr.md" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upstream-sync-report
+          path: ${{ runner.temp }}/upstream-report.json
+          if-no-files-found: ignore
