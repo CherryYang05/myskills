@@ -8,6 +8,7 @@ import json
 import re
 import subprocess
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 import yaml
@@ -229,6 +230,21 @@ def apply_plans(root, config, plans):
             info["version"] = plan["commit"][:12]
         info["sync"]["last_reported"] = plan["marker"]
     (root / CONFIG).write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    record_monthly_health(root, plans)
+
+
+def record_monthly_health(root, plans, period=None):
+    """Record useful check evidence monthly so an idle public repo stays active."""
+    period = period or datetime.now(timezone.utc).strftime("%Y-%m")
+    path = root / "docs/upstream-reports/health.json"
+    if path.exists() and json.loads(path.read_text(encoding="utf-8")).get("period") == period:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    summary = {"period": period, "skills": {
+        plan["skill"]: {"status": plan["status"], "checked_commit": plan["commit"]}
+        for plan, _, _ in plans
+    }}
+    path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
