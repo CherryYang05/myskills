@@ -53,6 +53,18 @@
       "category": "Productivity"
     },
     {
+      "name": "frontend-design",
+      "source": {
+        "source": "local",
+        "path": "./frontend-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "humanizer",
       "source": {
         "source": "local",
@@ -141,6 +153,18 @@
       "source": {
         "source": "local",
         "path": "./skill-sync"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "web-design-guidelines",
+      "source": {
+        "source": "local",
+        "path": "./web-design-guidelines"
       },
       "policy": {
         "installation": "AVAILABLE",

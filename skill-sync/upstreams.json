@@ -43,5 +43,30 @@
       "mode": "mirror",
       "synced_commit": "b9e19e6f44773509fbdd7001d77ff41a49a486c1"
     }
+  },
+  "frontend-design": {
+    "url": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
+    "version": "ca45fc4",
+    "sync": {
+      "repository": "anthropics/skills",
+      "path": "skills/frontend-design",
+      "ref": "main",
+      "mode": "mirror",
+      "synced_commit": "ca45fc496a3436251f191354091d557da31c15b5"
+    }
+  },
+  "web-design-guidelines": {
+    "url": "https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines",
+    "version": "1a2c79d",
+    "sync": {
+      "repository": "vercel-labs/agent-skills",
+      "path": "skills/web-design-guidelines",
+      "ref": "main",
+      "mode": "mirror",
+      "synced_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "files": [
+        "SKILL.md"
+      ]
+    }
   }
 }

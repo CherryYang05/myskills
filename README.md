@@ -40,6 +40,7 @@ GitHub marketplace 清单位于 [`.agents/plugins/marketplace.json`](./.agents/p
 | [ds-mr-reviewer](./ds-mr-reviewer) | 自研 | — | MR代码检视工具 |
 | [dt-case-enhancer](./dt-case-enhancer) | 自研 | — | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./dt-case-generator) | 自研 | — | 使用CodeAgent生成DT(开发者自测试)用例 |
+| [frontend-design](./frontend-design) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | `ca45fc4` | Anthropic 官方界面设计指南，指导视觉方向、字体、配色、布局、响应式设计及自我评审。 |
 | [humanizer](./humanizer) | [外部参考](https://github.com/blader/humanizer) | `v3.1.0` | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
 | [skill-blog-writer](./skill-blog-writer) | 自研 | — | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
 | [skill-creator](./skill-creator) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | `b9e19e6` | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
@@ -48,6 +49,7 @@ GitHub marketplace 清单位于 [`.agents/plugins/marketplace.json`](./.agents/p
 | [skill-iterate](./skill-iterate) | 自研 | — | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skill-os-setup) | 自研 | — | 用于维护 EasyNewOS 仓库 |
 | [skill-sync](./skill-sync) | 自研 | — | 在 Agent 对话中安装、更新 Agent Skills，或同步 skill 源码与 GitHub 仓库 |
+| [web-design-guidelines](./web-design-guidelines) | [外部参考](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) | `1a2c79d` | Vercel 官方 UI 审查技能，检查可访问性、交互、表单、性能等 Web 界面规范。 |
 
 ## 三、更新与管理
 
