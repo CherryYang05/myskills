@@ -42,6 +42,8 @@ GitHub marketplace 清单位于 [`.agents/plugins/marketplace.json`](./.agents/p
 | [dt-case-generator](./dt-case-generator) | 自研 | — | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [frontend-design](./frontend-design) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | `ca45fc4` | Anthropic 官方界面设计指南，指导视觉方向、字体、配色、布局、响应式设计及自我评审。 |
 | [humanizer](./humanizer) | [外部参考](https://github.com/blader/humanizer) | `v3.1.0` | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
+| [mermaid-diagrams](./mermaid-diagrams) | [外部参考](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) | `3027f20` | 社区 Mermaid 图表技能，指导流程图、时序图、类图、数据库关系图和 C4 架构图；保留完整参考文档。 |
+| [shadcn](./shadcn) | [外部参考](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn) | `4aaea19` | shadcn/ui 官方组件与项目技能，包含配置、主题、组件组合、表单和聊天界面规则；含 Codex 适配。 |
 | [skill-blog-writer](./skill-blog-writer) | 自研 | — | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
 | [skill-creator](./skill-creator) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | `b9e19e6` | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
 | [skill-dev-flow](./skill-dev-flow) | 自研 | — | 固化 Agent 驱动的完整开发流程 |

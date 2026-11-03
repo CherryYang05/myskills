@@ -68,5 +68,25 @@
         "SKILL.md"
       ]
     }
+  },
+  "shadcn": {
+    "url": "https://github.com/shadcn-ui/ui/tree/main/skills/shadcn",
+    "version": "4aaea19",
+    "sync": {
+      "repository": "shadcn-ui/ui",
+      "path": "skills/shadcn",
+      "ref": "main",
+      "mode": "review"
+    }
+  },
+  "mermaid-diagrams": {
+    "url": "https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams",
+    "version": "3027f20",
+    "sync": {
+      "repository": "softaworks/agent-toolkit",
+      "path": "skills/mermaid-diagrams",
+      "ref": "main",
+      "mode": "review"
+    }
   }
 }
