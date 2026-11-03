@@ -12,6 +12,7 @@ from pathlib import Path
 
 # README 使用独立的中文概括；各 skill 的触发描述仍由 SKILL.md 维护。
 README_SUMMARIES = {
+    "mermaid-diagrams": "社区 Mermaid 图表技能，指导流程图、时序图、类图、数据库关系图和 C4 架构图；保留完整参考文档。",
     "shadcn": "shadcn/ui 官方组件与项目技能，包含配置、主题、组件组合、表单和聊天界面规则；含 Codex 适配。",
     "frontend-design": "Anthropic 官方界面设计指南，指导视觉方向、字体、配色、布局、响应式设计及自我评审。",
     "web-design-guidelines": "Vercel 官方 UI 审查技能，检查可访问性、交互、表单、性能等 Web 界面规范。",
