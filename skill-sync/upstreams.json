@@ -68,5 +68,15 @@
         "SKILL.md"
       ]
     }
+  },
+  "shadcn": {
+    "url": "https://github.com/shadcn-ui/ui/tree/main/skills/shadcn",
+    "version": "4aaea19",
+    "sync": {
+      "repository": "shadcn-ui/ui",
+      "path": "skills/shadcn",
+      "ref": "main",
+      "mode": "review"
+    }
   }
 }

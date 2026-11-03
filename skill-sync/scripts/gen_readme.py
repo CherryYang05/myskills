@@ -12,6 +12,7 @@ from pathlib import Path
 
 # README 使用独立的中文概括；各 skill 的触发描述仍由 SKILL.md 维护。
 README_SUMMARIES = {
+    "shadcn": "shadcn/ui 官方组件与项目技能，包含配置、主题、组件组合、表单和聊天界面规则；含 Codex 适配。",
     "frontend-design": "Anthropic 官方界面设计指南，指导视觉方向、字体、配色、布局、响应式设计及自我评审。",
     "web-design-guidelines": "Vercel 官方 UI 审查技能，检查可访问性、交互、表单、性能等 Web 界面规范。",
     "humanizer": "识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。",
