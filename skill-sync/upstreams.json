@@ -88,5 +88,15 @@
       "ref": "main",
       "mode": "review"
     }
+  },
+  "impeccable": {
+    "url": "https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable",
+    "version": "4.8.0 (9fadc41)",
+    "sync": {
+      "repository": "pbakaus/impeccable",
+      "path": ".agents/skills/impeccable",
+      "ref": "main",
+      "mode": "review"
+    }
   }
 }
