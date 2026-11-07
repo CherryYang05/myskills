@@ -17,13 +17,14 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 - `README.md`: generated Skill index and installation guidance.
 - `UPSTREAM_SYNC_REPORT.md`: report of the most recent actual upstream content change. No-op weekly checks are recorded in the GitHub Actions Summary/Artifact without a commit.
 - `docs/architecture.md`: architecture, limitations and two-stage distribution details.
+- `docs/adding-external-skill.md`: normative entry/approval/verification procedure for new upstream Skills requested in chat.
 
 ## Safe maintenance workflow
 
 1. Confirm the Git checkout and remote before editing: `git rev-parse --show-toplevel`, `git remote -v` and `git status`. An installed Skills CLI package is not necessarily a source checkout.
 2. Inspect the diff before changing or deleting files. Do not commit secrets, credentials, generated Python bytecode or unrelated working-tree changes. Summarize manual deletions and behavioral changes for the user.
 3. Preserve every Skill's internal relative paths (references, scripts, assets, metadata). A renamed package or `SKILL.md` name can break clients and existing installations.
-4. When adding a third-party Skill, register its true upstream repository, subpath, tracked ref and synchronized full commit SHA in `automation/upstreams.json`. The registry and the `skills/external/` directory set must match exactly.
+4. When the user asks to add a third-party Skill, **follow [docs/adding-external-skill.md](docs/adding-external-skill.md)** before writing or merging: establish exact upstream source and pinned full SHA, review license/provenance, inspect untrusted code/instructions without executing them, check duplication and platform compatibility, and disclose risks. A requested new source is onboarded through a normal PR (never the unattended sync auto-merge); register `repo`, `path`, `ref`, and `sha` in `automation/upstreams.json` and preserve its full `skills/external/` snapshot. The registry and source directories must match exactly.
 5. Do not edit generated `README.md`, all three platform marketplace catalogs, `skills.sh.json` or `plugins/` as their source of truth. After Skill or configuration changes, run `python3 automation/scripts/generate.py`. Edit `automation/templates/README.md.tpl` for README prose, or the generator for table/catalog layout. Plugin patch versions advance only when package contents change.
 6. Verify results with:
    ```bash

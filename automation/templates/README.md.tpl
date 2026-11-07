@@ -125,6 +125,7 @@ claude plugin install blog-writer@cherry-skills
 ## 维护原则
 
 - `automation/upstreams.json` 是外部 Skill 的唯一来源注册表。外部目录和注册表必须一一对应；新增第三方 Skill 必须同时登记。
+- 新增外部 Skill 的标准流程见 [外部 Skill 准入规范](./docs/adding-external-skill.md)：评估来源与风险、保持上游完整快照、登记 SHA、生成分发包、通过 PR 和 CI 后合并；后续更新自动化。
 - `automation/scripts/` 管理上游检查、来源安全、版本报告、校验及自动合并；`automation/tests/` 是回归测试。
 - `README.md`、`skills.sh.json`、三个平台的 Marketplace 清单和 `plugins/` 都是生成产物。编辑安装文档时改 `automation/templates/README.md.tpl`；修改 Skill、模板或配置后运行 `python3 automation/scripts/generate.py`，再运行 `python3 automation/scripts/generate.py --check`。
 - `UPSTREAM_SYNC_REPORT.md` 记录最近一次实际同步的上游变更；无变化的周度检查报告保留在 GitHub Action Summary / Artifact，避免冗余提交。
