@@ -8,43 +8,7 @@
       "name": "deep-research",
       "source": {
         "source": "local",
-        "path": "./deep-research"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "ds-mr-reviewer",
-      "source": {
-        "source": "local",
-        "path": "./ds-mr-reviewer"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "dt-case-enhancer",
-      "source": {
-        "source": "local",
-        "path": "./dt-case-enhancer"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "dt-case-generator",
-      "source": {
-        "source": "local",
-        "path": "./dt-case-generator"
+        "path": "./skills/external/deep-research"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -56,7 +20,7 @@
       "name": "frontend-design",
       "source": {
         "source": "local",
-        "path": "./frontend-design"
+        "path": "./skills/external/frontend-design"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -68,7 +32,7 @@
       "name": "humanizer",
       "source": {
         "source": "local",
-        "path": "./humanizer"
+        "path": "./skills/external/humanizer"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -80,7 +44,7 @@
       "name": "impeccable",
       "source": {
         "source": "local",
-        "path": "./impeccable"
+        "path": "./skills/external/impeccable"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -92,7 +56,7 @@
       "name": "mermaid-diagrams",
       "source": {
         "source": "local",
-        "path": "./mermaid-diagrams"
+        "path": "./skills/external/mermaid-diagrams"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -104,19 +68,7 @@
       "name": "shadcn",
       "source": {
         "source": "local",
-        "path": "./shadcn"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "blog-writer",
-      "source": {
-        "source": "local",
-        "path": "./skill-blog-writer"
+        "path": "./skills/external/shadcn"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -128,67 +80,7 @@
       "name": "skill-creator",
       "source": {
         "source": "local",
-        "path": "./skill-creator"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "skill-dev-flow",
-      "source": {
-        "source": "local",
-        "path": "./skill-dev-flow"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "skill-dev-sop",
-      "source": {
-        "source": "local",
-        "path": "./skill-dev-sop"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "skill-iterate",
-      "source": {
-        "source": "local",
-        "path": "./skill-iterate"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "skill-os-setup",
-      "source": {
-        "source": "local",
-        "path": "./skill-os-setup"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "skill-sync",
-      "source": {
-        "source": "local",
-        "path": "./skill-sync"
+        "path": "./skills/external/skill-creator"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -200,7 +92,115 @@
       "name": "web-design-guidelines",
       "source": {
         "source": "local",
-        "path": "./web-design-guidelines"
+        "path": "./skills/external/web-design-guidelines"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "ds-mr-reviewer",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/ds-mr-reviewer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "dt-case-enhancer",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/dt-case-enhancer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "dt-case-generator",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/dt-case-generator"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "blog-writer",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-blog-writer"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "skill-dev-flow",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-dev-flow"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "skill-dev-sop",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-dev-sop"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "skill-iterate",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-iterate"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "skill-os-setup",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-os-setup"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "skill-sync",
+      "source": {
+        "source": "local",
+        "path": "./skills/personal/skill-sync"
       },
       "policy": {
         "installation": "AVAILABLE",
