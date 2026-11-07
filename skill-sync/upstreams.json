@@ -9,7 +9,8 @@
       "3224a27a2571": "Socratic 非生成边界与必需材料阻断（中文适配）",
       "0d1779075745": "逐源方法学弱点及来源标记（中文适配）",
       "c5c1b454cc57": "综述形式选择提示（中文适配）",
-      "ebc21bf24296": "direct-mode 前缀边界（中文适配）"
+      "ebc21bf24296": "direct-mode 前缀边界（中文适配）",
+      "14c9d1d8e3e8": "Claude 插件子 Agent 的三个 frontmatter 名称改用连字符；文件名和内部角色 ID 保持下划线（#1037 中文适配）"
     },
     "sync": {
       "repository": "Imbad0202/academic-research-skills",
@@ -91,12 +92,13 @@
   },
   "impeccable": {
     "url": "https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable",
-    "version": "4.8.0 (9fadc41)",
+    "version": "4.8.0 (c3bb418)",
     "sync": {
       "repository": "pbakaus/impeccable",
       "path": ".agents/skills/impeccable",
       "ref": "main",
-      "mode": "review"
+      "mode": "review",
+      "reviewed_commit": "c3bb418ee38ee49a6b999b7752c1368f3123a2bd"
     }
   }
 }
