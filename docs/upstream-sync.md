@@ -31,7 +31,7 @@ GitHub Actions **Sync Skill Upstreams** 每周五北京时间 21:00（UTC 13:00�
 - `url`：README 来源地址；`version`：当前仓库实际同步的 commit 短 SHA（历史记录可保留原 tag/version，后续更新转为 SHA）。
 - `sync.repository`、`sync.path`、`sync.ref`：GitHub 上游仓库、技能子目录及跟踪分支。
 - `sync.mode`：默认 `replace`，遗留 `mirror` 可用；定时任务禁止仅报告的 `review`。
-- `sync.files`：可选文件白名单。若要真正全量同步应移除白名单；已显式限制单文件的技能（例如 Humanizer）只替换其指定范围。
+- `sync.files`：可选文件白名单，但配置白名单意味着只同步所列文件。**当前 8 个外部 Skill 均已取消白名单，完整跟踪对应的上游技能目录**；今后优先采用完整目录，除非明确需要限制更新范围。
 - `sync.synced_commit`：完整 SHA；更新成功后对应本次真实上游快照。
 - `sync.last_reported`：报告去重标识，**不阻止未合并更新重试**。
 
