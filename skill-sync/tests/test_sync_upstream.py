@@ -90,6 +90,24 @@ class SyncTests(unittest.TestCase):
         self.assertNotIn('selected_fixes', config)
         self.assertNotIn('reviewed_commit', config['sync'])
 
+    def test_full_replace_keeps_explicit_legal_notices(self):
+        original = files('custom')
+        original['LICENSE'] = ('100644', b'Apache License 2.0')
+        original['NOTICE.md'] = ('100644', b'Credits')
+        original['PERSONAL.md'] = ('100644', b'customization')
+        directory = self.materialize(original)
+        info = copy.deepcopy(self.info)
+        info['sync']['mode'] = 'replace'
+        info['sync']['preserve_files'] = ['LICENSE', 'NOTICE.md']
+        before = sync.local_snapshot(directory, preserve=set(info['sync']['preserve_files']))
+        latest = files('new upstream')
+        plan = sync.plan_skill('example', info, before, latest, None, 'b' * 40)
+        sync.apply_plans(self.root, {'example': info}, [(plan, before, latest)])
+        self.assertEqual((directory / 'LICENSE').read_bytes(), b'Apache License 2.0')
+        self.assertEqual((directory / 'NOTICE.md').read_bytes(), b'Credits')
+        self.assertFalse((directory / 'PERSONAL.md').exists())
+        self.assertEqual(sync.local_snapshot(directory, preserve=set(info['sync']['preserve_files'])), latest)
+
     def test_failed_candidate_is_retried_even_when_marker_already_reported(self):
         directory = self.materialize(self.before)
         info = copy.deepcopy(self.info)
