@@ -52,5 +52,25 @@ jobs:
         run: |
           python3 skill-sync/scripts/gen_readme.py
           git diff --exit-code -- README.md
+      - name: Reject tracked runtime artifacts
+        run: |
+          python3 - <<'PY'
+          import subprocess
+          from pathlib import PurePosixPath
+
+          tracked = subprocess.check_output(["git", "ls-files", "-z"]).decode("utf-8").split("\0")
+          forbidden = [
+              path for path in tracked if path and (
+                  "__pycache__" in PurePosixPath(path).parts
+                  or ".pytest_cache" in PurePosixPath(path).parts
+                  or "node_modules" in PurePosixPath(path).parts
+                  or path.endswith((".pyc", ".pyo"))
+                  or PurePosixPath(path).name == ".DS_Store"
+              )
+          ]
+          if forbidden:
+              raise SystemExit("Runtime artifacts are tracked:\n" + "\n".join(forbidden))
+          PY
+
       - name: Check Python syntax
         run: python3 -m compileall -q skill-sync/scripts skill-creator/scripts

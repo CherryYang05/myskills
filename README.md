@@ -87,4 +87,5 @@ git config core.hooksPath skill-sync/hooks
 - 每周五北京时间 20:30（UTC 12:30），GitHub Actions 检查 `skill-sync/upstreams.json` 登记的全部外部 Skill，自研 Skill 不参与同步。发现变化后生成实际更新候选，通过精确提交 CI 和范围校验后自动合并，同时更新本 README 的来源和同步版本、Marketplace 清单及根目录[同步与修正报告](./UPSTREAM_SYNC_REPORT.md)。报告包含全部外部 Skill 的检查结果、更新前后版本、上游提交和文件变化；逐项明细保留在 `docs/upstream-reports/`。手动运行及失败处理见 [上游同步](./docs/upstream-sync.md)。
 - 两段同步链路为：外部上游 → 本 GitHub 仓库 → ChatGPT 工作区 Marketplace。通过 Admin → Plugins → Marketplaces 导入本仓库并跟踪 `master` 后，工作区 Marketplace 默认每日检查更新，也可手动 Sync now。无需让 GPT 定时任务重复检查或修改原始上游；GitHub Actions 的失败由工作流日志和仓库 issue 报告。此说明不代表目标工作区的实际同步开关已经核验。
 - 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
+- 仓库根目录保留各个可直接安装的 Skill 包，自动化脚本、生成物与配置的职责划分见 [仓库结构与维护约定](./docs/repository-structure.md)。
 - 完整安装、同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
