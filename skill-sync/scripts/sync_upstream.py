@@ -59,7 +59,9 @@ def validate_config(config, root):
             raise ValueError(f"Mirror mode needs a full synced_commit for {name}")
         if "preserve_files" in sync:
             legal = sync["preserve_files"]
-            if not isinstance(legal, list) or len(legal) != len(set(legal)):
+            if (not isinstance(legal, list) or
+                    any(not isinstance(item, str) for item in legal) or
+                    len(legal) != len(set(legal))):
                 raise ValueError(f"Invalid preserved legal files for {name}")
             for path in legal:
                 safe_path(path)
