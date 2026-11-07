@@ -12,6 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -19,38 +20,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install validator dependency
+      - name: Install YAML dependency
         run: python -m pip install --disable-pip-version-check pyyaml
-      - name: Check marketplace covers all skill packages
-        run: python3 skill-sync/scripts/gen_marketplace.py --check
-      - name: Validate upstream configuration
-        run: python3 skill-sync/scripts/sync_upstream.py --validate-config
-      - name: Test upstream update safeguards
-        run: python3 -m unittest discover -s skill-sync/tests -v
-      - name: Validate source/version mapping
-        shell: bash
-        run: |
-          python - <<'PY'
-          import importlib.util
-          from pathlib import Path
-          root = Path.cwd()
-          spec = importlib.util.spec_from_file_location("gen_readme", root / "skill-sync/scripts/gen_readme.py")
-          module = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(module)
-          skills = set(module.skill_dirs(root))
-          sources = module.EXTERNAL_SOURCES
-          assert set(sources) <= skills, f"Orphaned external sources: {set(sources) - skills}"
-          for name, info in sources.items():
-              assert info["url"].startswith("https://github.com/"), name
-              assert info["version"] and info["version"].lower() not in {"latest", "main", "master", "head"}, name
-              assert (root / name / "SKILL.md").is_file(), name
-          print(f"Validated {len(skills)} skills, {len(sources)} external source records")
-          PY
-      - name: Validate external SKILL.md frontmatter
-        run: python3 skill-sync/scripts/validate_external_skills.py
-      - name: Check README generation is reproducible
-        run: |
-          python3 skill-sync/scripts/gen_readme.py
-          git diff --exit-code -- README.md
+      - name: Test safety and synchronization logic
+        run: python3 -m unittest discover -s automation/tests -v
+      - name: Validate Skill inventory and external source registry
+        run: python3 automation/scripts/verify.py
+      - name: Validate source configuration
+        run: python3 automation/scripts/sync.py --check-config
+      - name: Verify generated README and ChatGPT marketplace
+        run: python3 automation/scripts/generate.py --check
       - name: Check Python syntax
-        run: python3 -m compileall -q skill-sync/scripts skill-creator/scripts
+        run: python3 -m compileall -q automation/scripts automation/tests

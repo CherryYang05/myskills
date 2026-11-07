@@ -1,9 +1,0 @@
-#!/bin/sh
-# 提交前自动刷新仓库 README（安装说明、Skills 表格与维护说明）。
-# 启用方式（每台机器一次）：git config core.hooksPath skill-sync/hooks
-root="$(git rev-parse --show-toplevel)" || exit 0
-cd "$root" || exit 0
-python skill-sync/scripts/gen_readme.py >/dev/null 2>&1 \
-  || python3 skill-sync/scripts/gen_readme.py >/dev/null 2>&1
-git add README.md 2>/dev/null
-exit 0

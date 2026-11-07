@@ -1,90 +1,55 @@
 # myskills
 
-> 个人 Agent Skills 仓库，通过 [skills CLI](https://github.com/vercel-labs/skills) 安装和更新，可按需选择技能及 Claude Code、OpenCode 等 Agent。
+个人 Agent Skills 仓库。将第三方 Skill 的上游更新和自己的 Skill 统一管理，提供 GitHub Marketplace 清单供支持该功能的客户端和 ChatGPT 工作区使用。
 
-## 一、安装
+## 安装
 
-准备好 Node.js、npm 和 Git，在终端运行：
-
-```bash
-npx skills add CherryYang05/myskills --global
-```
-
-按提示选择要安装的 skill 和使用的 Agent。`--global` 表示用户级安装，可跨项目使用；去掉该参数则安装到当前项目。
-
-常用安装方式：
+使用 [Skills CLI](https://github.com/vercel-labs/skills) 按需安装：
 
 ```bash
-# 查看仓库中可安装的 skills
 npx skills add CherryYang05/myskills --list
-
-# 只安装 MR 代码检视 skill
-npx skills add CherryYang05/myskills --skill ds-mr-reviewer --global
-
-# 只安装 humanizer
+npx skills add CherryYang05/myskills --global
 npx skills add CherryYang05/myskills --skill humanizer --global
-
-# 为 Claude Code 和 OpenCode 安装仓库中的全部 skills
-npx skills add CherryYang05/myskills --skill '*' --agent claude-code opencode --global
 ```
 
-`--skill` 使用各 `SKILL.md` 的 `name` 字段，可能与文件夹名称不同；请以 `--list` 显示的名称为准。安装位置由 CLI 根据所选 Agent 和安装范围管理，完成后会显示实际路径。
+技能位于 `skills/external/` 和 `skills/personal/`，保持每个技能内的相对目录与脚本。两个分类均可被 Skills CLI 发现。
 
-## 二、已收录的 Skills
+## Skill 清单
 
-GitHub marketplace 清单位于 [`.agents/plugins/marketplace.json`](./.agents/plugins/marketplace.json)，提供各技能的独立条目。工作区管理员可通过 **Admin → Plugins → Add → Import marketplace** 导入本仓库，并跟随 `master` 分支接收每日同步。个人空间手动上传的技能不会因此自动更新；完整的安装、迁移边界及维护步骤见 [marketplace 使用说明](./docs/marketplace.md)。
+| Skill | 类型 | 来源 / 当前版本 | 说明 |
+|---|---|---|---|
+| [deep-research](./skills/external/deep-research) | 外部同步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `6d9388674de1` | Universal deep research agent team |
+| [frontend-design](./skills/external/frontend-design) | 外部同步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design) · `ca45fc496a34` | Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one |
+| [humanizer](./skills/external/humanizer) | 外部同步 | [blader/humanizer](https://github.com/blader/humanizer) · `0ef9fe5bc357` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
+| [impeccable](./skills/external/impeccable) | 外部同步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `687bc381bc90` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, lan |
+| [mermaid-diagrams](./skills/external/mermaid-diagrams) | 外部同步 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) · `3027f20f3181` | Comprehensive guide for creating software diagrams using Mermaid syntax |
+| [shadcn](./skills/external/shadcn) | 外部同步 | [shadcn-ui/ui](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn) · `42f3bb63b46a` | Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI, including chat interfaces |
+| [skill-creator](./skills/external/skill-creator) | 外部同步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator) · `b9e19e6f4477` | Create new skills, modify and improve existing skills, and measure skill performance |
+| [web-design-guidelines](./skills/external/web-design-guidelines) | 外部同步 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) · `1a2c79d4e6c4` | Review UI code for Web Interface Guidelines compliance |
+| [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
+| [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
+| [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
+| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
+| [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
+| [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合评估）、编码实现（测试先行/耦合治理/文件分类）、单元与集成测试与设计评审、收尾归档 |
+| [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
+| [skill-os-setup](./skills/personal/skill-os-setup) | 自研 | 自研 | 用于维护 EasyNewOS 仓库 |
+| [skill-sync](./skills/personal/skill-sync) | 自研 | 自研 | 维护个人 GitHub Agent Skills 仓库，安装、更新、检查 Skills 来源和同步状态 |
 
-| Skill | 来源 | 同步版本 | 简介 |
-|-------|------|----------|------|
-| [deep-research](./deep-research) | [外部参考](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) | `6d9388674de1` | Universal deep research agent team |
-| [ds-mr-reviewer](./ds-mr-reviewer) | 自研 | — | MR代码检视工具 |
-| [dt-case-enhancer](./dt-case-enhancer) | 自研 | — | 使用CodeAgent对已有DT用例进行增强补齐 |
-| [dt-case-generator](./dt-case-generator) | 自研 | — | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [frontend-design](./frontend-design) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | `ca45fc4` | Anthropic 官方界面设计指南，指导视觉方向、字体、配色、布局、响应式设计及自我评审。 |
-| [humanizer](./humanizer) | [外部参考](https://github.com/blader/humanizer) | `0ef9fe5bc357` | 识别并改写夸张措辞、空泛表达、重复句式和多余套话，在保留原意、事实与作者风格的基础上减少 AI 写作痕迹，让文字自然、清晰。 |
-| [impeccable](./impeccable) | [外部参考](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) | `687bc381bc90` | Impeccable 界面设计、UX 评审、技术审计与精修技能；包含完整参考资料及固定版本引擎启动器。 |
-| [mermaid-diagrams](./mermaid-diagrams) | [外部参考](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) | `3027f20f3181` | 社区 Mermaid 图表技能，指导流程图、时序图、类图、数据库关系图和 C4 架构图；保留完整参考文档。 |
-| [shadcn](./shadcn) | [外部参考](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn) | `42f3bb63b46a` | shadcn/ui 官方组件与项目技能，包含配置、主题、组件组合、表单和聊天界面规则；含 Codex 适配。 |
-| [skill-blog-writer](./skill-blog-writer) | 自研 | — | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
-| [skill-creator](./skill-creator) | [外部参考](https://github.com/anthropics/skills/tree/main/skills/skill-creator) | `b9e19e6` | 创建、改进和评测 Agent Skills，优化技能的执行效果与触发准确性。 |
-| [skill-dev-flow](./skill-dev-flow) | 自研 | — | 固化 Agent 驱动的完整开发流程 |
-| [skill-dev-sop](./skill-dev-sop) | 自研 | — | 固化 Agent 驱动的通用软件开发标准流程 |
-| [skill-iterate](./skill-iterate) | 自研 | — | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
-| [skill-os-setup](./skill-os-setup) | 自研 | — | 用于维护 EasyNewOS 仓库 |
-| [skill-sync](./skill-sync) | 自研 | — | 在 Agent 对话中安装、更新 Agent Skills，或同步 skill 源码与 GitHub 仓库 |
-| [web-design-guidelines](./web-design-guidelines) | [外部参考](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) | `1a2c79d4e6c4` | Vercel 官方 UI 审查技能，检查可访问性、交互、表单、性能等 Web 界面规范。 |
+## 两阶段同步
 
-## 三、更新与管理
+1. **外部上游 → 本仓库**：每周五北京时间 20:30，Sync Skill Upstreams 从 `automation/upstreams.json` 读取全部外部 Skill 来源，按上游 Git 提交获取完整技能目录；生成候选 PR。只有通过精确提交的 Validate Skills 校验后才自动合并，更新 README、Marketplace 清单及根目录 `UPSTREAM_SYNC_REPORT.md`。自研 Skill 不在自动覆盖范围内。
+2. **本仓库 → ChatGPT**：`.agents/plugins/marketplace.json` 由 Skill 目录自动生成。支持 GitHub Marketplace 导入的 ChatGPT 工作区管理员可导入仓库并跟踪 `master`，平台通常每日同步，也可手动 Sync now。仓库更新不代表个人 ChatGPT Plus 空间中手动上传的插件已更新。
 
-```bash
-# 查看已安装的全局 skills
-npx skills list --global
+工作区导入：**Admin → Plugins → Add → Import marketplace**；Source 为 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 填 `master`。已有手动上传插件的身份迁移需要单独处理。详见 [OpenAI 官方导入文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
-# 更新已安装的 humanizer
-npx skills update humanizer --global
+## 维护原则
 
-# 更新 CLI 管理的全部全局 skills（包含其他仓库的 skills）
-npx skills update --global
-```
+- `automation/upstreams.json` 是外部 Skill 的唯一来源注册表。外部目录和注册表必须一一对应；新增第三方 Skill 必须同时登记。
+- `automation/scripts/` 管理上游检查、来源安全、版本报告、校验及自动合并；`automation/tests/` 是回归测试。
+- `README.md` 和 `.agents/plugins/marketplace.json` 都是生成文件。修改 Skill 或配置后执行 `python3 automation/scripts/generate.py`。
+- `UPSTREAM_SYNC_REPORT.md` 是 GitHub 上游检查生成的根目录报告。成功合并才代表相应 Skill 已实际同步。
+- 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
+- GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
-更新当前项目的 skills 时，进入项目目录并使用 `npx skills update --project`。若在安装目录中改过 skill，更新前先保存这些改动；需要长期维护的修改应提交到源码仓库。
-
-## 四、维护仓库
-
-需要新增或修改 skill 时，在独立的 Git 工作树中维护源码，例如：
-
-```bash
-git clone https://github.com/CherryYang05/myskills.git ~/code/myskills
-cd ~/code/myskills
-git config core.hooksPath skill-sync/hooks
-```
-
-已有源码工作树可以继续使用。源码通过 `git add`、`git commit`、`git push` 推送，拉取远端修改使用 `git pull`；提交后再用 `npx skills update` 更新本机已安装的技能。
-
-- 本 README 由 `skill-sync/scripts/gen_readme.py` 整体生成。修改安装说明请编辑脚本模板；技能简介优先使用脚本中的中文概括，其余取自各 `SKILL.md`；外部参考 Skill 的上游 GitHub 地址和当前同步版本维护在 `skill-sync/upstreams.json` 中（脚本导出 `EXTERNAL_SOURCES` 供兼容使用），未登记项默认标记为“自研”。有正式版本号时记录版本号；没有版本号时记录已同步的上游 commit 短 SHA。同步版本仅表示本仓库已同步的状态，并不保证它仍是上游最新版本。
-- 在源码仓库中运行 `python3 skill-sync/scripts/gen_readme.py` 可手动刷新 README；启用上述 pre-commit 钩子后，每次提交会自动刷新。
-- 新增、删除技能或修改技能名称后，运行 `python3 skill-sync/scripts/gen_marketplace.py` 重新生成 marketplace 清单（需要 PyYAML）；CI 使用 `--check` 检查清单是否完整且与源码一致。
-- 每周五北京时间 20:30（UTC 12:30），GitHub Actions 检查 `skill-sync/upstreams.json` 登记的全部外部 Skill，自研 Skill 不参与同步。发现变化后生成实际更新候选，通过精确提交 CI 和范围校验后自动合并，同时更新本 README 的来源和同步版本、Marketplace 清单及根目录[同步与修正报告](./UPSTREAM_SYNC_REPORT.md)。报告包含全部外部 Skill 的检查结果、更新前后版本、上游提交和文件变化；逐项明细保留在 `docs/upstream-reports/`。手动运行及失败处理见 [上游同步](./docs/upstream-sync.md)。
-- 两段同步链路为：外部上游 → 本 GitHub 仓库 → ChatGPT 工作区 Marketplace。通过 Admin → Plugins → Marketplaces 导入本仓库并跟踪 `master` 后，工作区 Marketplace 默认每日检查更新，也可手动 Sync now。无需让 GPT 定时任务重复检查或修改原始上游；GitHub Actions 的失败由工作流日志和仓库 issue 报告。此说明不代表目标工作区的实际同步开关已经核验。
-- 切勿把 token、密钥等敏感信息提交进任何 skill；本仓库公开可见。
-- 完整安装、同步命令与 Agent 行为约定见 [skill-sync](./skill-sync) 的 SKILL.md。
+仓库细节见 [维护与分发说明](./docs/architecture.md)。

@@ -6,15 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: Inspect only; do not create or merge a pull request
         type: boolean
+        description: Check without modifying or merging
         default: false
   pull_request:
     paths:
       - '.github/workflows/sync-upstream.yml'
-      - 'skill-sync/scripts/sync_upstream.py'
-      - 'skill-sync/scripts/auto_merge_upstream.py'
-      - 'skill-sync/upstreams.json'
+      - 'automation/**'
 
 permissions:
   contents: read
@@ -35,58 +33,51 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install --disable-pip-version-check pyyaml
-      - name: Inspect current upstreams without changing source
-        run: python3 skill-sync/scripts/sync_upstream.py --report "$RUNNER_TEMP/upstream-report.json"
+      - name: Inspect registered sources (no writes)
+        run: python3 automation/scripts/sync.py --report-json "$RUNNER_TEMP/upstream-check.json"
       - uses: actions/upload-artifact@v4
         with:
           name: upstream-preview
-          path: ${{ runner.temp }}/upstream-report.json
+          path: ${{ runner.temp }}/upstream-check.json
 
   sync:
     if: github.event_name != 'pull_request' && inputs.dry_run != true && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     permissions:
       contents: write
       pull-requests: write
-      actions: write # Dispatch read-only validation for the candidate commit.
-      issues: write  # Raise one actionable failure issue if a scheduled sync fails.
+      actions: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install --disable-pip-version-check pyyaml
-      - name: Test trusted synchronization code
-        run: python3 -m unittest discover -s skill-sync/tests -v
-      - name: Prepare candidate changes
+      - name: Install YAML dependency
+        run: python -m pip install --disable-pip-version-check pyyaml
+      - name: Test trusted sync code
+        run: python3 -m unittest discover -s automation/tests -v
+      - name: Fetch all upstreams and prepare candidate
         run: |
-          python3 skill-sync/scripts/sync_upstream.py --apply --report "$RUNNER_TEMP/upstream-report.json"
-          python3 skill-sync/scripts/gen_readme.py
-          python3 skill-sync/scripts/gen_marketplace.py
-          python3 skill-sync/scripts/gen_marketplace.py --check
-      - name: Stage only maintained skill and generated files
+          python3 automation/scripts/sync.py --apply --report-json "$RUNNER_TEMP/upstream-check.json"
+          python3 automation/scripts/generate.py
+          python3 automation/scripts/verify.py
+          python3 automation/scripts/generate.py --check
+      - name: Stage exclusively managed Skill packages and generated outputs
         run: |
-          python3 - <<'PY'
-          import json
-          import subprocess
-          from pathlib import Path
-          config = json.loads(Path('skill-sync/upstreams.json').read_text())
-          paths = list(config) + ['skill-sync/upstreams.json', 'README.md', 'UPSTREAM_SYNC_REPORT.md', '.agents/plugins/marketplace.json', 'docs/upstream-reports']
-          subprocess.run(['git', 'add', '--', *[p for p in paths if Path(p).exists()]], check=True)
-          PY
-      - name: Create candidate PR, validate its exact commit, and merge
+          git add -A -- skills/external automation/upstreams.json README.md UPSTREAM_SYNC_REPORT.md .agents/plugins/marketplace.json
+      - name: Create candidate PR, exact-commit validate, and merge
         env:
           GH_TOKEN: ${{ github.token }}
-          BASE_BRANCH: ${{ github.event.repository.default_branch }}
           REPOSITORY: ${{ github.repository }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
           set -euo pipefail
           if git diff --cached --quiet; then
-            echo 'No new skill changes or reports.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'No changes to sync this period.' >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           base_sha=$(git rev-parse HEAD)
@@ -100,36 +91,25 @@ jobs:
               test "$(git write-tree)" = "$(git rev-parse 'FETCH_HEAD^{tree}')"
               head_sha=$(git rev-parse FETCH_HEAD)
               number=$(gh pr view "$existing" --repo "$REPOSITORY" --json number --jq '.number')
-              python3 skill-sync/scripts/auto_merge_upstream.py --pr "$number" --branch "$branch" --head "$head_sha" --base-sha "$base_sha"
+              python3 automation/scripts/auto_merge.py --pr "$number" --branch "$branch" --head "$head_sha" --base-sha "$base_sha"
             else
-              echo "Candidate PR is already $state: $existing" >> "$GITHUB_STEP_SUMMARY"
+              echo "Candidate already $state: $existing" >> "$GITHUB_STEP_SUMMARY"
             fi
             exit 0
           fi
           git switch -c "$branch"
-          git -c core.hooksPath=/dev/null -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore: prepare skill upstream updates and review reports'
+          git -c core.hooksPath=/dev/null -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'chore(sync): update upstream Skill packages and report'
           if [ -n "$(git ls-remote --heads origin "$branch")" ]; then
             git fetch origin "$branch"
             test "$(git rev-parse 'HEAD^{tree}')" = "$(git rev-parse 'FETCH_HEAD^{tree}')"
           else
             git push origin "HEAD:refs/heads/$branch"
           fi
-          python3 - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-          report = json.loads((Path(os.environ['RUNNER_TEMP']) / 'upstream-report.json').read_text())
-          lines = ['Automatically prepared upstream candidates. Auto-merge follows successful exact-commit validation.', '', '| Skill | Result | File differences |', '|---|---|---|']
-          for entry in report['skills']:
-              lines.append(f"| {entry['skill']} | {entry['status']} | {len(entry['changes'])} |")
-          lines += ['', 'Sync policy: replace upstream-managed Skill files in full when necessary, including local-only files. Original content remains recoverable from Git history. Reports are in docs/upstream-reports/.', '', 'The workflow dispatches read-only Validate Skills on this exact candidate commit, retries failed validations up to three attempts, verifies PR ownership/scope and unchanged head/base, then merges without a manual approval step. Failed checks never bypass CI.', '', os.environ['RUN_URL']]
-          (Path(os.environ['RUNNER_TEMP']) / 'upstream-pr.md').write_text('\n'.join(lines) + '\n')
-          PY
-          pr_url=$(gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore: skill upstream updates and review reports' --body-file "$RUNNER_TEMP/upstream-pr.md")
+          pr_url=$(gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore(sync): update external Skills and report' --body "Generated by $RUN_URL. Auto-merge requires successful exact-head CI and unmodified source configuration."
           echo "$pr_url" >> "$GITHUB_STEP_SUMMARY"
           number=$(gh pr view "$pr_url" --repo "$REPOSITORY" --json number --jq '.number')
-          python3 skill-sync/scripts/auto_merge_upstream.py --pr "$number" --branch "$branch" --head "$(git rev-parse HEAD)" --base-sha "$base_sha"
-      - name: Report failed automatic synchronization
+          python3 automation/scripts/auto_merge.py --pr "$number" --branch "$branch" --head "$(git rev-parse HEAD)" --base-sha "$base_sha"
+      - name: Report failed synchronization
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
@@ -137,17 +117,16 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
-          set -euo pipefail
           title='[sync] Upstream synchronization requires repair'
-          existing=$(gh issue list --repo "$REPOSITORY" --state open --limit 100 --json title,number --jq '.[] | select(.title == "[sync] Upstream synchronization requires repair") | .number' | head -n 1 || true)
+          existing=$(gh issue list --repo "$REPOSITORY" --state open --limit 100 --json title,number --jq '.[] | select(.title == "[sync] Upstream synchronization requires repair") | .number' | head -n1 || true)
           if [ -n "$existing" ]; then
-            gh issue comment "$existing" --repo "$REPOSITORY" --body "Latest failed scheduled sync: $RUN_URL. Repository changes were not merged; inspect the candidate PR and validation failures." || true
+            gh issue comment "$existing" --repo "$REPOSITORY" --body "Failed upstream sync: $RUN_URL; candidate (if any) was not merged. Investigate workflow logs." || true
           else
-            gh issue create --repo "$REPOSITORY" --title "$title" --body "An automatic upstream synchronization failed: $RUN_URL. Updates MUST NOT be considered complete until the candidate is validated and merged. Inspect the run, repair the failure and rerun the workflow." || true
+            gh issue create --repo "$REPOSITORY" --title "$title" --body "Automatic upstream sync failed: $RUN_URL. Nothing is considered synchronized until the candidate passes CI and merges." || true
           fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: upstream-sync-report
-          path: ${{ runner.temp }}/upstream-report.json
+          name: upstream-check
+          path: ${{ runner.temp }}/upstream-check.json
           if-no-files-found: ignore

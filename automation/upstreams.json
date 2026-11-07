@@ -1,0 +1,54 @@
+{
+  "deep-research": {
+    "repo": "Imbad0202/academic-research-skills",
+    "path": "deep-research",
+    "ref": "main",
+    "sha": "6d9388674de1ad0437ad95db3d52f92b92204d84"
+  },
+  "humanizer": {
+    "repo": "blader/humanizer",
+    "path": "",
+    "ref": "main",
+    "sha": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0"
+  },
+  "skill-creator": {
+    "repo": "anthropics/skills",
+    "path": "skills/skill-creator",
+    "ref": "main",
+    "sha": "b9e19e6f44773509fbdd7001d77ff41a49a486c1"
+  },
+  "frontend-design": {
+    "repo": "anthropics/skills",
+    "path": "skills/frontend-design",
+    "ref": "main",
+    "sha": "ca45fc496a3436251f191354091d557da31c15b5"
+  },
+  "web-design-guidelines": {
+    "repo": "vercel-labs/agent-skills",
+    "path": "skills/web-design-guidelines",
+    "ref": "main",
+    "sha": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62"
+  },
+  "shadcn": {
+    "repo": "shadcn-ui/ui",
+    "path": "skills/shadcn",
+    "ref": "main",
+    "sha": "42f3bb63b46a69e52a24bd005cdc9ec15ba7a7b9"
+  },
+  "mermaid-diagrams": {
+    "repo": "softaworks/agent-toolkit",
+    "path": "skills/mermaid-diagrams",
+    "ref": "main",
+    "sha": "3027f20f3181758385a1bb8c022d4041dfb4de84"
+  },
+  "impeccable": {
+    "repo": "pbakaus/impeccable",
+    "path": ".agents/skills/impeccable",
+    "ref": "main",
+    "sha": "687bc381bc9091bf252c0a05303640561014a425",
+    "preserve": [
+      "LICENSE",
+      "NOTICE.md"
+    ]
+  }
+}
