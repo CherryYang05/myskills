@@ -33,6 +33,20 @@ class SynchronizationTests(unittest.TestCase):
         (self.root / "automation/templates").mkdir()
         template = Path(__file__).resolve().parents[1] / "templates/README.md.tpl"
         (self.root / "automation/templates/README.md.tpl").write_bytes(template.read_bytes())
+        (self.root / "automation/plugin-appearance.json").write_text(json.dumps({
+            "schemaVersion": 1,
+            "default": {
+                "brandColor": "#576579", "concept": "Temporary default",
+                "glyph": '<path d="M20 20h50v50"/>',
+            },
+            "skills": {
+                name: {
+                    "brandColor": "#365DAD", "concept": f"Icon for {name}",
+                    "glyph": '<path d="M20 20h50v50"/>',
+                }
+                for name in ("demo", "own")
+            },
+        }))
         self.config = {"demo": {"repo": "example/demo", "path": "skills/demo", "ref": "main", "sha": "a" * 40}}
         (self.root / sync.CONFIG).write_text(json.dumps(self.config))
         self.old = package()
@@ -197,6 +211,70 @@ class SynchronizationTests(unittest.TestCase):
             self.assertEqual((self.external / relative).read_bytes(), content)
         generate.check_or_write_plugin_files(self.root, generated, False)
         generate.check_or_write_plugin_files(self.root, generated, True)
+
+    def test_generated_plugins_include_functional_icon_assets(self):
+        generated = generate.render_plugin_files(self.root)
+        for name in ("demo", "own"):
+            manifest = json.loads(generated[f"plugins/{name}/plugin.json"][1])
+            interface = manifest["extensions"]["com.openai"]["interface"]
+            self.assertEqual(interface["logo"], "./assets/icon.svg")
+            self.assertEqual(interface["composerIcon"], "./assets/icon.svg")
+            self.assertEqual(interface["brandColor"], "#365DAD")
+            svg = generated[f"plugins/{name}/assets/icon.svg"][1]
+            self.assertIn(b'viewBox="0 0 128 128"', svg)
+            self.assertIn(b"<title>", svg)
+            self.assertLess(len(svg), 5000)
+        generate.check_or_write_plugin_files(self.root, generated, False)
+        generate.check_or_write_plugin_files(self.root, generated, True)
+
+    def test_appearance_fallback_is_deterministic_but_ci_rejects_it(self):
+        from appearance import load_config as appearance_config, render_icon, validate_coverage
+        path = self.root / "automation/plugin-appearance.json"
+        cfg = json.loads(path.read_text())
+        del cfg["skills"]["own"]
+        path.write_text(json.dumps(cfg))
+        loaded = appearance_config(self.root)
+        icon_one, color, fallback = render_icon("own", loaded)
+        icon_two, _, fallback_two = render_icon("own", loaded)
+        self.assertTrue(fallback and fallback_two)
+        self.assertEqual(icon_one, icon_two)
+        self.assertEqual(color, loaded["default"]["brandColor"])
+        with self.assertRaisesRegex(ValueError, "missing=.*own"):
+            validate_coverage(loaded, {"demo", "own"})
+        # A staging build can still render a coherent generic icon.
+        package = generate.render_plugin_files(self.root)
+        self.assertEqual(package["plugins/own/assets/icon.svg"][1], icon_one)
+
+    def test_appearance_rejects_unsafe_svg_and_light_brand_colors(self):
+        from appearance import validate_entry
+        valid = {
+            "brandColor": "#365DAD", "concept": "Research helper",
+            "glyph": '<path d="M20 20h50v50"/>',
+        }
+        validate_entry("demo", valid)
+        for glyph in ('<script>alert(1)</script>',
+                      '<image href="https://attacker.invalid/x.png"/>',
+                      '<path d="M20 20" onload="alert(1)"/>',
+                      '<path d="M20 20" fill="url(https://bad.invalid)"/>'):
+            with self.subTest(glyph=glyph), self.assertRaises(ValueError):
+                validate_entry("demo", {**valid, "glyph": glyph})
+        with self.assertRaisesRegex(ValueError, "contrast"):
+            validate_entry("demo", {**valid, "brandColor": "#FFFFFF"})
+
+    def test_appearance_change_triggers_only_own_plugin_version(self):
+        from appearance import load_config as appearance_config
+        first = generate.render_plugin_files(self.root)
+        generate.check_or_write_plugin_files(self.root, first, False)
+        cfg = json.loads((self.root / "automation/plugin-appearance.json").read_text())
+        cfg["skills"]["demo"]["glyph"] = '<circle cx="64" cy="64" r="22"/>'
+        (self.root / "automation/plugin-appearance.json").write_text(json.dumps(cfg))
+        next_build = generate.render_plugin_files(self.root)
+        v = lambda name: json.loads(next_build[f"plugins/{name}/plugin.json"][1])["version"]
+        self.assertEqual(v("demo"), "1.0.1")
+        self.assertEqual(v("own"), "1.0.0")
+        self.assertNotEqual(first["plugins/demo/assets/icon.svg"], next_build["plugins/demo/assets/icon.svg"])
+        generate.check_or_write_plugin_files(self.root, next_build, False)
+        self.assertEqual(generate.render_plugin_files(self.root), next_build)
 
     def test_cross_platform_marketplaces_and_cli_paths(self):
         indexes = generate.render(self.root)
