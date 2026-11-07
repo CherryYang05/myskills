@@ -28,9 +28,6 @@
       "path": "",
       "ref": "main",
       "mode": "replace",
-      "files": [
-        "SKILL.md"
-      ],
       "synced_commit": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8"
     }
   },
@@ -64,10 +61,7 @@
       "path": "skills/web-design-guidelines",
       "ref": "main",
       "mode": "replace",
-      "synced_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
-      "files": [
-        "SKILL.md"
-      ]
+      "synced_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62"
     }
   },
   "shadcn": {
