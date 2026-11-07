@@ -63,7 +63,10 @@ def validate_scope(before, after, paths):
                 side["sync"].pop("reviewed_commit", None)
         for side in (left, right):
             side[name]["sync"].pop("last_reported", None)
-        if mode in {"mirror", "replace"} and after[name].get("version") != before[name].get("version"):
+        commit_changed = (after[name]["sync"].get("synced_commit") !=
+                          before[name]["sync"].get("synced_commit"))
+        version_changed = after[name].get("version") != before[name].get("version")
+        if mode in {"mirror", "replace"} and (commit_changed or version_changed):
             pinned = after[name]["sync"].get("synced_commit", "")
             if not re.fullmatch(r"[0-9a-f]{40}", pinned) or after[name]["version"] != pinned[:12]:
                 raise ValueError("Updated version must match its pinned upstream commit")
