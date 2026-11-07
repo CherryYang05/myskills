@@ -97,6 +97,10 @@ def render(root=ROOT):
 
 个人 Agent Skills 仓库。将第三方 Skill 的上游更新和自己的 Skill 统一管理，提供 GitHub Marketplace 清单供支持该功能的客户端和 ChatGPT 工作区使用。
 
+## Skill 清单
+
+""" + "\n".join(rows) + """
+
 ## 安装与更新
 
 本仓库有两种安装途径：
@@ -109,7 +113,7 @@ def render(root=ROOT):
 需要 Node.js **22.20 或更高版本**。在目标项目目录执行表示项目级安装；加 `-g` 则表示当前用户全局安装。
 
 ```bash
-# 列出仓库中所有 16 个 Skill（只查询，不安装）
+# 查看仓库当前所有可安装的 Skill（只查询，不安装）
 npx skills add CherryYang05/myskills --list
 
 # 交互式选择 Skill 和客户端（当前项目）
@@ -130,7 +134,7 @@ npx skills add CherryYang05/myskills -s impeccable -a cursor -y
 # 同时将两个指定 Skill 安装到 Codex 和 Claude Code（当前项目）
 npx skills add CherryYang05/myskills -s humanizer -s blog-writer -a codex -a claude-code -y
 
-# 将本仓库全部 16 个 Skill 安装给三个指定客户端（全局）
+# 将仓库中的所有 Skill 安装到指定客户端（全局）
 npx skills add CherryYang05/myskills -s '*' -a codex -a claude-code -a cursor -g -y
 
 # 在所有受支持的客户端安装全部 Skill（范围较大，谨慎使用）
@@ -159,7 +163,7 @@ npx skills update -g            # 更新所有全局 Skill
 npx skills remove humanizer -g  # 卸载全局安装的 humanizer
 ```
 
-`-s`（或 `--skill`）选择名称，`-a` 选择目标客户端，`-g` 代表用户级安装，`-y` 跳过确认；`--all` 同时涵盖所有技能和所有受支持的客户端。可用 `--copy` 改用复制而非符号链接。更多参数见 [Skills CLI 官方命令文档](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
+`-s`（`--skill`）选择 Skill 名称；`-a`（`--agent`）是官方支持的客户端选择参数，例如 `-a codex`、`-a claude-code`、`-a cursor`，省略时由 CLI 自动检测或交互选择；`-g` 代表全局安装，`-y` 跳过确认；`--all` 同时涵盖所有技能和所有受支持的客户端。可用 `--copy` 改用复制而非符号链接。更多参数见 [Skills CLI 官方命令文档](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
 
 ### 方法二：各客户端的 Plugin Marketplace
 
@@ -203,10 +207,6 @@ claude plugin install blog-writer@cherry-skills
 **ChatGPT 网页版 / Work**
 
 在支持导入 GitHub Marketplace 的工作区中，进入 **Admin → Plugins → Add → Import marketplace**，输入仓库 `https://github.com/CherryYang05/myskills`，跟踪 `master`，随后从 **Cherry Skills** 安装所需插件。导入和 GitHub 更新并不会自动替换网页版此前手动上传的同名插件。
-
-## Skill 清单
-
-""" + "\n".join(rows) + """
 
 ## 两阶段同步
 
