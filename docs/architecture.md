@@ -22,7 +22,7 @@ README.md                         Skill 列表（自动生成）
 UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生成）
 ```
 
-保留 17 个原有 Skill：8 个外部同步、9 个自研。外部 Skill 的目录结构及文件权限尽量与上游匹配；自研 Skill 不参加自动替换。
+现有 16 个 Skill：8 个外部同步、8 个自研。外部 Skill 的目录结构及文件权限尽量与上游匹配；自研 Skill 不参加自动替换。
 
 ## 为什么外部来源要有注册表
 
@@ -40,7 +40,7 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 
 ## myskills → ChatGPT
 
-清单位于仓库根目录 `.agents/plugins/marketplace.json`，记录全部 17 个 Skill 的相对目录，其中既有 external 也有 personal。
+清单位于仓库根目录 `.agents/plugins/marketplace.json`，记录全部 16 个 Skill 的相对目录，其中既有 external 也有 personal。
 
 **ChatGPT 工作区管理员**可以通过 **Admin → Plugins → Add → Import marketplace** 导入仓库，Source 填 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 选 `master`。平台提供默认每日自动同步和手动 Sync now；这项同步必须在实际目标工作区完成导入后才能生效。具体入口和行为请参阅 [官方文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
