@@ -28,6 +28,8 @@ jobs:
         run: python3 automation/scripts/verify.py
       - name: Validate source configuration
         run: python3 automation/scripts/sync.py --check-config
+      - name: Validate semantic icon coverage, colors and SVG safety
+        run: python3 automation/scripts/verify_appearance.py
       - name: Verify generated README, Marketplace and Plugin packages
         run: python3 automation/scripts/generate.py --check
       - name: Check Python syntax
