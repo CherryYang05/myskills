@@ -98,20 +98,30 @@ def merge_candidate(api, repository, number, branch, head, base, base_sha, timeo
     verify_base(api, base, base_sha)
     query = urlencode({"event": "workflow_dispatch", "branch": branch, "per_page": 100})
     runs_path = "actions/workflows/validate-skills.yml/runs?" + query
-    previous = {run["id"] for run in api.api(runs_path)["workflow_runs"]}
-    api.api("actions/workflows/validate-skills.yml/dispatches", "POST", {"ref": branch})
     deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        candidates = [run for run in api.api(runs_path)["workflow_runs"]
-                      if run["id"] not in previous and run["head_sha"] == head]
-        completed = next((run for run in candidates if run["status"] == "completed"), None)
-        if completed:
-            if completed["conclusion"] != "success":
-                raise ValueError(f"Candidate validation did not pass: {completed['html_url']}")
+    # CI runners can fail before any test step starts. Retry failures without
+    # changing the candidate; never merge unless a fresh exact-head run passes.
+    completed = None
+    for attempt in range(3):
+        previous = {run["id"] for run in api.api(runs_path)["workflow_runs"]}
+        api.api("actions/workflows/validate-skills.yml/dispatches", "POST", {"ref": branch})
+        while time.monotonic() < deadline:
+            candidates = [run for run in api.api(runs_path)["workflow_runs"]
+                          if run["id"] not in previous and run["head_sha"] == head]
+            completed = next((run for run in candidates if run["status"] == "completed"), None)
+            if completed:
+                if completed["conclusion"] == "success":
+                    break
+                if attempt == 2:
+                    raise ValueError(
+                        f"Candidate validation failed after 3 attempts: {completed['html_url']}"
+                    )
+                break
+            sleep(5)
+        else:
+            raise TimeoutError("Timed out waiting for exact-head validation; PR left open")
+        if completed and completed["conclusion"] == "success":
             break
-        sleep(5)
-    else:
-        raise TimeoutError("Timed out waiting for exact-head validation; PR left open")
     # Never merge a newer, unvalidated push or an outdated candidate base.
     validate_pr(api.api(f"pulls/{number}"), repository, branch, head, base)
     verify_base(api, base, base_sha)
