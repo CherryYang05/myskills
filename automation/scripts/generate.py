@@ -19,6 +19,21 @@ def source_link(source):
     return url
 
 
+def short_description(description, limit=88):
+    """Compact README summaries and avoid breaking English words."""
+    text = re.sub(r"\s+", " ", description).strip()
+    text = re.split(r"\. |。", text, maxsplit=1)[0].strip()
+    if len(text) > limit:
+        shortened = text[:limit]
+        if (shortened[-1].isascii() and shortened[-1].isalnum()
+                and text[limit].isascii() and text[limit].isalnum()):
+            last_space = shortened.rfind(" ")
+            if last_space > limit // 2:
+                shortened = shortened[:last_space]
+        text = shortened.rstrip(" ,.;:，。；：、") + "…"
+    return text.replace("|", r"\|").replace("`, "'")
+
+
 def render(root=ROOT):
     packages = inventory(root)
     config = json.loads((root / CONFIG).read_text(encoding="utf-8"))
@@ -33,8 +48,7 @@ def render(root=ROOT):
             "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
             "category": "Productivity",
         })
-        raw = re.sub(r"\s+", " ", fields["description"]).strip()
-        desc = raw.split(". ")[0].split("。")[0][:160].replace("|", r"\|").replace("`", "'")
+        desc = short_description(fields["description"])
         label = f"[{name}]({path})"
         if group == "external":
             info = config[directory]

@@ -12,7 +12,6 @@ from sync import ROOT, EXTERNAL, load_config
 SKILLS = "skills"
 FRONT = re.compile(r"\A---\r?\n(.*?)\r?\n---(?=\r?\n|\Z)", re.DOTALL)
 NAME = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
-FIELDS = {"name", "description", "license", "compatibility", "metadata", "allowed-tools", "user-invocable"}
 
 
 def read_frontmatter(file):
@@ -56,8 +55,6 @@ def inventory(root=ROOT):
             if not skill.is_file():
                 raise ValueError(f"Unexpected directory without SKILL.md: {path}")
             fields = read_frontmatter(skill)
-            if group == "external" and set(fields) - FIELDS:
-                raise ValueError(f"Unsupported external metadata: {path}: {sorted(set(fields) - FIELDS)}")
             name = fields["name"]
             if name in names:
                 raise ValueError(f"Duplicate Skill name: {name}")

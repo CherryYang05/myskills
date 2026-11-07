@@ -28,7 +28,7 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 
 `automation/upstreams.json` 明确记录每个外部 Skill 的上游 `repo`、内部 `path`、跟踪的 `ref`、本仓库已同步的完整提交 `sha`、可选的 `preserve` 法律声明。完整 Git SHA 是唯一版本依据；README 的短 SHA 和可点击来源链接按需生成，不重复存储。所有外部 Skill 目录必须与配置键严格一一对应；新增未登记外部 Skill 会使 CI 失败。
 
-\todo: 请勿将个人或自研 Skill 放进 external；新加的第三方 Skill 必须将它的真实来源和首次同步 SHA 一并记录。自研目录只按实际文件维护。
+**注意：** 请勿将个人或自研 Skill 放进 external；新加的第三方 Skill 必须将它的真实来源和首次同步 SHA 一并记录。自研目录只按实际文件维护。
 
 ## GitHub 上游 → myskills
 

@@ -104,6 +104,25 @@ class SynchronizationTests(unittest.TestCase):
         self.assertIn("./skills/external/demo", generated["README.md"])
         self.assertIn("./skills/personal/own", generated["README.md"])
 
+    def test_future_frontmatter_keys_are_forward_compatible(self):
+        path = self.external / "SKILL.md"
+        path.write_text(
+            "---\nname: demo\ndescription: Future-compatible Skill.\n"
+            "new-client-feature: enabled\n---\n"
+        )
+        packages = verify.inventory(self.root)
+        self.assertEqual(packages[0][2]["new-client-feature"], "enabled")
+
+    def test_readme_description_does_not_split_english_words(self):
+        self.assertEqual(
+            generate.short_description("Review accessibility rules and improve the design system", limit=22),
+            "Review accessibility…",
+        )
+        self.assertEqual(
+            generate.short_description("检查前端页面的可访问性。其他信息"),
+            "检查前端页面的可访问性",
+        )
+
     def test_documented_extension_and_unknown_field(self):
         path = self.external / "SKILL.md"
         path.write_text("---\nname: demo\ndescription: Test.\nuser-invocable: false\n---\n")
