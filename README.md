@@ -145,7 +145,7 @@ claude plugin install blog-writer@cherry-skills
 - 新增外部 Skill 的标准流程见 [外部 Skill 准入规范](./docs/adding-external-skill.md)：评估来源与风险、保持上游完整快照、登记 SHA、生成分发包、通过 PR 和 CI 后合并；后续更新自动化。
 - `automation/scripts/` 管理上游检查、来源安全、版本报告、校验及自动合并；`automation/tests/` 是回归测试。
 - `README.md`、`skills.sh.json`、三个平台的 Marketplace 清单和 `plugins/` 都是生成产物。编辑安装文档时改 `automation/templates/README.md.tpl`；修改 Skill、模板或配置后运行 `python3 automation/scripts/generate.py`，再运行 `python3 automation/scripts/generate.py --check`。
-- 各 Plugin 的专属图标由 [`automation/plugin-appearance.json`](./automation/plugin-appearance.json) 配置，统一采用柔和低饱和品牌色和轻量渐变；生成器自动输出 SVG；新 Skill 应由 AI 根据功能设计图标，CI 会拒绝缺失的专属配置，通用图标仅用于入库前预览。
+- 各 Plugin 的专属图标由 [`automation/plugin-appearance.json`](./automation/plugin-appearance.json) 配置，生成器统一输出 SVG；新 Skill 应由 AI 根据功能设计图标，CI 会拒绝缺失的专属配置，通用图标仅用于入库前预览。
 - `UPSTREAM_SYNC_REPORT.md` 记录最近一次实际同步的上游变更；无变化的周度检查报告保留在 GitHub Action Summary / Artifact，避免冗余提交。
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。

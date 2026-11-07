@@ -36,12 +36,12 @@ class SynchronizationTests(unittest.TestCase):
         (self.root / "automation/plugin-appearance.json").write_text(json.dumps({
             "schemaVersion": 1,
             "default": {
-                "brandColor": "#7B9EB5", "concept": "Temporary default",
+                "brandColor": "#576579", "concept": "Temporary default",
                 "glyph": '<path d="M20 20h50v50"/>',
             },
             "skills": {
                 name: {
-                    "brandColor": "#6CA8D8", "concept": f"Icon for {name}",
+                    "brandColor": "#365DAD", "concept": f"Icon for {name}",
                     "glyph": '<path d="M20 20h50v50"/>',
                 }
                 for name in ("demo", "own")
@@ -219,14 +219,9 @@ class SynchronizationTests(unittest.TestCase):
             interface = manifest["extensions"]["com.openai"]["interface"]
             self.assertEqual(interface["logo"], "./assets/icon.svg")
             self.assertEqual(interface["composerIcon"], "./assets/icon.svg")
-            self.assertEqual(interface["brandColor"], "#6CA8D8")
+            self.assertEqual(interface["brandColor"], "#365DAD")
             svg = generated[f"plugins/{name}/assets/icon.svg"][1]
             self.assertIn(b'viewBox="0 0 128 128"', svg)
-            self.assertIn(b'<linearGradient id="tile"', svg)
-            self.assertIn(b'<stop offset="0%"', svg)
-            self.assertIn(b'<stop offset="100%"', svg)
-            self.assertIn(b'stroke-width="5.5"', svg)
-            self.assertIn(b'opacity=".045"', svg)
             self.assertIn(b"<title>", svg)
             self.assertLess(len(svg), 5000)
         generate.check_or_write_plugin_files(self.root, generated, False)
@@ -253,7 +248,7 @@ class SynchronizationTests(unittest.TestCase):
     def test_appearance_rejects_unsafe_svg_and_light_brand_colors(self):
         from appearance import validate_entry
         valid = {
-            "brandColor": "#6CA8D8", "concept": "Research helper",
+            "brandColor": "#365DAD", "concept": "Research helper",
             "glyph": '<path d="M20 20h50v50"/>',
         }
         validate_entry("demo", valid)
@@ -265,22 +260,6 @@ class SynchronizationTests(unittest.TestCase):
                 validate_entry("demo", {**valid, "glyph": glyph})
         with self.assertRaisesRegex(ValueError, "contrast"):
             validate_entry("demo", {**valid, "brandColor": "#FFFFFF"})
-        # Too-dark colors are rejected to keep the family soft and airy.
-        with self.assertRaisesRegex(ValueError, "contrast"):
-            validate_entry("demo", {**valid, "brandColor": "#17345A"})
-
-    def test_pastel_gradient_blends_are_reproducible(self):
-        from appearance import blend_hex, contrast_against_white, load_config
-        self.assertEqual(blend_hex("#000000", "#FFFFFF", 13), "#212121")
-        self.assertEqual(blend_hex("#FFFFFF", "#273B5E", 7), "#F0F1F4")
-        config = load_config(self.root)
-        for name in ("demo", "own"):
-            self.assertGreaterEqual(
-                contrast_against_white(config["skills"][name]["brandColor"]), 2.35
-            )
-            self.assertLessEqual(
-                contrast_against_white(config["skills"][name]["brandColor"]), 4.2
-            )
 
     def test_appearance_change_triggers_only_own_plugin_version(self):
         from appearance import load_config as appearance_config
