@@ -64,7 +64,7 @@ ls $D
 
 ## Agent 行为准则（重要）
 
-1. **推送前确认，并展示内容摘要。** `git push` 前先 `git -C $D status` 和 `git -C $D diff --cached`（不要只看 `--stat`），在对话中用自然语言总结本次增加/改动/删除了什么实质内容（新增了哪个 skill、改了哪些行为规则、删了哪些文件），而不只是文件名和行数，再等待用户确认。
+1. **人工推送前确认，并展示内容摘要。** 手动 `git push` 前先 `git -C $D status` 和 `git -C $D diff --cached`（不要只看 `--stat`），在对话中用自然语言总结本次增加/改动/删除了什么实质内容（新增了哪个 skill、改了哪些行为规则、删了哪些文件），而不只是文件名和行数，再等待用户确认。**例外**：用户已授权每周自动上游同步，此固定范围内的受管 Skill 更新（包括必要时全量替换）无须每次单独确认；必须通过来源检查、候选 PR、精确提交 CI 和范围校验后合并。此授权不适用于自研 Skill、仓库配置或其他操作。
 2. **拉取覆盖保护。** `git pull` 前先 `git -C $D fetch` + `git -C $D diff HEAD origin/master --stat`，告知用户哪些本地文件会被改动，确认后再 pull。若本地有未提交改动，先提示用户以免冲突丢失。
 3. **指定 skill 推送**用 `git add <skill>`，不要 `add -A` 误带无关改动。
 4. **不提交敏感信息**（token、密钥）。仓库公开可见。
@@ -82,6 +82,6 @@ ls $D
 
 ## GitHub 自动检查上游
 
-源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 21:00 检查 `upstreams.json`。mirror 策略只有在本地文件及权限与 `synced_commit` 一致时才生成更新候选；review 策略只生成报告，不能把 `last_reported` 当成已同步版本。任务创建机器人候选 PR，派发只读完整校验，确认相同提交成功且主分支未前进后自动合并；不会自动合并其他 PR。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
+源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 21:00 检查 `upstreams.json`。**所有登记的外部 Skill 必须采用自动实际同步策略**：优先接受无冲突的上游更新；本地改动冲突或无法可靠合并时，以经过核验的上游快照**完整替换**受管目录，包含删除本地独有文件。现有外部 Skill 使用 `replace` 模式，配置校验禁止仅报告的 `review` 模式。完全替换的旧中文/个人定制可从 Git 历史恢复，版本改为上游具体 commit 短 SHA；`last_reported` 不得阻止未合并候选重试。任务创建机器人候选 PR，派发只读完整校验，确认相同提交成功且主分支未前进后自动合并；不会绕过 CI 或合并其他 PR。若平台、权限或校验故障，必须继续重试并主动报告实际阻碍，绝不能把“发现更新”称为成功同步。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
 
 通过 marketplace 安装到本机 Codex 的技能，需单独刷新来源；更新 GitHub 仓库不等于更新 ChatGPT 个人空间手动上传的技能。
