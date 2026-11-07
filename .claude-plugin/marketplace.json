@@ -1,0 +1,90 @@
+{
+  "name": "cherry-skills",
+  "description": "Curated external and personal Agent Skills",
+  "owner": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "plugins": [
+    {
+      "name": "deep-research",
+      "source": "./plugins/deep-research",
+      "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis"
+    },
+    {
+      "name": "frontend-design",
+      "source": "./plugins/frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults."
+    },
+    {
+      "name": "humanizer",
+      "source": "./plugins/humanizer",
+      "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler. Based on Wikipedia's \"Signs of AI writing.\""
+    },
+    {
+      "name": "impeccable",
+      "source": "./plugins/impeccable",
+      "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, simplify, harden, animate, or otherwise improve a frontend interface: websites, landing pages, dashboards, product UI, components, forms, settings, onboarding, empty states, and native iOS or Android screens. Handles UX review, hierarchy, layout, typography, color, motion, UX copy, accessibility, responsive behavior, edge cases, and capturing or documenting design systems (DESIGN.md, tokens). Also for making bland UI bolder, loud UI quieter, or ambitious visual effects. Not for backend-only or non-UI tasks."
+    },
+    {
+      "name": "mermaid-diagrams",
+      "source": "./plugins/mermaid-diagrams",
+      "description": "Comprehensive guide for creating software diagrams using Mermaid syntax. Use when users need to create, visualize, or document software through diagrams including class diagrams (domain modeling, object-oriented design), sequence diagrams (application flows, API interactions, code execution), flowcharts (processes, algorithms, user journeys), entity relationship diagrams (database schemas), C4 architecture diagrams (system context, containers, components), state diagrams, git graphs, pie charts, gantt charts, or any other diagram type. Triggers include requests to \"diagram\", \"visualize\", \"model\", \"map out\", \"show the flow\", or when explaining system architecture, database design, code structure, or user/application flows."
+    },
+    {
+      "name": "shadcn",
+      "source": "./plugins/shadcn",
+      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI, including chat interfaces. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file. Also triggers for \"shadcn init\", \"create an app with --preset\", \"switch to --preset\", and for building a design system or applying a DESIGN.md or brand spec to shadcn/ui."
+    },
+    {
+      "name": "skill-creator",
+      "source": "./plugins/skill-creator",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy."
+    },
+    {
+      "name": "web-design-guidelines",
+      "source": "./plugins/web-design-guidelines",
+      "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\"."
+    },
+    {
+      "name": "ds-mr-reviewer",
+      "source": "./plugins/ds-mr-reviewer",
+      "description": "MR代码检视工具。提供MR URL，自动分析代码变更、识别功能风险、给出验证场景建议、生成检视报告并发送WeLink通知。当用户提供检视代码的url链接，并且url包含codehub时，必须使用此技能。也支持本地仓库路径输入。"
+    },
+    {
+      "name": "dt-case-enhancer",
+      "source": "./plugins/dt-case-enhancer",
+      "description": "使用CodeAgent对已有DT用例进行增强补齐。这是一个通用的skill,指导用户通过思维链(CoT)的方式分步骤对存量DT用例进行分析和增量补充。当用户提到DT用例增强、用例补充、增量用例等关键词时,应使用此skill。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。"
+    },
+    {
+      "name": "dt-case-generator",
+      "source": "./plugins/dt-case-generator",
+      "description": "使用CodeAgent生成DT(开发者自测试)用例。这是一个通用的的skill,指导用户通过思维链(CoT)的方式分步骤生成高质量的DT测试用例。当用户提到DT用例生成、测试用例生成、LLT测试等关键词时,应使用此skill。特别适用于大颗粒特性(如2w行代码规模)的DT用例生成。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。"
+    },
+    {
+      "name": "blog-writer",
+      "source": "./plugins/blog-writer",
+      "description": "将技术对话整理为结构完整、可独立阅读的中文技术文章。当用户说“帮我整理成博客”“生成博客”“写成文章”“整理一下”“出一篇博客”，或明确要求“教程类博客”“技术解析博客”时触发本技能。文章以中文撰写，技术术语保留英文原文，写作风格接近专业技术书籍、论文式技术文章或高质量工程博客，而不是聊天总结。"
+    },
+    {
+      "name": "skill-dev-flow",
+      "source": "./plugins/skill-dev-flow",
+      "description": "固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档。当用户说\"开个新需求\"、\"帮我把这个需求拆一下\"、\"按流程开发\"、\"初始化项目文档\"、\"写个设计文档\"、\"这个功能怎么拆\"、\"建 AGENTS.md\"、\"开发流程\"，或描述了一个待开发的需求/功能/项目时，必须立即触发本技能。即使用户只是丢来一句模糊需求（\"我想做个 X\"），也应主动按本流程推进。流程产物以中文撰写，技术术语、代码、文件名保留英文。"
+    },
+    {
+      "name": "skill-dev-sop",
+      "source": "./plugins/skill-dev-sop",
+      "description": "固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合评估）、编码实现（测试先行/耦合治理/文件分类）、单元与集成测试与设计评审、收尾归档。EARS 验收标准、依赖护栏工具化、AC 可追溯回链。当用户说\"开个新需求\"、\"设计一下系统架构\"、\"这个项目怎么拆模块\"、\"按流程开发\"、\"初始化项目文档\"、\"写个设计文档\"、\"检查一下耦合\"、\"文件该怎么分类\"、\"补一下测试\"、\"开发流程\"，或描述了一个待开发的需求/功能/项目时，必须立即触发本技能。即使用户只是丢来一句模糊需求（\"我想做个 X\"），也应主动按本流程推进。流程产物以中文撰写，技术术语、代码、文件名保留英文。"
+    },
+    {
+      "name": "skill-iterate",
+      "source": "./plugins/skill-iterate",
+      "description": "对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好。当用户说\"优化 skill\"、\"改进 skill\"、\"记住这个问题\"、\"以后不要再这样\"、\"这个问题每次都出现\"、\"改进博客 skill\"、\"改进 llt skill\" 时触发。注意：只想修改当前输出（\"重新写一下\"、\"改这里\"）时不触发，让原始 skill 处理。"
+    },
+    {
+      "name": "skill-os-setup",
+      "source": "./plugins/skill-os-setup",
+      "description": "用于维护 EasyNewOS 仓库。当用户提到\"更新README\"、\"修改README\"、\"扩展EasyNewOS\"、\"增加脚本\"、\"添加新内容到EasyNewOS\"、\"提交到GitHub\"、\"推送到github\"、\"按照现有结构扩展\"、\"按照我的风格\"，或对仓库进行任何维护操作时触发。这个仓库用于新系统（Win、macOS、Linux）配置，包含软件安装、系统配置、脚本等。"
+    }
+  ]
+}

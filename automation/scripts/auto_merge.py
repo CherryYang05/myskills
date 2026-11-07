@@ -44,7 +44,9 @@ def validate_scope(before, after, changed_paths):
             raise ValueError(f"Invalid pinned source commit: {name}")
         if old_sha != new_sha and not SHA_RE.fullmatch(old_sha or ""):
             raise ValueError(f"Invalid previous source commit: {name}")
-    allowed = {CONFIG, SUMMARY, "README.md", ".agents/plugins/marketplace.json"}
+    allowed = {CONFIG, SUMMARY, "README.md", ".agents/plugins/marketplace.json",
+               ".claude-plugin/marketplace.json", ".cursor-plugin/marketplace.json",
+               "skills.sh.json"}
     for path in changed_paths:
         if path in allowed:
             continue

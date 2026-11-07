@@ -128,6 +128,35 @@ class SynchronizationTests(unittest.TestCase):
         generate.check_or_write_plugin_files(self.root, generated, False)
         generate.check_or_write_plugin_files(self.root, generated, True)
 
+    def test_cross_platform_marketplaces_and_cli_paths(self):
+        indexes = generate.render(self.root)
+        for key in (generate.MARKETPLACE, generate.CLAUDE_MARKETPLACE,
+                    generate.CURSOR_MARKETPLACE):
+            self.assertIn(key, indexes)
+            catalog = json.loads(indexes[key])
+            self.assertEqual({entry["name"] for entry in catalog["plugins"]}, {"demo", "own"})
+            for entry in catalog["plugins"]:
+                src = entry["source"]
+                self.assertEqual(
+                    src["path"] if isinstance(src, dict) else src,
+                    "./plugins/" + entry["name"],
+                )
+        self.assertEqual(json.loads(indexes[generate.CLAUDE_MARKETPLACE])["name"], "cherry-skills")
+        self.assertEqual(json.loads(indexes[generate.CURSOR_MARKETPLACE])["name"], "cherry-skills")
+        paths = json.loads(indexes[generate.SKILLS_CLI_CONFIG])["paths"]
+        self.assertEqual(paths, ["./skills/external", "./skills/personal"])
+        plugins = generate.render_plugin_files(self.root)
+        for name in ("demo", "own"):
+            self.assertIn(f"plugins/{name}/plugin.json", plugins)
+            self.assertIn(f"plugins/{name}/skills/{name}/SKILL.md", plugins)
+
+    def test_cli_inventory_output_check(self):
+        from check_cli_inventory import check_cli_output
+        packages = verify.inventory(self.root)
+        self.assertEqual(check_cli_output("demo\nown", packages), 2)
+        with self.assertRaisesRegex(ValueError, "own"):
+            check_cli_output("demo", packages)
+
     def test_generate_catalog_contains_all_groups(self):
         generated = generate.render(self.root)
         catalog = json.loads(generated[generate.MARKETPLACE])

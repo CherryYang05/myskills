@@ -9,6 +9,9 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 - `automation/scripts/`: trusted synchronization, validation, README / Marketplace generation and guarded PR auto-merge code.
 - `automation/tests/`: regression and security tests.
 - `.agents/plugins/marketplace.json`: generated plugin catalog for supported ChatGPT workspaces; entries point to `plugins/<name>`.
+- `.claude-plugin/marketplace.json`: generated Claude Code plugin catalog.
+- `.cursor-plugin/marketplace.json`: generated Cursor marketplace catalog.
+- `skills.sh.json`: generated Skills CLI discovery paths pointing at canonical Skills.
 - `plugins/<name>/`: generated standalone plugin with root `plugin.json` and a mirrored `skills/<name>/` package, except root-level `.claude-plugin/` and `.cursor-plugin/` installer metadata. Never edit generated packages directly; source Skills retain their full upstream files.
 - `README.md`: generated Skill index and installation guidance.
 - `UPSTREAM_SYNC_REPORT.md`: generated summary of the most recently prepared and merged upstream sync. See Git history and GitHub Actions to confirm actual completion.
@@ -20,7 +23,7 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 2. Inspect the diff before changing or deleting files. Do not commit secrets, credentials, generated Python bytecode or unrelated working-tree changes. Summarize manual deletions and behavioral changes for the user.
 3. Preserve every Skill's internal relative paths (references, scripts, assets, metadata). A renamed package or `SKILL.md` name can break clients and existing installations.
 4. When adding a third-party Skill, register its true upstream repository, subpath, tracked ref and synchronized full commit SHA in `automation/upstreams.json`. The registry and the `skills/external/` directory set must match exactly.
-5. Do not edit generated `README.md`, `.agents/plugins/marketplace.json` or `plugins/` as their source of truth. After Skill or configuration changes, run `python3 automation/scripts/generate.py`. Edit that generator for changes to README prose or catalog layout.
+5. Do not edit generated `README.md`, all three platform marketplace catalogs, `skills.sh.json` or `plugins/` as their source of truth. After Skill or configuration changes, run `python3 automation/scripts/generate.py`. Edit that generator for changes to README prose or catalog layout.
 6. Verify results with:
    ```bash
    python3 -m pip install pyyaml
@@ -32,7 +35,7 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 
 ## Two-stage synchronization safeguards
 
-**Stage 1: upstream → GitHub.** `.github/workflows/sync-upstream.yml` runs Fridays at 12:30 UTC (20:30 Asia/Shanghai). Its candidates may alter only registered `skills/external/` packages, matching generated `plugins/<external-name>/` packages, pinned source SHAs and generated artifacts. They must pass `Validate Skills` for the exact candidate commit before automatic merge. Do not execute untrusted upstream Skill scripts, bypass CI, overwrite preserved LICENSE / NOTICE files, alter upstream sources inside a candidate, or touch `skills/personal/`.
+**Stage 1: upstream → GitHub.** `.github/workflows/sync-upstream.yml` runs Fridays at 12:30 UTC (20:30 Asia/Shanghai). Its candidates may alter only registered `skills/external/` packages, matching generated `plugins/<external-name>/` packages, pinned source SHAs and generated catalogs/configuration. They must pass `Validate Skills` for the exact candidate commit before automatic merge. Do not execute untrusted upstream Skill scripts, bypass CI, overwrite preserved LICENSE / NOTICE files, alter upstream sources inside a candidate, or touch `skills/personal/`.
 
 **Stage 2: GitHub → ChatGPT.** Workspace administrators may import the repository Marketplace and track `master`. The platform's marketplace sync is separate from GitHub Actions. Do not assume a personal ChatGPT account's manually uploaded plugins update automatically; importing or migrating existing plugins needs verification in the target workspace.
 
