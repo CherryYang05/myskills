@@ -57,6 +57,14 @@ def validate_config(config, root):
             raise ValueError(f"Automatic upstream sync cannot be report-only for {name}; use replace")
         if sync["mode"] == "mirror" and not re.fullmatch(r"[0-9a-f]{40}", sync.get("synced_commit", "")):
             raise ValueError(f"Mirror mode needs a full synced_commit for {name}")
+        if "preserve_files" in sync:
+            legal = sync["preserve_files"]
+            if not isinstance(legal, list) or len(legal) != len(set(legal)):
+                raise ValueError(f"Invalid preserved legal files for {name}")
+            for path in legal:
+                safe_path(path)
+                if Path(path).name not in {"LICENSE", "LICENSE.txt", "NOTICE", "NOTICE.md", "COPYING"}:
+                    raise ValueError(f"Only license/notice files may survive a replacement: {name}/{path}")
         if "files" in sync:
             if not isinstance(sync["files"], list) or not sync["files"]:
                 raise ValueError(f"Empty file scope for {name}")
@@ -98,7 +106,7 @@ def snapshot(repository, commit, sync):
     return result
 
 
-def local_snapshot(directory, scope=None):
+def local_snapshot(directory, scope=None, preserve=None):
     if directory.is_symlink():
         raise ValueError(f"Local skill directory is a symlink: {directory}")
     result = {}
@@ -108,6 +116,8 @@ def local_snapshot(directory, scope=None):
         if "__pycache__" in path.parts or path.suffix in {".pyc", ".pyo"}:
             continue
         if scope is not None and relative not in scope:
+            continue
+        if preserve is not None and relative in preserve:
             continue
         if path.is_symlink():
             raise ValueError(f"Local symlink needs manual review: {path}")
@@ -178,7 +188,10 @@ def fetch_plan(root, config, cache):
         git(repository, "fetch", "--quiet", "--depth=1", "origin", sync["ref"])
         commit = git(repository, "rev-parse", "FETCH_HEAD").decode().strip()
         latest = snapshot(repository, commit, sync)
-        local = local_snapshot(root / name, sync.get("files"))
+        preserved = set(sync.get("preserve_files", []))
+        if preserved & set(latest):
+            raise ValueError(f"Preserved local notices overlap upstream files for {name}")
+        local = local_snapshot(root / name, sync.get("files"), preserved)
         baseline = None
         if sync["mode"] == "mirror":
             git(repository, "fetch", "--quiet", "--depth=1", "origin", sync["synced_commit"])
