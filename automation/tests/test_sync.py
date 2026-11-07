@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import sync
@@ -29,6 +30,9 @@ class SynchronizationTests(unittest.TestCase):
             "---\nname: own\ndescription: My own skill.\n---\n"
         )
         (self.root / "automation").mkdir()
+        (self.root / "automation/templates").mkdir()
+        template = Path(__file__).resolve().parents[1] / "templates/README.md.tpl"
+        (self.root / "automation/templates/README.md.tpl").write_bytes(template.read_bytes())
         self.config = {"demo": {"repo": "example/demo", "path": "skills/demo", "ref": "main", "sha": "a" * 40}}
         (self.root / sync.CONFIG).write_text(json.dumps(self.config))
         self.old = package()
@@ -63,8 +67,74 @@ class SynchronizationTests(unittest.TestCase):
 
     def test_unrelated_upstream_commit_does_not_advance_source_sha(self):
         self.assertEqual(sync.diff(self.old, dict(self.old)), [])
+        report = self.root / sync.SUMMARY
+        report.write_text("previous actual update")
+        old_registry = (self.root / sync.CONFIG).read_bytes()
         result = sync.apply_plans(self.root, self.config, [("demo", "b" * 40, self.old, self.old, [])], "2026-W45")
         self.assertEqual(result["demo"]["sha"], "a" * 40)
+        # A weekly no-op must not create a false release or report-only PR.
+        self.assertEqual(report.read_text(), "previous actual update")
+        self.assertEqual((self.root / sync.CONFIG).read_bytes(), old_registry)
+
+    def test_shared_upstream_repo_is_fetched_only_once(self):
+        # Two names within the same upstream repo/ref must reuse a Git fetch.
+        (self.root / "skills/external/second").mkdir()
+        (self.root / "skills/external/second/SKILL.md").write_text(
+            "---\\nname: second\\ndescription: second\\n---\n"
+        )
+        config = dict(self.config)
+        config["second"] = {**self.config["demo"], "path": "skills/second"}
+        calls = []
+
+        def fake_git(directory, *args):
+            calls.append(args)
+            if args[0] == "rev-parse":
+                return b"b" * 40
+            return b""
+
+        with mock.patch.object(sync, "ROOT", self.root), \
+                mock.patch.object(sync, "git", side_effect=fake_git), \
+                mock.patch.object(sync, "tree_snapshot", return_value=self.old):
+            plans = sync.fetch_snapshots(config)
+        self.assertEqual(len(plans), 2)
+        self.assertEqual(sum(command[0] == "fetch" for command in calls), 1)
+
+    def test_github_step_summary_includes_noop_checks(self):
+        summary = self.root / "GITHUB_STEP_SUMMARY"
+        data = [("demo", "a" * 40, self.old, self.old, [])]
+        with mock.patch.dict("os.environ", {"GITHUB_STEP_SUMMARY": str(summary)}):
+            sync.append_action_summary(data)
+        self.assertIn("No changes detected", summary.read_text())
+        self.assertIn("demo", summary.read_text())
+
+    def test_plugin_versions_bump_only_when_distributable_changes(self):
+        first = generate.render_plugin_files(self.root)
+        generate.check_or_write_plugin_files(self.root, first, False)
+        same = generate.render_plugin_files(self.root)
+        self.assertEqual(same, first)
+
+        # Source content changes: increment demo, leave unrelated own untouched.
+        (self.external / "scripts/run.py").write_text("print('updated')\n")
+        second = generate.render_plugin_files(self.root)
+        manifest = lambda package, name: json.loads(package[f"plugins/{name}/plugin.json"][1])
+        self.assertEqual(manifest(second, "demo")["version"], "1.0.1")
+        self.assertEqual(manifest(second, "own")["version"], "1.0.0")
+        generate.check_or_write_plugin_files(self.root, second, False)
+        self.assertEqual(generate.render_plugin_files(self.root), second)
+
+        # Claude-only installer metadata has no effect on the exported package.
+        ignored = self.external / ".claude-plugin/plugin.json"
+        ignored.parent.mkdir()
+        ignored.write_text('{"name":"demo"}')
+        self.assertEqual(generate.render_plugin_files(self.root), second)
+
+    def test_readme_template_requires_one_placeholder(self):
+        indexes = generate.render(self.root)
+        self.assertIn("| demo |", indexes[generate.README].replace("[demo](./skills/external/demo)", "demo"))
+        template = self.root / "automation/templates/README.md.tpl"
+        template.write_text("No placeholder")
+        with self.assertRaisesRegex(ValueError, "exactly one"):
+            generate.render(self.root)
 
     def test_full_replacement_removes_local_files(self):
         (self.external / "local.txt").write_text("custom")
