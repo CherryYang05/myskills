@@ -113,6 +113,33 @@ class AutoMergeTests(unittest.TestCase):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 merge.validate_scope(before, after, [path])
 
+    def test_full_replace_scope_can_remove_local_customization_metadata(self):
+        before = self.config()
+        before['custom']['sync']['mode'] = 'replace'
+        before['custom']['selected_fixes'] = {'old': 'locally adapted'}
+        before['custom']['sync']['reviewed_commit'] = 'c' * 40
+        after = copy.deepcopy(before)
+        after['custom'].pop('selected_fixes')
+        after['custom']['sync'].pop('reviewed_commit')
+        after['custom']['sync']['synced_commit'] = HEAD
+        after['custom']['version'] = HEAD[:12]
+        merge.validate_scope(before, after, [
+            'custom/SKILL.md', 'custom/references/legacy.md', merge.CONFIG
+        ])
+
+    def test_full_replace_rejects_unpinned_or_fabricated_version(self):
+        before = self.config()
+        before['custom']['sync']['mode'] = 'replace'
+        after = copy.deepcopy(before)
+        after['custom']['version'] = 'latest'
+        after['custom']['sync']['synced_commit'] = HEAD
+        with self.assertRaises(ValueError):
+            merge.validate_scope(before, after, [merge.CONFIG])
+        after['custom']['version'] = HEAD[:12]
+        after['custom']['sync']['repository'] = 'evil/skills'
+        with self.assertRaises(ValueError):
+            merge.validate_scope(before, after, [merge.CONFIG])
+
     def test_source_policy_and_review_version_cannot_change(self):
         before = self.config()
         after = copy.deepcopy(before)
