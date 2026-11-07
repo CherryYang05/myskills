@@ -39,7 +39,9 @@ def render(root=ROOT):
         if group == "external":
             info = config[directory]
             origin = f"[{info['repo']}]({source_link(info)}) · `{info['sha'][:12]}`"
-            category = "外部同步"
+            # GitHub Markdown tables may break Chinese at every character;
+            # word-joiner entities keep the type label on one line without custom CSS.
+            category = "外&#8288;部&#8288;同&#8288;步"
         else:
             origin = "自研"
             category = "自研"
