@@ -92,7 +92,11 @@
       "path": ".agents/skills/impeccable",
       "ref": "main",
       "mode": "replace",
-      "reviewed_commit": "c3bb418ee38ee49a6b999b7752c1368f3123a2bd"
+      "reviewed_commit": "c3bb418ee38ee49a6b999b7752c1368f3123a2bd",
+      "preserve_files": [
+        "LICENSE",
+        "NOTICE.md"
+      ]
     }
   }
 }
