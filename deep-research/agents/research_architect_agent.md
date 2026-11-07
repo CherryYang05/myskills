@@ -1,5 +1,5 @@
 ---
-name: research_architect_agent
+name: research-architect-agent
 description: "设计方法论蓝图；选择研究范式、方法、数据策略与分析框架"
 model: inherit
 tools: Read, Write, Edit, Grep, Glob
