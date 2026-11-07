@@ -82,6 +82,6 @@ ls $D
 
 ## GitHub 自动检查上游
 
-源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 21:00 检查 `upstreams.json`。**所有登记的外部 Skill 必须采用自动实际同步策略**：优先接受无冲突的上游更新；本地改动冲突或无法可靠合并时，以经过核验的上游快照**完整替换**受管目录，包含删除本地独有文件。现有外部 Skill 使用 `replace` 模式，配置校验禁止仅报告的 `review` 模式。完全替换的旧中文/个人定制可从 Git 历史恢复，版本改为上游具体 commit 短 SHA；`last_reported` 不得阻止未合并候选重试。任务创建机器人候选 PR，派发只读完整校验，确认相同提交成功且主分支未前进后自动合并；不会绕过 CI 或合并其他 PR。若平台、权限或校验故障，必须继续重试并主动报告实际阻碍，绝不能把“发现更新”称为成功同步。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
+源码仓库中的 `.github/workflows/sync-upstream.yml` 每周五北京时间 20:30 先执行（ChatGPT 定时任务每周五 21:00 负责核查/补救），检查 `upstreams.json`。**所有登记的外部 Skill 必须采用自动实际同步策略**：优先接受无冲突的上游更新；本地改动冲突或无法可靠合并时，以经过核验的上游快照**完整替换**受管目录，包含删除本地独有文件。现有外部 Skill 使用 `replace` 模式，配置校验禁止仅报告的 `review` 模式。完全替换的旧中文/个人定制可从 Git 历史恢复，版本改为上游具体 commit 短 SHA；`last_reported` 不得阻止未合并候选重试。任务创建机器人候选 PR，派发只读完整校验，确认相同提交成功且主分支未前进后自动合并；不会绕过 CI 或合并其他 PR。若平台、权限或校验故障，必须继续重试并主动报告实际阻碍，绝不能把“发现更新”称为成功同步。手动检查用 `python3 scripts/sync_upstream.py`，仅在源码开发分支中添加 `--apply` 生成候选；脚本不会自动提交或推送。完整说明见源码仓库的 `docs/upstream-sync.md`。
 
 通过 marketplace 安装到本机 Codex 的技能，需单独刷新来源；更新 GitHub 仓库不等于更新 ChatGPT 个人空间手动上传的技能。
