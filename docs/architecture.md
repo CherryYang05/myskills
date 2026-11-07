@@ -59,7 +59,7 @@ Skill 数量与分组以 `README.md` 中动态生成的清单为准。外部 Ski
 
 清单位于仓库根目录 `.agents/plugins/marketplace.json`，列出全部 16 个 Skill 对应的 `./plugins/<name>` 安装包。`plugins/` 是构建产物：每个包都有根目录 `plugin.json`，以及 `skills/<name>/SKILL.md` 和原 Skill 的脚本、参考资料、资源文件；生成时仅排除源 Skill 根目录的 `.claude-plugin/`、`.cursor-plugin/` 等其他客户端专用安装元数据。源目录始终保留原始文件。原始源码仍位于 `skills/external/` 或 `skills/personal/`，禁止手动编辑 `plugins/`；生成器会完整重建它们，只有分发包的内容（含 manifest）变化时才自动递增该 Plugin 的补丁版本号，不额外维护版本注册表。
 
-**图标策略**：`automation/plugin-appearance.json` 为唯一外观配置。每个 Skill 都有基于功能设计的 `brandColor`、`concept`、SVG `glyph`；统一渲染为 128×128 柔和渐变圆角方形白色描边图标（统一轻量曲线层次；品牌色须满足 2.35:1–4.2:1 的白色对比度区间），存入 `plugins/<name>/assets/icon.svg`。OpenAI `interface.logo` 与 `composerIcon` 引用同一文件，避免重复图像。新 Skill 缺少配置时生成器可使用通用图标预览，但 `verify_appearance.py` 会在 CI 阻止其合并。新增外部 Skill 的 AI 图标设计与安全检查见 [准入规范](./adding-external-skill.md)。
+**图标策略**：`automation/plugin-appearance.json` 为唯一外观配置。每个 Skill 都有基于功能设计的 `brandColor`、`concept`、SVG `glyph`；统一渲染为 128×128 圆角方形白色描边图标，存入 `plugins/<name>/assets/icon.svg`。OpenAI `interface.logo` 与 `composerIcon` 引用同一文件，避免重复图像。新 Skill 缺少配置时生成器可使用通用图标预览，但 `verify_appearance.py` 会在 CI 阻止其合并。新增外部 Skill 的 AI 图标设计与安全检查见 [准入规范](./adding-external-skill.md)。
 
 **ChatGPT 工作区管理员**可以通过 **Admin → Plugins → Add → Import marketplace** 导入仓库，Source 填 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 选 `master`。平台提供默认每日自动同步和手动 Sync now；这项同步必须在实际目标工作区完成导入后才能生效。具体入口和行为请参阅 [官方文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 

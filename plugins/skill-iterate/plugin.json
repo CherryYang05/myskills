@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "skill-iterate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好。当用户说\"优化 skill\"、\"改进 skill\"、\"记住这个问题\"、\"以后不要再这样\"、\"这个问题每次都出现\"、\"改进博客 skill\"、\"改进 llt skill\" 时触发。注意：只想修改当前输出（\"重新写一下\"、\"改这里\"）时不触发，让原始 skill 处理。",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/skill-iterate",
-        "brandColor": "#52ACA9",
+        "brandColor": "#A66344",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }
