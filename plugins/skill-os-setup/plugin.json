@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "skill-os-setup",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "用于维护 EasyNewOS 仓库。当用户提到\"更新README\"、\"修改README\"、\"扩展EasyNewOS\"、\"增加脚本\"、\"添加新内容到EasyNewOS\"、\"提交到GitHub\"、\"推送到github\"、\"按照现有结构扩展\"、\"按照我的风格\"，或对仓库进行任何维护操作时触发。这个仓库用于新系统（Win、macOS、Linux）配置，包含软件安装、系统配置、脚本等。",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/skill-os-setup",
-        "brandColor": "#D58A9F",
+        "brandColor": "#53648B",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }
