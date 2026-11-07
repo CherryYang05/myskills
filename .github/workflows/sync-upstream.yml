@@ -12,7 +12,10 @@ on:
   pull_request:
     paths:
       - '.github/workflows/sync-upstream.yml'
-      - 'automation/**'
+      - 'automation/scripts/sync.py'
+      - 'automation/scripts/auto_merge.py'
+      - 'automation/upstreams.json'
+      - 'automation/tests/**'
 
 permissions:
   contents: read
@@ -123,6 +126,21 @@ jobs:
             gh issue comment "$existing" --repo "$REPOSITORY" --body "Failed upstream sync: $RUN_URL; candidate (if any) was not merged. Investigate workflow logs." || true
           else
             gh issue create --repo "$REPOSITORY" --title "$title" --body "Automatic upstream sync failed: $RUN_URL. Nothing is considered synchronized until the candidate passes CI and merges." || true
+          fi
+      - name: Resolve prior synchronization alert after successful run
+        if: success()
+        continue-on-error: true # Notification cleanup must not invalidate a successful sync.
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          number=$(gh issue list --repo "$REPOSITORY" --state open --limit 100 --json title,number --jq '.[] | select(.title == "[sync] Upstream synchronization requires repair") | .number' | head -n1 || true)
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --repo "$REPOSITORY" --body "Recovered: subsequent upstream sync completed successfully: $RUN_URL."
+            gh issue close "$number" --repo "$REPOSITORY" --reason completed
           fi
       - uses: actions/upload-artifact@v4
         if: always()

@@ -2,6 +2,8 @@
 
 个人 Agent Skills 仓库。将第三方 Skill 的上游更新和自己的 Skill 统一管理，提供 GitHub Marketplace 清单供支持该功能的客户端和 ChatGPT 工作区使用。
 
+[![Validate Skills](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml) [![Sync Skill Upstreams](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml)
+
 ## Skill 清单
 
 | Skill | 类型 | 来源 / 当前版本 | 说明 |
@@ -132,17 +134,17 @@ claude plugin install blog-writer@cherry-skills
 
 ## 两阶段同步
 
-1. **外部上游 → 本仓库**：每周五北京时间 20:30，Sync Skill Upstreams 从 `automation/upstreams.json` 读取全部外部 Skill 来源，按上游 Git 提交获取完整技能目录；生成候选 PR。只有通过精确提交的 Validate Skills 校验后才自动合并，更新 README、Marketplace 清单及根目录 `UPSTREAM_SYNC_REPORT.md`。自研 Skill 不在自动覆盖范围内。
+1. **外部上游 → 本仓库**：每周五北京时间 20:30，Sync Skill Upstreams 从 `automation/upstreams.json` 检查外部来源。仅在源码或生成物变化时创建候选 PR，经精确提交 CI 校验后自动合并；无变化的检查结果留在 Action Summary / Artifact，不产生空转 PR。自研 Skill 不在自动覆盖范围内。
 2. **本仓库 → ChatGPT**：`.agents/plugins/marketplace.json` 指向生成的 `plugins/<name>/` 安装包；每个包包含 `plugin.json`、`skills/<name>/SKILL.md` 和运行相关文件，自动排除 Claude/Cursor 专用的安装元数据（源 Skill 完整保留）。支持 GitHub Marketplace 导入的 ChatGPT 工作区管理员可导入仓库并跟踪 `master`，平台通常每日同步，也可手动 Sync now。仓库更新不代表个人 ChatGPT Plus 空间中手动上传的插件已更新。
 
-工作区导入：**Admin → Plugins → Add → Import marketplace**；Source 为 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 填 `master`。已有手动上传插件的身份迁移需要单独处理。详见 [OpenAI 官方导入文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
+相关配置及同步限制详见 [架构说明](./docs/architecture.md) 和 [OpenAI 官方文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
 ## 维护原则
 
 - `automation/upstreams.json` 是外部 Skill 的唯一来源注册表。外部目录和注册表必须一一对应；新增第三方 Skill 必须同时登记。
 - `automation/scripts/` 管理上游检查、来源安全、版本报告、校验及自动合并；`automation/tests/` 是回归测试。
-- `README.md`、`skills.sh.json`、三个平台的 Marketplace 清单和 `plugins/` 都是生成产物。修改 Skill 或配置后执行 `python3 automation/scripts/generate.py`，再运行 `python3 automation/scripts/generate.py --check` 验证。
-- `UPSTREAM_SYNC_REPORT.md` 是 GitHub 上游检查生成的根目录报告。成功合并才代表相应 Skill 已实际同步。
+- `README.md`、`skills.sh.json`、三个平台的 Marketplace 清单和 `plugins/` 都是生成产物。编辑安装文档时改 `automation/templates/README.md.tpl`；修改 Skill、模板或配置后运行 `python3 automation/scripts/generate.py`，再运行 `python3 automation/scripts/generate.py --check`。
+- `UPSTREAM_SYNC_REPORT.md` 记录最近一次实际同步的上游变更；无变化的周度检查报告保留在 GitHub Action Summary / Artifact，避免冗余提交。
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
