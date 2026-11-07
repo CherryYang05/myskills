@@ -97,35 +97,105 @@ def render(root=ROOT):
 
 个人 Agent Skills 仓库。将第三方 Skill 的上游更新和自己的 Skill 统一管理，提供 GitHub Marketplace 清单供支持该功能的客户端和 ChatGPT 工作区使用。
 
-## 安装
+## 安装与更新
 
-**Skills CLI** 直接读取本仓库的 `skills/external/` 与 `skills/personal/`，可以独立于 Plugin Marketplace 安装。需要 Node.js 和 [Skills CLI](https://github.com/vercel-labs/skills)：
+本仓库有两种安装途径：
+
+- **Skills CLI**：将原始 `SKILL.md` 和配套文件安装到本地代码 Agent（Codex、Claude Code、Cursor 等），支持选择 Skill、目标 Agent 和安装作用域。
+- **Plugin Marketplace**：通过客户端自己的插件目录安装 `plugins/<name>/` 打包产物。导入 Marketplace 只注册可选来源，**还需要安装具体插件**。
+
+### 方法一：npx skills（跨平台推荐）
+
+需要 Node.js **22.20 或更高版本**。在目标项目目录执行表示项目级安装；加 `-g` 则表示当前用户全局安装。
 
 ```bash
-# 预览可安装的 16 个 Skill
+# 列出仓库中所有 16 个 Skill（只查询，不安装）
 npx skills add CherryYang05/myskills --list
 
-# 选择一个 Skill，安装至 Claude Code（全局）
-npx skills add CherryYang05/myskills --skill humanizer -a claude-code -g -y
+# 交互式选择 Skill 和客户端（当前项目）
+npx skills add CherryYang05/myskills
 
-# 同时安装两个 Skill 到 Cursor（项目级；在目标项目目录中执行）
-npx skills add CherryYang05/myskills --skill humanizer --skill blog-writer -a cursor -y
+# 给 Codex 全局安装指定 Skill
+npx skills add CherryYang05/myskills --skill humanizer -a codex -g -y
 
-# 安装所有 Skill 到 Codex 和 Claude Code（全局）
-npx skills add CherryYang05/myskills --skill '*' -a codex -a claude-code -g -y
+# 给 Claude Code 全局安装指定 Skill
+npx skills add CherryYang05/myskills --skill blog-writer -a claude-code -g -y
 
-# 安装全部 Skill 到 CLI 支持的所有客户端（谨慎使用）
+# 给 Cursor 当前项目安装指定 Skill
+npx skills add CherryYang05/myskills --skill impeccable -a cursor -y
+
+# 同时将两个指定 Skill 安装到 Codex 和 Claude Code（当前项目）
+npx skills add CherryYang05/myskills --skill humanizer --skill blog-writer -a codex -a claude-code -y
+
+# 将本仓库全部 16 个 Skill 安装给三个指定客户端（全局）
+npx skills add CherryYang05/myskills --skill '*' -a codex -a claude-code -a cursor -g -y
+
+# 在所有受支持的客户端安装全部 Skill（范围较大，谨慎使用）
 npx skills add CherryYang05/myskills --all
 ```
 
-也支持将单个 Skill 目录作为来源：`npx skills add https://github.com/CherryYang05/myskills/tree/master/skills/external/humanizer`。用 `npx skills ls -g` 检查已安装的全局 Skill，`npx skills check` 检查更新。
-
-**Marketplace 分发**：ChatGPT 使用 `.agents/plugins/marketplace.json`；Claude Code 使用 `.claude-plugin/marketplace.json`；Cursor 使用 `.cursor-plugin/marketplace.json`（团队 Marketplace，受计划及权限约束）。三个入口均引用自动生成的 `plugins/<name>/`，原始上游文件保持原样。Claude Code 的安装命令：
+也可以直接指定一个 Skill 子目录，而不加载仓库的其他技能：
 
 ```bash
-claude plugin marketplace add CherryYang05/myskills
-claude plugin install humanizer@cherry-skills
+npx skills add https://github.com/CherryYang05/myskills/tree/master/skills/external/humanizer -a codex -g -y
 ```
+
+查看、更新和卸载通过 Skills CLI 安装的 Skill：
+
+```bash
+npx skills list                 # 当前项目已安装的 Skill
+npx skills ls -g                # 全局已安装的 Skill
+npx skills ls -a codex          # 只查看 Codex 的项目级 Skill
+npx skills check                # 检查是否存在更新
+npx skills update humanizer -g  # 更新全局安装的 humanizer
+npx skills update -g            # 更新所有全局 Skill
+npx skills remove humanizer -g  # 卸载全局安装的 humanizer
+```
+
+`--skill`（或 `-s`）选择名称，`-a` 选择目标客户端，`-g` 代表用户级安装，`-y` 跳过确认；`--all` 同时涵盖所有技能和所有受支持的客户端。可用 `--copy` 改用复制而非符号链接。更多参数见 [Skills CLI 官方命令文档](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
+
+### 方法二：各客户端的 Plugin Marketplace
+
+这条途径分发自动生成的 `plugins/<name>/`。**同一个 Skill 选用一种安装途径通常就够了**，以免出现本地和插件版重复加载或版本不一致。
+
+**Codex CLI / ChatGPT 桌面版的 Codex 模式**
+
+```bash
+# 注册 GitHub 插件市场（仓库入口是 .agents/plugins/marketplace.json）
+codex plugin marketplace add CherryYang05/myskills
+
+# 查看已注册的市场
+codex plugin marketplace list
+
+# 刷新该市场的仓库快照
+codex plugin marketplace upgrade cherry-myskills
+
+# 启动 Codex
+codex
+```
+
+然后在 Codex 交互界面输入 `/plugins`，切换到 **Cherry Skills**，选择 `humanizer`（或其他插件）并点击安装。官方文档提供了市场注册 CLI 和交互式插件安装入口；这里不使用未经核实的 `codex plugin install ...` 命令。ChatGPT 桌面版也可从「插件」目录选择 Cherry Skills 安装。详见 [OpenAI 插件打包与 Marketplace 文档](https://developers.openai.com/plugins/build/plugins)。
+
+**Claude Code**
+
+```bash
+# 注册仓库中的 .claude-plugin/marketplace.json
+claude plugin marketplace add CherryYang05/myskills
+
+# 安装指定插件：名称@市场名称
+claude plugin install humanizer@cherry-skills
+claude plugin install blog-writer@cherry-skills
+```
+
+也可以在 Claude Code 交互界面使用 `/plugin marketplace add CherryYang05/myskills` 和 `/plugin install humanizer@cherry-skills`。这里的 `cherry-skills` 是 Claude Marketplace 的标识，和 Codex 使用的 `cherry-myskills` 不同。
+
+**Cursor**
+
+在 Cursor 的 **Customize → Plugins**（或团队的 **Dashboard → Plugins & MCPs**）中，从 GitHub 仓库导入 `https://github.com/CherryYang05/myskills`，然后选择需要的插件安装。入口为 `.cursor-plugin/marketplace.json`；团队 Marketplace 依赖 Teams / Enterprise 对应功能。当前不提供未经核实的 Cursor 命令行插件安装命令。个人用户可直接使用上面的 `npx skills add ... -a cursor`。参考 [Cursor 插件文档](https://cursor.com/docs/plugins)。
+
+**ChatGPT 网页版 / Work**
+
+在支持导入 GitHub Marketplace 的工作区中，进入 **Admin → Plugins → Add → Import marketplace**，输入仓库 `https://github.com/CherryYang05/myskills`，跟踪 `master`，随后从 **Cherry Skills** 安装所需插件。导入和 GitHub 更新并不会自动替换网页版此前手动上传的同名插件。
 
 ## Skill 清单
 
