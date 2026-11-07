@@ -1,85 +1,85 @@
-# 文献矩阵 (Literature Matrix) 模板
+# Literature Matrix Template
 
-## 用途
-来源 × 主题交叉制表，用于系统性证据映射。由 synthesis_agent 使用，用于在撰写综合分析 (Synthesis) 叙述之前组织证据。
+## Purpose
+Source x Theme cross-tabulation for systematic evidence mapping. Used by the synthesis_agent to organize evidence before writing the synthesis narrative.
 
-## 矩阵结构
+## Matrix Structure
 
-### 基础矩阵
-
-```markdown
-## 文献矩阵 (Literature Matrix): [Research Topic]
-
-**编制日期**: [YYYY-MM-DD]
-**来源总数**: [N]
-**识别主题数**: [N]
-
-| 来源 | 年份 | 等级 | 主题 A | 主题 B | 主题 C | 主题 D | 主题 E |
-|------|------|------|--------|--------|--------|--------|--------|
-| Author1 | 2024 | II | ✓ 支持 | — | ✓ 支持 | ✗ 矛盾 | — |
-| Author2 | 2023 | III | ✓ 支持 | ✓ 支持 | — | — | ✓ 支持 |
-| Author3 | 2022 | VI | — | ✓ 支持 | ✓ 支持 | ✓ 支持 | — |
-| Author4 | 2024 | I | ✓ 支持 | ✓ 支持 | ✗ 矛盾 | — | ✓ 支持 |
-| Author5 | 2023 | IV | ✗ 矛盾 | — | ✓ 支持 | ✓ 支持 | — |
-| **合计** | | | **4✓ 1✗** | **3✓ 0✗** | **3✓ 1✗** | **2✓ 1✗** | **2✓ 0✗** |
-
-### 图例说明
-- ✓ 支持: 来源提供了支持该主题的证据
-- ✗ 矛盾: 来源提供了与该主题相矛盾的证据
-- — : 来源未涉及该主题
-- 等级: 证据等级体系 (Evidence Hierarchy) 等级 (I = 最高, VII = 最低)
-```
-
-### 扩展矩阵（含细节）
+### Basic Matrix
 
 ```markdown
-## 扩展文献矩阵 (Extended Literature Matrix)
+## Literature Matrix: [Research Topic]
 
-| 来源 | 方法 | 样本 | 主题 A: [name] | 主题 B: [name] | 质量 |
-|------|------|------|----------------|----------------|------|
-| Author1 (2024) | RCT, N=500 | 美国大学生 | "发现X显著 (p<.001)" — 支持 | 未涉及 | A |
-| Author2 (2023) | 案例研究, N=3所机构 | 亚洲大学 | "机构A显示..." — 支持 | "然而，在情境B中..." — 部分支持 | C |
-| Author3 (2022) | 荟萃分析 (Meta-analysis), k=42 | 全球 | "合并效应量 (Effect size) d=0.45" — 强支持 | "亚组分析显示..." — 混合 | A |
+**Date compiled**: [YYYY-MM-DD]
+**Total sources**: [N]
+**Themes identified**: [N]
+
+| Source | Year | Level | Theme A | Theme B | Theme C | Theme D | Theme E |
+|--------|------|-------|---------|---------|---------|---------|---------|
+| Author1 | 2024 | II | ✓ Supports | — | ✓ Supports | ✗ Contradicts | — |
+| Author2 | 2023 | III | ✓ Supports | ✓ Supports | — | — | ✓ Supports |
+| Author3 | 2022 | VI | — | ✓ Supports | ✓ Supports | ✓ Supports | — |
+| Author4 | 2024 | I | ✓ Supports | ✓ Supports | ✗ Contradicts | — | ✓ Supports |
+| Author5 | 2023 | IV | ✗ Contradicts | — | ✓ Supports | ✓ Supports | — |
+| **Totals** | | | **4✓ 1✗** | **3✓ 0✗** | **3✓ 1✗** | **2✓ 1✗** | **2✓ 0✗** |
+
+### Legend
+- ✓ Supports: Source provides evidence supporting this theme
+- ✗ Contradicts: Source provides evidence contradicting this theme
+- — : Source does not address this theme
+- Level: Evidence hierarchy level (I = highest, VII = lowest)
 ```
 
-### 趋同摘要
+### Extended Matrix (with detail)
 
 ```markdown
-## 证据趋同摘要
+## Extended Literature Matrix
 
-| 主题 | 支持来源 | 反对来源 | 净值 | 强度 | 信心水平 |
-|------|---------|---------|------|------|----------|
-| 主题 A | 4 (等级 I, II, III, IV) | 1 (等级 VI) | +3 | 强 | 高 |
-| 主题 B | 3 (等级 I, III, IV) | 0 | +3 | 强 | 高 |
-| 主题 C | 3 (等级 II, III, VI) | 1 (等级 I) | +2 | 有争议 | 中 |
-| 主题 D | 2 (等级 IV, VI) | 1 (等级 II) | +1 | 弱 | 低 |
-| 主题 E | 2 (等级 I, III) | 0 | +2 | 中等 | 中 |
-
-### 解读指南
-- **强** (≥3个支持来源，较高级别证据): 可信发现
-- **中等** (2-3个支持来源，中等级别证据): 较可能成立，欢迎更多证据
-- **弱** (1-2个支持来源，较低级别证据): 初步性的，需要更多研究
-- **有争议** (双方都有证据): 真正的辩论，应报告双方观点
-- **空白** (0个来源): 已识别的知识空白
+| Source | Method | Sample | Theme A: [name] | Theme B: [name] | Quality |
+|--------|--------|--------|-----------------|-----------------|---------|
+| Author1 (2024) | RCT, N=500 | University students, US | "Finding X was significant (p<.001)" — Supports | Not addressed | A |
+| Author2 (2023) | Case study, N=3 institutions | Asian universities | "Institution A showed..." — Supports | "However, in context B..." — Partial | C |
+| Author3 (2022) | Meta-analysis, k=42 | Global | "Pooled effect size d=0.45" — Strong support | "Subgroup analysis revealed..." — Mixed | A |
 ```
 
-### 空白识别
+### Convergence Summary
 
 ```markdown
-## 知识空白
+## Evidence Convergence Summary
 
-| 空白 | 类型 | 影响 | 优先级 |
-|------|------|------|--------|
-| 缺乏关于 [population X] 的数据 | 经验性 | 无法推广至该群体 | 高 |
-| 仅使用 [method type] | 方法学 | 需要三角验证 (Triangulation) | 中 |
-| [year] 之后无研究 | 时间性 | 证据可能过时 | 中 |
-| 仅在 [region] 进行研究 | 地理性 | 可推广性未知 | 低 |
-| 缺乏 [finding] 的理论框架 | 理论性 | 理论发展机会 | 低 |
+| Theme | Sources For | Sources Against | Net | Strength | Confidence |
+|-------|-----------|----------------|-----|----------|-----------|
+| Theme A | 4 (Levels I, II, III, IV) | 1 (Level VI) | +3 | Strong | High |
+| Theme B | 3 (Levels I, III, IV) | 0 | +3 | Strong | High |
+| Theme C | 3 (Levels II, III, VI) | 1 (Level I) | +2 | Contested | Medium |
+| Theme D | 2 (Levels IV, VI) | 1 (Level II) | +1 | Weak | Low |
+| Theme E | 2 (Levels I, III) | 0 | +2 | Moderate | Medium |
+
+### Interpretation Guide
+- **Strong** (≥3 supporting, higher-level evidence): Confident finding
+- **Moderate** (2-3 supporting, mid-level evidence): Likely finding, more evidence welcome
+- **Weak** (1-2 supporting, lower-level evidence): Tentative, needs more research
+- **Contested** (evidence on both sides): Genuine debate, report both sides
+- **Gap** (0 sources): Knowledge gap identified
 ```
 
-## 使用说明
-- 从基础矩阵开始进行初步组织
-- 随着综合分析 (Synthesis) 深入，升级至扩展矩阵
-- 趋同摘要应直接指导综合分析 (Synthesis) 叙述
-- 空白识别应引入讨论部分
-- 随着新来源加入更新矩阵 — 这是一个动态文档
+### Gap Identification
+
+```markdown
+## Knowledge Gaps
+
+| Gap | Type | Implication | Priority |
+|-----|------|-------------|----------|
+| No data on [population X] | Empirical | Cannot generalize to this group | High |
+| Only [method type] used | Methodological | Triangulation needed | Medium |
+| No studies since [year] | Temporal | Evidence may be outdated | Medium |
+| Only studied in [region] | Geographic | Generalizability unknown | Low |
+| No theoretical framework for [finding] | Theoretical | Theory development opportunity | Low |
+```
+
+## Usage Notes
+- Start with the Basic Matrix for initial organization
+- Upgrade to Extended Matrix as synthesis deepens
+- Convergence Summary should directly inform the synthesis narrative
+- Gap Identification feeds into the Discussion section
+- Update the matrix as new sources are added — it is a living document

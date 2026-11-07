@@ -1,21 +1,21 @@
-# 交接示例: deep-research → academic-paper
+# Handoff Example: deep-research → academic-paper
 
-本示例展示 deep-research full 模式在完成研究后，如何将成果交接给 academic-paper 开始论文写作。
-
----
-
-## 场景设置
-
-用户已完成 deep-research full 模式，研究主题为"AI-Assisted Quality Assurance in Higher Education: A Comparative Analysis of Implementation Strategies in East Asian Universities"。以下是研究输出摘要。
+This example demonstrates how deep-research full mode, after completing research, hands off to academic-paper to begin paper writing.
 
 ---
 
-## deep-research 输出摘要
+## Scenario Setup
 
-### 1. 研究问题简报 (Research Question Brief)（来自 research_question_agent）
+The user has completed deep-research full mode on the topic "AI-Assisted Quality Assurance in Higher Education: A Comparative Analysis of Implementation Strategies in East Asian Universities." Below is a summary of the research outputs.
+
+---
+
+## deep-research Output Summary
+
+### 1. Research Question Brief (from research_question_agent)
 
 ```markdown
-### 主要研究问题 (Primary Research Question)
+### Primary Research Question
 How do East Asian universities (Taiwan, Japan, South Korea) differ in their
 implementation strategies for AI-assisted quality assurance, and what factors
 explain the variation in adoption patterns?
@@ -30,81 +30,110 @@ explain the variation in adoption patterns?
 | Relevant    | 5/5   | Directly informs HEEACT and peer agencies |
 | **Average** | **4.6/5** | |
 
-### 子问题 (Sub-questions)
+### Sub-questions
 1. What AI-QA tools and frameworks have been adopted by accreditation agencies
    in Taiwan, Japan, and South Korea?
 2. What institutional and policy factors facilitate or hinder AI-QA adoption?
 3. To what extent do implementation outcomes align with stated policy objectives?
 ```
 
-### 2. 方法论蓝图 (Methodology Blueprint)（来自 research_architect_agent）
+### 2. Methodology Blueprint (from research_architect_agent)
 
 ```markdown
-- 范式: 实用主义（比较政策分析）
-- 方法: 定性比较分析 (QCA) + 文件分析
-- 数据来源:
-  - 政策文件（3个国家的QA框架）
-  - 认证机构报告（HEEACT, JUAA/NIAD-QE, KCUE）
-  - 已发表案例研究和会议论文
-- 分析框架: 创新扩散理论 (Rogers) + 制度同构理论 (DiMaggio & Powell)
-- 效度: 跨文件类型三角验证 (Triangulation) + 与QA从业者的成员检验
+- Paradigm: Pragmatist (comparative policy analysis)
+- Method: Qualitative comparative analysis (QCA) + document analysis
+- Data sources:
+  - Policy documents (3 countries' QA frameworks)
+  - Accreditation agency reports (HEEACT, JUAA/NIAD-QE, KCUE)
+  - Published case studies and conference proceedings
+- Analytical framework: Diffusion of Innovation (Rogers) +
+  Institutional Isomorphism (DiMaggio & Powell)
+- Validity: Triangulation across document types + member checking
+  with QA practitioners
 ```
 
-### 3. 注释文献目录 (Annotated Bibliography)（来自 bibliography_agent）
+### 3. Annotated Bibliography (from bibliography_agent)
 
 ```markdown
-识别23个来源，质量筛选后保留18个:
-- 6篇同行评审 (Peer-reviewed) 文章（等级II-III证据）
-- 4份认证机构报告（等级IV）
-- 3份政策文件（等级IV）
-- 3份会议论文（等级V）
-- 2份机构案例研究（等级V）
+23 sources identified, 18 retained after quality screening:
+- 6 peer-reviewed articles (Level II-III evidence)
+- 4 accreditation agency reports (Level IV)
+- 3 policy documents (Level IV)
+- 3 conference proceedings (Level V)
+- 2 institutional case studies (Level V)
 
-识别的关键主题:
-- AI采用成熟度差距（QA应用方面: 台湾 > 韩国 > 日本）
-- 监管分歧（日本的谨慎方式 vs 韩国的自上而下推进）
-- 数据基础设施作为前提条件（不仅仅是技术问题）
+Key themes identified:
+- AI adoption maturity gap (Taiwan > Korea > Japan in QA applications)
+- Regulatory divergence (Japan's cautious approach vs Korea's top-down push)
+- Data infrastructure as prerequisite (not just technology)
 ```
 
-### 4. 综合分析报告 (Synthesis Report)（来自 synthesis_agent）
+### 4. Synthesis Report (from synthesis_agent)
 
 ```markdown
-## 核心发现
+## Core Findings
 
-1. **采用模式聚类为3个模型**:
-   - 台湾: 自下而上实验（机构主导试点）
-   - 韩国: 自上而下授权（部委驱动框架）
-   - 日本: 谨慎渐进主义（自愿指导方针）
+1. **Adoption patterns cluster into 3 models**:
+   - Taiwan: bottom-up experimentation (agency-led pilots)
+   - South Korea: top-down mandate (ministry-driven framework)
+   - Japan: cautious incrementalism (voluntary guidelines)
 
-2. **关键成功因素**（3国趋同证据）:
-   - 数据基础设施成熟度
-   - 认证机构技术能力
-   - 大学数据共享意愿
-   - AI决策的清晰治理框架
+2. **Critical success factors** (converging evidence across all 3 countries):
+   - Data infrastructure maturity
+   - Accreditation agency technical capacity
+   - University willingness to share data
+   - Clear governance framework for AI decisions
 
-3. **核心张力**: 效率提升 vs 透明度担忧
-   - 3国均报告教师对"黑箱"决策的抵制
-   - 仅韩国尝试了监管回应（2025年AI教育伦理法案）
+3. **Key tension**: efficiency gains vs transparency concerns
+   - All 3 countries report resistance from faculty regarding "black box" decisions
+   - Only Korea has attempted regulatory response (AI Ethics in Education Act 2025)
 
-4. **证据空白**:
-   - 尚无严格的成效研究（3国均在实施3年以内）
-   - 学生/教师体验数据几乎完全缺失
+4. **Evidence gap**:
+   - No rigorous outcome studies yet (all countries < 3 years into implementation)
+   - Student/faculty experience data almost entirely absent
 
-## 识别的矛盾
-- 台湾HEEACT报告"高采用率"，但学术文献表明大多数大学仍在试点阶段
-  → "采用"的定义不一致
+## Contradictions Identified
+- Taiwan HEEACT reports "high adoption" but academic literature suggests
+  most universities are still in pilot phase → definition of "adoption" varies
 
-## 知识空白
-- 对认证结果（通过/未通过率）的影响
-- 成本效益分析
-- 教师感知和行为变化
+## Knowledge Gaps
+- Impact on accreditation outcomes (pass/fail rates)
+- Cost-effectiveness analysis
+- Faculty perceptions and behavioral changes
 ```
+
+### 5. Preregistration artifact handoff
+
+This qualitative example has no completed preregistration artifact. The
+shell-capable dispatcher still runs the named deterministic builder and carries
+one explicit `preregistration-artifact/1.0` receipt:
+
+```yaml
+schema_version: preregistration-artifact/1.0
+status: not_provided
+artifact_id: preregistration-unavailable
+relative_path: null
+artifact_provenance: not_provided
+source_artifact_sha256: null
+source_artifact_size_bytes: null
+source_content_sha256: null
+source_content_utf8_bytes: null
+declared_at: <explicit caller-held RFC3339 value>
+record_digest: <builder-derived canonical digest>
+```
+
+The shell-capable dispatcher passes the schema-safe artifact ID and the canonical
+builder computes `record_digest`; the non-shell research architect never guesses
+a digest. There is no companion for this receipt.
+Academic-paper and every later pipeline handoff validate and carry the complete
+sidecar bytes unchanged. This explicit unavailable state means the
+manuscript/preregistration pair is not checked; it is not evidence of agreement.
 
 ---
 
-## 交接指令
+## Handoff Instruction
 
-完成 deep-research 后，用户输入:
+After completing deep-research, the user inputs:
 
 ```
 Now help me write a paper based on this research
@@ -112,168 +141,178 @@ Now help me write a paper based on this research
 
 ---
 
-## academic-paper intake_agent 自动检测
+## academic-paper intake_agent Auto-Detection
 
-**intake_agent 检测流程**:
+**intake_agent Detection Process**:
 
 ```
-扫描可用材料...
+Scanning available materials...
 
-[已检测] 研究问题简报 (Research Question Brief)
-  - 来源: deep-research / research_question_agent
-  - 状态: 完成 (FINER 4.6/5)
-  - 操作: 跳过 academic-paper 阶段1（主题界定）
+[DETECTED] Research Question Brief
+  - Source: deep-research / research_question_agent
+  - Status: Complete (FINER 4.6/5)
+  - Action: SKIP academic-paper Phase 1 (topic scoping)
 
-[已检测] 方法论蓝图 (Methodology Blueprint)
-  - 来源: deep-research / research_architect_agent
-  - 状态: 完成（实用主义 QCA + 文件分析）
-  - 操作: 跳过 academic-paper 阶段2（方法论设计）
-  - 备注: 将直接整合到方法部分
+[DETECTED] Methodology Blueprint
+  - Source: deep-research / research_architect_agent
+  - Status: Complete (pragmatist QCA + document analysis)
+  - Action: SKIP academic-paper Phase 2 (methodology design)
+  - Note: Will integrate into Method section directly
 
-[已检测] 注释文献目录 (Annotated Bibliography)（18个来源，APA 7.0）
-  - 来源: deep-research / bibliography_agent
-  - 状态: 完成，已通过质量筛选
-  - 操作: 跳过 academic-paper 文献检索
-  - 备注: 将作为文献综述部分的基础
+[DETECTED] Annotated Bibliography (18 sources, APA 7.0)
+  - Source: deep-research / bibliography_agent
+  - Status: Complete, quality-screened
+  - Action: SKIP academic-paper literature search
+  - Note: Will use as foundation for Literature Review section
 
-[已检测] 综合分析报告 (Synthesis Report)
-  - 来源: deep-research / synthesis_agent
-  - 状态: 完成（3个核心发现 + 1个矛盾 + 2个空白）
-  - 操作: 跳过 academic-paper 分析阶段
-  - 备注: 将围绕综合分析 (Synthesis) 构建发现与讨论部分
+[DETECTED] Synthesis Report
+  - Source: deep-research / synthesis_agent
+  - Status: Complete (3 core findings + 1 contradiction + 2 gaps)
+  - Action: SKIP academic-paper analysis phase
+  - Note: Will structure Findings and Discussion sections around synthesis
 
-材料评估: 全面
-推荐 academic-paper 模式: full（加速流水线）
-估计已完成部分: 60-70%
-剩余工作: 写作、格式化、论证和润色
+[DETECTED] Preregistration artifact sidecar
+  - Source: deep-research dispatching layer
+  - Status: not_provided (explicit unavailable receipt; no companion)
+  - Action: VALIDATE and CARRY sidecar byte-for-byte
+  - Advisory effect: manuscript/preregistration pair remains NOT CHECKED
+
+Materials Assessment: COMPREHENSIVE
+Recommended academic-paper mode: full (with accelerated pipeline)
+Estimated sections already covered: 60-70%
+Remaining work: Writing, formatting, argumentation, and polish
 ```
+
+`COMPREHENSIVE` above describes the four prose research materials only. It does
+not certify preregistration coverage, cross-document agreement, or a clean
+manuscript.
 
 ---
 
-## 跳过的步骤及原因
+## Skipped Steps and Reasons
 
-| academic-paper 步骤 | 正常工作流 | 交接后 | 原因 |
-|---------------------|----------|--------|------|
-| 阶段1: 主题界定 | intake_agent 从头澄清 | 跳过 | 研究问题 (RQ) 简报已完成 |
-| 阶段2: 结构规划 | outline_agent 设计结构 | 部分 | 有蓝图但需转换为论文结构 |
-| 阶段3: 文献检索 | literature_agent 检索 | 跳过 | 文献目录已完成 |
-| 阶段4: 文献综述写作 | review_writer_agent 写作 | 活跃 | 有综合分析 (Synthesis) 但需转换为论文语调 |
-| 阶段5: 方法论写作 | method_writer_agent 写作 | 活跃 | 有蓝图但需扩展为完整段落 |
-| 阶段6: 发现写作 | findings_writer_agent 写作 | 活跃 | 有综合分析 (Synthesis) 但需扩展论证 |
-| 阶段7: 讨论写作 | discussion_writer_agent 写作 | 活跃 | 需要原创论述（非直接复制综合分析 (Synthesis)） |
-| 阶段8: 引言+结论 | bookend_agent 写作 | 活跃 | 需基于全文撰写 |
-| 阶段9: 摘要+格式 | format_agent 处理 | 活跃 | 需先完成全文 |
-| 阶段10: 自我审查 | review_agent 审查 | 活跃 | 必须执行 |
+| academic-paper Step | Normal Workflow | After Handoff | Reason |
+|---------------------|---------|-----------|------|
+| Phase 1: Topic Scoping | intake_agent clarifies from scratch | SKIPPED | RQ Brief is complete |
+| Phase 2: Structure Planning | outline_agent designs structure | PARTIAL | Has Blueprint but needs conversion to paper structure |
+| Phase 3: Literature Search | literature_agent searches | SKIPPED | Bibliography is complete |
+| Phase 4: Literature Review Writing | review_writer_agent writes | ACTIVE | Has Synthesis but needs conversion to paper tone |
+| Phase 5: Methodology Writing | method_writer_agent writes | ACTIVE | Has Blueprint but needs expansion to full paragraphs |
+| Phase 6: Findings Writing | findings_writer_agent writes | ACTIVE | Has Synthesis but needs expanded argumentation |
+| Phase 7: Discussion Writing | discussion_writer_agent writes | ACTIVE | Needs original discourse (not direct copy of Synthesis) |
+| Phase 8: Intro + Conclusion | bookend_agent writes | ACTIVE | Needs to be written based on full text |
+| Phase 9: Abstract + Formatting | format_agent processes | ACTIVE | Needs full text completion first |
+| Phase 10: Self-Review | review_agent reviews | ACTIVE | Must be executed |
 
 ---
 
-## 交接后 academic-paper 实际工作流
+## Post-Handoff academic-paper Actual Workflow
 
 ```
-=== academic-paper: 加速流水线 ===
+=== academic-paper: Accelerated Pipeline ===
 
-步骤1: 结构映射
+Step 1: STRUCTURAL MAPPING
   [outline_agent]
-  - 输入: 研究问题 (RQ) 简报 + 方法论蓝图 (Blueprint) + 综合分析 (Synthesis) 报告
-  - 输出: 完整论文大纲，每个章节标注对应的 deep-research 材料
-  - 输出示例:
+  - Input: RQ Brief + Methodology Blueprint + Synthesis Report
+  - Output: Complete paper outline, each section tagged with corresponding deep-research materials
+  - Output example:
 
-    I. 引言
-       - 背景: AI在高等教育QA中的应用（来自综合分析 (Synthesis) 背景）
-       - 问题: 跨国差异未得到解释
-       - 目的: 比较3种东亚模式
-       - 研究问题 (RQ): [直接引用研究问题 (RQ) 简报]
+    I. Introduction
+       - Context: AI in HE QA (from Synthesis background)
+       - Problem: Cross-national variation unexplained
+       - Purpose: Compare 3 East Asian models
+       - RQ: [Directly cite RQ Brief]
 
-    II. 文献综述
-       - 2.1 AI在质量保障 (Quality Assurance) 中的应用（来自文献目录主题）
-       - 2.2 创新扩散框架（来自蓝图）
-       - 2.3 制度同构（来自蓝图）
-       - 2.4 东亚高等教育体系比较
+    II. Literature Review
+       - 2.1 AI in Quality Assurance (from Bibliography themes)
+       - 2.2 Diffusion of Innovation framework (from Blueprint)
+       - 2.3 Institutional Isomorphism (from Blueprint)
+       - 2.4 East Asian HE systems comparison
 
-    III. 方法论
-       - 3.1 研究设计: QCA + 文件分析（来自蓝图）
-       - 3.2 案例选择和数据来源
-       - 3.3 分析框架
-       - 3.4 效度与局限性
+    III. Methodology
+       - 3.1 Research design: QCA + document analysis (from Blueprint)
+       - 3.2 Case selection and data sources
+       - 3.3 Analytical framework
+       - 3.4 Validity and limitations
 
-    IV. 发现
-       - 4.1 三种采用模型（来自综合分析 (Synthesis) 发现1）
-       - 4.2 关键成功因素（来自综合分析 (Synthesis) 发现2）
-       - 4.3 效率与透明度张力（来自综合分析 (Synthesis) 发现3）
+    IV. Findings
+       - 4.1 Three adoption models (from Synthesis Finding 1)
+       - 4.2 Critical success factors (from Synthesis Finding 2)
+       - 4.3 Efficiency vs transparency tension (from Synthesis Finding 3)
 
-    V. 讨论
-       - 5.1 理论启示
-       - 5.2 对认证机构的政策启示
-       - 5.3 实践建议
-       - 5.4 局限性（来自综合分析 (Synthesis) 空白 + 蓝图效度）
+    V. Discussion
+       - 5.1 Theoretical implications
+       - 5.2 Policy implications for accreditation agencies
+       - 5.3 Practical recommendations
+       - 5.4 Limitations (from Synthesis gaps + Blueprint validity)
 
-    VI. 结论
-       - 摘要 + 未来研究方向
+    VI. Conclusion
+       - Summary + Future research directions
 
-步骤2: 章节写作（并行）
-  [review_writer_agent] → 文献综述
-    - 基于注释文献目录 (Annotated Bibliography) 和综合分析 (Synthesis)，转换为流畅的文献综述
-    - 非逐篇摘要，而是主题性整合
+Step 2: SECTION WRITING (Parallel)
+  [review_writer_agent] → Literature Review
+    - Based on Annotated Bibliography and Synthesis, transform into a fluent literature review
+    - Not sequential summaries, but thematic integration
 
-  [method_writer_agent] → 方法论
-    - 将蓝图 (Blueprint) 扩展为完整的方法论段落
-    - 为QCA添加技术细节和程序说明
+  [method_writer_agent] → Methodology
+    - Expand the Blueprint into complete methodology paragraphs
+    - Add technical details and procedural explanation for QCA
 
-  [findings_writer_agent] → 发现
-    - 将综合分析 (Synthesis) 的3个核心发现扩展为有证据支撑的论证
-    - 每个发现辅以具体案例和数据
-    - 处理综合分析 (Synthesis) 中标记的矛盾
+  [findings_writer_agent] → Findings
+    - Expand the Synthesis's 3 core findings into evidence-supported arguments
+    - Each finding accompanied by specific cases and data
+    - Address contradictions flagged in the Synthesis
 
-步骤3: 讨论 + 首尾章节
-  [discussion_writer_agent] → 讨论
-    - 原创论述: 发现与理论之间的对话
-    - 不重复发现，而是解释"为什么"
-    - 将 deep-research 知识空白整合为未来研究方向
+Step 3: DISCUSSION + BOOKENDS
+  [discussion_writer_agent] → Discussion
+    - Original discourse: dialogue between findings and theory
+    - Does not repeat Findings; instead explains "why"
+    - Integrates deep-research Knowledge Gaps as Future Research
 
-  [bookend_agent] → 引言 + 结论
-    - 引言: 从宏观背景到具体研究问题 (RQ)
-    - 结论: 无新信息，呼应研究问题 (RQ) 并展望未来
+  [bookend_agent] → Introduction + Conclusion
+    - Introduction: from macro context to specific RQ
+    - Conclusion: no new information, echoes RQ and looks to the future
 
-步骤4: 摘要 + 格式
+Step 4: ABSTRACT + FORMAT
   [format_agent]
-    - 摘要: 150-250字，IMRAD结构
-    - APA 7.0 全文格式化
-    - 参考文献列表清理（基于文献目录 + 新增引用）
+    - Abstract: 150-250 words, IMRAD structure
+    - APA 7.0 full-text formatting
+    - Reference list cleanup (based on Bibliography + newly added citations)
 
-步骤5: 自我审查
+Step 5: SELF-REVIEW
   [review_agent]
-    - 内部一致性检查（研究问题 (RQ) → 方法 → 发现 → 讨论逻辑链）
-    - 引用完整性（每个主张都有引用）
-    - 格式合规
-    - 裁定: 可投稿 / 需要修订
+    - Internal consistency check (RQ → Method → Findings → Discussion logic chain)
+    - Citation completeness (every claim has a citation)
+    - Format compliance
+    - Verdict: Ready for submission / Needs revision
 ```
 
 ---
 
-## 用户可见的交接体验
+## User-Facing Handoff Experience
 
-**academic-paper 的开场消息**:
+**academic-paper's Opening Message**:
 
-> 我已阅读您在 deep-research 阶段的全部输出，包括:
-> - 研究问题简报 (Research Question Brief)（FINER 4.6/5）
-> - 方法论蓝图 (Methodology Blueprint)（QCA + 文件分析）
-> - 注释文献目录 (Annotated Bibliography)（18个经质量筛选的来源）
-> - 综合分析报告 (Synthesis Report)（3个核心发现 + 2个知识空白）
+> I've read your complete outputs from the deep-research stage, including:
+> - Research Question Brief (FINER 4.6/5)
+> - Methodology Blueprint (QCA + document analysis)
+> - Annotated Bibliography (18 quality-screened sources)
+> - Synthesis Report (3 core findings + 2 knowledge gaps)
 >
-> 基于这些材料，我已完成论文大纲的初步规划。以下是计划的论文结构:
-> [展示大纲]
+> Based on these materials, I've completed a preliminary plan for the paper outline. Here is the planned paper structure:
+> [Display outline]
 >
-> 我有两个问题需要确认:
-> 1. 目标期刊是什么？（这影响字数限制和格式要求）
-> 2. 论文语言应为英文还是双语？
+> I have two questions that need your confirmation:
+> 1. What is your target journal? (This affects word limits and formatting requirements)
+> 2. Should the paper language be English or bilingual?
 >
-> 确认后，我将开始写作。由于研究基础已经十分全面，我可以跳过早期探索阶段，直接进入论文写作。
+> Once confirmed, I'll begin writing. Because the research foundation is already comprehensive, I can skip the early exploration stages and proceed directly to paper writing.
 
 ---
 
-## 注意事项
+## Notes
 
-1. **非复制粘贴**: academic-paper 不直接复制 deep-research 输出，而是将其转化为学术论文的语调和格式
-2. **可能发现新问题**: 写作过程中，academic-paper 的 Agent 可能发现 deep-research 遗漏的要点，将主动补充
-3. **仍需用户确认**: 目标期刊、语言偏好、特定格式要求仍需用户输入
-4. **审查建议自动衔接**: 论文完成后，用户可继续使用 `academic-paper-reviewer` 进行正式审查
+1. **Not copy-paste**: academic-paper does not directly copy deep-research outputs, but transforms them into the tone and format of an academic paper
+2. **May discover new issues**: During the writing process, academic-paper agents may discover points missed by deep-research and will proactively supplement them
+3. **Still requires user confirmation**: Target journal, language preference, specific formatting requirements still require user input
+4. **Review recommendation auto-connects**: After paper completion, the user can continue with `academic-paper-reviewer` for formal review

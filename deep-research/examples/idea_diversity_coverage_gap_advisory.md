@@ -1,64 +1,64 @@
-# 想法多样性 / 覆盖空白咨询示例
+# Idea Diversity / Coverage Gap Advisory Example
 
-本示例展示两个 #257 咨询面。两者均为学术者注意的警示，而非阻断项。
+This example shows the two #257 advisory surfaces. Both are warnings for scholar attention, not blockers.
 
-## 1. 苏格拉底 (Socratic) 措辞模式咨询
+## 1. Socratic wording-pattern advisory
 
-用户草稿:
+User draft:
 
 > I want to study "exploring the impact of AI feedback on student motivation."
 
-苏格拉底导师回应节选:
+Socratic mentor response excerpt:
 
 ```markdown
 [WORDING_PATTERN_ADVISORY]
-您的措辞"exploring the impact of AI feedback on student motivation"类似于一种常见的AI典型研究问题外壳: WP01 impact/effect框架。我不是在评判这个想法；我只是在标记措辞。你所在领域的专家会用什么术语、机制、场域或张力来替代？
+Your phrasing "exploring the impact of AI feedback on student motivation" resembles a common AI-typical research-question shell: WP01 impact/effect frame. I am not judging the idea; I am only flagging the wording. What term, mechanism, site, or tension would a specialist in your field use instead?
 
-你关心的具体反馈情境是什么: 自动评分、形成性评语、反馈时机，还是学生如何判断反馈是否值得采纳？
+What is the specific feedback situation you care about: automated scoring, formative comments, timing of feedback, or how students decide whether feedback is worth acting on?
 ```
 
-可接受的用户选择:
+Acceptable user choice:
 
-- 保留原始措辞，因为它与目标期刊的框架一致。
-- 用领域原生术语重述，例如 "How do first-year engineering students decide whether AI-generated formative comments are actionable during lab-report revision?"
-- 请导师帮忙对范围进行压力测试，而非重写研究问题 (RQ)。
+- Keep the original phrasing because it matches a target journal's framing.
+- Rephrase in domain-native terms, e.g. "How do first-year engineering students decide whether AI-generated formative comments are actionable during lab-report revision?"
+- Ask the mentor to help stress-test scope without rewriting the RQ.
 
-边界: 咨询不说想法是泛化的或不好的。它仅标记措辞外壳。
+Boundary: the advisory does not say the idea is generic or bad. It flags only the wording shell.
 
-## 2. 文献综述分布偏斜咨询
+## 2. Lit-review distributional skew advisory
 
-检索背景:
+Search context:
 
-- 研究问题 (RQ): "How do AI feedback systems shape student revision behavior in higher education?"
-- 最终纳入来源: 25
-- 主题覆盖: 研究问题 (RQ) 的所有主要子主题均已覆盖
-- 已知刊物/方法元数据:
-  - 23/25 来源为2023年后的NLP或学习分析刊物
-  - 21/24 已知方法条目为定量日志数据研究
-  - 18/20 已知地理条目为北美或西欧
+- RQ: "How do AI feedback systems shape student revision behavior in higher education?"
+- Final included sources: 25
+- Topic coverage: all major RQ subtopics covered
+- Known venue/method metadata:
+  - 23/25 sources are post-2023 NLP or learning-analytics venues
+  - 21/24 known-method entries are quantitative log-data studies
+  - 18/20 known-geography entries are North America or Western Europe
 
-检索策略报告节选:
+Search Strategy Report excerpt:
 
 ```markdown
-### 覆盖分布咨询
+### Coverage Distribution Advisory
 
 DISTRIBUTIONAL_SKEW_ADVISORY:
-- 维度: 时间分布
-- 集中度: 2023-2026 = 23/25 (92%)
-- 咨询: 这是一个覆盖分布信号，不是缺陷。考虑研究问题 (RQ) 是否需要更早的关于反馈摄取、修订行为或形成性评估的基础性工作。
-- 检索回应: 从反馈素养和形成性评估的基础性作品添加向后引文追踪。
+- Dimension: time distribution
+- Concentration: 2023-2026 = 23/25 (92%)
+- Advisory: This is a coverage-distribution signal, not a defect. Consider whether the RQ warrants earlier foundational work on feedback uptake, revision behavior, or formative assessment.
+- Search response: add backward citation chaining from foundational feedback-literacy and formative-assessment works.
 
 DISTRIBUTIONAL_SKEW_ADVISORY:
-- 维度: 方法学分布
-- 集中度: 定量日志数据研究 = 21/24 (87.5%)
-- 咨询: 这是一个覆盖分布信号，不是缺陷。考虑该问题是否需要质性的或混合方法的证据，了解学生如何解读反馈。
-- 检索回应: 添加检索字符串 ("AI feedback" OR "automated feedback") AND ("student interpretation" OR "feedback literacy" OR interview OR qualitative)。
+- Dimension: methodological distribution
+- Concentration: quantitative log-data studies = 21/24 (87.5%)
+- Advisory: This is a coverage-distribution signal, not a defect. Consider whether the question warrants qualitative or mixed-method evidence about how students interpret feedback.
+- Search response: add search string ("AI feedback" OR "automated feedback") AND ("student interpretation" OR "feedback literacy" OR interview OR qualitative).
 
 DISTRIBUTIONAL_SKEW_ADVISORY:
-- 维度: 地理分布
-- 集中度: 北美 / 西欧 = 18/20 (90%)
-- 咨询: 这是一个覆盖分布信号，不是缺陷。考虑制度情境是否改变反馈摄取方式。
-- 检索回应: 添加台湾、东亚和双语高等教育研究的区域数据库检索。
+- Dimension: geographic distribution
+- Concentration: North America / Western Europe = 18/20 (90%)
+- Advisory: This is a coverage-distribution signal, not a defect. Consider whether institutional context changes feedback uptake.
+- Search response: add regional database search for Taiwan, East Asia, and bilingual higher-education studies.
 ```
 
-边界: 文献目录仍然有效。咨询询问语料库分布是否匹配研究问题 (RQ)；它不拒绝检索也不强制扩展。
+Boundary: the bibliography is still valid. The advisory asks whether the corpus distribution matches the RQ; it does not reject the search or force expansion.

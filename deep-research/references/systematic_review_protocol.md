@@ -1,11 +1,11 @@
-# 系统综述模式 — 完整方案（Protocol）
+# Systematic Review Mode — Full Protocol
 
-符合 PRISMA 规范的系统文献综述（Systematic Review），可选 Meta分析（Meta-analysis）。此模式在标准6阶段流水线基础上，增加了专门用于偏倚风险（Risk of Bias, RoB）评估（RoB 2、ROBINS-I）和定量合成（Quantitative Synthesis）的 Agent。
+Full PRISMA-compliant systematic literature review with optional meta-analysis. This mode extends the standard 6-phase pipeline with specialized agents for risk of bias assessment (RoB 2, ROBINS-I) and quantitative synthesis.
 
-详细的 Agent 定义参见 `agents/risk_of_bias_agent.md` 和 `agents/meta_analysis_agent.md`。
-Cochrane/PRISMA/GRADE 参考指南参见 `references/systematic_review_toolkit.md`。
+See `agents/risk_of_bias_agent.md` and `agents/meta_analysis_agent.md` for detailed agent definitions.
+See `references/systematic_review_toolkit.md` for the Cochrane/PRISMA/GRADE reference guide.
 
-## 5阶段流水线
+## 5-Phase Pipeline
 
 ```
 User: "Systematic review of [topic]" / "Meta-analysis of [topic]"
@@ -86,10 +86,10 @@ User: "Systematic review of [topic]" / "Meta-analysis of [topic]"
      +-> [report_compiler_agent] -> Final PRISMA Report
 ```
 
-## 检查点规则
+## Checkpoint Rules
 
-1. 所有标准检查点规则均适用（参见 SKILL.md 检查点规则）
-2. **方案必须在阶段2之前注册**（或建议注册）
-3. **偏倚风险（RoB）必须在阶段3之前对所有研究完成评估**
-4. **每个合并结果均需进行 GRADE 评估**
-5. **阶段5需验证 PRISMA 清单合规性**
+1. All standard checkpoint rules apply (see SKILL.md Checkpoint Rules)
+2. **Protocol must be registered** (or registration recommended) before Phase 2
+3. **Risk of bias must be completed for all studies** before Phase 3
+4. **GRADE assessment required** for every pooled outcome
+5. **PRISMA checklist compliance** verified in Phase 5

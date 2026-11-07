@@ -1,132 +1,150 @@
-# 证据评估模板
+# Evidence Assessment Template
 
-## 用途
-逐源质量评估卡片。由 source_verification_agent 使用，用于系统评估进入研究流程的每一个来源。
+## Purpose
+Per-source quality assessment card. Used by the source_verification_agent to systematically evaluate each source entering the research pipeline.
 
-## 评估卡片
+## Assessment Card
 
 ```markdown
-## 证据评估卡片
+## Evidence Assessment Card
 
-### 来源标识
-- **引用格式 (APA 7.0)**: [full reference]
+### Source Identification
+- **Citation (APA 7.0)**: [full reference]
 - **DOI/URL**: [link]
-- **类型**: [journal article / book / report / web / conference paper / thesis / other]
-- **访问日期**: [when verified]
+- **Type**: [journal article / book / report / web / conference paper / thesis / other]
+- **Access Date**: [when verified]
 
 ---
 
-### 质量评估
+### Quality Assessment
 
-#### 1. 证据等级
-**等级**: [I / II / III / IV / V / VI / VII]
-**判定依据**: [why this level]
+#### 1. Evidence Level
+**Level**: [I / II / III / IV / V / VI / VII]
+**Justification**: [why this level]
 
-#### 2. 出版场所
-- **期刊/出版商**: [name]
-- **收录索引**: [Scopus / WoS / PubMed / DOAJ / other / none]
-- **影响因子/CiteScore**: [value or N/A]
-- **COPE成员**: [Yes / No / Unknown]
-- **掠夺性期刊 (Predatory journal) 指标**: [None / Flags: list]
+#### 2. Publication Venue
+- **Journal/Publisher**: [name]
+- **Indexed in**: [Scopus / WoS / PubMed / DOAJ / other / none]
+- **Impact Factor/CiteScore**: [value or N/A]
+- **COPE member**: [Yes / No / Unknown]
+- **Predatory indicators**: [None / Flags: list]
 
-**场所评级**: [Excellent / Good / Adequate / Questionable / Unacceptable]
+**Venue Grade**: [Excellent / Good / Adequate / Questionable / Unacceptable]
 
-#### 3. 作者可信度
-- **作者**: [names]
-- **所属机构**: [institutions]
+#### 3. Author Credibility
+- **Author(s)**: [names]
+- **Affiliation(s)**: [institutions]
 - **ORCID**: [if available]
-- **学术履历**: [publication history in field]
-- **专业匹配度**: [relevant to topic? Yes/Partial/No]
+- **Track record**: [publication history in field]
+- **Expertise match**: [relevant to topic? Yes/Partial/No]
 
-**作者评级**: [Excellent / Good / Adequate / Unknown / Questionable]
+**Author Grade**: [Excellent / Good / Adequate / Unknown / Questionable]
 
-#### 4. 方法学质量
-- **研究设计**: [description]
-- **样本**: [size, selection, representativeness]
-- **分析方法**: [appropriate for design?]
-- **局限性是否承认**: [Yes / Partially / No（列出实际核对章节）/ not assessed (read scope: ...)]
-- **方法学弱点**: [参照 `references/method_weaknesses.md`；逐条标注来源与阅读范围，证据不足写 not assessed]
-- **可重复性**: [Yes / Partially / No]
+#### 4. Methodological Quality
+- **Design**: [description]
+- **Sample**: [size, selection, representativeness]
+- **Analysis**: [appropriate for design?]
+- **Limitations acknowledged**: [Yes / Partially / No, naming the sections checked / not assessed (read scope: <scope>)]
+- **Replicable**: [Yes / Partially / No]
+- **Method weaknesses**: [per the Method weaknesses rules below the card]
 
-**方法评级**: [Excellent / Good / Adequate / Weak / Flawed / Not assessed (read scope: ...)]
+**Method Grade**: [Excellent / Good / Adequate / Weak / Flawed / Not assessed (read scope: <scope>)]
 
-#### 5. 时效性
-- **出版年份**: [YYYY]
-- **数据收集时段**: [if stated]
-- **领域发展速度**: [Rapid / Moderate / Slow / Foundational]
-- **是否仍具时效性**: [Yes / Conditionally / No]
+#### 5. Currency
+- **Publication year**: [YYYY]
+- **Data collection period**: [if stated]
+- **Field velocity**: [Rapid / Moderate / Slow / Foundational]
+- **Still current**: [Yes / Conditionally / No]
 
-**时效性评级**: [Current / Acceptable / Dated / Outdated / Foundational]
+**Currency Grade**: [Current / Acceptable / Dated / Outdated / Foundational]
 
-#### 6. 利益冲突 (Conflict of Interest)
-- **已声明 COI**: [None / Listed: details]
-- **资助来源**: [source or Not stated]
-- **潜在未声明 COI**: [None detected / Possible: details]
+#### 6. Conflict of Interest
+- **Declared COI**: [None / Listed: details]
+- **Funding source**: [source or Not stated]
+- **Potential undeclared COI**: [None detected / Possible: details]
 
-**COI 评级**: [Clean / Minor / Moderate / Significant / Critical]
+**COI Grade**: [Clean / Minor / Moderate / Significant / Critical]
 
 ---
 
-### 总体评估
+### Overall Assessment
 
-| 维度 | 评级 |
-|------|------|
-| 证据等级 (Evidence Level) | [I-VII] |
-| 出版场所 | [Excellent-Unacceptable] |
-| 作者 | [Excellent-Questionable] |
-| 方法 | [Excellent-Flawed] |
-| 时效性 | [Current-Outdated] |
+| Dimension | Grade |
+|-----------|-------|
+| Evidence Level | [I-VII] |
+| Venue | [Excellent-Unacceptable] |
+| Author | [Excellent-Questionable] |
+| Method | [Excellent-Flawed] |
+| Currency | [Current-Outdated] |
 | COI | [Clean-Critical] |
-| **总体** | **[A / B / C / D / F]** |
+| **Overall** | **[A / B / C / D / F]** |
 
-### 建议
-- [ ] **作为主要证据使用** (Grade A-B)
-- [ ] **作为支撑证据使用** (Grade B-C)
-- [ ] **使用时需明确标注注意事项** (Grade C-D)
-- [ ] **不建议使用** (Grade D-F) — 原因: [specific reason]
+### Recommendation
+- [ ] **Use as primary evidence** (Grade A-B)
+- [ ] **Use as supporting evidence** (Grade B-C)
+- [ ] **Use with explicit caveats** (Grade C-D)
+- [ ] **Do not use** (Grade D-F) — Reason: [specific reason]
 
-### 备注
+### Notes
 [Any additional observations, caveats, or context]
 ```
 
-## 方法学弱点补充规则（上游 #916）
+### Method weaknesses rules (§4)
 
-详见 `references/method_weaknesses.md`。每条记录都要注明已阅读范围、具体设计或测量选择、导致偏差的条件、以及 `author-acknowledged`（带原文位置）或 `reader-inferred`（未经验证的推断）标签。仅有摘要或目录时输出 `not assessed (read scope: abstract_only/toc_only/unknown)`。此信息字段不改变既有证据等级或方法评级门控。
+<!-- method-weaknesses:begin -->
+**Method weaknesses (per source, #916).** Information only. Nothing here blocks, gates, scores, or asks the scholar a question.
 
-## 批量评估摘要
+1. **Named design and failure condition.** Name the specific design, measure, sample, or analysis choice, and the condition under which it would distort the result. "Small sample" alone is not enough; "n = 24 from one site, so the site effect cannot be separated from the treatment" is.
+2. **Provenance label on every item.** Mark each item `author-acknowledged` or `reader-inferred`. An `author-acknowledged` item carries a locator in one of the v3.7.3 anchor kinds (`quote`, `page`, `section`, `paragraph`). A `reader-inferred` item is an untested inference and says so.
+3. **Bounded absence claims.** A statement that the authors do not address X names the sections that were checked (the #548 search-bounded pattern). If those sections cannot be named, do not make the absence claim.
+4. **Fixed aspect checklist.** Use the source's paper-type table in `academic-paper-reviewer/references/review_criteria_framework.md` §2 (empirical, theoretical, review / meta-analysis, case study, policy). Mark each criterion in that table `checked: found`, `checked: none found`, or `not checked`. Stop at the end of the table; do not keep adding items until the list feels complete.
+5. **No method-level weakness without the text.** When only the abstract or table of contents is available, or the recorded read scope (`/ars-mark-read --scope`) is `abstract_only`, `toc_only`, or `unknown`, write `not assessed (read scope: <scope>)` and no inferred weaknesses. For `sections`, stay within the declared sections.
+
+Do not turn a weakness into an improvement suggestion or research direction; that step stays with the scholar. Keep the entry short:
+
+```
+- **Method weaknesses** (<paper type>; read: <what was read>)
+  - checked: found: <criterion>, ... | checked: none found: <criterion>, ... | not checked: <criterion>, ...
+  - <design choice>; distorts the result when <condition>. [author-acknowledged, <anchor kind>: <locator>] or [reader-inferred]
+```
+
+or, when rule 5 applies, `- **Method weaknesses**: not assessed (read scope: <scope>)`.
+<!-- method-weaknesses:end -->
+
+## Batch Assessment Summary
 
 ```markdown
-## 来源验证 (Source Verification) 摘要
+## Source Verification Summary
 
-**日期**: [YYYY-MM-DD]
-**已评估来源数**: [N]
-**评估者**: source_verification_agent
+**Date**: [YYYY-MM-DD]
+**Sources assessed**: [N]
+**Assessor**: source_verification_agent
 
-### 评级分布
-| 评级 | 数量 | 百分比 |
-|------|------|--------|
+### Grade Distribution
+| Grade | Count | % |
+|-------|-------|---|
 | A (Excellent) | X | X% |
 | B (Good) | X | X% |
 | C (Adequate) | X | X% |
 | D (Weak) | X | X% |
 | F (Unacceptable) | X | X% |
 
-### 标记来源
-| 来源 | 问题 | 严重程度 | 建议 |
-|------|------|----------|------|
+### Flagged Sources
+| Source | Issue | Severity | Recommendation |
+|--------|-------|----------|---------------|
 | [ref] | [issue] | [High/Medium/Low] | [Include with caveat / Exclude] |
 
-### 掠夺性期刊 (Predatory journal) 预警
+### Predatory Journal Alerts
 [List any flagged journals]
 
-### 来源库总体质量
-**评估**: [Strong / Adequate / Mixed / Weak]
-**建议**: [Proceed / Supplement / Major revision of source base needed]
+### Overall Source Base Quality
+**Assessment**: [Strong / Adequate / Mixed / Weak]
+**Recommendation**: [Proceed / Supplement / Major revision of source base needed]
 ```
 
-## 使用说明
-- 每个来源完成一张评估卡片以进行全面验证
-- 批量摘要应在所有卡片完成后生成
-- 最低抽查比例：20%的来源进行完整卡片评估
-- 所有 Grade D/F 的来源需要记录判定理由
-- 任何掠夺性期刊 (Predatory journal) 标记都需要完整验证
+## Usage Notes
+- Complete one card per source for full verification
+- Batch summary should be produced after all cards are complete
+- Minimum spot-check: 20% of sources get full card assessment
+- All Grade D/F sources require documented justification
+- Any predatory journal flag requires full verification

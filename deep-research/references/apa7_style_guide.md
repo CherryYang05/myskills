@@ -1,126 +1,126 @@
-# APA 第7版 — 快速参考指南
+# APA 7th Edition — Quick Reference Guide
 
-## 目的
-供 report_compiler_agent 和 editor_in_chief_agent 使用的 APA 7.0 格式快速参考。
+## Purpose
+Quick reference for APA 7.0 formatting used by the report_compiler_agent and editor_in_chief_agent.
 
-## 文档格式
+## Document Formatting
 
-### 通用规范
-- 字体：12pt Times New Roman、11pt Calibri 或 11pt Arial
-- 页边距：四周各 1 英寸（2.54 厘米）
-- 行距：全文双倍行距
-- 段落缩进：首行缩进 0.5 英寸（1.27 厘米）
-- 页码：右上角
+### General
+- Font: 12pt Times New Roman, 11pt Calibri, or 11pt Arial
+- Margins: 1 inch (2.54 cm) on all sides
+- Line spacing: Double-spaced throughout
+- Paragraph indent: 0.5 inch (1.27 cm) first line
+- Page numbers: Top right corner
 
-### 标题层级（5级）
+### Headings (5 Levels)
 
-| 层级 | 格式 |
-|------|------|
-| 1 | **居中，加粗，标题大写格式（Title Case）** |
-| 2 | **左对齐，加粗，标题大写格式（Title Case）** |
-| 3 | *左对齐，加粗斜体，标题大写格式（Title Case）* |
-| 4 | **缩进，加粗，标题大写格式（Title Case），以句号结尾。** 正文继续... |
-| 5 | *缩进，加粗斜体，标题大写格式（Title Case），以句号结尾。* 正文继续... |
+| Level | Format |
+|-------|--------|
+| 1 | **Centered, Bold, Title Case** |
+| 2 | **Left-Aligned, Bold, Title Case** |
+| 3 | *Left-Aligned, Bold Italic, Title Case* |
+| 4 | **Indented, Bold, Title Case, Ending With a Period.** Text continues... |
+| 5 | *Indented, Bold Italic, Title Case, Ending With a Period.* Text continues... |
 
-## 正文引用（In-Text Citations）
+## In-Text Citations
 
-### 括号引用
-- 一位作者：(Smith, 2023)
-- 两位作者：(Smith & Jones, 2023)
-- 三位及以上作者：(Smith et al., 2023)
-- 多篇作品：(Jones, 2022; Smith, 2023) — 按字母顺序排列
-- 同一作者同年：(Smith, 2023a, 2023b)
-- 组织机构：首次 (World Health Organization [WHO], 2023)；之后 (WHO, 2023)
-- 无日期：(Smith, n.d.)
-- 二次来源：(Original Author, Year, as cited in Citing Author, Year)
+### Parenthetical Citations
+- One author: (Smith, 2023)
+- Two authors: (Smith & Jones, 2023)
+- Three+ authors: (Smith et al., 2023)
+- Multiple works: (Jones, 2022; Smith, 2023) — alphabetical order
+- Same author, same year: (Smith, 2023a, 2023b)
+- Organization: (World Health Organization [WHO], 2023) first time; (WHO, 2023) after
+- No date: (Smith, n.d.)
+- Secondary source: (Original Author, Year, as cited in Citing Author, Year)
 
-### 叙述式引用
+### Narrative Citations
 - Smith (2023) found that...
 - Smith and Jones (2023) argued...
 - Smith et al. (2023) demonstrated...
 
-### 直接引用（Direct Quotations）
-- 短引用（< 40词）："exact words" (Author, Year, p. X)
-- 长引用（≥ 40词）：块引用，缩进0.5英寸，不加引号
-  (Author, Year, p. X) 置于末尾
+### Direct Quotations
+- Short (< 40 words): "exact words" (Author, Year, p. X)
+- Long (≥ 40 words): Block quote, indented 0.5 inch, no quotation marks
+  (Author, Year, p. X) at end
 
-### 页码
-- 直接引用时必须标注：p. X 或 pp. X–Y
-- 对长篇作品的释义建议标注页码
+### Page Numbers
+- Required for direct quotes: p. X or pp. X–Y
+- Encouraged for paraphrases from long works
 
-## 参考文献列表（Reference List）
+## Reference List
 
-### 通用规则
-- 标题："References"（1级标题）
-- 悬挂缩进（Hanging indent）：0.5英寸
-- 双倍行距
-- 按第一作者姓氏字母顺序排列
-- 有 DOI 时以超链接形式包含：https://doi.org/xxxxx
+### General Rules
+- Heading: "References" (Level 1 heading)
+- Hanging indent: 0.5 inch
+- Double-spaced
+- Alphabetical by first author's surname
+- Include DOI as hyperlink when available: https://doi.org/xxxxx
 
-### 期刊文章
+### Journal Article
 ```
 Author, A. A., Author, B. B., & Author, C. C. (Year). Title of article in sentence case. *Title of Periodical in Title Case*, *Volume*(Issue), Page–Page. https://doi.org/xxxxx
 ```
 
-### 书籍
+### Book
 ```
 Author, A. A. (Year). *Title of work in sentence case: Capital letter for subtitle* (Edition). Publisher. https://doi.org/xxxxx
 ```
 
-### 编著中的章节
+### Edited Book Chapter
 ```
 Author, A. A. (Year). Title of chapter. In E. E. Editor (Ed.), *Title of book* (pp. xx–xx). Publisher. https://doi.org/xxxxx
 ```
 
-### 报告 / 灰色文献（Grey Literature）
+### Report / Grey Literature
 ```
 Organization Name. (Year). *Title of report* (Report No. xxx). https://www.url.com
 ```
 
-### 网页
+### Webpage
 ```
 Author, A. A. (Year, Month Day). *Title of page*. Site Name. https://www.url.com
 ```
 
-### 政府文件
+### Government Document
 ```
 Government Agency. (Year). *Title of document* (Publication No. xxx). Publisher. https://www.url.com
 ```
 
-### 会议论文
+### Conference Paper
 ```
 Author, A. A. (Year, Month Days). *Title of contribution* [Type]. Conference Name, Location. https://doi.org/xxxxx
 ```
 
-### 学位论文
+### Thesis / Dissertation
 ```
 Author, A. A. (Year). *Title of dissertation* [Doctoral dissertation, University Name]. Database Name. https://www.url.com
 ```
 
-### 数据集
+### Dataset
 ```
 Author, A. A. (Year). *Title of dataset* (Version) [Data set]. Publisher. https://doi.org/xxxxx
 ```
 
-## 特殊情况
+## Special Cases
 
-### 无作者
-- 在作者位置使用组织名称或标题
-- 引用中使用短标题：("Short Title," Year)
+### No Author
+- Use organization or title in author position
+- Short title in citations: ("Short Title," Year)
 
-### 无日期
-- 用 (n.d.) 代替年份
+### No Date
+- (n.d.) in place of year
 
-### 翻译作品
+### Translated Works
 ```
 Author, A. A. (Year). *Title in original language* [Title in English] (T. Translator, Trans.). Publisher. (Original work published Year)
 ```
 
-### 同一作者同年多篇作品
-- 分配小写字母：2023a, 2023b
-- 按标题字母顺序排列
+### Multiple Works by Same Author Same Year
+- Assign lowercase letters: 2023a, 2023b
+- Based on title alphabetical order
 
-## 表格
+## Tables
 
 ```
 Table X
@@ -132,7 +132,7 @@ Descriptive Title of Table in Italic
 Note. General note about the table. Adapted from "Title," by Author, Year, Journal, Volume, p. X. Copyright Year by Copyright Holder.
 ```
 
-## 图
+## Figures
 
 ```
 Figure X
@@ -144,19 +144,19 @@ Descriptive Title of Figure in Italic
 Note. Description and source information.
 ```
 
-## 数字
+## Numbers
 
-- 拼写写出：10以下的数字、句首的数字
-- 使用数字：10及以上、统计/数学数值、日期、年龄、分数
-- 例外：带单位时始终使用数字（3 cm, 5 mg）
+- Spell out: numbers below 10, numbers beginning a sentence
+- Use numerals: 10 and above, statistical/mathematical, dates, ages, scores
+- Exception: Always use numerals with units (3 cm, 5 mg)
 
-## 常见错误提醒
+## Common Errors to Avoid
 
-1. 正文中使用"&"（正文中应使用"and"；"&"仅用于括号引用和参考文献列表）
-2. 有DOI的来源缺少DOI
-3. 标题层级不一致
-4. DOI/URL后加句号（不要加）
-5. 仅有2位作者时使用"et al."（应两位作者都列出）
-6. 孤立引用（正文引用但参考文献列表中无对应条目，或反之）
-7. 参考文献标题大小写错误（应使用句首大写格式（sentence case），而非标题大写格式（Title Case））
-8. 按期分页的期刊缺少期号
+1. Using "&" in text (use "and" in text; "&" only in parenthetical citations and reference list)
+2. Missing DOIs for sources that have them
+3. Inconsistent heading levels
+4. Period after DOI/URL (don't add one)
+5. Using "et al." with only 2 authors (use both names)
+6. Orphan references (cited but not in reference list, or vice versa)
+7. Incorrect capitalization in reference titles (sentence case, not title case)
+8. Missing issue numbers for journals that paginate by issue

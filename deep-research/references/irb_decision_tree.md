@@ -1,245 +1,315 @@
-# IRB (机构审查委员会) 决策树 — 人类受试者研究伦理审查指南
+# Human-Subjects Authority Context Navigation Aid — Institutional Determination Required
 
-## 目的
-IRB (Institutional Review Board, 机构审查委员会) 伦理审查决策树及台湾流程指南。供 ethics_review_agent 判断研究是否涉及人类受试者, 以及供 research_architect_agent 在方法论设计阶段规划 IRB 审查时使用。
+## Purpose
+
+This reference helps the `ethics_review_agent` and `research_architect_agent`
+collect protocol facts, bind already-selected authority profiles, and prepare
+questions for the responsible institution. It is a navigation aid, not an
+authority, authorization tool, or review-pathway classifier.
+
+The controlling local contract is
+`shared/references/human_subjects_authority_protocol.md`; the only curated
+authority rows available to this aid are in
+`shared/human_subjects_authority_registry.json`. Every profile in that registry
+is a `bounded_subset`, not a complete statement of any jurisdiction's law or an
+institution's policy.
+
+When a caller explicitly requests candidate rule-trace display, the derived
+handoff is governed by
+`shared/references/review_pathway_rule_trace_protocol.md`. This file never
+supplies candidate names or unanchored predicates to that handoff.
+
+> **Authority boundary (#665/#666/#680):** Mixed-jurisdiction pathway mappings are not part of this reference. ARS output must use `institutional determination required`; applicability, requirements, timing, and authorization remain with the responsible institution and an exactly selected authority profile. Missing or unknown facts remain unresolved and never become a review determination.
 
 ---
 
-## 1. 人类受试者研究判定决策树
+## 1. Portable Fact Collection — No Pathway Inference
+
+Collect facts without mapping them to `Exempt`, `Expedited`, `Full Board`, or a
+similarly named local pathway. Those labels are authority- and
+institution-specific; vulnerability, sensitivity, deception, identifiability,
+and estimated risk are inputs for human assessment, not automatic pathway
+rules.
 
 ```
-您的研究是否收集、使用或分析来自人类的数据?
+Start
 │
-├── 否 → 不涉及人类受试者, 无需 IRB 审查
-│         (例如: 纯理论研究、文献综述、公开统计资料的二次分析)
+├── Record whether the activity involves human subjects
+│   └── If unknown, preserve unknown and ask the responsible institution
 │
-└── 是 → 数据是否包含个人可识别信息 (PII)?
-          │
-          ├── 否 → 是否为公开可获取的公开数据?
-          │        │
-          │        ├── 是 → 通常可豁免审查
-          │        │         但仍须向 IRB 提交豁免审查申请以获确认
-          │        │
-          │        └── 否 → 进入下方"审查等级判定"
-          │
-          └── 是 → 研究是否涉及与受试者的直接互动?
-                    │
-                    ├── 否 → 仅使用已有数据/标本
-                    │        │
-                    │        ├── 数据已完成去标识化 (De-identification) → 可申请豁免审查
-                    │        └── 数据包含可识别信息 → 加速审查或全委会审查
-                    │
-                    └── 是 → 进入下方"审查等级判定"
+├── Record each candidate review-ethics and data-protection authority
+│   └── Do not infer jurisdiction from geography, funder, language, or topic
+│
+├── Record data, interaction, recruitment, population, and risk facts
+│   └── Separate observed facts from researcher assumptions
+│
+├── Select exact #666 profile id/version/digest pointers only when confirmed
+│   └── Leave an axis unresolved when no matching bounded profile is available
+│
+└── Send facts and unresolved questions to the responsible institution
+    └── Output pathway: institutional determination required
+```
+
+### 1.1 Exact #666 declared facts
+
+For a #666 context, record `true`, `false`, or `unknown` against these exact
+catalogue identifiers. A missing value is unknown, not false.
+
+| Exact fact id | Question to resolve |
+|---|---|
+| `activity.human_subjects` | Has the author confirmed that the activity involves human subjects? |
+| `support.us_hhs_or_common_rule` | Has the author identified a U.S. HHS/Common Rule scope basis? |
+| `scope.tw_hsra` | Has the author identified Taiwan's Human Subjects Research Act as a review authority? |
+| `scope.eu_gdpr` | Has the author identified the GDPR as a data-protection authority? |
+| `processing.personal_data` | Within the selected GDPR scope, does the activity process personal data? |
+| `data.special_category` | Does that processing include special-category data? |
+| `data.collected_from_subject` | Is the personal data obtained from the data subject rather than elsewhere? |
+| `purpose.scientific_research` | Does the processing purpose include scientific research? |
+| `gdpr.member_state_research_law_identified` | Has a specific applicable Union or Member State research-derogation law been identified? |
+
+### 1.2 Additional portable planning facts
+
+The following are **illustrative, unprofiled planning facts**. They preserve
+useful protocol detail but are not predicates or requirement rows in the current
+#666 registry:
+
+- source and provenance of each dataset or specimen;
+- direct identifiers, quasi-identifiers, and linkage/re-link keys;
+- IP addresses, cookies, device identifiers, timestamps, and other platform
+  metadata actually collected or accessible;
+- direct interaction, intervention, observation, recordings, and follow-up;
+- recruitment channel, compensation, dependency or power relationships, age,
+  decision-making capacity, language, and accessibility needs;
+- potentially sensitive topics, deception or incomplete disclosure, and the
+  physical, psychological, social, economic, informational, or group risks the
+  team has identified;
+- risk mitigations, access controls, recipients, transfers, retention,
+  destruction, reuse, withdrawal handling, and incident response;
+- institution-, funder-, community-, sector-, or profession-specific rules and
+  the office or person responsible for interpreting them.
+
+Do not convert any single fact or combination in this list into a pathway,
+clearance, readiness, compliance, or authorization result.
+
+### 1.3 Derived #669 candidate rule trace
+
+The #669 runtime may display only an explicit, replay-bound request that
+partitions every selected-profile `pathway_trace` requirement. Candidate labels
+come from named institutional material or an author-declared question, never
+from this reference. Both authority axes are accounted for, while alternatives
+remain within one exact profile; a GDPR/data-protection route is never presented
+as an IRB route.
+
+Every emitted row backpoints to an exact requirement and authority anchor in
+section 2. An unknown fact stays in `Unresolved predicates` with the exact
+`authoritative_decision_maker.role_id`. No selected profile means no candidate
+rows and an exact `JURISDICTION_UNRESOLVED` halt. The only result is
+`institutional determination required`.
+
+Consumers must receive confirmation that both
+`validate_review_pathway_rule_trace(...)` and the surface-scoped
+`check_review_pathway_output.py` lint succeeded against the exact named files.
+The trace is display-only and cannot update readiness, authorization, an action,
+a verdict, a checkpoint, or any workflow state.
+
+---
+
+## 2. Exact Bounded Requirement Pointers
+
+Use a row below for action planning only after the matching profile has been
+selected by exact id/version/digest and the #666 resolved artifact permits
+profile-dependent use. The separately replayed #669 display-only trace may
+preserve a requirement-level unknown under its narrow protocol exception, but
+that row cannot become an action or result.
+The link is the row's primary-source anchor; the requirement id is the navigation
+pointer. The table is deliberately exhaustive only for the current bounded
+registry, not for the underlying authorities.
+
+### 2.1 Review-ethics axis
+
+| Exact requirement id | Exact provision | Obligated actor | Consumer scopes | Bounded subject | Primary-source anchor |
+|---|---|---|---|---|---|
+| `us.45cfr46.107.irb-composition` | `45 CFR 46.107` | `institution_or_irb` | `["committee_governance", "pathway_trace"]` | IRB membership and composition | [45 CFR 46.107](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-A/part-46/subpart-A/section-46.107) |
+| `us.45cfr46.116.informed-consent` | `45 CFR 46.116` | `investigator_and_irb` | `["participant_information", "submission_packet", "pathway_trace"]` | General informed-consent requirements | [45 CFR 46.116](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-A/part-46/subpart-A/section-46.116) |
+| `tw.hsra.article-7.committee-composition` | `人體研究法第 7 條` | `research_institution_or_review_committee` | `["committee_governance", "pathway_trace"]` | Review-committee composition | [人體研究法第 7 條（全國法規資料庫中文控制文本）](https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020176) |
+| `tw.hsra.article-14.consent-information` | `人體研究法第 14 條` | `principal_investigator` | `["participant_information", "submission_packet", "pathway_trace"]` | Information explained before consent | [人體研究法第 14 條（全國法規資料庫中文控制文本）](https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=L0020176) |
+
+Committee-composition rows belong to their stated institutional/committee
+actors. This aid must not turn them into investigator submission-packet
+requirements. The U.S. and Taiwan rows remain parallel and retain their own
+vocabulary; neither is a translation of the other.
+
+### 2.2 Data-protection axis
+
+| Exact requirement id | Exact provision | Obligated actor | Consumer scopes | Bounded subject | Primary-source anchor |
+|---|---|---|---|---|---|
+| `eu.gdpr.article-6.lawful-basis` | `GDPR Article 6` | `controller` | `["data_governance", "pathway_trace"]` | Identify and document an applicable Article 6 basis; the profile does not select one | [GDPR Article 6](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+| `eu.gdpr.article-9.special-category-research` | `GDPR Article 9` | `controller` | `["data_governance", "pathway_trace"]` | Identify an applicable Article 9 condition and safeguards; the profile does not select the route | [GDPR Article 9](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+| `eu.gdpr.article-13.direct-collection-information` | `GDPR Article 13` | `controller` | `["participant_information", "data_governance", "pathway_trace"]` | Information when data is obtained from the data subject | [GDPR Article 13](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+| `eu.gdpr.article-14.indirect-collection-information` | `GDPR Article 14` | `controller` | `["participant_information", "data_governance", "pathway_trace"]` | Information when data is obtained elsewhere, subject to a separately established exception | [GDPR Article 14](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+| `eu.gdpr.article-89.1.research-safeguards` | `GDPR Article 89(1)` | `controller` | `["data_governance", "pathway_trace"]` | Scientific-research safeguards, including assessment of data minimisation and pseudonymisation | [GDPR Article 89(1)](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+| `eu.gdpr.article-89.2.member-state-derogation` | `GDPR Article 89(2)` | `controller` | `["data_governance", "pathway_trace"]` | A claimed research derogation must point to an identified applicable Union or Member State law | [GDPR Article 89(2)](https://eur-lex.europa.eu/eli/reg/2016/679/2016-05-04/eng) |
+
+The GDPR rows do not determine whether the GDPR applies, select a lawful basis
+or Article 9 condition, identify a Member State law, or authorize processing.
+
+---
+
+## 3. Illustrative Country and Institution Planning
+
+### 3.1 Taiwan institutional-workflow example — illustrative and unprofiled
+
+For a project connected with Taiwan, a useful planning conversation may ask:
+
+1. Which institution or review committee owns the determination?
+2. Which local submission system and current forms does it use?
+3. Which protocol, participant-information, recruitment, instrument, training,
+   data-management, or other materials does that institution request?
+4. Which activities, if any, must wait for a documented institutional decision?
+5. What current turnaround estimate, amendment process, continuing-reporting
+   schedule, and closure process does the institution state?
+
+These are **questions, not Taiwan legal requirements**. The current #666 Taiwan
+profile covers only `tw.hsra.article-7.committee-composition` and
+`tw.hsra.article-14.consent-information`. It does not profile NSTC or Ministry
+of Education funding rules, the Personal Data Protection Act, clinical-trial or
+biobank rules, training credentials, submission platforms, timelines, periodic
+reports, or a local pathway taxonomy. Record any such item as `unprofiled` and
+obtain the responsible authority's current instruction. Do not rename a Taiwan
+process with U.S. pathway vocabulary.
+
+### 3.2 Higher-education scenarios — illustrative fact prompts
+
+| Scenario | Portable facts to collect; no determination implied |
+|---|---|
+| Public statistics analysis | source, publication/access terms, record-level identifiability, linkage with other data, and institutional policy |
+| Institutional research data | provenance, authorization, direct/quasi-identifiers, re-link key, access roles, purpose, and data source |
+| Student survey or interview | recruitment and power relationship, voluntariness, direct identifiers, platform metadata, topic, recording, and withdrawal handling |
+| Teaching intervention | allocation, effect on grades/rights/access, alternatives, instructor-researcher roles, risk, and data collection |
+| Mental-health or other sensitive-topic study | data categories, foreseeable harms, disclosure limits, response plan, and—only if the GDPR profile is selected—whether `data.special_category` is true |
+| Learning portfolio or classroom observation | expectation of privacy, recorded identifiers, notice/interaction, recording, secondary use, and access |
+| Career tracking or longitudinal follow-up | contact data, re-link key, follow-up period, recipients, retention, and withdrawal feasibility |
+| Cross-border or multi-institution study | each review-ethics and data-protection authority, lead/participating institution roles, transfers, and unresolved conflicts |
+
+Public availability, anonymity, minimal risk, vulnerability, or sensitivity does
+not by itself assign a pathway in this reference.
+
+---
+
+## 4. Participant-Information and Consent Preparation
+
+### 4.1 Authority-bound coverage
+
+There is no universal consent-element checklist in this aid. When the applicable
+row resolves true, use its exact pointer and full registry row:
+
+- `us.45cfr46.116.informed-consent` for the bounded U.S. Common Rule consent row;
+- `tw.hsra.article-14.consent-information` for the bounded Taiwan Article 14
+  information row;
+- `eu.gdpr.article-13.direct-collection-information` when the selected GDPR
+  context says personal data is obtained from the data subject;
+- `eu.gdpr.article-14.indirect-collection-information` when the selected GDPR
+  context says personal data is obtained elsewhere.
+
+Do not merge these rows into one universal form. If an authority, element,
+waiver/exception, special population, sector, or institutional rule is not in
+the registry, label it `unprofiled` and seek the responsible authority's current
+requirements.
+
+### 4.2 Portable drafting inventory — illustrative, non-authoritative
+
+The following inventory is useful for drafting and gap questions, but it is not
+a list of legally required elements:
+
+- project title; responsible institution, investigator, funder, and contacts;
+- purpose, procedures, duration, recordings, alternatives, and participant tasks;
+- foreseeable risks/discomforts, possible benefits, compensation, and remedies;
+- voluntary-choice and withdrawal statements appropriate to the actual design;
+- data categories and sources; collection method; recipients and access roles;
+- platform metadata, identifiers, linkage, security, retention, destruction,
+  future use, sharing, transfer, publication, and commercial interests;
+- complaint, rights, or authority contacts supplied by the responsible regime;
+- signature, assent, representative, or electronic-interaction fields requested
+  by the responsible institution.
+
+### 4.3 Online-survey disclosure accuracy
+
+Use this **portable drafting convention**: disclose what the selected survey
+platform, institution, and research team actually collect or can access. Verify
+settings and data exports before saying that an IP address, cookie, device
+identifier, timestamp, contact field, or other metadata is not recorded. State
+the collector, purpose, access roles/recipients, retention, and deletion or
+masking behavior where known; preserve `unknown` where it has not been verified.
+
+An `I agree` control records a participant interaction. This aid does not decide
+whether that interaction satisfies consent, signature, documentation, or waiver
+requirements under a selected authority or institutional process.
+
+### 4.4 Drafting worksheet — illustrative and unprofiled until bound
+
+```text
+Participant Information / Consent Drafting Worksheet
+
+Selected profile pointer(s): [profile id / version / digest]
+Applicable requirement pointer(s): [exact requirement ids]
+Unprofiled authorities or institutional rules: [list / unknown]
+
+Project and responsible actors: [                              ]
+Purpose, procedures, duration, and recordings: [               ]
+Risks, benefits, compensation, and remedies: [                 ]
+Choice, withdrawal, and limits on withdrawal/deletion: [       ]
+Data and metadata actually collected (including platform data): [ ]
+Access, recipients, transfers, security, and incident handling: [ ]
+Retention, destruction, future use, sharing, and publication: [  ]
+Contacts and institution-requested acknowledgement fields: [     ]
+
+Unresolved questions for the responsible institution: [          ]
+Review pathway: institutional determination required
 ```
 
 ---
 
-## 2. 三级审查制度
+## 5. Data-Handling Technical Planning
 
-### 2.1 豁免审查 (Exempt Review)
+Use `shared/references/irb_terminology_glossary.md` for explicitly
+convention-bound drafting terms. A technical transformation does not, by itself,
+establish an authority-defined legal status.
 
-**适用条件** (满足以下任一项):
-- [ ] 使用公开可获取的、已去标识化的数据集
-- [ ] 在正常教育环境中进行的教育实践研究
-- [ ] 仅涉及匿名问卷调查 (无敏感话题)
-- [ ] 公共行为观察 (不记录可识别信息)
-- [ ] 使用政府公开统计数据
+### 5.1 Illustrative techniques
 
-**注意**: 豁免审查不等于豁免申请 — 仍须向 IRB 提交申请以确认豁免资格。
+| Technique | Technical planning purpose; legal effect not asserted |
+|---|---|
+| Identifier removal or transformation | reduce direct-identification exposure |
+| Pseudonym/code assignment | separate working records from additional identifying information while preserving a controlled link |
+| Generalisation or aggregation | reduce precision and small-cell disclosure risk |
+| Masking | limit visible portions of a field for a stated use |
+| Re-identification risk assessment | test plausible combinations and auxiliary-data attacks under a named method or threshold |
 
-### 2.2 加速审查 (Expedited Review)
+### 5.2 Illustrative risk and control prompts
 
-**适用条件** (须同时满足):
-- [ ] 研究风险不大于日常生活中通常遇到的风险 (最小风险, minimal risk)
-- [ ] 不涉及脆弱人群 (Vulnerable Population)
-- [ ] 研究方法属于加速审查类别清单
-
-**常见类别**:
-- 问卷调查 (包含敏感但非高风险话题)
-- 访谈 (一般性话题)
-- 教学干预研究 (非侵入性)
-- 音频/视频录制 (经知情同意)
-- 已有临床数据的二次分析
-
-### 2.3 全委会审查 (Full Board Review)
-
-**适用条件** (满足以下任一项):
-- [ ] 大于最小风险
-- [ ] 涉及脆弱人群 (Vulnerable Population) (儿童、囚犯、孕妇、认知障碍者)
-- [ ] 涉及敏感话题 (性行为、违法行为、心理健康)
-- [ ] 使用欺骗 (Deception) 方法
-- [ ] 可能造成心理或社会伤害
+- Can small groups, quotations, rare attributes, dates, locations, or
+  institutional characteristics identify a person or community?
+- Can other datasets be linked to the planned release or analysis environment?
+- Who holds each identifier or re-link key, and who can access both sides?
+- Do storage, encryption, logging, export, backup, retention, and destruction
+  controls match the participant-facing disclosure?
+- Has the team tested the actual platform export for IP addresses and other
+  metadata rather than relying on a default-setting assumption?
 
 ---
 
-## 3. 台湾 IRB 流程
+## Researcher Self-Check
 
-### 3.1 主管机关
+Before handing the protocol to the responsible institution:
 
-| 主管机关 | 管辖范围 | 法规依据 |
-|-----------|-------------|-------------|
-| **国家科学技术委员会 (原科技部)** | 国科会资助涉及人类研究的计划 | "国科会研究计划申请作业要点" |
-| **卫生福利部** | 人类研究、临床试验、人体生物资料库 | "人体研究法" (2011年) |
-| **教育部** | 教育场域中的研究伦理 | 各校自订规章 |
+1. [ ] Have both authority axes been addressed with exact selected profiles or a visible unresolved state?
+2. [ ] Are confirmed, false, and unknown facts kept distinct without jurisdiction inference?
+3. [ ] Does every authority-bound statement point to an exact #666 requirement id and its selected profile?
+4. [ ] Are actor and consumer boundaries preserved, especially for committee-governance rows?
+5. [ ] Are country, sector, community, funder, and institutional examples outside the registry labelled `illustrative` or `unprofiled`?
+6. [ ] Does survey/privacy wording accurately describe actual identifier and metadata handling?
+7. [ ] Are vulnerability, sensitivity, deception, identifiability, and risk treated as facts rather than automatic pathways?
+8. [ ] Is the pathway still `institutional determination required`, with timing and authorization obtained separately from the responsible institution?
 
-### 3.2 法规框架
-
-| 法规 | 适用范围 | 关键要求 |
-|-----------|-------|------------------|
-| **人体研究法** | 涉及人类受试者的研究 (问卷、访谈、观察、干预) | 事前审查、知情同意 (Informed Consent)、个人资料保护 |
-| **个人资料保护法** | 个人资料的搜集、处理及利用 | 告知义务、目的限制、安全维护 |
-| **人体试验管理办法** | 药品/医疗器材临床试验 | GCP 合规、受试者保险 |
-
-### 3.3 申请流程
-
-```
-1. 撰写研究计划书
-   ↓
-2. 判定是否涉及人类受试者
-   ↓ (涉及)
-3. 确认审查等级 (豁免审查 / 加速审查 / 全委会审查)
-   ↓
-4. 向机构 IRB 提交申请
-   - 研究计划书
-   - 知情同意书
-   - 问卷/访谈大纲
-   - 研究人员资格证明 (CITI 或同等培训)
-   ↓
-5. IRB 审查 (时间: 加速审查 2-4 周, 全委会审查 4-8 周)
-   ↓
-6. 收到核准函后方可开始研究
-   ↓
-7. 定期提交进度报告 (通常为年度)
-   ↓
-8. 结案报告
-```
-
-### 3.4 线上研究伦理审查平台
-
-| 平台 | 说明 | 网址 |
-|----------|-------------|-----|
-| **AREC** (学术研究伦理委员会) | 多机构联合伦理审查委员会 | 各机构 IRB 网站 |
-| **各机构 IRB 系统** | 大学校内线上申请系统 | 各校研发处网站 |
-| **CITI Program** | 线上研究伦理培训课程 | citiprogram.org |
-| **台湾研究伦理教育资源中心** | 研究伦理教育素材 | 各校教学发展中心 |
-
----
-
-## 4. 高等教育研究速查表
-
-| 研究情境 | 是否涉及人类受试者 | 建议审查等级 | 备注 |
-|-------------------|------------------------|--------------------------|-------|
-| 教育部公开统计分析 | 否 | 豁免审查 | 已公开的去标识化数据 |
-| 校务研究 (IR) 数据分析 | 视情况 | 豁免审查/加速审查 | 取决于数据是否已去标识化 |
-| 学生学习成效问卷调查 | 是 | 加速审查 | 匿名问卷通常符合加速审查条件 |
-| 教师访谈 (一般教学经验) | 是 | 加速审查 | 非敏感话题 |
-| 教学实验 (A/B 教学法比较) | 是 | 加速审查/全委会审查 | 取决于是否影响学生成绩/权益 |
-| 学生心理健康调查 | 是 | 全委会审查 | 敏感话题 |
-| 脆弱学生群体研究 | 是 | 全委会审查 | 脆弱人群 (Vulnerable Population) 保护 |
-| 学生学习档案分析 | 视情况 | 加速审查 | 包含可识别信息, 需加速审查 |
-| 课堂观察 (不记录个人资料) | 是 | 豁免审查/加速审查 | 公开场域观察 |
-| 毕业生职涯追踪调查 | 是 | 加速审查 | 包含个人资料, 需加速审查 |
-| 高等教育评鉴中心 (HEEACT) 评鉴数据分析 | 视情况 | 豁免审查/加速审查 | 公开部分可豁免审查 |
-| 大学教师薪资/劳动条件调查 | 是 | 加速审查/全委会审查 | 可能涉及机构权力关系 |
-
----
-
-## 5. 知情同意书 (Informed Consent) 要素
-
-### 5.1 必备项目
-
-- [ ] 研究标题
-- [ ] 研究机构及主持人姓名
-- [ ] 研究目的
-- [ ] 研究程序说明 (受试者需要做什么、需时多久)
-- [ ] 潜在风险与不适
-- [ ] 潜在利益
-- [ ] 保密措施 (数据如何储存、谁可访问、保留期限)
-- [ ] 参与的自愿性质 (可随时退出, 不会受到处罚)
-- [ ] 研究人员联系方式
-- [ ] IRB 联系方式 (申诉渠道)
-- [ ] 受试者签名及日期栏
-
-### 5.2 特殊情况
-
-| 情况 | 额外要求 |
-|-----------|------------------------|
-| **线上问卷** | 电子同意 (点击"我同意"即构成同意); 须声明不会记录 IP 地址 |
-| **音频/视频录制** | 单独勾选项: 同意音频/视频录制 |
-| **未成年人** | 法定监护人同意 + 受试者本人同意 (assent) |
-| **跨国研究** | 遵守当地 IRB 要求 + 台湾 IRB 要求 |
-| **原住民族研究** | 社群同意 (部落同意) + 个人知情同意 |
-
-### 5.3 知情同意书模板结构
-
-```
-研究参与同意书
-
-1. 研究计划标题: [                    ]
-2. 计划主持人: [      ] / 机构: [        ]
-3. 研究目的: [                              ]
-4. 研究方法与程序:
-    您将被邀请 [具体说明受试者将做什么],
-    预计耗时 [  ] 分钟。
-5. 潜在风险或不适: [                        ]
-6. 潜在利益: [                              ]
-7. 保密措施:
-    您的数据将以代码处理; 研究结果仅以汇总形式呈现,
-    您的个人身份不会被披露。数据将于 [X] 年后销毁。
-8. 参与的自愿性质:
-    您可自由决定是否参与本研究, 并可随时退出,
-    不会产生任何不利后果。
-9. 联系方式:
-    计划主持人: [姓名] [电话] [电子邮件]
-    IRB 联系: [机构名称] [电话] [电子邮件]
-
-□ 我已阅读并理解上述说明, 同意参与本研究。
-
-受试者签名: __________ 日期: __________
-研究人员签名: __________ 日期: __________
-```
-
----
-
-## 6. 数据去标识化 (De-identification) 与隐私保护
-
-### 6.1 去标识化策略
-
-| 策略 | 说明 | 适用情境 |
-|----------|-------------|---------------------|
-| **匿名化 (Anonymization)** | 完全移除所有可识别信息, 不可逆 | 最终数据发布 |
-| **假名化 (Pseudonymization)** | 以代码替换, 保留对照表 | 研究过程中需要追踪 |
-| **数据泛化** | 将精确值转换为区间 (例如: 年龄 → 年龄段) | 统计分析 |
-| **数据遮蔽** | 隐藏部分信息 (例如: 部分遮蔽的电子邮件) | 数据展示 |
-| **k-匿名性 (k-anonymity)** | 确保每条记录至少与 k-1 条其他记录不可区分 | 数据集发布 |
-
-### 6.2 高等教育研究中常见的隐私风险
-
-- **小样本识别**: 小型系所可能通过描述性统计实现再识别
-- **交叉比对**: 合并多个去标识化数据集可能实现再识别
-- **叙述性识别**: 质性研究的引用可能揭示受访者身份
-- **机构识别**: 过于具体的机构特征可能导致机构被识别
-
-### 6.3 建议做法
-
-- [ ] 移除直接识别符 (姓名、学号、身份证号)
-- [ ] 评估间接识别符风险 (系所 + 年级 + 性别组合可能识别个人)
-- [ ] 检查质性引用: 移除可识别细节
-- [ ] 处理机构名称: 根据研究需求决定是否匿名化
-- [ ] 加密储存数据并设置访问控制
-- [ ] 建立数据保留与销毁时间表
-
----
-
-## 速查: 研究人员自检清单
-
-开始研究前, 请回答以下问题:
-
-1. [ ] 我的研究是否收集、使用或分析与人类相关的数据?
-2. [ ] 若是, 数据是否已完全去标识化且公开可获取?
-3. [ ] 若否, 我需要申请哪个等级的 IRB 审查?
-4. [ ] 我是否已完成研究伦理培训 (CITI 或同等培训)?
-5. [ ] 我的知情同意书是否包含所有必备要素?
-6. [ ] 我是否有适当的数据保护计划?
-7. [ ] 若涉及脆弱人群 (Vulnerable Population), 是否有额外的保护措施?
-8. [ ] IRB 审查时程是否已纳入研究计划时程?
+**Human-subjects boundary:** This navigation aid does not authorize recruitment,
+consent, access to identifiable data, intervention, or data collection.
