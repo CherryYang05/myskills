@@ -97,6 +97,20 @@ class AutoMergeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "source or policy"):
             auto_merge.validate_scope(before, after, [auto_merge.CONFIG])
 
+    def test_scope_allows_generated_multi_platform_catalogs(self):
+        before = {"demo": {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE}}
+        after = copy.deepcopy(before)
+        after["demo"]["sha"] = HEAD
+        auto_merge.validate_scope(before, after, [
+            "skills/external/demo/SKILL.md", "plugins/demo/plugin.json",
+            ".agents/plugins/marketplace.json", ".claude-plugin/marketplace.json",
+            ".cursor-plugin/marketplace.json", "skills.sh.json",
+        ])
+        for path in (".claude-plugin/plugin.json", ".cursor-plugin/plugin.json",
+                     "skills/personal/own/SKILL.md"):
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, "unapproved"):
+                auto_merge.validate_scope(before, after, [path])
+
     def test_scope_protects_legal_notice(self):
         before = {"demo": {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE, "preserve": ["LICENSE"]}}
         with self.assertRaisesRegex(ValueError, "legal notice"):

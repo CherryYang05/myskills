@@ -12,13 +12,16 @@ automation/
   scripts/
     sync.py             获取、比较、替换上游 Skill；产出根目录报告
     verify.py           校验 Skill 名称、来源完整性和 Frontmatter
-    generate.py         统一生成 README、Marketplace 和 Plugin 安装包
+    generate.py         统一生成 README、多平台 Marketplace、CLI 配置和 Plugin 安装包
     auto_merge.py       精确 SHA 的 CI 验证 + 限域自动合并
   tests/                同步安全与报告、配置回归测试
 .github/workflows/
   sync-upstream.yml     每周五北京时间 20:30 / 手动启动
   validate-skills.yml   PR / master / 精确候选分支的 CI
 .agents/plugins/marketplace.json   ChatGPT 插件目录（自动生成）
+.claude-plugin/marketplace.json   Claude Code 插件目录（自动生成）
+.cursor-plugin/marketplace.json   Cursor 团队插件目录（自动生成）
+skills.sh.json                    Skills CLI 发现路径配置（自动生成）
 README.md                         Skill 列表（自动生成）
 UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生成）
 ```
@@ -31,11 +34,27 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 
 **注意：** 请勿将个人或自研 Skill 放进 external；新加的第三方 Skill 必须将它的真实来源和首次同步 SHA 一并记录。自研目录只按实际文件维护。
 
+## 跨平台分发和 Skills CLI
+
+`skills/external/`、`skills/personal/` 保持唯一源码；第三方上游原有的 `.claude-plugin/` 和 `.cursor-plugin/` 文件完整保留，便于直接使用原作者的仓库。它们位于 Skill 的子目录，不能充当 `myskills` 仓库的 Marketplace 根入口。
+
+三份生成的根索引：`.agents/plugins/marketplace.json`（ChatGPT）、`.claude-plugin/marketplace.json`（Claude Code）、`.cursor-plugin/marketplace.json`（Cursor）。它们都指向 `plugins/<name>/` 中的通用 Agent Plugin（根级 `plugin.json`，`skills/<name>/SKILL.md`）；Claude Code 的单插件 Manifest 可省略，由 Marketplace 条目提供名称并发现标准 `skills/` 目录。Cursor 团队 Marketplace 需要相应计划与管理权限。
+
+`skills.sh.json` 明确声明 `skills/external` 和 `skills/personal` 为 Skills CLI 发现路径；`npx skills add CherryYang05/myskills --list` 应显示全部 16 个 Skill。按客户端及名称安装示例：
+
+```bash
+npx skills add CherryYang05/myskills --skill humanizer -a claude-code -g -y
+npx skills add CherryYang05/myskills --skill blog-writer -a cursor -y
+npx skills add CherryYang05/myskills --skill '*' -a codex -a claude-code -g -y
+```
+
+Claude Code 通过 `claude plugin marketplace add CherryYang05/myskills` 注册目录，之后 `claude plugin install humanizer@cherry-skills`。两种安装方式互相独立。Cursor 的自建团队 Marketplace 与 CLI 安装也可独立使用。
+
 ## GitHub 上游 → myskills
 
 每周五北京时间 20:30 自动执行，可在 Actions 中手动启动。同步流程依次取得所有上游快照，只接收 regular Git blobs，拒绝符号链接、子模块、越界路径、超限文件集合；不会执行上游 Skill 中的脚本。所有快照获取完成才开始修改。
 
-有变化时使用上游确切提交替换相关 external 目录、更新 SHA、生成 README / Marketplace / 完整 Plugin 包 / 根目录修正报告。即使没有内容更新，周度报告也可记录该次检查。候选 PR 只允许改动注册表中受管目录及生成物（包括对应 `plugins/<external-name>/` 包），不能碰 personal、同步脚本、工作流、来源地址或 legal preserve 文件。
+有变化时使用上游确切提交替换相关 external 目录、更新 SHA、生成 README / 多平台 Marketplace / CLI 配置 / 完整 Plugin 包 / 根目录修正报告。即使没有内容更新，周度报告也可记录该次检查。候选 PR 只允许改动注册表中受管目录及生成物（包括对应 `plugins/<external-name>/` 包），不能碰 personal、同步脚本、工作流、来源地址或 legal preserve 文件。
 
 候选 PR 的同一 head SHA 必须在 `Validate Skills` 完整通过且主分支仍等于预期基础 SHA，才允许自动合并。否则留下 PR 并在 Issue 通知，而不会强推或标记成功。
 
@@ -55,7 +74,7 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 - **PR 上游预览**：修改 `automation/**` 或上游同步工作流的 PR 还会触发 `Sync Skill Upstreams / preview`，仅查询上游来源，不重写插件目录。
 - **合并后检查**：`master` 的 push 再次触发 Validate Skills，验证生成结果与最终合并版本一致。
 
-检查成功的证据是：PR/主分支 Actions 显示 `Validate Skills: success`（包含 `Verify generated README, Marketplace and Plugin packages`），`plugins/<name>/plugin.json` 和 `plugins/<name>/skills/<name>/SKILL.md` 均存在，且 `generate.py --check` 退出码为 0。GitHub 验证成功只确认仓库打包结果；ChatGPT 客户端还需要在已导入的 Marketplace 中执行同步，并检查插件详情是否识别到 Skill。
+检查成功的证据是：PR/主分支 Actions 显示 `Validate Skills: success`（包含 `Verify generated README, Marketplace and Plugin packages` 和 `Verify Skills CLI discovers all source Skills`），`plugins/<name>/plugin.json` 和 `plugins/<name>/skills/<name>/SKILL.md` 均存在，且 `generate.py --check` 退出码为 0。GitHub 验证成功只确认仓库打包结果；ChatGPT 客户端还需要在已导入的 Marketplace 中执行同步，并检查插件详情是否识别到 Skill。
 
 ## 维护和测试
 

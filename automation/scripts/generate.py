@@ -10,6 +10,9 @@ from sync import ROOT, CONFIG, local_snapshot
 from verify import inventory
 
 MARKETPLACE = ".agents/plugins/marketplace.json"
+CLAUDE_MARKETPLACE = ".claude-plugin/marketplace.json"
+CURSOR_MARKETPLACE = ".cursor-plugin/marketplace.json"
+SKILLS_CLI_CONFIG = "skills.sh.json"
 README = "README.md"
 
 # Source Skills remain unchanged; these folders only install the source on
@@ -44,6 +47,19 @@ def render(root=ROOT):
     packages = inventory(root)
     config = json.loads((root / CONFIG).read_text(encoding="utf-8"))
     catalog = {"name": "cherry-myskills", "interface": {"displayName": "Cherry Skills"}, "plugins": []}
+    claude_catalog = {
+        "name": "cherry-skills",
+        "description": "Curated external and personal Agent Skills",
+        "owner": {"name": "CherryYang05", "url": "https://github.com/CherryYang05"},
+        "plugins": [],
+    }
+    cursor_catalog = {
+        "name": "cherry-skills",
+        "owner": {"name": "CherryYang05"},
+        "metadata": {"description": "Curated portable Agent Skills"},
+        "plugins": [],
+    }
+    cli_paths = ["./skills/external", "./skills/personal"]
     rows = ["| Skill | 类型 | 来源 / 当前版本 | 说明 |", "|---|---|---|---|"]
     for group, directory, fields in packages:
         name = fields["name"]
@@ -54,6 +70,16 @@ def render(root=ROOT):
             "source": {"source": "local", "path": plugin_path},
             "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
             "category": "Productivity",
+        })
+        # Claude Code takes plugin names from marketplace entries when there is
+        # no .claude-plugin/plugin.json; Cursor accepts root Agent Plugins.
+        # Both platforms use the same generated self-contained plugin package.
+        marketplace_desc = re.sub(r"\s+", " ", fields["description"]).strip()
+        claude_catalog["plugins"].append({
+            "name": name, "source": plugin_path, "description": marketplace_desc
+        })
+        cursor_catalog["plugins"].append({
+            "name": name, "source": plugin_path, "description": marketplace_desc
         })
         desc = short_description(fields["description"])
         label = f"[{name}]({path})"
@@ -73,15 +99,33 @@ def render(root=ROOT):
 
 ## 安装
 
-使用 [Skills CLI](https://github.com/vercel-labs/skills) 按需安装：
+**Skills CLI** 直接读取本仓库的 `skills/external/` 与 `skills/personal/`，可以独立于 Plugin Marketplace 安装。需要 Node.js 和 [Skills CLI](https://github.com/vercel-labs/skills)：
 
 ```bash
+# 预览可安装的 16 个 Skill
 npx skills add CherryYang05/myskills --list
-npx skills add CherryYang05/myskills --global
-npx skills add CherryYang05/myskills --skill humanizer --global
+
+# 选择一个 Skill，安装至 Claude Code（全局）
+npx skills add CherryYang05/myskills --skill humanizer -a claude-code -g -y
+
+# 同时安装两个 Skill 到 Cursor（项目级；在目标项目目录中执行）
+npx skills add CherryYang05/myskills --skill humanizer --skill blog-writer -a cursor -y
+
+# 安装所有 Skill 到 Codex 和 Claude Code（全局）
+npx skills add CherryYang05/myskills --skill '*' -a codex -a claude-code -g -y
+
+# 安装全部 Skill 到 CLI 支持的所有客户端（谨慎使用）
+npx skills add CherryYang05/myskills --all
 ```
 
-技能位于 `skills/external/` 和 `skills/personal/`，保持每个技能内的相对目录与脚本。两个分类均可被 Skills CLI 发现。
+也支持将单个 Skill 目录作为来源：`npx skills add https://github.com/CherryYang05/myskills/tree/master/skills/external/humanizer`。用 `npx skills ls -g` 检查已安装的全局 Skill，`npx skills check` 检查更新。
+
+**Marketplace 分发**：ChatGPT 使用 `.agents/plugins/marketplace.json`；Claude Code 使用 `.claude-plugin/marketplace.json`；Cursor 使用 `.cursor-plugin/marketplace.json`（团队 Marketplace，受计划及权限约束）。三个入口均引用自动生成的 `plugins/<name>/`，原始上游文件保持原样。Claude Code 的安装命令：
+
+```bash
+claude plugin marketplace add CherryYang05/myskills
+claude plugin install humanizer@cherry-skills
+```
 
 ## Skill 清单
 
@@ -98,15 +142,23 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 
 - `automation/upstreams.json` 是外部 Skill 的唯一来源注册表。外部目录和注册表必须一一对应；新增第三方 Skill 必须同时登记。
 - `automation/scripts/` 管理上游检查、来源安全、版本报告、校验及自动合并；`automation/tests/` 是回归测试。
-- `README.md`、`.agents/plugins/marketplace.json` 和 `plugins/` 都是生成产物。修改 Skill 或配置后执行 `python3 automation/scripts/generate.py`。
+- `README.md`、`skills.sh.json`、三个平台的 Marketplace 清单和 `plugins/` 都是生成产物。修改 Skill 或配置后执行 `python3 automation/scripts/generate.py`，再运行 `python3 automation/scripts/generate.py --check` 验证。
 - `UPSTREAM_SYNC_REPORT.md` 是 GitHub 上游检查生成的根目录报告。成功合并才代表相应 Skill 已实际同步。
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
 仓库的 Agent 维护约定见 [AGENTS.md](./AGENTS.md)，生成器、Actions 触发条件和验证步骤见 [docs/architecture.md](./docs/architecture.md)。
 """
-    return {README: readme,
-            MARKETPLACE: json.dumps(catalog, ensure_ascii=False, indent=2) + "\n"}
+    return {
+        README: readme,
+        MARKETPLACE: json.dumps(catalog, ensure_ascii=False, indent=2) + "\n",
+        CLAUDE_MARKETPLACE: json.dumps(claude_catalog, ensure_ascii=False, indent=2) + "\n",
+        CURSOR_MARKETPLACE: json.dumps(cursor_catalog, ensure_ascii=False, indent=2) + "\n",
+        SKILLS_CLI_CONFIG: json.dumps({
+            "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+            "paths": cli_paths,
+        }, ensure_ascii=False, indent=2) + "\n",
+    }
 
 
 
