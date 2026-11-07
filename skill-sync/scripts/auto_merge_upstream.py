@@ -45,15 +45,28 @@ def validate_scope(before, after, paths):
         raise ValueError("Automatic updates cannot add or remove upstream configurations")
     left, right = copy.deepcopy(before), copy.deepcopy(after)
     for name in before:
-        if before[name]["sync"]["mode"] == "mirror":
-            for key in ("version",):
-                left[name].pop(key, None)
-                right[name].pop(key, None)
-            for key in ("synced_commit",):
-                left[name]["sync"].pop(key, None)
-                right[name]["sync"].pop(key, None)
+        mode = before[name]["sync"]["mode"]
+        if mode in {"mirror", "replace"}:
+            for side in (left, right):
+                side.pop("version", None)
+                side["sync"].pop("synced_commit", None)
+        if mode == "replace":
+            # A complete upstream copy may drop old, local-only adaptation
+            # metadata. It cannot silently substitute different fix records.
+            if after[name].get("selected_fixes") not in (None, before[name].get("selected_fixes")):
+                raise ValueError("Replacement cannot fabricate selected_fixes")
+            if (after[name]["sync"].get("reviewed_commit") not in
+                    (None, before[name]["sync"].get("reviewed_commit"))):
+                raise ValueError("Replacement cannot fabricate a reviewed commit")
+            for side in (left, right):
+                side.pop("selected_fixes", None)
+                side["sync"].pop("reviewed_commit", None)
         for side in (left, right):
             side[name]["sync"].pop("last_reported", None)
+        if mode in {"mirror", "replace"} and after[name].get("version") != before[name].get("version"):
+            pinned = after[name]["sync"].get("synced_commit", "")
+            if not re.fullmatch(r"[0-9a-f]{40}", pinned) or after[name]["version"] != pinned[:12]:
+                raise ValueError("Updated version must match its pinned upstream commit")
     if left != right:
         raise ValueError("Source settings or review-mode synchronized version changed")
     allowed = {CONFIG, "README.md", ".agents/plugins/marketplace.json", "docs/upstream-reports/health.json"}
@@ -64,7 +77,7 @@ def validate_scope(before, after, paths):
         matched = False
         for name, info in before.items():
             policy = info["sync"]
-            if name == "skill-sync" or policy["mode"] != "mirror" or not path.startswith(name + "/"):
+            if name == "skill-sync" or policy["mode"] not in {"mirror", "replace"} or not path.startswith(name + "/"):
                 continue
             if "files" not in policy or path[len(name) + 1:] in policy["files"]:
                 matched = True
