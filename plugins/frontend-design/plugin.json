@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "frontend-design",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/external/frontend-design",
-        "brandColor": "#7652A7",
+        "brandColor": "#9785CB",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }
