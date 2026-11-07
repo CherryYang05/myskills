@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render README and OpenAI Marketplace from the same validated Skill inventory."""
+"""Render README, marketplaces, plugin icons and packages from canonical Skills."""
 import argparse
 import json
 import re
@@ -8,6 +8,7 @@ from pathlib import Path
 
 from sync import ROOT, CONFIG, local_snapshot
 from verify import inventory
+from appearance import load_config as load_appearance_config, render_icon
 
 MARKETPLACE = ".agents/plugins/marketplace.json"
 CLAUDE_MARKETPLACE = ".claude-plugin/marketplace.json"
@@ -151,6 +152,7 @@ def render_plugin_files(root=ROOT):
     Other platforms\u0027 installer metadata is omitted from the generated packages.
     """
     generated = {}
+    appearance = load_appearance_config(root)
     for group, directory, fields in inventory(root):
         name = fields["name"]
         source = root / "skills" / group / directory
@@ -158,6 +160,7 @@ def render_plugin_files(root=ROOT):
         homepage = f"https://github.com/CherryYang05/myskills/tree/master/skills/{group}/{directory}"
         description = re.sub(r"\s+", " ", fields["description"]).strip()
         subtitle = description[:117].rstrip() + ("…" if len(description) > 117 else "")
+        icon_svg, brand_color, _fallback = render_icon(name, appearance)
         manifest = {
             "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
             "name": name,
@@ -177,12 +180,15 @@ def render_plugin_files(root=ROOT):
                         "longDescription": description,
                         "developerName": "CherryYang05",
                         "category": "Productivity",
-                        "websiteURL": homepage
+                        "websiteURL": homepage,
+                        "brandColor": brand_color,
+                        "logo": "./assets/icon.svg",
+                        "composerIcon": "./assets/icon.svg"
                     }
                 }
             }
         }
-        package = {}
+        package = {"assets/icon.svg": ("100644", icon_svg)}
         for relative, (mode, content) in sorted(local_snapshot(source).items()):
             if omit_from_chatgpt_plugin(relative):
                 continue
