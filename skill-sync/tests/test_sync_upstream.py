@@ -102,6 +102,26 @@ class SyncTests(unittest.TestCase):
         sync.apply_plans(self.root, {'example': info}, [(retry, self.before, latest)])
         self.assertEqual(sync.local_snapshot(directory), latest)
 
+    def test_unattended_config_rejects_report_only_mode(self):
+        self.materialize(self.before)
+        info = copy.deepcopy(self.info)
+        info['sync']['mode'] = 'review'
+        with self.assertRaisesRegex(ValueError, 'report-only'):
+            sync.validate_config({'example': info}, self.root)
+
+    def test_full_replacement_can_accept_upstream_identity_change(self):
+        original = files('local version')
+        directory = self.materialize(original)
+        info = copy.deepcopy(self.info)
+        info['sync']['mode'] = 'replace'
+        latest = files('new upstream', name='renamed-example')
+        plan = self.plan(latest, local=original, info=info)
+        self.assertEqual(plan['status'], 'update_ready')
+        sync.apply_plans(self.root, {'example': info}, [(plan, original, latest)])
+        self.assertEqual(sync.local_snapshot(directory), latest)
+        # A real candidate must also pass the generated marketplace's
+        # package-name uniqueness check before it is allowed to merge.
+
     def test_review_reports_do_not_advance_sync_version(self):
         self.info['sync']['mode'] = 'review'
         directory = self.materialize(self.before)
