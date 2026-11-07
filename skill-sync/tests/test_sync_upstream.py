@@ -53,15 +53,54 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(config['example']['version'], 'b' * 12)
         self.assertEqual(config['example']['sync']['synced_commit'], 'b' * 40)
 
-    def test_customized_skill_is_never_overwritten(self):
+    def test_changed_upstream_overrides_local_drift_with_mirror_fallback(self):
         customized = files('local customization')
         directory = self.materialize(customized)
         latest = files('upstream change')
         plan = self.plan(latest, local=customized)
-        self.assertEqual(plan['status'], 'blocked_local_changes')
+        self.assertEqual(plan['status'], 'update_ready')
         sync.apply_plans(self.root, {'example': self.info}, [(plan, customized, latest)])
+        self.assertEqual(sync.local_snapshot(directory), latest)
+        self.assertEqual(json.loads((self.root / sync.CONFIG).read_text())['example']['version'], 'b' * 12)
+
+    def test_mirror_preserves_local_drift_when_upstream_has_not_changed(self):
+        customized = files('local customization')
+        directory = self.materialize(customized)
+        plan = self.plan(self.before, local=customized)
+        self.assertEqual(plan['status'], 'blocked_local_changes')
+        sync.apply_plans(self.root, {'example': self.info}, [(plan, customized, self.before)])
         self.assertEqual(sync.local_snapshot(directory), customized)
-        self.assertEqual(json.loads((self.root / sync.CONFIG).read_text())['example']['version'], 'v1.0.0')
+
+    def test_replace_discards_local_only_files_and_selected_fixes(self):
+        customized = files('local customization')
+        customized['LOCAL_ONLY.md'] = ('100644', b'local notes')
+        directory = self.materialize(customized)
+        info = copy.deepcopy(self.info)
+        info['sync']['mode'] = 'replace'
+        info['selected_fixes'] = {'abc123': 'old local patch'}
+        info['sync']['reviewed_commit'] = 'c' * 40
+        latest = files('upstream authoritative', mode='100755')
+        plan = self.plan(latest, local=customized, info=info)
+        self.assertEqual(plan['status'], 'update_ready')
+        sync.apply_plans(self.root, {'example': info}, [(plan, customized, latest)])
+        self.assertEqual(sync.local_snapshot(directory), latest)
+        config = json.loads((self.root / sync.CONFIG).read_text())['example']
+        self.assertEqual(config['version'], 'b' * 12)
+        self.assertEqual(config['sync']['synced_commit'], 'b' * 40)
+        self.assertNotIn('selected_fixes', config)
+        self.assertNotIn('reviewed_commit', config['sync'])
+
+    def test_failed_candidate_is_retried_even_when_marker_already_reported(self):
+        directory = self.materialize(self.before)
+        info = copy.deepcopy(self.info)
+        info['sync']['mode'] = 'replace'
+        latest = files('upstream update')
+        plan = self.plan(latest, info=info)
+        info['sync']['last_reported'] = plan['marker']
+        retry = self.plan(latest, info=info)
+        self.assertFalse(retry['report_changed'])
+        sync.apply_plans(self.root, {'example': info}, [(retry, self.before, latest)])
+        self.assertEqual(sync.local_snapshot(directory), latest)
 
     def test_review_reports_do_not_advance_sync_version(self):
         self.info['sync']['mode'] = 'review'
