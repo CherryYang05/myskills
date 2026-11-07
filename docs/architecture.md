@@ -11,6 +11,7 @@ automation/
   upstreams.json        外部来源唯一注册表
   templates/
     README.md.tpl       README 唯一可编辑正文模板，注入自动生成的 Skill 表格
+  plugin-appearance.json   所有 Skill 的语义图标及品牌色配置，新增 Skill 时由 AI 补齐
   scripts/
     sync.py             获取、比较、替换上游 Skill；产出根目录报告
     verify.py           校验 Skill 名称、来源完整性和 Frontmatter
@@ -58,6 +59,8 @@ Skill 数量与分组以 `README.md` 中动态生成的清单为准。外部 Ski
 
 清单位于仓库根目录 `.agents/plugins/marketplace.json`，列出全部 16 个 Skill 对应的 `./plugins/<name>` 安装包。`plugins/` 是构建产物：每个包都有根目录 `plugin.json`，以及 `skills/<name>/SKILL.md` 和原 Skill 的脚本、参考资料、资源文件；生成时仅排除源 Skill 根目录的 `.claude-plugin/`、`.cursor-plugin/` 等其他客户端专用安装元数据。源目录始终保留原始文件。原始源码仍位于 `skills/external/` 或 `skills/personal/`，禁止手动编辑 `plugins/`；生成器会完整重建它们，只有分发包的内容（含 manifest）变化时才自动递增该 Plugin 的补丁版本号，不额外维护版本注册表。
 
+**图标策略**：`automation/plugin-appearance.json` 为唯一外观配置。每个 Skill 都有基于功能设计的 `brandColor`、`concept`、SVG `glyph`；统一渲染为 128×128 圆角方形白色描边图标，存入 `plugins/<name>/assets/icon.svg`。OpenAI `interface.logo` 与 `composerIcon` 引用同一文件，避免重复图像。新 Skill 缺少配置时生成器可使用通用图标预览，但 `verify_appearance.py` 会在 CI 阻止其合并。新增外部 Skill 的 AI 图标设计与安全检查见 [准入规范](./adding-external-skill.md)。
+
 **ChatGPT 工作区管理员**可以通过 **Admin → Plugins → Add → Import marketplace** 导入仓库，Source 填 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 选 `master`。平台提供默认每日自动同步和手动 Sync now；这项同步必须在实际目标工作区完成导入后才能生效。具体入口和行为请参阅 [官方文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
 个人 ChatGPT Plus 空间中的手动上传 Skill 与工作区 Marketplace 导入不同。仓库 Action 不会替换这些手动上传的插件；GitHub 中生成配置文件也不意味着 ChatGPT 端已安装或已更新。同步后应查看工作区每个插件的结果，失败更新可能保留旧版本。已有插件需要按真实 pluginId 逐一评估迁移，不能猜测 ID，也不要为刷新直接删除 Marketplace。
@@ -80,6 +83,7 @@ Skill 数量与分组以 `README.md` 中动态生成的清单为准。外部 Ski
 python3 -m pip install pyyaml
 python3 -m unittest discover -s automation/tests -v
 python3 automation/scripts/verify.py
+python3 automation/scripts/verify_appearance.py
 python3 automation/scripts/generate.py --check
 python3 automation/scripts/sync.py --check-config
 ```
