@@ -41,9 +41,9 @@
 ### 5. 为新 Skill 设计专属图标（必须）
 
 - 根据已阅读的 `SKILL.md` 实际用途，**由 AI 设计一个独立、简洁、可辨识的 SVG 图形符号**。优先使用通用功能隐喻（例如研究用文档+放大镜、评审用代码+勾选），避免未经许可复制第三方商标、人物肖像或品牌 Logo。
-- 在 `automation/plugin-appearance.json` 的 `skills` 中新增同名条目，填写 `concept`（解释视觉设计意图）、`brandColor`（对比度至少 2:1 的十六进制颜色）和 `glyph`（仅允许静态 SVG 图形元素）。无需改动外部 Skill 的文件。
+- 在 `automation/plugin-appearance.json` 的 `skills` 中新增同名条目，填写 `concept`（解释视觉设计意图）、`brandColor`（与白色描边对比度保持在 2.35:1–4.2:1 的柔和十六进制颜色）和 `glyph`（仅允许静态 SVG 图形元素）。无需改动外部 Skill 的文件。
 - 生成器提供确定性的通用兜底图标，便于接入过程预览。但是 **CI 要求每个已入库 Skill 有专属的配置**；新增 Skill 未补图标时，不允许合并。通用图标只能用于尚未完成准入的临时工作区。
-- 图标统一采用 128×128 的圆角底板、白色线条、相同留白和描边粗细；生成器将其放在 `plugins/<name>/assets/icon.svg`，并同时设置 OpenAI 的 `logo`、`composerIcon` 和 `brandColor`。如需替换，应维护配置源，生成产物自动更新版本。
+- 图标统一采用 128×128 的圆角底板、低对比度柔和渐变、细致白色线条、相同留白和描边粗细；避免深色重饱和背景和夸张的高光效果；生成器将其放在 `plugins/<name>/assets/icon.svg`，并同时设置 OpenAI 的 `logo`、`composerIcon` 和 `brandColor`。如需替换，应维护配置源，生成产物自动更新版本。
 
 ### 6. 生成多平台安装包并验证
 

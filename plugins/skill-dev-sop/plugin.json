@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "skill-dev-sop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合评估）、编码实现（测试先行/耦合治理/文件分类）、单元与集成测试与设计评审、收尾归档。EARS 验收标准、依赖护栏工具化、AC 可追溯回链。当用户说\"开个新需求\"、\"设计一下系统架构\"、\"这个项目怎么拆模块\"、\"按流程开发\"、\"初始化项目文档\"、\"写个设计文档\"、\"检查一下耦合\"、\"文件该怎么分类\"、\"补一下测试\"、\"开发流程\"，或描述了一个待开发的需求/功能/项目时，必须立即触发本技能。即使用户只是丢来一句模糊需求（\"我想做个 X\"），也应主动按本流程推进。流程产物以中文撰写，技术术语、代码、文件名保留英文。",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/skill-dev-sop",
-        "brandColor": "#476F64",
+        "brandColor": "#9986CE",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }

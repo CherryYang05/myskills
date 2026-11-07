@@ -54,8 +54,10 @@ def validate_entry(name, entry):
     color, concept, glyph = (entry[key] for key in ("brandColor", "concept", "glyph"))
     if not isinstance(color, str) or not BRAND_COLOR.fullmatch(color):
         raise ValueError(f"{name}: brandColor must be an uppercase #RRGGBB")
-    if contrast_against_white(color) < 2.0:
-        raise ValueError(f"{name}: brandColor lacks 2:1 contrast against white")
+    contrast = contrast_against_white(color)
+    if not 2.35 <= contrast <= 4.2:
+        raise ValueError(f"{name}: brandColor contrast must stay in 2.35:1–4.2:1 range "
+                         "for readable, low-saturation pastel tiles")
     if not isinstance(concept, str) or not concept.strip() or len(concept) > 96:
         raise ValueError(f"{name}: concept must explain the functional icon")
     if not isinstance(glyph, str) or not glyph.strip() or len(glyph.encode("utf-8")) > 4096:
@@ -101,6 +103,16 @@ def validate_coverage(config, skill_names):
     return len(names)
 
 
+def blend_hex(color, target, percent):
+    """Blend RGB channels using integer arithmetic for reproducible SVG builds."""
+    channels = []
+    for i in (1, 3, 5):
+        source = int(color[i:i + 2], 16)
+        destination = int(target[i:i + 2], 16)
+        channels.append((source * (100 - percent) + destination * percent + 50) // 100)
+    return "#" + "".join(f"{value:02X}" for value in channels)
+
+
 def render_icon(name, config):
     """Return generated SVG bytes, brand color and whether fallback was used."""
     entry = config["skills"].get(name)
@@ -108,14 +120,24 @@ def render_icon(name, config):
     if fallback:
         entry = config["default"]
     title = escape(name + " — " + entry["concept"])
+    base = entry["brandColor"]
+    light = blend_hex(base, "#FFFFFF", 13)
+    dark = blend_hex(base, "#273B5E", 7)
     svg = (
         '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" '
         'viewBox="0 0 128 128">\n'
         f'  <title>{title}</title>\n'
-        f'  <rect width="128" height="128" rx="30" fill="{entry["brandColor"]}"/>\n'
+        '  <defs><linearGradient id="tile" x1="0%" y1="0%" '
+        'x2="100%" y2="100%">\n'
+        f'    <stop offset="0%" stop-color="{light}"/>\n'
+        f'    <stop offset="100%" stop-color="{dark}"/>\n'
+        '  </linearGradient></defs>\n'
+        '  <rect width="128" height="128" rx="30" fill="url(#tile)"/>\n'
+        '  <path d="M0 80C38 39 82 106 128 48V128H0Z" '
+        'fill="#fff" opacity=".045"/>\n'
         '  <rect x="8" y="8" width="112" height="112" rx="24" '
-        'fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>\n'
-        '  <g fill="none" stroke="#fff" stroke-width="6" '
+        'fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.8"/>\n'
+        '  <g fill="none" stroke="#fff" stroke-width="5.5" '
         'stroke-linecap="round" stroke-linejoin="round">\n'
         f'    {entry["glyph"]}\n'
         '  </g>\n'
