@@ -137,6 +137,14 @@ class AutoMergeTests(unittest.TestCase):
             'custom/SKILL.md', 'custom/references/legacy.md', merge.CONFIG
         ])
 
+    def test_full_replace_cannot_modify_preserved_license(self):
+        before = self.config()
+        before['custom']['sync']['mode'] = 'replace'
+        before['custom']['sync']['preserve_files'] = ['LICENSE', 'NOTICE.md']
+        after = copy.deepcopy(before)
+        with self.assertRaisesRegex(ValueError, 'legal notice'):
+            merge.validate_scope(before, after, ['custom/LICENSE'])
+
     def test_full_replace_rejects_unpinned_or_fabricated_version(self):
         before = self.config()
         before['custom']['sync']['mode'] = 'replace'
