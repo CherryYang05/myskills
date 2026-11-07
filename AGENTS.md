@@ -14,6 +14,7 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 - `skills.sh.json`: generated Skills CLI discovery paths pointing at canonical Skills.
 - `plugins/<name>/`: generated standalone plugin with root `plugin.json` and a mirrored `skills/<name>/` package, except root-level `.claude-plugin/` and `.cursor-plugin/` installer metadata. Never edit generated packages directly; source Skills retain their full upstream files.
 - `automation/templates/README.md.tpl`: editable Markdown prose for the README; `{{SKILL_TABLE}}` is generated.
+- `automation/plugin-appearance.json`: canonical semantic icon and brand-color registry for every Skill; the generator produces `plugins/<name>/assets/icon.svg`, `logo` and `composerIcon` without changing upstream files.
 - `README.md`: generated Skill index and installation guidance.
 - `UPSTREAM_SYNC_REPORT.md`: report of the most recent actual upstream content change. No-op weekly checks are recorded in the GitHub Actions Summary/Artifact without a commit.
 - `docs/architecture.md`: architecture, limitations and two-stage distribution details.
@@ -24,13 +25,14 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 1. Confirm the Git checkout and remote before editing: `git rev-parse --show-toplevel`, `git remote -v` and `git status`. An installed Skills CLI package is not necessarily a source checkout.
 2. Inspect the diff before changing or deleting files. Do not commit secrets, credentials, generated Python bytecode or unrelated working-tree changes. Summarize manual deletions and behavioral changes for the user.
 3. Preserve every Skill's internal relative paths (references, scripts, assets, metadata). A renamed package or `SKILL.md` name can break clients and existing installations.
-4. When the user asks to add a third-party Skill, **follow [docs/adding-external-skill.md](docs/adding-external-skill.md)** before writing or merging: establish exact upstream source and pinned full SHA, review license/provenance, inspect untrusted code/instructions without executing them, check duplication and platform compatibility, and disclose risks. A requested new source is onboarded through a normal PR (never the unattended sync auto-merge); register `repo`, `path`, `ref`, and `sha` in `automation/upstreams.json` and preserve its full `skills/external/` snapshot. The registry and source directories must match exactly.
-5. Do not edit generated `README.md`, all three platform marketplace catalogs, `skills.sh.json` or `plugins/` as their source of truth. After Skill or configuration changes, run `python3 automation/scripts/generate.py`. Edit `automation/templates/README.md.tpl` for README prose, or the generator for table/catalog layout. Plugin patch versions advance only when package contents change.
+4. When the user asks to add a third-party Skill, **follow [docs/adding-external-skill.md](docs/adding-external-skill.md)** before writing or merging: establish exact upstream source and pinned full SHA, review license/provenance, inspect untrusted code/instructions without executing them, check duplication and platform compatibility, **design a semantic icon entry in `automation/plugin-appearance.json`**, and disclose risks. A requested new source is onboarded through a normal PR (never the unattended sync auto-merge); register `repo`, `path`, `ref`, and `sha` in `automation/upstreams.json` and preserve its full `skills/external/` snapshot. The registry and source directories must match exactly.
+5. Do not edit generated `README.md`, all three platform marketplace catalogs, `skills.sh.json` or `plugins/` as their source of truth. After Skill or configuration changes, run `python3 automation/scripts/generate.py`. Edit `automation/templates/README.md.tpl` for README prose, or the generator for table/catalog layout. New Skills must receive an original, function-specific vector glyph (use AI-assisted design based on the inspected Skill); do not imitate an upstream brand without permission. The generic icon is a temporary build fallback; `verify_appearance.py` rejects missing entries in CI. Plugin patch versions advance only when package contents change.
 6. Verify results with:
    ```bash
    python3 -m pip install pyyaml
    python3 -m unittest discover -s automation/tests -v
    python3 automation/scripts/verify.py
+   python3 automation/scripts/verify_appearance.py
    python3 automation/scripts/sync.py --check-config
    python3 automation/scripts/generate.py --check
    ```
