@@ -53,8 +53,8 @@ def validate_config(config, root):
         ref = sync["ref"]
         if not isinstance(ref, str) or not ref or ref.startswith("-"):
             raise ValueError(f"Invalid tracked ref for {name}")
-        if sync["mode"] not in {"mirror", "review", "replace"}:
-            raise ValueError(f"Unsupported update mode for {name}")
+        if sync["mode"] not in {"mirror", "replace"}:
+            raise ValueError(f"Automatic upstream sync cannot be report-only for {name}; use replace")
         if sync["mode"] == "mirror" and not re.fullmatch(r"[0-9a-f]{40}", sync.get("synced_commit", "")):
             raise ValueError(f"Mirror mode needs a full synced_commit for {name}")
         if "files" in sync:
