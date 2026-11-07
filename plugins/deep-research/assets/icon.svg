@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>deep-research — 书本与放大镜</title>
+  <rect width="128" height="128" rx="30" fill="#365DAD"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 85V33q16-7 31 2v41q-15-9-31-2Z"/><path d="M56 35q14-8 29-3v21"/><path d="M56 35v41"/><circle cx="81" cy="78" r="17"/><path d="m94 91 12 12"/>
+  </g>
+</svg>
