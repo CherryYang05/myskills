@@ -12,7 +12,10 @@ on:
   pull_request:
     paths:
       - '.github/workflows/sync-upstream.yml'
-      - 'automation/**'
+      - 'automation/scripts/sync.py'
+      - 'automation/scripts/auto_merge.py'
+      - 'automation/upstreams.json'
+      - 'automation/tests/**'
 
 permissions:
   contents: read
