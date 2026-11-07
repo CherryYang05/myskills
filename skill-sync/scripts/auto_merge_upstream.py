@@ -82,7 +82,10 @@ def validate_scope(before, after, paths):
             policy = info["sync"]
             if name == "skill-sync" or policy["mode"] not in {"mirror", "replace"} or not path.startswith(name + "/"):
                 continue
-            if "files" not in policy or path[len(name) + 1:] in policy["files"]:
+            relative = path[len(name) + 1:]
+            if relative in policy.get("preserve_files", []):
+                raise ValueError(f"Automatic replacement cannot alter preserved legal notice: {path}")
+            if "files" not in policy or relative in policy["files"]:
                 matched = True
                 break
         if not matched:
