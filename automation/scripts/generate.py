@@ -115,6 +115,34 @@ def omit_from_chatgpt_plugin(relative):
     return relative.split("/", 1)[0] in OTHER_PLATFORM_INSTALL_DIRS
 
 
+def next_plugin_version(root, plugin_root, name, candidate):
+    """Bump a patch version only when distributable package bytes change.
+
+    The existing generated package is the release baseline. This keeps version
+    state within the already committed artifact: no second release registry.
+    """
+    directory = root / plugin_root
+    manifest_path = directory / "plugin.json"
+    if not manifest_path.exists():
+        return "1.0.0"
+    old_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if not isinstance(old_manifest, dict) or old_manifest.get("name") != name:
+        raise ValueError(f"Invalid existing plugin identity: {manifest_path}")
+    version = old_manifest.get("version")
+    if not isinstance(version, str) or not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version):
+        raise ValueError(f"Expected release version MAJOR.MINOR.PATCH: {manifest_path}")
+    proposed = dict(candidate)
+    current_manifest = json.loads(candidate["plugin.json"][1])
+    current_manifest["version"] = version
+    proposed["plugin.json"] = (
+        "100644", (json.dumps(current_manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    )
+    if local_snapshot(directory) == proposed:
+        return version
+    major, minor, patch = map(int, version.split("."))
+    return f"{major}.{minor}.{patch + 1}"
+
+
 def render_plugin_files(root=ROOT):
     """Produce portable installable plugin packages from canonical Skill sources.
 
@@ -154,13 +182,20 @@ def render_plugin_files(root=ROOT):
                 }
             }
         }
-        generated[f"{plugin_root}/plugin.json"] = (
-            "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-        )
+        package = {}
         for relative, (mode, content) in sorted(local_snapshot(source).items()):
             if omit_from_chatgpt_plugin(relative):
                 continue
-            generated[f"{plugin_root}/skills/{name}/{relative}"] = (mode, content)
+            package[f"skills/{name}/{relative}"] = (mode, content)
+        package["plugin.json"] = (
+            "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        )
+        manifest["version"] = next_plugin_version(root, plugin_root, name, package)
+        package["plugin.json"] = (
+            "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        )
+        for relative, file in package.items():
+            generated[f"{plugin_root}/{relative}"] = file
     return generated
 
 
