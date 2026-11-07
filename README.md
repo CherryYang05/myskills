@@ -38,7 +38,7 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 ## 两阶段同步
 
 1. **外部上游 → 本仓库**：每周五北京时间 20:30，Sync Skill Upstreams 从 `automation/upstreams.json` 读取全部外部 Skill 来源，按上游 Git 提交获取完整技能目录；生成候选 PR。只有通过精确提交的 Validate Skills 校验后才自动合并，更新 README、Marketplace 清单及根目录 `UPSTREAM_SYNC_REPORT.md`。自研 Skill 不在自动覆盖范围内。
-2. **本仓库 → ChatGPT**：`.agents/plugins/marketplace.json` 指向生成的 `plugins/<name>/` 安装包；每个包包含 `plugin.json`、`skills/<name>/SKILL.md` 和该 Skill 的完整配套文件。支持 GitHub Marketplace 导入的 ChatGPT 工作区管理员可导入仓库并跟踪 `master`，平台通常每日同步，也可手动 Sync now。仓库更新不代表个人 ChatGPT Plus 空间中手动上传的插件已更新。
+2. **本仓库 → ChatGPT**：`.agents/plugins/marketplace.json` 指向生成的 `plugins/<name>/` 安装包；每个包包含 `plugin.json`、`skills/<name>/SKILL.md` 和运行相关文件，自动排除 Claude/Cursor 专用的安装元数据（源 Skill 完整保留）。支持 GitHub Marketplace 导入的 ChatGPT 工作区管理员可导入仓库并跟踪 `master`，平台通常每日同步，也可手动 Sync now。仓库更新不代表个人 ChatGPT Plus 空间中手动上传的插件已更新。
 
 工作区导入：**Admin → Plugins → Add → Import marketplace**；Source 为 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 填 `master`。已有手动上传插件的身份迁移需要单独处理。详见 [OpenAI 官方导入文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
@@ -51,4 +51,4 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
-仓库的 Agent 维护约定见 [AGENTS.md](./AGENTS.md)，架构与分发细节见 [docs/architecture.md](./docs/architecture.md)。
+仓库的 Agent 维护约定见 [AGENTS.md](./AGENTS.md)，生成器、Actions 触发条件和验证步骤见 [docs/architecture.md](./docs/architecture.md)。

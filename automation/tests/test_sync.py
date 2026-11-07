@@ -97,6 +97,37 @@ class SynchronizationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "legal"):
             sync.validate_config(self.config, self.root)
 
+    def test_only_other_platform_installers_are_filtered_from_plugins(self):
+        source_metadata = {
+            ".claude-plugin/plugin.json": b'{"name": "demo"}',
+            ".claude-plugin/marketplace.json": b'{"name": "demo-claude"}',
+            ".cursor-plugin/plugin.json": b'{"name": "demo"}',
+            ".hidden/runtime.txt": b"hidden runtime dependency",
+            "references/.cursor-plugin/notes.md": b"nested reference must survive",
+        }
+        for relative, content in source_metadata.items():
+            path = self.external / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        original = sync.local_snapshot(self.external)
+        for relative in source_metadata:
+            self.assertIn(relative, original)
+
+        generated = generate.render_plugin_files(self.root)
+        plugin_prefix = "plugins/demo/skills/demo/"
+        self.assertIn(plugin_prefix + "SKILL.md", generated)
+        self.assertIn(plugin_prefix + ".hidden/runtime.txt", generated)
+        self.assertIn(plugin_prefix + "references/.cursor-plugin/notes.md", generated)
+        for relative in (".claude-plugin/plugin.json",
+                         ".claude-plugin/marketplace.json",
+                         ".cursor-plugin/plugin.json"):
+            self.assertNotIn(plugin_prefix + relative, generated)
+        # Installers are only filtered from the distributable package.
+        for relative, content in source_metadata.items():
+            self.assertEqual((self.external / relative).read_bytes(), content)
+        generate.check_or_write_plugin_files(self.root, generated, False)
+        generate.check_or_write_plugin_files(self.root, generated, True)
+
     def test_generate_catalog_contains_all_groups(self):
         generated = generate.render(self.root)
         catalog = json.loads(generated[generate.MARKETPLACE])

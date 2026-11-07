@@ -9,7 +9,7 @@ This is the source repository `CherryYang05/myskills`. The instructions in this 
 - `automation/scripts/`: trusted synchronization, validation, README / Marketplace generation and guarded PR auto-merge code.
 - `automation/tests/`: regression and security tests.
 - `.agents/plugins/marketplace.json`: generated plugin catalog for supported ChatGPT workspaces; entries point to `plugins/<name>`.
-- `plugins/<name>/`: generated standalone plugin with root `plugin.json` and a complete mirrored `skills/<name>/` package. Never edit generated packages directly.
+- `plugins/<name>/`: generated standalone plugin with root `plugin.json` and a mirrored `skills/<name>/` package, except root-level `.claude-plugin/` and `.cursor-plugin/` installer metadata. Never edit generated packages directly; source Skills retain their full upstream files.
 - `README.md`: generated Skill index and installation guidance.
 - `UPSTREAM_SYNC_REPORT.md`: generated summary of the most recently prepared and merged upstream sync. See Git history and GitHub Actions to confirm actual completion.
 - `docs/architecture.md`: architecture, limitations and two-stage distribution details.

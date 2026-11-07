@@ -28,7 +28,7 @@ jobs:
         run: python3 automation/scripts/verify.py
       - name: Validate source configuration
         run: python3 automation/scripts/sync.py --check-config
-      - name: Verify generated README and ChatGPT marketplace
+      - name: Verify generated README, Marketplace and Plugin packages
         run: python3 automation/scripts/generate.py --check
       - name: Check Python syntax
         run: python3 -m compileall -q automation/scripts automation/tests
