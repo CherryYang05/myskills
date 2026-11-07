@@ -43,7 +43,7 @@ class SynchronizationTests(unittest.TestCase):
 
     def test_registry_must_cover_every_external_skill(self):
         sync.validate_config(self.config, self.root)
-        with self.assertRaisesRegex(ValueError, "mismatch"):
+        with self.assertRaisesRegex(ValueError, "nonempty"):
             sync.validate_config({}, self.root)
         with self.assertRaisesRegex(ValueError, "mismatch"):
             sync.validate_config({"missing": self.config["demo"]}, self.root)
