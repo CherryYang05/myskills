@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "dt-case-enhancer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "使用CodeAgent对已有DT用例进行增强补齐。这是一个通用的skill,指导用户通过思维链(CoT)的方式分步骤对存量DT用例进行分析和增量补充。当用户提到DT用例增强、用例补充、增量用例等关键词时,应使用此skill。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/dt-case-enhancer",
-        "brandColor": "#9788CF",
+        "brandColor": "#287D74",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ds-mr-reviewer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MR代码检视工具。提供MR URL，自动分析代码变更、识别功能风险、给出验证场景建议、生成检视报告并发送WeLink通知。当用户提供检视代码的url链接，并且url包含codehub时，必须使用此技能。也支持本地仓库路径输入。",
   "author": {
     "name": "CherryYang05",
@@ -18,7 +18,7 @@
         "developerName": "CherryYang05",
         "category": "Productivity",
         "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/ds-mr-reviewer",
-        "brandColor": "#6A9DD2",
+        "brandColor": "#39728C",
         "logo": "./assets/icon.svg",
         "composerIcon": "./assets/icon.svg"
       }
