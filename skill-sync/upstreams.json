@@ -16,7 +16,7 @@
       "repository": "Imbad0202/academic-research-skills",
       "path": "deep-research",
       "ref": "main",
-      "mode": "review",
+      "mode": "replace",
       "last_reported": "d8395a27a5ae21d11f1c1838e0d00c32a5262e4b60b5b07b3b5e0f2c97215a89:1b18d5fc52b567614f082da39e0dd7c67b936f7b28177d921e31774a5dbffa63:review_required"
     }
   },
@@ -27,7 +27,7 @@
       "repository": "blader/humanizer",
       "path": "",
       "ref": "main",
-      "mode": "mirror",
+      "mode": "replace",
       "files": [
         "SKILL.md"
       ],
@@ -41,7 +41,7 @@
       "repository": "anthropics/skills",
       "path": "skills/skill-creator",
       "ref": "main",
-      "mode": "mirror",
+      "mode": "replace",
       "synced_commit": "b9e19e6f44773509fbdd7001d77ff41a49a486c1"
     }
   },
@@ -52,7 +52,7 @@
       "repository": "anthropics/skills",
       "path": "skills/frontend-design",
       "ref": "main",
-      "mode": "mirror",
+      "mode": "replace",
       "synced_commit": "ca45fc496a3436251f191354091d557da31c15b5"
     }
   },
@@ -63,7 +63,7 @@
       "repository": "vercel-labs/agent-skills",
       "path": "skills/web-design-guidelines",
       "ref": "main",
-      "mode": "mirror",
+      "mode": "replace",
       "synced_commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
       "files": [
         "SKILL.md"
@@ -77,7 +77,7 @@
       "repository": "shadcn-ui/ui",
       "path": "skills/shadcn",
       "ref": "main",
-      "mode": "review"
+      "mode": "replace"
     }
   },
   "mermaid-diagrams": {
@@ -87,7 +87,7 @@
       "repository": "softaworks/agent-toolkit",
       "path": "skills/mermaid-diagrams",
       "ref": "main",
-      "mode": "review"
+      "mode": "replace"
     }
   },
   "impeccable": {
@@ -97,7 +97,7 @@
       "repository": "pbakaus/impeccable",
       "path": ".agents/skills/impeccable",
       "ref": "main",
-      "mode": "review",
+      "mode": "replace",
       "reviewed_commit": "c3bb418ee38ee49a6b999b7752c1368f3123a2bd"
     }
   }
