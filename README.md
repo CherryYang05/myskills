@@ -34,7 +34,6 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合评估）、编码实现（测试先行/耦合治理/文件分类）、单元与集成测试与设计评审、收尾归档 |
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skills/personal/skill-os-setup) | 自研 | 自研 | 用于维护 EasyNewOS 仓库 |
-| [skill-sync](./skills/personal/skill-sync) | 自研 | 自研 | 维护个人 GitHub Agent Skills 仓库，安装、更新、检查 Skills 来源和同步状态 |
 
 ## 两阶段同步
 
@@ -52,4 +51,4 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
-仓库细节见 [维护与分发说明](./docs/architecture.md)。
+仓库的 Agent 维护约定见 [AGENTS.md](./AGENTS.md)，架构与分发细节见 [docs/architecture.md](./docs/architecture.md)。

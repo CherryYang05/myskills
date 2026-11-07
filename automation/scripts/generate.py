@@ -80,7 +80,7 @@ npx skills add CherryYang05/myskills --skill humanizer --global
 - 自动流程只读取和复制上游文件，绝不执行上游脚本。外部 Skill 的自动替换可能删除旧的本地定制，历史可由 Git 恢复。
 - GitHub Actions 故障会保留候选 PR 并创建故障 Issue，不绕过校验。
 
-仓库细节见 [维护与分发说明](./docs/architecture.md)。
+仓库的 Agent 维护约定见 [AGENTS.md](./AGENTS.md)，架构与分发细节见 [docs/architecture.md](./docs/architecture.md)。
 """
     return {README: readme,
             MARKETPLACE: json.dumps(catalog, ensure_ascii=False, indent=2) + "\n"}
