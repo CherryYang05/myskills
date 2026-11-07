@@ -30,6 +30,8 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 
 Skill 数量与分组以 `README.md` 中动态生成的清单为准。外部 Skill 的目录结构及文件权限尽量与上游匹配；自研 Skill 不参加自动替换。
 
+首次新增外部 Skill 须先遵循 [外部 Skill 准入规范](./adding-external-skill.md)：来源与许可核实、静态安全审查、功能冲突检查、固定 SHA 首次导入、生成与 CI 验证。自动同步只更新现有来源，不自动引入陌生仓库。
+
 ## 为什么外部来源要有注册表
 
 `automation/upstreams.json` 明确记录每个外部 Skill 的上游 `repo`、内部 `path`、跟踪的 `ref`、本仓库已同步的完整提交 `sha`、可选的 `preserve` 法律声明。完整 Git SHA 是唯一版本依据；README 的短 SHA 和可点击来源链接按需生成，不重复存储。所有外部 Skill 目录必须与配置键严格一一对应；新增未登记外部 Skill 会使 CI 失败。
