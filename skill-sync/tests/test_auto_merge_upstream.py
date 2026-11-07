@@ -18,7 +18,7 @@ class FakeGitHub:
         self.calls = []
         self.pr_reads = 0
         self.base_reads = 0
-        self.run_reads = 0
+        self.dispatches = 0
         self.conclusion = conclusion
         self.moved_head = moved_head
         self.moved_base = moved_base
@@ -29,6 +29,7 @@ class FakeGitHub:
         if method == 'PUT':
             return {'merged': True, 'sha': 'd' * 40}
         if method == 'POST':
+            self.dispatches += 1
             return None
         if path == 'pulls/7':
             self.pr_reads += 1
@@ -40,10 +41,12 @@ class FakeGitHub:
             self.base_reads += 1
             return {'object': {'sha': 'f' * 40 if self.moved_base and self.base_reads > 1 else BASE}}
         if '/runs?' in path:
-            self.run_reads += 1
-            return {'workflow_runs': [] if self.run_reads == 1 else [
-                {'id': 123, 'head_sha': 'e' * 40 if self.wrong_run_head else HEAD,
-                 'status': 'completed', 'conclusion': self.conclusion, 'html_url': 'https://example.invalid/run/123'}]}
+            runs = []
+            for i in range(self.dispatches):
+                result = self.conclusion[min(i, len(self.conclusion) - 1)] if isinstance(self.conclusion, list) else self.conclusion
+                runs.append({'id': 123 + i, 'head_sha': 'e' * 40 if self.wrong_run_head else HEAD,
+                             'status': 'completed', 'conclusion': result, 'html_url': f'https://example.invalid/run/{123 + i}'})
+            return {'workflow_runs': runs}
         raise AssertionError(path)
 
 
@@ -68,6 +71,13 @@ class AutoMergeTests(unittest.TestCase):
             with self.subTest(conclusion=conclusion), self.assertRaises(ValueError):
                 self.execute(api)
             self.assert_no_merge(api)
+
+    def test_failed_first_validation_is_retried_before_merging(self):
+        api = FakeGitHub(conclusion=['failure', 'success'])
+        run, sha = self.execute(api)
+        self.assertTrue(run.endswith('/124'))
+        self.assertEqual(sha, 'd' * 40)
+        self.assertEqual(api.dispatches, 2)
 
     def test_changed_head_is_not_merged(self):
         api = FakeGitHub(moved_head=True)
