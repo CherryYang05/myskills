@@ -1,263 +1,263 @@
-# 文献监测策略 — 参考指南
+# Literature Monitoring Strategies — Reference Guide
 
-## 目的
+## Purpose
 
-用于在主要学术数据库和平台上设置研究后文献监测的综合参考。供 `monitoring_agent` 使用，以配置针对用户研究领域和出版速度量身定制的监测策略。
-
----
-
-## 1. Google Scholar 快讯
-
-### 设置
-
-1. 访问 [Google Scholar](https://scholar.google.com)
-2. 输入搜索查询（使用与系统检索相同的关键词）
-3. 点击左侧边栏的信封图标 (📧)，或访问 scholar.google.com/scholar_alerts
-4. 设置邮箱地址和频率
-
-### 最佳实践
-
-- 为每个主要关键词簇创建单独的快讯（而非一个巨型查询）
-- 使用引号进行精确短语匹配：`"quality assurance" "higher education"`
-- 使用 OR 表示同义词：`"quality assurance" OR "quality evaluation"`
-- 将活跃快讯限制在 10-15 个，以避免邮件过载
-- 每月审查快讯并停用过时的快讯
-
-### 局限性
-
-- 快讯不支持布尔运算符 NOT
-- 无法按日期、期刊或文档类型筛选
-- 可能包含非同行评审（Peer-reviewed）来源（学位论文、报告、专利）
-- 覆盖范围因学科而异（STEM 领域较强，人文学科较弱）
+Comprehensive reference for setting up post-research literature monitoring across major academic databases and platforms. Used by the `monitoring_agent` to configure monitoring strategies tailored to the user's research field and publication velocity.
 
 ---
 
-## 2. PubMed 邮件快讯
+## 1. Google Scholar Alerts
 
-### 设置
+### Setup
 
-1. 访问 [PubMed](https://pubmed.ncbi.nlm.nih.gov)
-2. 使用 MeSH 术语和筛选器运行搜索
-3. 点击搜索框下方的"Save"
-4. 登录 My NCBI 账户（免费）
-5. 设置邮件快讯频率：每日、每周或每月
+1. Go to [Google Scholar](https://scholar.google.com)
+2. Enter your search query (use the same keywords from your systematic search)
+3. Click the envelope icon (📧) in the left sidebar, or go to scholar.google.com/scholar_alerts
+4. Set email address and frequency
 
-### 最佳实践
+### Best Practices
 
-- 使用 MeSH 术语进行精确匹配（例如，`"Quality Assurance, Health Care"[MeSH]`）
-- 结合自由文本搜索查找尚未进入 MeSH 的新术语
-- 活跃研究领域设置每周频率，稳定领域设置每月频率
-- 使用"Sort by: Most Recent"选项优先查看新出版物
-- 保存搜索策略以确保可重复性
+- Create separate alerts for each major keyword cluster (not one giant query)
+- Use quotes for exact phrases: `"quality assurance" "higher education"`
+- Use OR for synonyms: `"quality assurance" OR "quality evaluation"`
+- Limit to 10-15 active alerts to avoid email overload
+- Review alerts monthly and deactivate stale ones
 
-### 高级功能
+### Limitations
 
-- **MyNCBI Collections**：将保存的文章组织到文件夹中
-- **Filters**：按日期、文章类型、语言、物种进行限制
-- **RSS feed**：可用于任何保存的搜索（点击 RSS 图标）
-
-### 局限性
-
-- 以生物医学为重点 — 对社会科学、教育学、人文学科的覆盖有限
-- 索引滞后：新文章需要 1-4 周才能出现
-- 无内置引用追踪（Citation tracking）
+- No Boolean NOT support in alerts
+- Cannot filter by date, journal, or document type
+- May include non-peer-reviewed sources (theses, reports, patents)
+- Coverage varies by discipline (strong in STEM, weaker in humanities)
 
 ---
 
-## 3. 主要数据库的 RSS 订阅源
+## 2. PubMed Email Alerts
 
-### 什么是 RSS？
+### Setup
 
-RSS (Really Simple Syndication) 允许你订阅网站的内容更新，而无需手动检查每个网站。使用 RSS 阅读器（如 Feedly、Inoreader、NewsBlur）来聚合订阅源。
+1. Go to [PubMed](https://pubmed.ncbi.nlm.nih.gov)
+2. Run your search using MeSH terms and filters
+3. Click "Save" below the search box
+4. Log in to My NCBI account (free)
+5. Set email alert frequency: daily, weekly, or monthly
 
-### 推荐订阅源
+### Best Practices
 
-| 来源 | Feed URL 模式 | 内容 |
+- Use MeSH terms for precise matching (e.g., `"Quality Assurance, Health Care"[MeSH]`)
+- Combine with free-text search for newer terms not yet in MeSH
+- Set weekly frequency for active research areas, monthly for stable fields
+- Use the "Sort by: Most Recent" option to prioritize new publications
+- Save your search strategy for reproducibility
+
+### Advanced Features
+
+- **MyNCBI Collections**: Organize saved articles into folders
+- **Filters**: Limit by date, article type, language, species
+- **RSS feed**: Available for any saved search (click RSS icon)
+
+### Limitations
+
+- Biomedical focus — limited coverage of social sciences, education, humanities
+- Indexing lag: 1-4 weeks for new articles to appear
+- No citation tracking built in
+
+---
+
+## 3. RSS Feeds for Major Databases
+
+### What is RSS?
+
+RSS (Really Simple Syndication) allows you to subscribe to content updates from websites without checking each site manually. Use an RSS reader (e.g., Feedly, Inoreader, NewsBlur) to aggregate feeds.
+
+### Recommended Feeds
+
+| Source | Feed URL Pattern | Content |
 |--------|-----------------|---------|
-| **PubMed** | 保存的搜索 → RSS 图标 | 匹配搜索的新文章 |
-| **arXiv** | `arxiv.org/rss/[category]`（例如 `cs.AI`、`cs.CL`） | 按类别的预印本（Preprint） |
-| **bioRxiv** | `connect.biorxiv.org/biorxiv_xml.php?subject=[subject]` | 生物学预印本 |
-| **medRxiv** | `connect.medrxiv.org/medrxiv_xml.php?subject=[subject]` | 医学预印本 |
-| **SSRN** | 订阅特定研究网络 | 社会科学预印本 |
-| **Journal TOC** | 大多数期刊在其主页提供 RSS | 特定期刊的新期次 |
-| **Retraction Watch** | `retractionwatch.com/feed/` | 撤稿新闻和更新 |
+| **PubMed** | Saved search → RSS icon | New articles matching your search |
+| **arXiv** | `arxiv.org/rss/[category]` (e.g., `cs.AI`, `cs.CL`) | Preprints by category |
+| **bioRxiv** | `connect.biorxiv.org/biorxiv_xml.php?subject=[subject]` | Biology preprints |
+| **medRxiv** | `connect.medrxiv.org/medrxiv_xml.php?subject=[subject]` | Medical preprints |
+| **SSRN** | Subscribe to specific research networks | Social science preprints |
+| **Journal TOC** | Most journals offer RSS on their homepage | New issues of specific journals |
+| **Retraction Watch** | `retractionwatch.com/feed/` | Retraction news and updates |
 
-### RSS 阅读器推荐
+### RSS Reader Recommendations
 
-| 阅读器 | 平台 | 费用 | 最适合 |
+| Reader | Platform | Cost | Best For |
 |--------|----------|------|----------|
-| **Feedly** | Web, iOS, Android | 免费（基础版）/ $6/月（Pro） | 有序分类、AI 功能 |
-| **Inoreader** | Web, iOS, Android | 免费（基础版）/ $5/月（Pro） | 高级用户、规则/筛选器 |
-| **NewsBlur** | Web, iOS, Android | 免费（受限版）/ $36/年 | 开源选项 |
-| **Zotero RSS** | 桌面端 | 免费 | 与文献管理器集成 |
+| **Feedly** | Web, iOS, Android | Free (basic) / $6/mo (Pro) | Organized categorization, AI features |
+| **Inoreader** | Web, iOS, Android | Free (basic) / $5/mo (Pro) | Power users, rules/filters |
+| **NewsBlur** | Web, iOS, Android | Free (limited) / $36/yr | Open source option |
+| **Zotero RSS** | Desktop | Free | Integrates with reference manager |
 
 ---
 
-## 4. Retraction Watch 集成
+## 4. Retraction Watch Integration
 
-### Retraction Watch 数据库
+### Retraction Watch Database
 
-- **URL**：[retractiondatabase.org](http://retractiondatabase.org)
-- **覆盖范围**：40,000+ 篇已撤回或勘误的论文
-- **可搜索字段**：作者、期刊、学科、原因、日期
+- **URL**: [retractiondatabase.org](http://retractiondatabase.org)
+- **Coverage**: 40,000+ retracted or corrected papers
+- **Searchable by**: author, journal, subject, reason, date
 
-### 监测工作流
+### Monitoring Workflow
 
-1. **基线检查**：在 Retraction Watch 数据库中搜索所有引用的作者和论文标题
-2. **持续监测**：订阅 Retraction Watch 博客的 RSS 订阅源
-3. **定期复查**：每 3-6 个月，对引用来源重新运行基线检查
+1. **Baseline check**: Search all cited authors and paper titles in the Retraction Watch Database
+2. **Ongoing monitoring**: Subscribe to Retraction Watch blog RSS feed
+3. **Periodic re-check**: Every 3-6 months, re-run the baseline check for cited sources
 
-### 需要关注的撤稿原因
+### Retraction Reasons to Watch For
 
-| 原因 | 严重程度 | 需要采取的行动 |
+| Reason | Severity | Action Required |
 |--------|----------|-----------------|
-| 数据伪造/篡改 | 严重 | 移除引用；添加说明移除原因的注释 |
-| 剽窃 | 高 | 替换为原始来源 |
-| 重复发表 | 中等 | 保留主要出版物；移除重复部分 |
-| 无意错误 | 中等 | 检查错误是否影响被引用的研究结论 |
-| 作者争议 | 低 | 通常对研究结论无影响 |
-| 出版商错误 | 低 | 将引用更新为勘误后的版本 |
+| Data fabrication/falsification | Critical | Remove citation; add note explaining removal |
+| Plagiarism | High | Replace with original source |
+| Duplicate publication | Moderate | Keep the primary publication; remove duplicate |
+| Honest error | Moderate | Check whether the error affects cited findings |
+| Author dispute | Low | Usually no impact on findings |
+| Publisher error | Low | Update citation to corrected version |
 
 ---
 
-## 5. 预印本服务器监测
+## 5. Preprint Server Monitoring
 
 ### arXiv
 
-- **覆盖范围**：物理学、数学、计算机科学、统计学、定量生物学、经济学
-- **监测**：按类别和交叉列表订阅 RSS 订阅源
-- **快讯服务**：[arxiv-sanity](http://arxiv-sanity-lite.com/) 提供 AI 策展的推荐
-- **更新频率**：每日（新投稿约在美东时间晚 8 点发布）
+- **Coverage**: Physics, mathematics, computer science, statistics, quantitative biology, economics
+- **Monitoring**: Subscribe to RSS feeds by category and cross-list
+- **Alert service**: [arxiv-sanity](http://arxiv-sanity-lite.com/) for AI-curated recommendations
+- **Update frequency**: Daily (new submissions posted ~8 PM ET)
 
 ### SSRN
 
-- **覆盖范围**：社会科学、人文学科、法学、经济学、管理学
-- **监测**：按研究网络订阅 eJournal 快讯
-- **快讯服务**：已订阅网络中新论文的邮件通知
-- **注意**：现归 Elsevier 所有；部分内容在付费墙后
+- **Coverage**: Social sciences, humanities, law, economics, management
+- **Monitoring**: Subscribe to eJournal alerts by research network
+- **Alert service**: Email notifications for new papers in subscribed networks
+- **Note**: Now owned by Elsevier; some content behind paywall
 
 ### bioRxiv / medRxiv
 
-- **覆盖范围**：生物学（bioRxiv）和健康科学（medRxiv）
-- **监测**：按学科领域的 RSS 订阅源
-- **快讯服务**：特定关键词的邮件快讯
-- **注意**：预印本未经同行评审 — 在摘要（Digest）中须相应标注
+- **Coverage**: Biology (bioRxiv) and health sciences (medRxiv)
+- **Monitoring**: RSS feeds by subject area
+- **Alert service**: Email alerts for specific keywords
+- **Note**: Preprints are NOT peer-reviewed — flag accordingly in digests
 
-### 预印本监测关键规则
+### Key Preprint Monitoring Rules
 
-1. 始终清晰标注预印本来源：`[PREPRINT — not peer-reviewed]`
-2. 检查预印本是否已在同行评审期刊上发表（查找"Now published in..."横幅）
-3. 预印本可能更改或撤回 — 引用前须重新检查
-4. 预印本的研究结论可能与最终发表版本不同
+1. Always label preprint sources clearly: `[PREPRINT — not peer-reviewed]`
+2. Check whether a preprint has been published in a peer-reviewed journal (look for "Now published in..." banner)
+3. Preprints can change or be withdrawn — re-check before citing
+4. Preprint findings may differ from the final published version
 
 ---
 
-## 6. 引用追踪
+## 6. Citation Tracking
 
 ### Web of Science
 
-1. 在 Web of Science 中找到你的关键引用论文
-2. 点击"Create Citation Alert"（需要机构访问权限）
-3. 当有人引用该论文时收到邮件
-4. 使用"Cited Reference Search"查找数据库中未收录的较早论文
+1. Find your key cited papers in Web of Science
+2. Click "Create Citation Alert" (requires institutional access)
+3. Receive email when someone cites that paper
+4. Use "Cited Reference Search" for older papers not in the database
 
 ### Scopus
 
-1. 在 Scopus 中找到你的关键引用论文
-2. 在文档页面点击"Set Citation Alert"
-3. 配置邮件频率
-4. 还可设置：作者快讯（追踪某作者的所有出版物）
+1. Find your key cited papers in Scopus
+2. Click "Set Citation Alert" on the document page
+3. Configure email frequency
+4. Also available: author alerts (track all publications by an author)
 
 ### Google Scholar
 
-1. 在 Google Scholar 上找到论文
-2. 点击"Cited by N"查看引用该论文的文献
-3. 点击作者主页上的"Follow"按钮（信封图标）
-4. 通过引用精确标题来设置特定论文的快讯
+1. Find the paper on Google Scholar
+2. Click "Cited by N" to see citing papers
+3. Click the "Follow" button (envelope icon) on author profiles
+4. Set up alerts for specific papers by quoting the exact title
 
 ### Semantic Scholar
 
-- **URL**：[semanticscholar.org](https://www.semanticscholar.org)
-- **快讯**：点击任何论文上的"Alert"以追踪引用
-- **优势**：基于 AI 的引用论文相关性排序
-- **Research feed**：基于你的文献库的个性化推荐
+- **URL**: [semanticscholar.org](https://www.semanticscholar.org)
+- **Alerts**: Click "Alert" on any paper to track citations
+- **Advantage**: AI-powered relevance ranking of citing papers
+- **Research feed**: Personalized recommendations based on your library
 
 ---
 
-## 7. 按领域推荐的监测频率
+## 7. Recommended Monitoring Cadence by Field
 
-### 确定你所在领域的出版速度
+### Determining Your Field's Publication Velocity
 
-| 指标 | 高速度 | 中等速度 | 低速度 |
+| Indicator | High Velocity | Moderate | Low |
 |-----------|--------------|----------|-----|
-| 每月论文数（在你的细分领域） | > 50 | 10-50 | < 10 |
-| 从投稿到发表的中位时间 | < 6 个月 | 6-12 个月 | > 12 个月 |
-| 预印本普及程度 | 占关键论文 > 50% | 10-50% | < 10% |
-| 会议与期刊的主导性 | 会议优先 | 混合 | 仅期刊 |
+| Papers per month (in your niche) | > 50 | 10-50 | < 10 |
+| Median time from submission to publication | < 6 months | 6-12 months | > 12 months |
+| Preprint prevalence | > 50% of key papers | 10-50% | < 10% |
+| Conference vs. journal dominance | Conference-first | Mixed | Journal-only |
 
-### 频率推荐
+### Cadence Recommendations
 
-| 领域 | 检查频率 | 摘要周期 | 终止策略（Sunset policy） |
+| Field | Check Frequency | Digest Period | Sunset |
 |-------|----------------|---------------|--------|
-| **AI/ML, NLP** | 每日（arXiv）+ 每周（期刊） | 每周 | 6 个月 |
-| **生物医学，临床** | 每周（PubMed + 预印本） | 每两周 | 12 个月 |
-| **教育技术** | 每两周 | 每月 | 12 个月 |
-| **高等教育政策** | 每月 | 每季度 | 18 个月 |
-| **社会科学（综合）** | 每月 | 每季度 | 18 个月 |
-| **法学，哲学** | 每季度 | 每半年 | 24 个月 |
-| **历史学，古典学** | 每半年 | 每年 | 36 个月 |
+| **AI/ML, NLP** | Daily (arXiv) + Weekly (journals) | Weekly | 6 months |
+| **Biomedical, Clinical** | Weekly (PubMed + preprints) | Biweekly | 12 months |
+| **Education Technology** | Biweekly | Monthly | 12 months |
+| **Higher Education Policy** | Monthly | Quarterly | 18 months |
+| **Social Sciences (general)** | Monthly | Quarterly | 18 months |
+| **Law, Philosophy** | Quarterly | Semi-annually | 24 months |
+| **History, Classics** | Semi-annually | Annually | 36 months |
 
-### 终止策略（Sunset Policy）
+### Sunset Policy
 
-- **终止日期**：主动监测停止的日期（假定主题已稳定）
-- 根据领域速度和研究时效性设定
-- 终止后：转为年度检查或机会性监测
-- 例外情况：如果发生重大进展（例如，关键来源被撤稿、范式转变），则延长监测
-
----
-
-## 8. 监测维护检查清单
-
-在每个监测周期运行此检查清单：
-
-- [ ] 所有快讯是否仍然活跃？（某些平台在闲置后会停用）
-- [ ] 是否有快讯返回零结果？（关键词可能需要更新）
-- [ ] 是否有快讯返回过多结果？（关键词可能需要缩小范围）
-- [ ] 该领域的术语是否已演变？（添加新关键词，淘汰旧关键词）
-- [ ] 该领域是否有新的主要数据库或预印本服务器？
-- [ ] 被追踪的作者是否更换了机构？（更新作者追踪）
-- [ ] 终止日期是否仍然合适？
-- [ ] 你是否最近检查过 Retraction Watch 数据库？
+- **Sunset date**: The date after which active monitoring stops (topic presumed stable)
+- Set based on field velocity and research currency
+- After sunset: switch to annual check-ins or opportunistic monitoring
+- Exception: extend monitoring if a major development occurs (e.g., retraction of key source, paradigm shift)
 
 ---
 
-## 快速参考：30 分钟内完成设置
+## 8. Monitoring Maintenance Checklist
 
-1. **Google Scholar**（5 分钟）：创建 3-5 个与你原始搜索策略匹配的关键词快讯
-2. **PubMed**（5 分钟）：保存搜索并设置每周邮件快讯（如果你的领域被索引）
-3. **RSS**（5 分钟）：在 Feedly 或 Inoreader 中订阅你引用最多的 5 种期刊的 RSS 订阅源
-4. **Retraction Watch**（5 分钟）：对所有引用作者运行基线检查；订阅 RSS 订阅源
-5. **引用追踪**（5 分钟）：在 Google Scholar 或 Scopus 中为你引用最多的 5 个来源设置引用快讯
-6. **预印本**（5 分钟）：如果适用于你的领域，订阅相关的 arXiv/SSRN/bioRxiv 类别
+Run this checklist every monitoring cycle:
+
+- [ ] Are all alerts still active? (some platforms deactivate after inactivity)
+- [ ] Are any alerts returning zero results? (keywords may need updating)
+- [ ] Are any alerts returning too many results? (keywords may need narrowing)
+- [ ] Has the field's terminology evolved? (add new keywords, retire old ones)
+- [ ] Any new major databases or preprint servers for this field?
+- [ ] Has any tracked author changed institutions? (update author tracking)
+- [ ] Is the sunset date still appropriate?
+- [ ] Have you checked the Retraction Watch Database recently?
 
 ---
 
-## SKILL.md 提取内容：文献监测（可选的后流水线功能）
+## Quick Reference: Setting Up in 30 Minutes
 
-在任何研究模式完成后，用户可以选择激活 `monitoring_agent` 来设置研究后文献监测。这不是主流水线的一部分 — 它是按需触发的辅助功能。
+1. **Google Scholar** (5 min): Create 3-5 keyword alerts matching your original search strategy
+2. **PubMed** (5 min): Save your search and set weekly email alerts (if your field is indexed)
+3. **RSS** (5 min): Subscribe to RSS feeds for your top 5 cited journals in Feedly or Inoreader
+4. **Retraction Watch** (5 min): Run baseline check on all cited authors; subscribe to RSS feed
+5. **Citation tracking** (5 min): Set up citation alerts for your 5 most-cited sources in Google Scholar or Scopus
+6. **Preprints** (5 min): Subscribe to relevant arXiv/SSRN/bioRxiv categories if applicable to your field
 
-详见 `agents/monitoring_agent.md` 获取详细的 Agent 定义。
+---
 
-**触发方式**："monitor this topic"、"set up alerts"、"track new publications on this"
+## SKILL.md Extracted Content: Literature Monitoring (Optional Post-Pipeline)
 
-**功能**：
-- 每周/每月监测摘要（Digest）生成
-- 引用来源的撤稿快讯
-- 矛盾研究发现检测
-- 关键作者追踪
-- 关键词演变追踪
+After any research mode is complete, users can optionally activate the `monitoring_agent` to set up post-research literature monitoring. This is not part of the main pipeline — it is an auxiliary capability triggered on demand.
 
-**输入**：来自任何研究模式的已完成参考文献列表 + 搜索策略
-**输出**：监测配置 + 摘要模板（markdown）
+See `agents/monitoring_agent.md` for the detailed agent definition.
 
-**局限**：监测 Agent 生成供用户执行的配置和模板。它无法运行自主后台监测。
+**Trigger**: "monitor this topic", "set up alerts", "track new publications on this"
+
+**Capabilities**:
+- Weekly/monthly monitoring digest generation
+- Retraction alerts for cited sources
+- Contradictory findings detection
+- Key author tracking
+- Keyword evolution tracking
+
+**Input**: Completed bibliography + search strategy from any research mode
+**Output**: Monitoring configuration + digest template (markdown)
+
+**Limitation**: The monitoring agent produces configurations and templates for the user to act on. It cannot run autonomous background monitoring.

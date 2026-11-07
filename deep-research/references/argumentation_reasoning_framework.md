@@ -1,68 +1,68 @@
-# 论证与推理框架
+# Argumentation & Reasoning Framework
 
-用于评估研究论点强度与有效性的认知框架。用它来**思考**论证质量，而不仅仅是打勾检查。
+A cognitive framework for evaluating the strength and validity of research arguments. Use this to **think about** argument quality, not just check boxes.
 
-## Toulmin 论证模型 (Toulmin Model of Argumentation)
+## Toulmin Model of Argumentation
 
-每个研究论点都包含6个组成部分。在评估时，逐一识别：
+Every research argument has 6 components. When evaluating, identify each:
 
-| 组成部分 | 问题 | 缺失时的警示信号 |
-|-----------|------|-------------------|
-| **主张 (Claim)** | 断言了什么？ | 模糊或不断变化的论点 |
-| **数据/证据 (Data/Evidence)** | 有什么证据支持它？ | 没有经验支撑的主张 |
-| **担保 (Warrant)** | 为什么证据支持该主张？ | 数据与结论之间的逻辑断裂 |
-| **支撑 (Backing)** | 什么在支持担保本身？ | 假设方法论有效而未加验证 |
-| **限定 (Qualifier)** | 主张的确定性如何？ | 绝对化用语（"证明"、"总是"） |
-| **反驳 (Rebuttal)** | 什么会削弱该主张？ | 没有承认任何局限性 |
+| Component | Question | Red Flag if Missing |
+|-----------|----------|-------------------|
+| **Claim** | What is being asserted? | Vague or shifting thesis |
+| **Data/Evidence** | What evidence supports it? | Claims without empirical backing |
+| **Warrant** | Why does the evidence support the claim? | Logical gap between data and conclusion |
+| **Backing** | What supports the warrant itself? | Assumed methodology validity |
+| **Qualifier** | How certain is the claim? | Absolute language ("proves", "always") |
+| **Rebuttal** | What would undermine the claim? | No acknowledged limitations |
 
-**判断启发式**：如果你无法识别担保 (Warrant)，那么无论呈现了多少数据/证据 (Data/Evidence)，该论点很可能都是薄弱的。没有担保 (Warrant) 的数据/证据 (Data/Evidence) 仅仅是信息。
+**Judgment heuristic**: If you can't identify the Warrant, the argument is likely weak regardless of how much Data is presented. Data without Warrant is just information.
 
-## 因果推理（Bradford Hill 准则，改编版）
+## Causal Reasoning (Bradford Hill Criteria, adapted)
 
-当一篇论文声称 X 导致 Y 时，根据以下9条标准进行评估：
+When a paper claims X causes Y, evaluate against these 9 criteria:
 
-1. **关联强度** — 效应有多大？
-2. **一致性** — 是否在多个研究/情境中得到重复验证？
-3. **特异性** — X 是否特异性地导致 Y（而非导致一切）？
-4. **时间顺序** — X 是否发生在 Y 之前？（唯一必须满足的标准）
-5. **生物学/理论梯度** — X 越多 → Y 是否越多？
-6. **合理性** — 是否存在合理的机制？
-7. **连贯性** — 是否与已有知识一致？
-8. **实验证据** — 是否有实验性证据？
-9. **类比** — 类似的原因是否产生了类似的效果？
+1. **Strength of association** — How large is the effect?
+2. **Consistency** — Replicated across studies/contexts?
+3. **Specificity** — Does X specifically lead to Y (not everything)?
+4. **Temporality** — Does X precede Y? (Only mandatory criterion)
+5. **Biological/theoretical gradient** — More X → more Y?
+6. **Plausibility** — Is there a reasonable mechanism?
+7. **Coherence** — Consistent with existing knowledge?
+8. **Experiment** — Is there experimental evidence?
+9. **Analogy** — Do similar causes produce similar effects?
 
-**判断启发式**：大多数社会科学论文满足3-5条标准。少于3条 = 因果主张缺乏支持。只有第4条（时间顺序）是严格必需的；其余为累积性证据。
+**Judgment heuristic**: Most social science papers satisfy 3-5 criteria. Fewer than 3 = causal claim is unsupported. Only #4 (temporality) is strictly required; the rest are cumulative evidence.
 
-## 最佳解释推理 (IBE, Inference to Best Explanation)
+## Inference to Best Explanation (IBE)
 
-当对同一发现存在多种解释时：
+When multiple explanations exist for the same finding:
 
-1. 列出所有合理的解释（不仅仅是作者偏好的那一种）
-2. 从以下维度评估每种解释：**解释范围**（解释了多少内容）、**简洁性**（更少的特设假设）、**契合度**（与已知事实的一致性）、**预测力**（是否能预测新的观察结果？）
-3. 最佳解释是在所有四个维度上得分最高的——而不是最符合作者假设的那一个
+1. List ALL plausible explanations (not just the author's preferred one)
+2. Evaluate each on: **explanatory scope** (how much it explains), **simplicity** (fewer ad-hoc assumptions), **fit** (consistency with known facts), **predictive power** (does it predict new observations?)
+3. The best explanation is the one that scores highest across all four — not the one that fits the author's hypothesis
 
-**判断启发式**：如果一篇论文只考虑了一种解释，无论其论证多么充分，都是证实偏差 (confirmation bias)。讨论部分至少应讨论两个最强的替代解释。
+**Judgment heuristic**: If the paper only considers one explanation, that's confirmation bias regardless of how well-argued it is. At minimum, the Discussion section should address the two strongest alternative explanations.
 
-## 主张的认知地位 (Epistemic Status)
+## Epistemic Status of Claims
 
-并非所有主张具有同等的分量。对每个主要主张进行分类：
+Not all claims carry equal weight. Classify each major claim:
 
-| 地位 | 含义 | 适当的表述语言 |
-|--------|------|---------------------|
-| **已确立 (Established)** | 已重复验证、同行评审 (Peer-reviewed)、高度共识 | "X 是……" |
-| **有支持 (Supported)** | 存在证据但尚未重复验证 | "证据表明 X……" |
-| **初步 (Preliminary)** | 单一研究或小样本 | "初步发现表明……" |
-| **推测性 (Speculative)** | 基于推理而非直接证据 | "我们假设……" |
-| **有争议 (Contested)** | 存在相互矛盾的证据 | "虽然一些研究发现 X，但另一些研究……" |
+| Status | Meaning | Appropriate Language |
+|--------|---------|---------------------|
+| **Established** | Replicated, peer-reviewed, high consensus | "X is..." |
+| **Supported** | Evidence exists but not yet replicated | "Evidence suggests X..." |
+| **Preliminary** | Single study or small sample | "Preliminary findings indicate..." |
+| **Speculative** | Based on reasoning, not direct evidence | "We hypothesize that..." |
+| **Contested** | Conflicting evidence exists | "While some studies find X, others..." |
 
-**判断启发式**：如果一篇论文对"初步"发现使用了"已确立"的语言，那就是过度主张——这是学术论文写作中最常见的质量问题之一。
+**Judgment heuristic**: If a paper uses "Established" language for "Preliminary" findings, that's overclaiming — one of the most common quality issues in academic writing.
 
-## 各 Agent 的应用
+## Application by Agent
 
-| Agent | 主要用途 |
-|-------|----------|
-| `synthesis_agent` | 对综合论证进行 Toulmin 分析；对竞争性解释使用最佳解释推理 (IBE) |
-| `devils_advocate_agent` | 因果推理审计；识别缺失的反驳 (Rebuttal) 和限定 (Qualifier) |
-| `source_verification_agent` | 对来源主张进行认知地位 (Epistemic Status) 分类 |
-| `socratic_mentor_agent` | 引导用户对其自身论证进行 Toulmin 分解 |
-| `research_architect_agent` | 确保方法论设计能在适当层面上支持因果主张 |
+| Agent | Primary Use |
+|-------|------------|
+| `synthesis_agent` | Toulmin analysis of synthesized arguments; IBE for competing explanations |
+| `devils_advocate_agent` | Causal reasoning audit; identify missing Rebuttals and Qualifiers |
+| `source_verification_agent` | Epistemic status classification of source claims |
+| `socratic_mentor_agent` | Guide users through Toulmin decomposition of their own arguments |
+| `research_architect_agent` | Ensure methodology design supports causal claims at appropriate level |

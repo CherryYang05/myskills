@@ -1,74 +1,84 @@
-# Crossref API 验证协议
+# Crossref API Verification Protocol
 
-**状态**: v3.9.0
-**使用者**: `bibliography_agent`, `migrate_literature_corpus_to_v3_9_0.py`
-**API 基地址**: `https://api.crossref.org`
-**Rate limit**: 10 req/s (礼貌池 (polite pool)，User-Agent 中包含 `mailto:`)，~5 req/s（匿名，有波动）。已通过线上 `x-rate-limit-limit` / `x-rate-limit-interval` 响应头确认（2026-05）。
-**礼貌池邮箱环境变量**: `CROSSREF_POLITE_EMAIL`（可选）
+**Status**: v3.9.0
+**Used by**: `bibliography_agent`, `migrate_literature_corpus_to_v3_9_0.py`
+**API base**: `https://api.crossref.org`
+**Rate limit**: 10 req/s (polite pool, with `mailto:` in User-Agent), ~5 req/s (anonymous, varies). Confirmed via live `x-rate-limit-limit` / `x-rate-limit-interval` response headers (2026-05).
+**Polite email env var**: `CROSSREF_POLITE_EMAIL` (optional)
 
 ---
 
-## 目的
+## Purpose
 
-为 v3.9.0 跨索引三角验证 (cross-index triangulation) 提供第三个书目索引查询，依据规范 v3.9.0 §3.5。Crossref 是 DOI 注册机构（Registration Agency）之一，并不代表整个 DOI 系统。中文文献 DOI 还可能由 ISTIC 或 CNKI 注册，Crossref 查询未命中不能单独作为文献不存在或伪造的证据。专著 (monograph) / 章节 (chapter) 覆盖不完整（取决于出版商参与度）。v3.9.0 将 `crossref_unmatched` 作为三个信号之一暴露，依据 R-L3-2-A 处理（默认为咨询性质；用户启用的 `contamination_triangulation` 严格策略可将 k=3 三角验证信号提升为终端阻断——参见 `shared/references/firm_rules.md`）。
+Provides a third bibliographic-index lookup for v3.9.0 cross-index triangulation per spec v3.9.0 §3.5. Crossref is the DOI registry of record — strongest coverage for journal articles with DOIs. Monograph / chapter coverage is partial (publisher participation dependent). v3.9.0 surfaces `crossref_unmatched` as one of three signals, handled per R-L3-2-A (advisory by default; a user-enabled `contamination_triangulation` strict policy may promote the k=3 triangulation signal to a terminal block — see `shared/references/firm_rules.md`).
 
-结构与 `semantic_scholar_api_protocol.md` 和 `openalex_api_protocol.md` 保持一致。
+Mirrors the structure of `semantic_scholar_api_protocol.md` and `openalex_api_protocol.md`.
 
-> **中文 DOI 兼容性（上游 #595）**：优先核对 DOI 的注册机构（例如 DOI RA 查询）；对 ISTIC/CNKI 文献需另行确认原始中文题名、刊名及标识符。仅能确认 DOI 存在时，应记录「标识符存在，书目信息未证实」，不得自动判定标题匹配。参见 [中文文献核验协议](chinese_literature_api_protocol.md)。本仓库未包含上游 `chinese_literature_client.py`，该协议仅供手动/编排层核验，不能宣称已接入自动验证门控。
+## Query Patterns
 
-## 查询模式
-
-### 模式 1：DOI 查询加标题交叉校验（DOI 可用时的首选）
+### Pattern 1: DOI Lookup with Title Cross-Check (primary when DOI is available)
 
 ```
 GET /works/{doi}
 ```
 
-注意：路径中使用原始 DOI，不加 `doi:` 前缀（Crossref 惯例；OpenAlex 使用 `/works/doi:{doi}`）。
+Note: raw DOI in path, NO `doi:` prefix (Crossref convention; OpenAlex uses `/works/doi:{doi}`).
 
-**匹配规则（镜像 S2 的 `DOI_MISMATCH` 模式）：** DOI 查询命中的结果须经 Levenshtein 相似度 0.70 的标题交叉校验门控。Crossref 将 `title` 作为语言变体列表返回；取第一个条目进行比较。若相似度低于阈值 -> DOI_MISMATCH，返回 None，向下回退到标题搜索。
+**Matching rule (mirrors S2 `DOI_MISMATCH` pattern):** DOI lookup hits are gated by a Levenshtein 0.70 title cross-check. Crossref returns `title` as a list of language variants; the first entry is compared. If similarity below threshold -> DOI_MISMATCH, return None, fall through to title search.
 
-### 模式 2：标题搜索（DOI 缺失或 DOI_MISMATCH 时的回退方案）
+### Pattern 2: Title Search (fallback when DOI absent or DOI_MISMATCH)
 
 ```
 GET /works?query.title={url_encoded_title}&rows=5
 ```
 
-**匹配规则：** Levenshtein 相似度 >= 0.70（与 S2 / OpenAlex / PaperOrchestra 阈值一致）。当多个候选通过阈值时，优先匹配年份作为决胜条件，通过 +0.05 分数加成实现。Crossref 年份位于 `issued.date-parts[0][0]`（规范字段）；若 `issued` 缺失，则回退到 `published-print` / `published-online`。
+**Matching rule:** Levenshtein similarity >= 0.70 (matching S2 / OpenAlex / PaperOrchestra threshold). When multiple candidates pass, prefer matching-year tiebreaker via +0.05 score bonus. Crossref year lives in `issued.date-parts[0][0]` (canonical); fall through to `published-print` / `published-online` if `issued` absent.
 
-## `crossref_unmatched` 推导
+## `crossref_unmatched` derivation
 
-当且仅当以下条件时为 `true`：
-- DOI 存在：DOI 查询返回 404，或未通过标题交叉校验，且标题搜索未返回达到阈值的匹配；或
-- DOI 缺失：仅标题搜索未返回达到阈值的匹配。
+`true` if and only if:
+- DOI present: DOI lookup either returns 404, misses title cross-check, AND title search returns no match meeting threshold; OR
+- DOI absent: title search alone returns no match meeting threshold.
 
-此检查仅在 `obtained_via != 'manual'` 时触发。
+The check fires only when `obtained_via != 'manual'`.
 
-## 降级处理
+## `retraction_status` observation (#651)
 
-| 条件 | 操作 |
+For a DOI-matched record, retain both top-level and relation-form
+`updated-by`/`update-to` metadata. The #651 resolver recognizes an update only
+when `updated-by` belongs to the cited DOI or an update notice's `update-to`
+points to the cited DOI. It preserves source, record id, notice DOI and date,
+and handles a later reinstatement without treating the earlier retraction as
+current. The full record already returned by `GET /works/{doi}` is sufficient
+for the common `updated-by` path; optional notice records may be supplied for
+the inverse `update-to` path and reason enrichment. Manual entries with a DOI
+use this path; DOI-less entries remain unresolved rather than title-matched.
+
+## Degradation handling
+
+| Condition | Action |
 |---|---|
-| DOI 查询返回 HTTP 404 | 视为未命中——从 `_get` 返回 `{}`；调用方向下回退到标题搜索。不属于降级。 |
-| HTTP 429（rate limit） | 退避 2 秒，最多重试 3 次。耗尽后抛出 `CrossrefUnavailable`。每次退避后刷新节流锚点。 |
-| HTTP 5xx | 立即抛出 `CrossrefUnavailable`（不重试）。 |
-| 网络超时（默认 30s） | 抛出 `CrossrefUnavailable`。 |
-| 抛出 `CrossrefUnavailable` | 调用方必须从条目中省略 `crossref_unmatched`（依据规范 v3.9.0 R-L3-2-C：缺失 != false）。其他索引独立继续。 |
+| HTTP 404 on DOI | Treat as miss -- return `{}` from `_get`; caller falls through to title search. NOT a degradation. |
+| HTTP 429 (rate limit) | Back off 2 seconds, retry up to 3 times. After exhaustion, raise `CrossrefUnavailable`. Throttle anchor refreshed after each backoff. |
+| HTTP 5xx | Raise `CrossrefUnavailable` immediately (no retry). |
+| Network timeout (30s default) | Raise `CrossrefUnavailable`. |
+| `CrossrefUnavailable` raised | Caller MUST omit `crossref_unmatched` from the entry (per spec v3.9.0 R-L3-2-C: absent != false). Other indexes proceed independently. |
 
-## v3.9.0 R-L3-2-D 约束
+## v3.9.0 R-L3-2-D constraint
 
-Crossref 返回 `type`（例如 `journal-article`, `book-chapter`）。**v3.9.0 忽略此字段。** 不存储在条目上，不暴露给终结器 (finalizer)，不用于任何推导。v3.10 将引入适配器声明的 `venue_type`，并带有显式来源标识 (provenance)。
+Crossref returns `type` (e.g., `journal-article`, `book-chapter`). **v3.9.0 ignores this field.** Not stored on entries, not surfaced to finalizer, not used in any derivation. v3.10 will introduce adapter-declared `venue_type` with explicit provenance.
 
-## Crossref 特定说明
+## Crossref-specific notes
 
-- **覆盖范围注意事项：** 对带有 DOI 的期刊文章覆盖最强。专著 / 章节的覆盖取决于出版商的 DOI 注册。会议论文集覆盖情况不一。这种不对称性是设计如此——与 S2 和 OpenAlex 结合，三索引信号捕获不同的文献类型分布。
-- **礼貌池礼仪：** User-Agent 头（非查询参数）中的 `mailto:` 遵循 Crossref 文档中约定的更高速率限制惯例。
+- **Coverage caveat:** strongest for journal articles with DOIs. Monograph / chapter coverage depends on publisher DOI registration. Conference proceedings vary. This asymmetry is by design -- combined with S2 and OpenAlex, the three-index signal captures different genre profiles.
+- **Polite pool etiquette:** the `mailto:` in User-Agent header (not query param) follows Crossref's documented convention for higher rate limits.
 
-## 客户端实现
+## Client implementation
 
-参见 `scripts/crossref_client.py`。`CrossrefClient` 类暴露 `doi_lookup_with_title_check(doi, expected_title)` 和 `title_search(title, year=None)` 两个方法。两者均返回 `dict | None`（dict 为 DOI 查询的 `message`，或标题搜索的 `message.items` 中的一项）。两者在降级时均按上表抛出 `CrossrefUnavailable`。
+See `scripts/crossref_client.py`. Class `CrossrefClient` exposes `doi_lookup_with_title_check(doi, expected_title)` and `title_search(title, year=None)`. Both return `dict | None` (the dict being either the `message` for DOI, or one item from `message.items` for title search). Both raise `CrossrefUnavailable` on degradation per the table above.
 
-## 交叉引用
+## Cross-references
 
-- 规范：`docs/design/2026-05-17-ars-v3.9.0-cross-index-triangulation-measurement-spec.md` §3.5
-- 镜像模板：`deep-research/references/semantic_scholar_api_protocol.md`
-- 同级协议：`deep-research/references/openalex_api_protocol.md`
+- Spec: `docs/design/2026-05-17-ars-v3.9.0-cross-index-triangulation-measurement-spec.md` §3.5
+- Mirror template: `deep-research/references/semantic_scholar_api_protocol.md`
+- Sibling protocol: `deep-research/references/openalex_api_protocol.md`

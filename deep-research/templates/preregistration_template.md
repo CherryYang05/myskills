@@ -1,52 +1,53 @@
-# 预注册 (Preregistration) 模板 — OSF 标准21项预注册模板
+# Preregistration Template — OSF Standard 21-Item Preregistration Template
 
-## 用途
-基于 OSF 标准数据收集前注册格式的填写模板。研究者在数据收集前完成本模板，并上传至预注册 (Preregistration) 平台（如 OSF Registries）。
-
----
-
-## 说明
-
-1. 在数据收集**之前**完成本模板
-2. 标记为 `[Required]` 的项目为必填项；`[Optional]` 为推荐但非必填项
-3. 如某项目不适用，填写"Not applicable"并简要说明原因
-4. 完成后，前往 [OSF Registries](https://osf.io/registries) 创建预注册 (Preregistration)
-5. 提交后，预注册 (Preregistration) 不可修改（可设置禁制期）
+## Purpose
+A fill-in template based on the OSF Standard Pre-Data Collection Registration format. Researchers complete this template before data collection and upload it to a preregistration platform (e.g., OSF Registries).
 
 ---
 
-## A. 研究信息
+## Instructions
 
-### 1. 标题 [Required]
-> 研究标题
+1. Complete this template **before** data collection
+2. Items marked `[Required]` are mandatory; `[Optional]` are recommended but not required
+3. If an item is not applicable, write "Not applicable" and briefly explain why
+4. After completion, go to [OSF Registries](https://osf.io/registries) to create a preregistration
+5. Once submitted, preregistrations cannot be modified (an embargo period can be set)
+
+---
+
+## A. Study Information
+
+### 1. Title [Required]
+> Study Title
 
 ```
 [Enter descriptive study title]
 ```
 
-### 2. 作者 [Required]
-> 研究团队
+### 2. Authors [Required]
+> Research Team
 
-| 姓名 | 机构 | 角色 | ORCID |
-|------|------|------|-------|
+| Name | Institution | Role | ORCID |
+|------|-------------|------|-------|
 | [Name] | [Institution] | [PI / Co-PI / RA] | [ORCID] |
 | [Name] | [Institution] | [Role] | [ORCID] |
 
-### 3. 研究问题 (Research Questions) [Required]
-> 主要研究问题 (Research Questions)
+### 3. Research Questions [Required]
+> Main Research Questions
 
 ```
 RQ1: [Enter main research question]
 RQ2: [Enter secondary research question, if any]
 ```
 
-### 4. 假设 [Required]
-> 预设假设
-> 请清晰阐述方向性预测
+### 4. Hypotheses [Required]
+> Pre-specified Hypotheses
+> Please state directional predictions clearly
 
 ```
 H1: [Enter hypothesis 1, including expected direction]
-    示例: 接受处理X的学生在测试Y上的得分将显著高于对照组
+    Example: Students receiving treatment X will score significantly higher
+    on test Y than the control group
 
 H2: [Enter hypothesis 2, if any]
 
@@ -55,263 +56,263 @@ H3: [Enter hypothesis 3, if any]
 
 ---
 
-## B. 设计方案
+## B. Design Plan
 
-### 5. 研究类型 [Required]
-> 研究设计
+### 5. Study Type [Required]
+> Study Design
 
-- [ ] 实验
-  - [ ] 被试间设计
-  - [ ] 被试内设计
-  - [ ] 混合设计
-  - [ ] 析因设计: ___ x ___
-- [ ] 观察性研究
-  - [ ] 横断面研究
-  - [ ] 纵向/队列研究
-  - [ ] 病例对照研究
-- [ ] 调查
-- [ ] 其他: [Describe]
+- [ ] Experiment
+  - [ ] Between-subjects
+  - [ ] Within-subjects
+  - [ ] Mixed design
+  - [ ] Factorial design: ___ x ___
+- [ ] Observational study
+  - [ ] Cross-sectional
+  - [ ] Longitudinal / Cohort
+  - [ ] Case-control
+- [ ] Survey
+- [ ] Other: [Describe]
 
 ```
 [Describe study design in detail]
 ```
 
-### 6. 随机化 [Optional]
-> 随机化程序
+### 6. Randomization [Optional]
+> Randomization Procedure
 
 ```
-随机化方法: [Simple random / Stratified random / Cluster random / Block random / Not applicable]
-随机化单位: [Individual / Class / School / Not applicable]
-随机化工具: [Random number table / Computer program / Lottery / Not applicable]
-分配比例: [1:1 / 2:1 / Other]
+Randomization method: [Simple random / Stratified random / Cluster random / Block random / Not applicable]
+Randomization unit: [Individual / Class / School / Not applicable]
+Randomization tool: [Random number table / Computer program / Lottery / Not applicable]
+Allocation ratio: [1:1 / 2:1 / Other]
 ```
 
-### 7. 盲法 [Optional]
-> 盲法/掩蔽
+### 7. Blinding [Optional]
+> Blinding / Masking
 
 ```
-盲法级别: [No blinding / Single-blind / Double-blind / Triple-blind]
-盲法对象: [Participants / Researchers / Assessors / Not applicable]
-盲法维持: [Describe how blinding is maintained]
-揭示盲法时机: [Describe when unblinding occurs]
+Blinding level: [No blinding / Single-blind / Double-blind / Triple-blind]
+Blinded parties: [Participants / Researchers / Assessors / Not applicable]
+Blinding maintenance: [Describe how blinding is maintained]
+Unblinding timing: [Describe when unblinding occurs]
 ```
 
-### 8. 研究设计/条件 [Required]
-> 每个组/条件的具体描述
+### 8. Study Design / Conditions [Required]
+> Specific description of each group/condition
 
 ```
-实验组/条件1: [Describe intervention content, duration, frequency in detail]
-实验组/条件2: [If any]
-对照组: [Describe control condition in detail]
+Experimental group/Condition 1: [Describe intervention content, duration, frequency in detail]
+Experimental group/Condition 2: [If any]
+Control group: [Describe control condition in detail]
 ```
 
 ---
 
-## C. 抽样方案
+## C. Sampling Plan
 
-### 9. 现有数据 [Required]
-> 现有数据声明
+### 9. Existing Data [Required]
+> Existing Data Declaration
 
-- [ ] 尚未收集任何数据（数据创建前注册）
-- [ ] 数据存在但尚未查看（任何人对数据进行观察前注册）
-- [ ] 已查看部分数据（访问数据前注册）
-- [ ] 已用于初步分析（数据分析后注册）
+- [ ] No data have been collected yet (Registration prior to creation of data)
+- [ ] Data exist but have not been examined (Registration prior to any human observation of the data)
+- [ ] Some data have been examined (Registration prior to accessing the data)
+- [ ] Data have been used for preliminary analysis (Registration following analysis of the data)
 
 ```
 [Describe data status and your level of familiarity with the data]
 ```
 
-### 10. 数据收集程序 [Required]
-> 数据收集程序
+### 10. Data Collection Procedures [Required]
+> Data Collection Procedures
 
 ```
-收集方法: [Online survey / Paper survey / Interview / Experiment / Archival data / Other]
-收集工具: [Questionnaire name / Scale name / Experimental software]
-收集地点: [Online / Classroom / Laboratory / Other]
-收集时间线: [Start and end dates]
-数据收集者: [Who is responsible for collection]
+Collection method: [Online survey / Paper survey / Interview / Experiment / Archival data / Other]
+Collection instruments: [Questionnaire name / Scale name / Experimental software]
+Collection location: [Online / Classroom / Laboratory / Other]
+Collection timeline: [Start and end dates]
+Data collectors: [Who is responsible for collection]
 ```
 
-### 11. 样本量 [Required]
-> 计划样本量
+### 11. Sample Size [Required]
+> Planned sample size
 
 ```
-目标样本量: [N = ]
-每组样本量: [Experimental group n = , Control group n = ]
+Target sample size: [N = ]
+Sample size per group: [Experimental group n = , Control group n = ]
 ```
 
-### 12. 样本量依据 [Required]
-> 样本量确定的依据
+### 12. Sample Size Rationale [Required]
+> Basis for sample size determination
 
 ```
-方法: [Power analysis / Prior research conventions / Feasibility constraints / Other]
+Method: [Power analysis / Prior research conventions / Feasibility constraints / Other]
 
-统计功效分析参数（如适用）:
-- 效应量 (Effect size): [d = / f = / r = ]
-- 效应量来源: [Prior study / Meta-analysis / Pilot study]
-- 显著性水平 (alpha): [.05 / .01]
-- 统计功效 (Power): [.80 / .90]
-- 检验类型: [t-test / ANOVA / Regression / Other]
-- 计算工具: [G*Power / R / Other]
-- 计算结果: 最低所需 N = [  ]
+Power analysis parameters (if applicable):
+- Effect size: [d = / f = / r = ]
+- Effect size source: [Prior study / Meta-analysis / Pilot study]
+- Significance level (alpha): [.05 / .01]
+- Statistical power: [.80 / .90]
+- Test type: [t-test / ANOVA / Regression / Other]
+- Calculation tool: [G*Power / R / Other]
+- Calculation result: Minimum required N = [  ]
 
-超额采样率: [考虑 ___% 流失率，实际目标 N = ]
+Oversampling rate: [Accounting for ___% attrition, actual target N = ]
 ```
 
-### 13. 停止规则 [Required]
-> 何时停止数据收集
+### 13. Stopping Rule [Required]
+> When to stop data collection
 
 ```
-停止规则:
-- [ ] 达到目标样本量时停止
-- [ ] 在指定日期停止 (截止日期: [Date])
-- [ ] 达到目标功效时停止（序贯分析）
-- [ ] 其他: [Describe]
-```
-
----
-
-## D. 变量
-
-### 14. 操纵变量 [实验必填]
-> 自变量
-
-```
-自变量1: [Name]
-操作定义: [How it is manipulated]
-水平: [Level 1 / Level 2 / ...]
-
-自变量2: [If any]
-```
-
-### 15. 测量变量 [Required]
-> 因变量
-
-```
-主要因变量: [Name]
-操作定义: [How it is measured]
-测量工具: [Scale name / Test name]
-信度与效度: [Cite reliability/validity literature]
-
-次要因变量: [If any]
-
-协变量/控制变量: [If any]
-```
-
-### 16. 指标 [Required]
-> 每个变量的具体计分方法
-
-```
-变量1计分:
-- 题项: [Which items]
-- 计分方法: [Sum / Mean / Factor score / Other]
-- 反向计分题项: [Which items need reverse scoring]
-- 缺失数据处理: [How to handle missing values]
-
-变量2计分: [Same format as above]
+Stopping rule:
+- [ ] Stop when target sample size is reached
+- [ ] Stop at specified date (Deadline: [Date])
+- [ ] Stop when target power is reached (sequential analysis)
+- [ ] Other: [Describe]
 ```
 
 ---
 
-## E. 分析方案
+## D. Variables
 
-### 17. 统计模型 [Required]
-> 主要统计分析方法
-
-```
-假设1的分析:
-- 统计方法: [Independent t-test / ANOVA / Regression / HLM / SEM / Other]
-- 详细描述: [Model specification, e.g., DV ~ IV + covariate + (1|cluster)]
-
-假设2的分析: [Same format as above]
-```
-
-### 18. 数据转换 [Optional]
-> 数据转换计划
+### 14. Manipulated Variables [Required for experiments]
+> Independent Variables
 
 ```
-计划转换:
-- [ ] 不做转换
-- [ ] 对数转换: 应用于 [which variables], 触发条件 [skewness > ]
-- [ ] 标准化 (Z-score)
-- [ ] 其他: [Describe]
+Independent variable 1: [Name]
+Operational definition: [How it is manipulated]
+Levels: [Level 1 / Level 2 / ...]
+
+Independent variable 2: [If any]
 ```
 
-### 19. 推断标准 [Required]
-> 统计推断标准
+### 15. Measured Variables [Required]
+> Dependent Variables
 
 ```
-显著性水平: alpha = [.05 / .01 / .005]
-多重比较校正: [Bonferroni / Holm / FDR / Not applicable]
-效应量 (Effect size) 报告: [Cohen's d / eta-squared / R² / Other]
-置信区间: [95% CI / 99% CI]
-单侧/双侧检验: [Two-tailed / One-tailed, with justification]
+Primary dependent variable: [Name]
+Operational definition: [How it is measured]
+Measurement instrument: [Scale name / Test name]
+Reliability and validity: [Cite reliability/validity literature]
+
+Secondary dependent variable: [If any]
+
+Covariates/Control variables: [If any]
 ```
 
-### 20. 数据排除 [Required]
-> 数据排除标准
+### 16. Indices [Required]
+> Specific scoring method for each variable
 
 ```
-排除标准:
-- [ ] 未通过注意力检查 (具体标准: [                ])
-- [ ] 反应时间过短/过长 (标准: < [  ] 分钟 或 > [  ] 分钟)
-- [ ] 离群值 (定义: [> 3 SD / IQR方法 / Other])
-- [ ] 不完整率 > [  ]%
-- [ ] 其他: [Describe]
+Variable 1 scoring:
+- Items: [Which items]
+- Scoring method: [Sum / Mean / Factor score / Other]
+- Reverse-scored items: [Which items need reverse scoring]
+- Missing data handling: [How to handle missing values]
 
-排除后程序:
-- 报告排除前和排除后样本量
-- 比较排除样本与保留样本的特征
+Variable 2 scoring: [Same format as above]
 ```
 
-### 21. 探索性分析 [Optional]
-> 计划的探索性分析
+---
+
+## E. Analysis Plan
+
+### 17. Statistical Models [Required]
+> Primary statistical analysis methods
 
 ```
-探索性分析（非主要假设，但已计划）:
+Analysis for Hypothesis 1:
+- Statistical method: [Independent t-test / ANOVA / Regression / HLM / SEM / Other]
+- Detailed description: [Model specification, e.g., DV ~ IV + covariate + (1|cluster)]
+
+Analysis for Hypothesis 2: [Same format as above]
+```
+
+### 18. Transformations [Optional]
+> Data transformation plan
+
+```
+Planned transformations:
+- [ ] No transformations
+- [ ] Log transformation: Applied to [which variables], trigger condition [skewness > ]
+- [ ] Standardization (Z-score)
+- [ ] Other: [Describe]
+```
+
+### 19. Inference Criteria [Required]
+> Statistical inference criteria
+
+```
+Significance level: alpha = [.05 / .01 / .005]
+Multiple comparison correction: [Bonferroni / Holm / FDR / Not applicable]
+Effect size reporting: [Cohen's d / eta-squared / R² / Other]
+Confidence interval: [95% CI / 99% CI]
+One-tailed/Two-tailed test: [Two-tailed / One-tailed, with justification]
+```
+
+### 20. Data Exclusion [Required]
+> Data exclusion criteria
+
+```
+Exclusion criteria:
+- [ ] Failed attention check (Specific criteria: [                ])
+- [ ] Response time too short/long (Criteria: < [  ] minutes or > [  ] minutes)
+- [ ] Outliers (Definition: [> 3 SD / IQR method / Other])
+- [ ] Incomplete rate > [  ]%
+- [ ] Other: [Describe]
+
+Post-exclusion procedures:
+- Report pre- and post-exclusion sample sizes
+- Compare characteristics of excluded vs. retained samples
+```
+
+### 21. Exploratory Analyses [Optional]
+> Planned exploratory analyses
+
+```
+Exploratory analyses (not primary hypotheses, but planned):
 1. [Analysis description]
 2. [Analysis description]
 
-这些分析将在论文中明确标记为"探索性"。
+These analyses will be explicitly labeled as "exploratory" in the paper.
 ```
 
 ---
 
-## F. 其他
+## F. Other
 
-### 伦理审查 (Ethics Review) [Optional]
+### Ethics Review [Optional]
 ```
-IRB审查状态: [Approved / Under review / Exempt / Not applicable]
-IRB编号: [                ]
-审查机构: [                ]
-```
-
-### 数据可用性 [Optional]
-```
-数据是否公开: [Yes / No / Partially]
-数据仓库: [OSF / Dataverse / Other]
-公开时机: [After publication / After study completion / Other]
+IRB review status: [Approved / Under review / Exempt / Not applicable]
+IRB number: [                ]
+Reviewing institution: [                ]
 ```
 
-### 补充材料 [Optional]
+### Data Availability [Optional]
 ```
-- [ ] 完整问卷/量表
-- [ ] 刺激材料
-- [ ] 分析代码
-- [ ] 统计功效 (Power) 分析报告
-- [ ] 预实验结果
+Will data be made public: [Yes / No / Partially]
+Data repository: [OSF / Dataverse / Other]
+Timing: [After publication / After study completion / Other]
+```
+
+### Supplementary Materials [Optional]
+```
+- [ ] Full questionnaire/scale
+- [ ] Stimulus materials
+- [ ] Analysis code
+- [ ] Power analysis report
+- [ ] Pilot study results
 ```
 
 ---
 
-## 提交前检查清单
+## Pre-Submission Checklist
 
-- [ ] 所有 [Required] 项目已完成
-- [ ] 假设已清晰阐述且可检验
-- [ ] 分析方法与假设对应
-- [ ] 排除标准已在数据收集前确定
-- [ ] 验证性分析与探索性分析已区分
-- [ ] IRB审查状态已确认
-- [ ] 预注册 (Preregistration) 平台已选定（推荐 OSF Registries）
+- [ ] All [Required] items have been completed
+- [ ] Hypotheses are clearly stated and testable
+- [ ] Analysis methods correspond to hypotheses
+- [ ] Exclusion criteria were established before data collection
+- [ ] Confirmatory and exploratory analyses have been distinguished
+- [ ] IRB review status has been confirmed
+- [ ] Preregistration platform has been selected (OSF Registries recommended)
 
-> 完成后，前往 [OSF Registries](https://osf.io/registries) 提交预注册 (Preregistration)。
+> After completion, go to [OSF Registries](https://osf.io/registries) to submit the preregistration.

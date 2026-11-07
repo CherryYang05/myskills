@@ -1,16 +1,16 @@
-# 研究方法论模式 — 设计模板
+# Research Methodology Patterns — Design Templates
 
-## 目的
-为常见研究设计提供即用型方法论模板。供 research_architect_agent 使用。
+## Purpose
+Ready-to-use methodology templates for common research designs. Used by the research_architect_agent.
 
-## 模式 1: 系统文献综述（Systematic Literature Review）
+## Pattern 1: Systematic Literature Review
 
-### 适用场景
-- 梳理某一主题的知识现状
-- 识别现有研究中的空白
-- 综合证据以形成政策/实践建议
+### When to Use
+- Mapping the state of knowledge on a topic
+- Identifying gaps in existing research
+- Synthesizing evidence for policy/practice recommendations
 
-### 设计模板
+### Design Template
 ```
 Research Question: What is known about [topic] in [context]?
 
@@ -34,7 +34,7 @@ Quality Criteria:
 Reporting Standard: PRISMA 2020 (see references/equator_reporting_guidelines.md)
 ```
 
-### PRISMA 流程模板
+### PRISMA Flow Template
 ```
 Records identified through database searching (n = )
 Additional records from other sources (n = )
@@ -50,14 +50,14 @@ Full-text excluded, with reasons (n = )
 Studies included in synthesis (n = )
 ```
 
-## 模式 2: 比较案例研究（Comparative Case Study）
+## Pattern 2: Comparative Case Study
 
-### 适用场景
-- 比较政策、项目或机构
-- 理解情境如何影响结果
-- 从多个案例中生成理论命题
+### When to Use
+- Comparing policies, programs, or institutions
+- Understanding how context shapes outcomes
+- Generating theoretical propositions from multiple cases
 
-### 设计模板
+### Design Template
 ```
 Research Question: How does [phenomenon] vary across [cases]?
 
@@ -76,7 +76,7 @@ Quality Criteria:
 - Rival explanations considered
 ```
 
-### 比较矩阵模板
+### Comparison Matrix Template
 ```
 | Dimension | Case A | Case B | Case C | Pattern |
 |-----------|--------|--------|--------|---------|
@@ -86,14 +86,14 @@ Quality Criteria:
 | Outcome   |        |        |        |         |
 ```
 
-## 模式 3: 政策分析（Policy Analysis）
+## Pattern 3: Policy Analysis
 
-### 适用场景
-- 评估现有或拟议的政策
-- 比较不同司法辖区的政策方法
-- 评估政策结果和非预期后果
+### When to Use
+- Evaluating existing or proposed policies
+- Comparing policy approaches across jurisdictions
+- Assessing policy outcomes and unintended consequences
 
-### 设计模板
+### Design Template
 ```
 Research Question: How effective is [policy] in achieving [goal]?
 
@@ -118,14 +118,14 @@ Quality Criteria:
 - Implementation feasibility addressed
 ```
 
-## 模式 4: 混合方法（Mixed Methods）— 聚合平行设计
+## Pattern 4: Mixed Methods (Convergent Parallel)
 
-### 适用场景
-- 需要多种数据类型的复杂现象
-- 需要对研究发现进行三角验证（triangulation）
-- 定量数据需要定性解释（或反之）
+### When to Use
+- Complex phenomena requiring multiple data types
+- Need to triangulate findings
+- Quantitative data needs qualitative explanation (or vice versa)
 
-### 设计模板
+### Design Template
 ```
 Research Question: What is the nature and extent of [phenomenon]?
 
@@ -148,14 +148,14 @@ Quality Criteria:
 Reporting Standards: QUAL strand → COREQ; QUAN strand → STROBE/CONSORT (see references/equator_reporting_guidelines.md)
 ```
 
-## 模式 5: 内容分析（Content Analysis）/ 文档分析
+## Pattern 5: Content/Document Analysis
 
-### 适用场景
-- 分析文本、政策、媒体或文档
-- 识别传播中的模式
-- 对大型文档集进行系统性审查
+### When to Use
+- Analyzing texts, policies, media, or documents
+- Identifying patterns in communication
+- Systematic examination of large document sets
 
-### 设计模板
+### Design Template
 ```
 Research Question: What themes/patterns emerge from [document set]?
 
@@ -173,14 +173,14 @@ Quality Criteria:
 - Saturation discussed
 ```
 
-## 模式 6: 探索性研究（Exploratory Research）
+## Pattern 6: Exploratory Research
 
-### 适用场景
-- 新兴或研究不足的主题
-- 为未来研究生成假设
-- 从参与者视角理解现象
+### When to Use
+- New or under-researched topics
+- Generating hypotheses for future research
+- Understanding phenomena from participant perspective
 
-### 设计模板
+### Design Template
 ```
 Research Question: How do [participants] experience/understand [phenomenon]?
 
@@ -201,14 +201,14 @@ Quality Criteria:
 Reporting Standard: COREQ for interviews/focus groups (see references/equator_reporting_guidelines.md)
 ```
 
-## 模式 7: 标杆研究（Benchmarking Study）
+## Pattern 7: Benchmarking Study
 
-### 适用场景
-- 将绩效与标准或同行进行比较
-- 识别最佳实践
-- 设定绩效目标
+### When to Use
+- Comparing performance against standards or peers
+- Identifying best practices
+- Setting performance targets
 
-### 设计模板
+### Design Template
 ```
 Research Question: How does [entity] perform compared to [benchmark]?
 
@@ -227,15 +227,15 @@ Quality Criteria:
 - Actionable recommendations
 ```
 
-## 模式 8: 技术需求分析（Technology Requirements Analysis）
+## Pattern 8: Technology Requirements Analysis
 
-### 适用场景
-- 评估新技术的可行性、需求分析和技术比较
-- 系统设计前的技术选型决策
-- 技术采纳的风险和收益评估
-- 当研究问题涉及"应使用哪种技术？"或"该技术能否解决问题？"
+### When to Use
+- Assessing feasibility, requirements analysis, and technology comparison for new technologies
+- Technology selection decisions before system design
+- Risk and benefit assessment of technology adoption
+- When research questions involve "Which technology should be used?" or "Can this technology solve the problem?"
 
-### 设计模板
+### Design Template
 ```
 Research Question: What technology approach best addresses [need] given [constraints]?
 
@@ -269,7 +269,7 @@ Quality Criteria:
 - Fair comparison of options: Consistent evaluation framework used to compare different technology options
 ```
 
-### 技术比较矩阵模板
+### Technology Comparison Matrix Template
 ```
 | Evaluation Dimension | Option A | Option B | Option C | Weight |
 |---------------------|----------|----------|----------|--------|
@@ -283,19 +283,19 @@ Quality Criteria:
 | Weighted Total       |          |          |          | 100%   |
 ```
 
-## 模式 9: 法律案例分析（Legal Case Analysis）
+## Pattern 9: Legal Case Analysis
 
-### 适用场景
-- 法律与监管政策分析、判例法研究、法律文本解释
-- 分析特定法律问题的现行法规和司法意见
-- 比较不同司法辖区的法律方法
-- 当研究问题涉及法律解释、权利与义务分析或政策分析的法律层面
+### When to Use
+- Legal and regulatory policy analysis, case law research, legal text interpretation
+- Analyzing current regulations and judicial opinions on specific legal issues
+- Comparing legal approaches across different jurisdictions
+- When research questions involve statutory interpretation, rights and obligations analysis, or legal aspects of policy analysis
 
-### 与模式 3（政策分析）的区别
-- **政策分析**：侧重评估政策效果 — "这项政策有效吗？""是否有更好的政策选项？"
-- **法律案例分析**：侧重分析法律文本和判例法 — "法律是如何规定的？""法院如何解释？""是否存在法律漏洞？"
+### Distinction from Pattern 3 (Policy Analysis)
+- **Policy Analysis**: Focuses on evaluating policy effectiveness — "Is this policy working?" "Are there better policy options?"
+- **Legal Case Analysis**: Focuses on analyzing legal texts and case law — "What does the law say?" "How do courts interpret it?" "Are there legal loopholes?"
 
-### 设计模板
+### Design Template
 ```
 Research Question: How does the law address [issue] and what are the implications for [context]?
 
@@ -332,7 +332,7 @@ Quality Criteria:
 - Comparative law rigor: When comparing jurisdictions, differences in legal system backgrounds must be noted
 ```
 
-### 法律分析结构模板
+### Legal Analysis Structure Template
 ```
 I. Legal Issues
    [Specific legal issues in dispute]
@@ -358,21 +358,21 @@ V. Comparative Law
 VI. Conclusions and Recommendations
 ```
 
-## 模式 10: 创作/实践导向研究（Creative/Practice-Based Research）
+## Pattern 10: Creative/Practice-Based Research
 
-### 适用场景
-- 艺术导向研究：通过艺术创作生成知识
-- 设计研究 / 通过设计做研究（research through design）：通过设计过程生成知识
-- 实践导向 / 实践驱动研究：实践本身就是研究方法
-- 当研究问题涉及创意实践、设计思维或艺术探究
+### When to Use
+- Art-based research: Generating knowledge through artistic creation
+- Design research / research through design: Generating knowledge through the design process
+- Practice-based / practice-led research: Practice itself is the research method
+- When research questions involve creative practice, design thinking, or artistic inquiry
 
-### 与传统学术研究的区别
-- **产出形式**：可以是创意作品 + 论文（而非仅论文）
-- **知识类型**：重视实践性知识（tacit knowledge，隐性知识）和具身知识（embodied knowledge）
-- **过程即方法**：创意/设计过程本身就是研究方法，而不仅仅是研究对象
-- **主体性**：研究者的主观体验是合法的知识来源，但需要系统性反思
+### Differences from Traditional Academic Research
+- **Output format**: Can be a creative work + dissertation (not just a dissertation)
+- **Knowledge type**: Values practical knowledge (tacit knowledge) and embodied knowledge
+- **Process as method**: The creative/design process itself is the research method, not merely the object of study
+- **Subjectivity**: The researcher's subjective experience is a legitimate source of knowledge, but requires systematic reflection
 
-### 设计模板
+### Design Template
 ```
 Research Question: What knowledge emerges through the practice of [creative activity] in [context]?
 
@@ -407,7 +407,7 @@ Quality Criteria:
 - Methodological reflexivity: The researcher is aware of their own role and biases
 ```
 
-### 实践导向研究文档模板
+### Practice-Based Research Documentation Template
 ```
 Phase 1: Positioning
 - Research question:
@@ -429,34 +429,34 @@ Phase 3: Outcomes
 - Recommendations for future practice/research:
 ```
 
-## 选择合适的模式
+## Choosing the Right Pattern
 
 ```
 What type of question?
-├── "What is known?" → 系统文献综述（Systematic Literature Review）
-├── "How do cases compare?" → 比较案例研究（Comparative Case Study）
-├── "Is this policy working?" → 政策分析（Policy Analysis）
-├── "What's happening and why?" → 混合方法（Mixed Methods）
-├── "What do documents reveal?" → 内容分析（Content Analysis）
-├── "How is this experienced?" → 探索性研究（Exploratory Research）
-├── "How do we compare?" → 标杆研究（Benchmarking Study）
-├── "Which technology should we use?" → 技术需求分析（Technology Requirements Analysis）
-├── "What does the law say?" → 法律案例分析（Legal Case Analysis）
-└── "What knowledge emerges from practice?" → 创作/实践导向研究（Creative/Practice-Based Research）
+├── "What is known?" → Systematic Literature Review
+├── "How do cases compare?" → Comparative Case Study
+├── "Is this policy working?" → Policy Analysis
+├── "What's happening and why?" → Mixed Methods
+├── "What do documents reveal?" → Content Analysis
+├── "How is this experienced?" → Exploratory Research
+├── "How do we compare?" → Benchmarking Study
+├── "Which technology should we use?" → Technology Requirements Analysis
+├── "What does the law say?" → Legal Case Analysis
+└── "What knowledge emerges from practice?" → Creative/Practice-Based Research
 
-更细致的决策：
-├── 技术评估相关
-│   ├── 比较不同技术选项 → 模式 8（技术需求分析）
-│   └── 比较不同组织的技术采纳情况 → 模式 2（比较案例研究）
-├── 法律/政策相关
-│   ├── 法律文本如何规定及法院如何解释 → 模式 9（法律案例分析）
-│   └── 政策是否有效及如何改进 → 模式 3（政策分析）
-├── 创意/设计相关
-│   ├── 通过创作过程生成知识 → 模式 10（创作/实践导向研究）
-│   ├── 理解创作者的体验 → 模式 6（探索性研究）
-│   └── 分析创意文本/作品 → 模式 5（内容分析）
-└── 不确定
-    ├── 文献稀缺的新主题 → 模式 6（探索性研究）
-    ├── 需要多种数据类型的复杂问题 → 模式 4（混合方法）
-    └── 先看看前人的研究路径 → 模式 1（系统文献综述）
+More nuanced decision:
+├── Technology assessment related
+│   ├── Comparing different technology options → Pattern 8 (Technology Requirements Analysis)
+│   └── Comparing technology adoption across organizations → Pattern 2 (Comparative Case Study)
+├── Law/policy related
+│   ├── What legal texts prescribe and how courts interpret them → Pattern 9 (Legal Case Analysis)
+│   └── Whether a policy is effective and how to improve it → Pattern 3 (Policy Analysis)
+├── Creative/design related
+│   ├── Generating knowledge through the creative process → Pattern 10 (Creative/Practice-Based Research)
+│   ├── Understanding the experience of creators → Pattern 6 (Exploratory Research)
+│   └── Analyzing creative texts/works → Pattern 5 (Content Analysis)
+└── Uncertain
+    ├── New topic with scarce literature → Pattern 6 (Exploratory Research)
+    ├── Complex problem requiring multiple data types → Pattern 4 (Mixed Methods)
+    └── First see how others have approached it → Pattern 1 (Systematic Literature Review)
 ```

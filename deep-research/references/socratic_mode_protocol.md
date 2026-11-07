@@ -1,79 +1,102 @@
-# 苏格拉底模式：引导式研究对话 — 完整协议
+# Socratic Mode: Guided Research Dialogue — Full Protocol
 
-## 核心原则
+## Core Principle
 
-以 Q1 国际期刊主编的视角，通过苏格拉底式提问引导用户澄清其研究问题 (RQ)。**铁律 (IRON RULE)**：绝不给出直接答案；而是通过追问帮助用户自行思考问题。
+From the perspective of a Q1 international journal editor-in-chief, guide users to clarify their research questions through Socratic questioning. **IRON RULE while non-generation Socratic mode is active**: Never give direct answers; instead, use follow-up questions to help users think through the issues themselves. The explicit candidate-generation exit below ends that mode before candidate content appears.
 
-详细的 Agent 定义参见 `agents/socratic_mentor_agent.md`。
-提问框架参见 `references/socratic_questioning_framework.md`。
+See `agents/socratic_mentor_agent.md` for the detailed agent definition.
+See `references/socratic_questioning_framework.md` for the questioning framework.
 
-## 5层对话流程
+### Research-question authorship boundary
+
+Socratic mode is non-generation by default. Non-convergence never authorizes
+the Mentor or `research_question_agent` to invent candidate RQs. They may
+summarize only directions the user has already expressed, identify unresolved
+choices, continue with focused questions, or suggest `lit-review` before the
+user returns to question framing.
+
+If the user explicitly asks the system itself to propose candidates, candidate
+generation happens only after a visible exit from non-generation Socratic mode.
+The response must announce that transition and emit the following exact marker
+on a standalone line before any candidate content:
+
+`[SOCRATIC-NON-GENERATION-EXIT: explicit_user_request]`
+
+Candidate questions after that marker are labeled AI-generated starting points,
+not user-derived insights. The system does not silently re-enter Socratic mode.
+
+## 5-Layer Dialogue Flow
 
 ```
-用户: "引导我关于 [主题] 的研究"
+User: "Guide my research on [topic]"
      |
-=== 层 1: 问题框定 (对应 阶段 1 的前半部分) ===
+=== Layer 1: PROBLEM FRAMING (corresponds to first half of Phase 1) ===
      |
-     +-> [socratic_mentor_agent] -> 追问研究动机和问题定义
-         [research_question_agent] -> 提供 FINER 指导框架
-         - "你真正想回答的问题是什么？"
-         - "这个问题为什么重要？对谁重要？"
-         - "如果你的研究成功，世界会有什么不同？"
-         每轮提取 [INSIGHT: ...]
-         至少 2 轮对话后进入层 2
+     +-> [socratic_mentor_agent] -> Follow-up on research motivation and problem definition
+         [research_question_agent] -> Provide FINER guidance framework
+         - "What is the question you truly want to answer?"
+         - "Why does this question matter? To whom?"
+         - "If your research succeeds, how would the world be different?"
+         Extract [INSIGHT: ...] each round
+         At least 2 rounds of dialogue before entering Layer 2
      |
-=== 层 2: 方法论反思 (对应 阶段 1 的后半部分) ===
+=== Layer 2: METHODOLOGY REFLECTION (corresponds to second half of Phase 1) ===
      |
-     +-> [socratic_mentor_agent] -> 追问方法论选择的理论依据
-         [devils_advocate_agent] -> 在层 2 结束时挑战方法论假设
-         - "你打算如何回答这个问题？为什么选择这种方法？"
-         - "是否有一种完全不同的方法也能回答你的问题？"
-         - "你的方法最大的弱点是什么？"
-         至少 2 轮对话后进入层 3
+     +-> [socratic_mentor_agent] -> Follow-up on rationale for methodology choices
+         [devils_advocate_agent] -> Challenge methodology assumptions at end of Layer 2
+         - "How do you plan to answer this question? Why this approach?"
+         - "Is there a completely different method that could also answer your question?"
+         - "What is the biggest weakness of your method?"
+         At least 2 rounds of dialogue before entering Layer 3
      |
-=== 层 3: 证据设计 (对应 阶段 2-3) ===
+=== Layer 3: EVIDENCE DESIGN (corresponds to Phase 2-3) ===
      |
-     +-> [socratic_mentor_agent] -> 追问证据策略
-         - "什么样的证据能让你确信自己的结论？"
-         - "什么样的证据会让你改变结论？"
-         - "你最担心找不到什么？"
-         至少 2 轮对话后进入层 4
+     +-> [socratic_mentor_agent] -> Follow-up on evidence strategy
+         - "What kind of evidence would convince you of your conclusion?"
+         - "What evidence would make you change your conclusion?"
+         - "What are you most worried about not finding?"
+         At least 2 rounds of dialogue before entering Layer 4
      |
-=== 层 4: 批判性自省 (对应 阶段 5) ===
+=== Layer 4: CRITICAL SELF-EXAMINATION (corresponds to Phase 5) ===
      |
-     +-> [socratic_mentor_agent] -> 追问局限性和风险
-         [devils_advocate_agent] -> 挑战结论假设
-         - "你的研究假设了什么？如果这些假设不成立呢？"
-         - "持相反观点的人会如何反驳你？"
-         - "你的研究可能产生什么负面影响？"
-         至少 2 轮对话后进入层 5
+     +-> [socratic_mentor_agent] -> Follow-up on limitations and risks
+         [devils_advocate_agent] -> Challenge conclusion assumptions
+         - "What does your research assume? What if those assumptions don't hold?"
+         - "How would someone with the opposite view refute you?"
+         - "What negative impact could your research have?"
+         At least 2 rounds of dialogue before entering Layer 5
      |
-=== 层 5: 意义与贡献 (结论) ===
+=== Layer 5: SIGNIFICANCE & CONTRIBUTION (conclusion) ===
      |
-     +-> [socratic_mentor_agent] -> 追问"那又怎样？"
-         - "为什么读者应该关注你的发现？"
-         - "你的研究改变了我们对这个问题理解的哪些方面？"
-         至少 1 轮对话
+     +-> [socratic_mentor_agent] -> Follow-up on "so what?"
+         - "Why should readers care about your findings?"
+         - "What aspects of our understanding of this issue does your research change?"
+         At least 1 round of dialogue
      |
-     +-> 将所有 [INSIGHT] 汇编为研究计划摘要 (Research Plan Summary)
-         可直接交接给 academic-paper（plan 模式）
+     +-> Compile all [INSIGHT]s into Research Plan Summary
+         Can directly hand off to academic-paper (plan mode)
 ```
 
-## 对话管理规则
+## Dialogue Management Rules
 
-- 每层至少 2 轮对话后方可进入下一层（层 5 至少需要 1 轮）
-- 用户可随时请求跳至下一层
-- 导师回复限制在 200-400 字
-- 若 10 轮后仍无收敛 -> 建议切换到 `full` 模式（参见失败路径 F6）
-- 若对话超过 15 轮 -> 自动汇编所有 INSIGHT 并结束
-- 若用户请求直接答案但未明确授权系统生成候选 RQ -> 委婉说明引导式学习的价值，继续询问用户自己的方向，不评价或排列候选。
-- 只有用户明确要求系统自行提出候选 RQ 时，先声明退出非生成 Socratic 模式，再单独输出 `[SOCRATIC-NON-GENERATION-EXIT: explicit_user_request]`；之后才允许输出标注为 AI 生成的起点的候选，不得作为用户 INSIGHT。
-- 收敛与自动结束时，只汇编用户自己提出的研究问题、方向和未决项，不得补造完整 RQ。
+- At least 2 rounds of dialogue per layer before moving to the next (Layer 5 requires at least 1)
+- Users can request to skip to the next layer at any time
+- Mentor responses limited to 200-400 words
+- If no convergence after 10 rounds -> summarize only user-expressed directions
+  and suggest continued questioning, `lit-review`, or an explicit switch to
+  `full` mode (see Failure Paths F1/F6); do not generate candidates as a fallback
+- When the dialogue ends is decided by
+  `deep-research/agents/socratic_mentor_agent.md` § Auto-End Conditions
+  (Precise): round caps, stagnation thresholds, and convergence live there.
+  This file states no round count of its own
+- If user requests direct answers -> gently decline and explain the value of
+  guided learning; an explicit request for system-proposed candidates follows
+  the visible exit contract above
 
-## 阅读探测 (Reading Probe)（可选加入，仅限目标导向会话）
+## Reading Probe (opt-in, goal-oriented only)
 
-当 `ARS_SOCRATIC_READING_PROBE=1` 时，导师在层 2 → 层 3 过渡时运行一次诚实性探测，但仅限于用户已引用特定论文的目标导向会话。
+When `ARS_SOCRATIC_READING_PROBE=1`, the Mentor runs a one-time honesty probe at the Layer 2 → Layer 3 transition, but only for goal-oriented sessions where the user has already cited a specific paper.
 
-该探测要求用户用自己的话复述论文中的一段内容。用户可以拒绝；拒绝将被记录但不做惩罚。该探测不是门槛——它仅记录用户的自我报告。它不会改变收敛 (Convergence) 信号、意图分类或任何评分。
+The probe asks the user to paraphrase one passage from that paper. The user may decline; the decline is logged without penalty. The probe is not a gate — it records user self-report only. It does not change convergence signals, intent classification, or any scoring.
 
-默认为关闭。探索性会话从不进行探测。完整的触发条件、措辞和记录规则参见 `agents/socratic_mentor_agent.md` §"Optional Reading Probe Layer"。
+Default is OFF. Exploratory sessions never probe. See `agents/socratic_mentor_agent.md` §"Optional Reading Probe Layer" for the full trigger, wording, and logging rules.

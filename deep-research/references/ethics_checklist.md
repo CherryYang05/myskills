@@ -1,25 +1,25 @@
-# 研究伦理检查清单 — AI 辅助研究
+# Research Ethics Checklist — AI-Assisted Research
 
-## 目的
-AI 辅助学术研究的综合伦理检查清单。供 ethics_review_agent 使用。
+## Purpose
+Comprehensive ethics checklist for AI-assisted academic research. Used by the ethics_review_agent.
 
-## 1. AI 披露
+## 1. AI Disclosure
 
-### 必备披露要素
-- [ ] 所使用的 AI 工具已具名（如 "Claude"、"GPT-4"、"Gemini"）
-- [ ] AI 参与范围已明确：
-  - [ ] 文献检索辅助
-  - [ ] 来源筛选
-  - [ ] 证据综合
-  - [ ] 初稿撰写
-  - [ ] 编辑/修订
-  - [ ] 数据分析
-  - [ ] 翻译
-- [ ] 人工监督已描述（谁在哪个阶段审阅了什么）
-- [ ] AI 局限性已说明（潜在的幻觉、知识截止日期等）
-- [ ] AI 版本/日期已注明（以保证可复现性）
+### Mandatory Disclosure Elements
+- [ ] AI tools used are named (e.g., "Claude," "GPT-4," "Gemini")
+- [ ] Scope of AI involvement specified:
+  - [ ] Literature search assistance
+  - [ ] Source screening
+  - [ ] Evidence synthesis
+  - [ ] Draft writing
+  - [ ] Editing/revision
+  - [ ] Data analysis
+  - [ ] Translation
+- [ ] Human oversight described (who reviewed what, at which stages)
+- [ ] AI limitations acknowledged (potential hallucination, knowledge cutoff, etc.)
+- [ ] AI version/date noted (for reproducibility)
 
-### 披露声明模板
+### Disclosure Statement Template
 ```
 AI Disclosure: This research was conducted with assistance from [AI Tool Name]
 (version/date). AI was used for [specific tasks]. All findings were verified
@@ -27,59 +27,59 @@ against cited sources by [human role]. The research team maintains full
 responsibility for the accuracy and interpretation of all content.
 ```
 
-### 披露位置
-- 在方法论部分（详细）
-- 在摘要或作者注中（简要）
-- 在特定 AI 生成分析的脚注中
+### Where to Place Disclosure
+- In the methodology section (detailed)
+- In the abstract or author note (brief)
+- In footnotes for specific AI-generated analyses
 
-## 2. 归属完整性
+## 2. Attribution Integrity
 
-### 引用伦理
-- [ ] 每一事实性陈述至少有一条支持性引用
-- [ ] 无捏造或幻觉产生的参考文献
-  - 验证：抽查至少 20% 的参考文献以确认其真实存在
-  - 交叉核对 DOI、出版年份、作者姓名
-- [ ] 改写是实质性的（而非仅仅调换词语顺序）
-- [ ] 直接引用准确且已标明出处
-- [ ] 观点归属于原作者，而非中间来源
-- [ ] 自引比例适当（不过度或排他性自引）
+### Citation Ethics
+- [ ] Every factual claim has at least one supporting citation
+- [ ] No fabricated or hallucinated references
+  - Verification: Spot-check minimum 20% of references for existence
+  - Cross-check DOIs, publication years, author names
+- [ ] Paraphrasing is genuine (not just rearranging words)
+- [ ] Direct quotes are exact and attributed
+- [ ] Ideas are attributed to original authors, not intermediary sources
+- [ ] Self-citation is proportionate (not excessive or exclusionary)
 
-### AI 特有的归属风险
-| 风险 | 描述 | 缓解措施 |
-|------|------|---------|
-| 幻觉引用 | AI 生成看似合理但不存在的引用 | 对照数据库验证每条参考文献 |
-| 合并引用 | AI 将多个来源的细节合并 | 交叉核对每个引用元素 |
-| 错误作者 | AI 将错误作者归属到作品 | 对照实际出版物验证作者姓名 |
-| 错误年份 | AI 使用不正确的出版年份 | 对照数据库记录交叉核对 |
-| 幽灵引用 | 参考文献列出但正文中从未引用 | 将参考文献列表与文中引用进行审计 |
+### AI-Specific Attribution Risks
+| Risk | Description | Mitigation |
+|------|-------------|-----------|
+| Hallucinated references | AI generates plausible but non-existent citations | Verify every reference against database |
+| Merged citations | AI combines details from multiple sources | Cross-check each citation element |
+| Incorrect authors | AI assigns wrong authors to works | Verify author names against actual publications |
+| Wrong year | AI uses incorrect publication year | Cross-check against database records |
+| Ghost citations | References listed but never cited in text | Audit reference list against in-text citations |
 
-## 3. 双用途评估
+## 3. Dual-Use Assessment
 
-**基于具体细节而非主题进行筛查。** 一个敏感的、政治性的或机构批评性的*主题*本身不是双用途触发条件。公共利益研究——记录机构滥用行为、揭露监控实践、追究权力责任——必然涉及有害主题，不应仅因主题就被标记。一项发现仅在作品本身提供了**具体的操作细节**、实质性地降低了危害门槛时，才触发双用途认定。研究监控没问题；提供分步部署方案才是触发条件。
+**Screen on concrete specifics, never on subject matter.** A sensitive, political, or institution-critical *topic* is not a dual-use trigger. Public-interest research — documenting institutional abuses, exposing surveillance practices, holding power to account — is expected to address harmful subject matter and must not be flagged for the topic alone. A finding triggers dual-use only when the work itself supplies **specific operational detail** that materially lowers the barrier to harm. Studying surveillance is fine; shipping a step-by-step deployment recipe is the trigger.
 
-### 筛查问题
-每个问题询问的是**本作品的内容**，而非其主题，是否提供了具体的：
-1. 作品是否提供了具体的操作细节，使读者能够对个人或群体**实施**伤害（而非仅仅描述伤害的存在）？
-2. 作品是否披露了一个**具体的、当前可利用的**漏洞以及足以利用该漏洞的细节（而非仅指明漏洞的存在）？
-3. 作品是否提供了构建监控或控制机制的**可用方法**（而非分析或批评它们）？
-4. 作品是否包含**可武器化的具体细节**——配方、设计或程序——而非对武器化风险的讨论？
-5. 作品是否提供了歧视某个群体的**具体手段**（而非记录歧视的发生）？
+### Screening Questions
+Each asks whether the **content of this work**, not its topic, supplies the specific:
+1. Does the work provide concrete operational detail that would let a reader **carry out** harm against individuals or communities (beyond describing that the harm exists)?
+2. Does it disclose a **specific, currently-exploitable** vulnerability together with enough detail to exploit it (vs. naming that vulnerabilities exist)?
+3. Does it provide a **usable method** to build surveillance or control mechanisms (vs. analyzing or critiquing them)?
+4. Does it contain **weaponizable specifics** — a recipe, design, or procedure — rather than discussion of weaponization risk?
+5. Does it supply a **concrete means** to discriminate against a group (vs. documenting that discrimination occurs)?
 
-如果判定的依据是主题的敏感性而非文本中具体的赋能细节，则风险等级为"无"。
+If the answer rests on the topic being sensitive rather than on specific enabling detail in the text, the level is None.
 
-### 风险等级及应对措施
+### Risk Levels and Responses
 
-本评估是**咨询性**的——它导向负责任使用声明，而非硬性阻断。（硬性阻断仅针对诚信违规；参见 `agents/ethics_review_agent.md` 阻断条件。）升级依据是具体的赋能细节，而非主题。
+This assessment is **advisory** — it routes to a Responsible Use Statement and never to a hard block. (Hard blocks are reserved for integrity violations; see `agents/ethics_review_agent.md` Blocking Conditions.) Escalation rests on concrete enabling specifics, not subject matter.
 
-| 等级 | 所需行动 |
-|------|---------|
-| 无 | 无需额外行动 |
-| 低 | 在局限性中简要说明 |
-| 中 | 报告中附负责任使用声明 |
-| 高 | 显著警告 + 有限分发建议 |
-| 严重 | 负责任使用声明 + 建议发表前进行机构伦理审查（咨询性——不自动阻断；由人类而非代理来裁决严重标记） |
+| Level | Action Required |
+|-------|----------------|
+| None | No additional action |
+| Low | Brief note in limitations |
+| Moderate | Responsible Use statement in report |
+| High | Prominent warning + limited distribution recommendation |
+| Critical | Responsible Use statement + recommend institutional ethics review before publication (advisory — does not auto-block; a human, not the agent, adjudicates a Critical flag) |
 
-### 负责任使用声明模板
+### Responsible Use Statement Template
 ```
 Responsible Use: This research is intended for [stated purpose]. The authors
 acknowledge that findings related to [sensitive area] could potentially be
@@ -88,79 +88,90 @@ urged to consider the ethical implications of their applications and to
 prioritize [specific ethical principle].
 ```
 
-## 4. 公平表征
+## 4. Fair Representation
 
-### 平衡处理检查清单
-- [ ] 争议问题呈现了多方观点
-- [ ] 少数派/异议观点未被不经讨论即排除
-- [ ] 研究对象和群体被准确描述
-- [ ] 语言尊重且无污名化
-- [ ] 在相关处承认文化背景
-- [ ] 考量权力动态（谁被研究 vs. 谁在研究）
-- [ ] 来源具有地理和文化多样性
+### Balanced Treatment Checklist
+- [ ] Multiple perspectives on contested issues are presented
+- [ ] Minority/dissenting viewpoints are not dismissed without engagement
+- [ ] Subjects and communities are described accurately
+- [ ] Language is respectful and non-stigmatizing
+- [ ] Cultural context is acknowledged where relevant
+- [ ] Power dynamics are considered (who is studied vs. who studies)
+- [ ] Geographic and cultural diversity in sources
 
-### 敏感主题
-- 原住民知识：尊重 OCAP 原则（所有权、控制权、访问权、占有权）
-- 残障：优先使用"人优先"语言，除非该群体更偏好"身份优先"语言
-- 性别/性取向：使用包容性的、当前通用的术语
-- 种族/民族：使用所讨论群体偏好的术语
-- 社会经济地位：避免缺失框架
-- 心理健康：避免污名化语言
+### Sensitive Topics
+- Indigenous knowledge: Identify and follow the specific community-governance
+  convention in scope; use OCAP (Ownership, Control, Access, Possession) only
+  where the relevant First Nations authority or community has adopted it
+- Disability: Person-first language unless community prefers identity-first
+- Gender/sexuality: Use inclusive, current terminology
+- Race/ethnicity: Use preferred terminology of the communities discussed
+- Socioeconomic status: Avoid deficit framing
+- Mental health: Avoid stigmatizing language
 
-### 表征审计问题
-1. 谁的声音被置于中心？谁的声音缺失了？
-2. 群体是否以自身的话语被描述？
-3. 框架中是否存在隐性偏见？
-4. 研究对象/群体是否能在此描述中认出自己？
+### Representation Audit Questions
+1. Whose voices are centered? Whose are missing?
+2. Are communities described on their own terms?
+3. Is there implicit bias in the framing?
+4. Would the subjects/communities recognize themselves in this description?
 
-## 5. 数据伦理
+## 5. Data Ethics
 
-### 数据来源伦理
-- [ ] 所有数据来源均合法使用
-- [ ] 公开数据：确认属于公共领域或具有适当许可
-- [ ] 许可数据：使用符合许可条款
-- [ ] 爬取数据：遵守 robots.txt 和服务条款
-- [ ] 个人数据：遵守 GDPR/隐私法（如适用）
-- [ ] 机构数据：已确认授权访问
+### Data Source Ethics — Portable Integrity Planning
 
-### 隐私保护
-- [ ] 未经同意不使用个人可识别信息 (PII)
-- [ ] 尽可能使用聚合数据
-- [ ] 保护小样本群体免于被识别
-- [ ] 非公开的机构身份受到保护
-- [ ] 数据保留/删除计划（如收集了一手数据）
+These are **planning and documentation conventions**, not legal conclusions.
+Applicable law, licence interpretation, and institutional authorization remain
+with the responsible authority.
 
-### AI 特有的数据关切
-- [ ] AI 训练数据偏差已说明
-- [ ] AI 知识截止日期已注明
-- [ ] AI 生成数据已明确标示
-- [ ] 无循环引用（AI 引用 AI 生成的内容）
+- [ ] For each source, the asserted access/use basis and unresolved questions are documented
+- [ ] Public data: Publication status, access terms, provenance, and licence are recorded
+- [ ] Licensed data: Relevant licence terms and the team's intended use are recorded
+- [ ] Scraped data: Site terms, robots instructions, collection method, and unresolved authority questions are recorded
+- [ ] Personal data: Each candidate data-protection authority is recorded; no jurisdiction or legal basis is inferred
+- [ ] Institutional data: The supplying institution's documented access status and conditions are recorded
 
-## 6. 利益冲突
+### Privacy Protection
 
-### 需评估的类型
-- [ ] 财务：资金来源、咨询关系
-- [ ] 机构：作者评估自己的机构
-- [ ] 学术：作者维护自己先前的成果
-- [ ] 个人：与研究对象/利益相关者的关系
-- [ ] 政治：政府资助的研究评估政府政策
-- [ ] 商业：行业联系或产品利益
-- [ ] AI 特有：AI 工具公司对研究设计的影响
+The following are **portable technical planning prompts**, not a universal
+privacy-law checklist:
 
-### 披露要求
-任何已识别的利益冲突必须在报告中披露，并评估其是否可能影响研究结果。
+- [ ] Direct identifiers, quasi-identifiers, platform metadata, and re-link keys are inventoried
+- [ ] The asserted authority or institutional basis for collecting and processing identifiers is recorded; consent is not presumed to be the only or applicable basis
+- [ ] Aggregation, masking, or other disclosure controls have been considered for small-N groups and identifiable institutions
+- [ ] Access roles, recipients, security, retention, deletion, reuse, and incident handling are documented
+- [ ] If the exact GDPR profile is selected, the trace points to the applicable bounded rows (`eu.gdpr.article-6.lawful-basis`, `eu.gdpr.article-9.special-category-research`, `eu.gdpr.article-13.direct-collection-information`, `eu.gdpr.article-14.indirect-collection-information`, and/or `eu.gdpr.article-89.1.research-safeguards`) rather than asserting a result
 
-## 7. 可复现性伦理
+### AI-Specific Data Concerns
+- [ ] AI training data biases acknowledged
+- [ ] AI knowledge cutoff date noted
+- [ ] AI-generated data clearly labeled as such
+- [ ] No circular citation (AI cites AI-generated content)
 
-### 文档要求
-- [ ] 检索策略已记录（数据库、检索词、日期）
-- [ ] 纳入/排除标准已记录
-- [ ] 分析方法以可复现的细节描述
-- [ ] AI 提示词/指令已记录（如相关）
-- [ ] 数据处理步骤已记录
-- [ ] 代码/脚本已共享（如适用）
+## 6. Conflict of Interest
 
-### 可复现性声明模板
+### Types to Assess
+- [ ] Financial: Funding source, consulting relationships
+- [ ] Institutional: Author evaluating own institution
+- [ ] Intellectual: Author defending own prior work
+- [ ] Personal: Relationships with subjects/stakeholders
+- [ ] Political: Government-funded research on government policy
+- [ ] Commercial: Industry connections or product interests
+- [ ] AI-specific: AI tool company influence on research design
+
+### Disclosure Requirement
+Any identified conflict must be disclosed in the report, with an assessment of whether it could have influenced the findings.
+
+## 7. Reproducibility Ethics
+
+### Documentation Requirements
+- [ ] Search strategies documented (databases, terms, dates)
+- [ ] Inclusion/exclusion criteria documented
+- [ ] Analytical methods described in replicable detail
+- [ ] AI prompts/instructions documented (if relevant)
+- [ ] Data processing steps documented
+- [ ] Code/scripts shared (if applicable)
+
+### Reproducibility Statement Template
 ```
 Reproducibility: The search strategy, inclusion criteria, and analytical
 methods used in this research are documented in [section/appendix]. The
@@ -169,77 +180,103 @@ wishing to replicate or extend this work should note [relevant limitations
 or conditions].
 ```
 
-## 8. 人类受试者伦理
+## 8. Human Subjects Ethics
 
-### 8.1 人类受试者判定
+> **Authority boundary (#665/#666/#680):** Mixed-jurisdiction review-level mappings are not part of this checklist. This section collects facts and exact bounded requirement pointers only; the output pathway is `institutional determination required`. Unknown selection or applicability stays unresolved, and neither this checklist nor #666 emits a review determination, readiness result, compliance conclusion, or authorization.
 
-- [ ] 研究是否收集、使用或分析与人类相关的数据？
-- [ ] 如是，数据是否具有个人可识别性？
-- [ ] 如数据为公开可用且已去标识化，是否已与 IRB (机构审查委员会) 确认豁免审查状态？
+Apply `shared/references/human_subjects_authority_protocol.md` and use only
+curated rows from `shared/human_subjects_authority_registry.json`. All shipped
+profiles are bounded subsets.
 
-### 8.2 IRB 审查等级
+### 8.1 Authority Context and Exact Facts
 
-| 审查等级 | 适用条件 | 审查周期 |
-|---------|---------|---------|
-| **豁免审查** | 公开数据、去标识化数据、匿名调查（无敏感主题） | 1-2 周 |
-| **简易审查** | 极小风险、非脆弱人群、一般性调查/访谈 | 2-4 周 |
-| **全委会审查** | 大于极小风险、脆弱人群、敏感主题、欺骗 | 4-8 周 |
+- [ ] The review-ethics and data-protection axes each have an exact selected #666 profile or a visible unresolved state
+- [ ] Profile selection records id, version, digest, and authority scope; geography, funder, language, and topic are not used to infer selection
+- [ ] Confirmed, false, and unknown facts remain distinct
+- [ ] The exact #666 fact catalogue has been addressed where relevant:
+  - [ ] `activity.human_subjects`
+  - [ ] `support.us_hhs_or_common_rule`
+  - [ ] `scope.tw_hsra`
+  - [ ] `scope.eu_gdpr`
+  - [ ] `processing.personal_data`
+  - [ ] `data.special_category`
+  - [ ] `data.collected_from_subject`
+  - [ ] `purpose.scientific_research`
+  - [ ] `gdpr.member_state_research_law_identified`
+- [ ] Additional interaction, intervention, recruitment, population, power-relationship, sensitivity, deception, identifiability, and risk facts are labelled `illustrative/unprofiled` when they are not in the registry
 
-- [ ] 已确定适用的 IRB 审查等级
-- [ ] IRB 审查周期已纳入研究项目进度
-- [ ] 研究者已完成研究伦理培训（CITI 或同等课程）
+Vulnerability, sensitivity, deception, public availability, identifiability,
+and estimated risk are facts for the responsible institution. They do not map
+to a pathway in this checklist.
 
-### 8.3 知情同意
+### 8.2 Exact Bounded Requirement Trace
 
-- [ ] 知情同意书包含研究标题、目的、程序、风险和收益
-- [ ] 明确说明参与的自愿性质（可随时退出，无惩罚）
-- [ ] 提供研究者和 IRB 联系信息
-- [ ] 特殊情况已处理：
-  - [ ] 在线调查：电子同意（点击"我同意"）
-  - [ ] 音频/视频录制：单独的复选框项
-  - [ ] 未成年人：法定监护人同意 + 受试者赞同
-  - [ ] 原住民研究：社区同意 + 个人知情同意
+Use these identifiers only as pointers to the full selected registry row,
+including its predicate, obligated actor, consumer scopes, expected evidence,
+and primary-source anchor. Do not restate them as universal requirements.
 
-### 8.4 数据去标识化
+| Axis | Exact #666 requirement ids currently available |
+|---|---|
+| Review ethics — U.S. bounded profile | `us.45cfr46.107.irb-composition`; `us.45cfr46.116.informed-consent` |
+| Review ethics — Taiwan bounded profile | `tw.hsra.article-7.committee-composition`; `tw.hsra.article-14.consent-information` |
+| Data protection — GDPR bounded profile | `eu.gdpr.article-6.lawful-basis`; `eu.gdpr.article-9.special-category-research`; `eu.gdpr.article-13.direct-collection-information`; `eu.gdpr.article-14.indirect-collection-information`; `eu.gdpr.article-89.1.research-safeguards`; `eu.gdpr.article-89.2.member-state-derogation` |
 
-- [ ] 移除直接标识符（姓名、学号、身份证号）
-- [ ] 评估间接标识符风险（院系 + 年级 + 性别组合）
-- [ ] 小样本再识别风险评估（小型院系可能允许识别个人）
-- [ ] 从定性引述中移除可识别细节
-- [ ] 数据加密存储并设访问控制
-- [ ] 建立数据保留和销毁时间表
+- [ ] Each pointer belongs to an exactly selected profile whose resolved result permits profile-dependent use
+- [ ] Committee-composition rows remain with their institutional/committee actors and are not converted into investigator packet requirements
+- [ ] U.S. and Taiwan rows retain their own authority vocabulary and are not translated into one another's pathway terms
+- [ ] Requirements outside these bounded rows are labelled `unprofiled` and referred to the responsible authority
 
-### 8.5 脆弱人群保护
+### 8.3 Participant-Information and Consent Preparation
 
-| 人群 | 额外保护措施 |
-|------|------------|
-| **未成年人** | 法定监护人同意 + 适合年龄的赞同书 |
-| **残障人士** | 评估同意能力，提供无障碍同意程序 |
-| **学生（研究者为教师）** | 避免权力动态影响自愿性，使用第三方招募 |
-| **原住民** | 社区咨询和同意，尊重 OCAP 原则 |
-| **经济困难者** | 补偿不得构成不当引诱 |
-| **在押人员** | 额外 IRB 审查，确保非强制参与 |
+- [ ] If applicable after exact resolution, the trace uses `us.45cfr46.116.informed-consent` or `tw.hsra.article-14.consent-information` rather than a merged universal element list
+- [ ] If the selected GDPR facts resolve direct collection, participant information points to `eu.gdpr.article-13.direct-collection-information`; if they resolve collection elsewhere, it points to `eu.gdpr.article-14.indirect-collection-information`
+- [ ] Waiver, exception, signature, assent, representative, recording, community-governance, sector, and institution-specific questions absent from the registry are visibly `unprofiled`
+- [ ] Online-survey language accurately says whether the platform, institution, or research team collects or can access IP addresses, cookies, device identifiers, timestamps, contact fields, or other metadata
+- [ ] A statement that metadata is not recorded is used only after platform settings and actual exports have been verified; unknown behavior is disclosed as unknown
+- [ ] An electronic `I agree` interaction is described as an interaction record, not automatically as legally sufficient consent or signature
 
-- [ ] 已识别研究中涉及的脆弱人群
-- [ ] 已规划相应的额外保护措施
-- [ ] IRB 审查等级已考虑脆弱人群因素
+### 8.4 Data-Handling Facts — Illustrative Technical Planning
 
-> 详细的 IRB 决策树和台湾地区特定流程：参见 `references/irb_decision_tree.md`
+These prompts do not establish an authority-defined anonymity,
+de-identification, or compliance status:
+
+- [ ] Direct identifiers, quasi-identifiers, quotations, rare attributes, and small-cell risks are inventoried
+- [ ] Every identifier/re-link key has a named holder, access boundary, purpose, and retention state
+- [ ] Platform collection, exports, logs, backups, recipients, transfers, encryption, access controls, retention, destruction, and incident handling are documented
+- [ ] Participant-facing statements match the actual data flow and withdrawal/deletion feasibility
+- [ ] Terminology is bound to the named convention in `shared/references/irb_terminology_glossary.md`
+
+### 8.5 Population and Context Facts — Illustrative and Unprofiled
+
+| Population or context | Facts/questions to prepare; no pathway or requirement implied |
+|---|---|
+| Minors or participants with uncertain decision-making capacity | age, capacity, representative/assent questions, accessible explanation, and the applicable authority's process |
+| Persons with disabilities | accessibility needs, communication format, capacity assumptions, support persons, and accommodation plan |
+| Students, employees, or dependent relationships | recruitment authority, grading/employment effects, alternatives, privacy, and role separation |
+| Indigenous peoples or communities | the specific community-governance authority/convention, collective and individual interests, data governance, and engagement expectations |
+| Economically constrained participants | compensation, alternatives, dependency, undue-influence questions, and local institutional assessment |
+| Incarcerated or otherwise institutionally confined participants | custodial setting, permission structure, voluntariness/coercion risks, privacy, and the applicable authority's process |
+
+- [ ] Relevant population and contextual facts have been recorded without treating identity or vulnerability as an automatic review level
+- [ ] Proposed safeguards and unresolved questions are presented to the responsible institution without a verdict
+- [ ] Current institutional timeline, training, submission, reporting, and authorization requirements are requested; absent a dated response, they remain `unknown/unprofiled`
+
+> For the portable fact flow, exact requirement anchors, survey metadata disclosure rule, and illustrative Taiwan/institution planning questions, see `references/irb_decision_tree.md`. Do not treat that reference as authorization.
 
 ---
 
-## 快速审计检查清单（交付前自检）
+## Quick Audit Checklist (Pre-Delivery Self-Check)
 
-交付前，确认所有项目（此为自检，而非否决）：
+Before delivery, confirm ALL items (this is a self-check, not a veto):
 
-- [ ] AI 披露已提供且准确
-- [ ] 所有参考文献已抽查（至少 20%）
-- [ ] 未检测到捏造引用
-- [ ] 双用途评估已完成
-- [ ] 公平表征已审查
-- [ ] 数据来源合法且合乎伦理地使用
-- [ ] 利益冲突已披露
-- [ ] 可复现性文档已提供
-- [ ] 写作包容且尊重
-- [ ] 报告惠及目标受众且不会造成可预见的伤害
-- [ ] 如研究涉及人类受试者，是否已规划 IRB 审查？
+- [ ] AI disclosure present and accurate
+- [ ] All references spot-checked (minimum 20%)
+- [ ] No fabricated citations detected
+- [ ] Dual-use assessment completed
+- [ ] Fair representation reviewed
+- [ ] Data-source bases and unresolved legal/ethical questions documented
+- [ ] Conflicts of interest disclosed
+- [ ] Reproducibility documentation provided
+- [ ] Writing is inclusive and respectful
+- [ ] Report benefits stated audience without causing foreseeable harm
+- [ ] If human-subjects activity is possible, are exact authority pointers or unresolved states, institutional questions, and the `institutional determination required` boundary visible?

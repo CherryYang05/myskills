@@ -1,248 +1,248 @@
-# PRISMA-P 2015 — 系统综述方案模板
+# PRISMA-P 2015 — Systematic Review Protocol Template
 
-## 用途
+## Purpose
 
-遵循 PRISMA-P 2015（系统综述与荟萃分析方案首选报告条目）编写的系统综述方案模板。在开始文献检索前完成本模板，并在 PROSPERO 或 OSF 上注册。
+Template for writing a systematic review protocol following PRISMA-P 2015 (Preferred Reporting Items for Systematic Review and Meta-Analysis Protocols). Complete this template before starting the literature search and register it on PROSPERO or OSF.
 
-**参考文献**: Shamseer et al. (2015). BMJ, 349, g7647. https://doi.org/10.1136/bmj.g7647
+**Reference**: Shamseer et al. (2015). BMJ, 349, g7647. https://doi.org/10.1136/bmj.g7647
 
 ---
 
-## 管理信息 (ADMINISTRATIVE INFORMATION)
+## ADMINISTRATIVE INFORMATION
 
-### 标题 (Title)
+### Title
 
-**[提供描述性标题，标识本报告为系统综述方案。如适用，包含"systematic review"和"meta-analysis"。]**
+**[Provide a descriptive title that identifies the report as a protocol for a systematic review. Include "systematic review" and "meta-analysis" if applicable.]**
 
-注册号: [PROSPERO / OSF ID, or "To be registered"]
+Registration: [PROSPERO / OSF ID, or "To be registered"]
 
-### 作者 (Authors)
+### Authors
 
-| # | 姓名 | 机构 | 角色 | 联系方式 |
-|---|------|------|------|----------|
-| 1 | [Name] | [Institution] | 担保人/负责人 | [email] |
-| 2 | [Name] | [Institution] | 协作审查者 | [email] |
+| # | Name | Affiliation | Role | Contact |
+|---|------|-------------|------|---------|
+| 1 | [Name] | [Institution] | Guarantor / Lead | [email] |
+| 2 | [Name] | [Institution] | Co-reviewer | [email] |
 
-### 修正记录 (Amendments)
+### Amendments
 
-| 日期 | 修改部分 | 修改描述 | 理由 |
-|------|----------|----------|------|
+| Date | Section Changed | Description of Change | Rationale |
+|------|----------------|----------------------|-----------|
 | [date] | [section] | [change] | [why] |
 
-### 支持 (Support)
+### Support
 
-**来源**: [Funding source(s) or "No external funding"]
-**资助者角色**: [Describe any role of funders in the review, or "None"]
-
----
-
-## 引言 (INTRODUCTION)
-
-### 理由 (Rationale)
-
-**[在已有知识背景下描述本综述的理由。解释为何需要本综述。]**
-
-需要阐述的要点:
-- 健康/教育/社会问题是什么？
-- 当前证据的现状如何？
-- 为什么现在需要系统综述？（例如：现有综述已过时、证据冲突、尚无先前综述）
-
-### 目标 (Objectives)
-
-**[明确提出综述将解决的问题。使用 PICOS 框架。]**
-
-- **P** (Population / 人群): [Define the target population]
-- **I** (Intervention/Exposure / 干预/暴露): [Define the intervention or exposure of interest]
-- **C** (Comparator / 对照): [Define the comparison group]
-- **O** (Outcomes / 结局): [Define primary and secondary outcomes]
-- **S** (Study design / 研究设计): [Specify eligible study designs]
-
-研究问题 (Research Question): [State the review question in a single sentence]
+**Sources**: [Funding source(s) or "No external funding"]
+**Role of funder**: [Describe any role of funders in the review, or "None"]
 
 ---
 
-## 方法 (METHODS)
+## INTRODUCTION
 
-### 纳入排除标准 (Eligibility Criteria)
+### Rationale
 
-#### 研究特征 (Study Characteristics)
+**[Describe the rationale for the review in the context of what is already known. Explain why this review is needed.]**
 
-| 标准 | 纳入 | 排除 |
-|------|------|------|
-| **研究设计** | [e.g., RCTs, quasi-experimental, cohort] | [e.g., case reports, editorials, commentaries] |
-| **出版日期** | [e.g., 2010-present] | [Before cutoff, with justification] |
-| **语言** | [e.g., English and Chinese] | [Other languages, with justification] |
-| **出版状态** | [e.g., published and preprints] | [e.g., conference abstracts only] |
-| **场景** | [e.g., higher education institutions] | [e.g., K-12, non-formal education] |
+Key points to address:
+- What is the health/education/social problem?
+- What is the current state of the evidence?
+- Why is a systematic review needed now? (e.g., existing reviews are outdated, conflicting evidence, no previous review exists)
 
-#### 参与者 (Participants)
+### Objectives
 
-[详细描述目标人群。包括年龄、性别、状况或其他相关特征。]
+**[Provide an explicit statement of the question(s) the review will address. Use the PICOS framework.]**
 
-#### 干预/暴露 (Interventions/Exposures)
+- **P** (Population): [Define the target population]
+- **I** (Intervention/Exposure): [Define the intervention or exposure of interest]
+- **C** (Comparator): [Define the comparison group]
+- **O** (Outcomes): [Define primary and secondary outcomes]
+- **S** (Study design): [Specify eligible study designs]
 
-[描述感兴趣的干预或暴露。如适用，包括剂量、频率、持续时间。]
+Research Question: [State the review question in a single sentence]
 
-#### 对照 (Comparators)
+---
 
-[描述对照。可能包括无干预、常规护理、安慰剂或替代干预。]
+## METHODS
 
-#### 结局 (Outcomes)
+### Eligibility Criteria
 
-**主要结局**:
-1. [Outcome 1] — 测量工具 [instrument/method]，时间点 [time point(s)]
-2. [Outcome 2] — 测量工具 [instrument/method]，时间点 [time point(s)]
+#### Study Characteristics
 
-**次要结局**:
-1. [Outcome 3] — 测量工具 [instrument/method]，时间点 [time point(s)]
-2. [Outcome 4] — 测量工具 [instrument/method]，时间点 [time point(s)]
+| Criterion | Include | Exclude |
+|-----------|---------|---------|
+| **Study design** | [e.g., RCTs, quasi-experimental, cohort] | [e.g., case reports, editorials, commentaries] |
+| **Publication date** | [e.g., 2010-present] | [Before cutoff, with justification] |
+| **Language** | [e.g., English and Chinese] | [Other languages, with justification] |
+| **Publication status** | [e.g., published and preprints] | [e.g., conference abstracts only] |
+| **Setting** | [e.g., higher education institutions] | [e.g., K-12, non-formal education] |
 
-#### 时间 (Timing)
+#### Participants
 
-[明确任何最低随访持续时间或时间约束]
+[Describe the target population in detail. Include age, gender, condition, or other relevant characteristics.]
 
-### 信息来源 (Information Sources)
+#### Interventions/Exposures
 
-| 数据库/来源 | URL | 覆盖范围 | 选用理由 |
-|-------------|-----|----------|----------|
-| [e.g., PubMed/MEDLINE] | pubmed.ncbi.nlm.nih.gov | 生物医学 | 健康研究核心数据库 |
-| [e.g., Web of Science] | webofscience.com | 多学科 | 引文索引，广泛覆盖 |
-| [e.g., Scopus] | scopus.com | 多学科 | 大型摘要数据库 |
-| [e.g., ERIC] | eric.ed.gov | 教育 | 教育研究核心数据库 |
-| [e.g., PsycINFO] | apa.org/pubs/databases/psycinfo | 心理学 | 行为科学覆盖 |
-| [灰色文献 (Grey literature)] | [specify sources] | — | 减少发表偏倚 |
-| [试验注册库] | clinicaltrials.gov, WHO ICTRP | — | 识别未发表研究 |
+[Describe the intervention(s) or exposure(s) of interest. Include dosage, frequency, duration if applicable.]
 
-附加来源:
-- 纳入研究的参考文献列表（向后引文追踪）
-- 关键研究的引文追踪（向前引文追踪）
-- 联系领域专家（如适用）
+#### Comparators
 
-### 检索策略 (Search Strategy)
+[Describe the comparator(s). This may include no intervention, usual care, placebo, or alternative interventions.]
 
-**[展示至少一个数据库的检索策略草案。策略应使用 PRESS 清单进行同行评审。]**
+#### Outcomes
 
-[主要数据库] 的检索策略示例结构:
+**Primary outcome(s)**:
+1. [Outcome 1] — measured by [instrument/method], at [time point(s)]
+2. [Outcome 2] — measured by [instrument/method], at [time point(s)]
+
+**Secondary outcome(s)**:
+1. [Outcome 3] — measured by [instrument/method], at [time point(s)]
+2. [Outcome 4] — measured by [instrument/method], at [time point(s)]
+
+#### Timing
+
+[Specify any minimum follow-up duration or time constraints]
+
+### Information Sources
+
+| Database/Source | URL | Coverage | Justification |
+|----------------|-----|----------|---------------|
+| [e.g., PubMed/MEDLINE] | pubmed.ncbi.nlm.nih.gov | Biomedical | Core database for health research |
+| [e.g., Web of Science] | webofscience.com | Multidisciplinary | Citation indexing, broad coverage |
+| [e.g., Scopus] | scopus.com | Multidisciplinary | Large abstract database |
+| [e.g., ERIC] | eric.ed.gov | Education | Core database for education research |
+| [e.g., PsycINFO] | apa.org/pubs/databases/psycinfo | Psychology | Behavioral science coverage |
+| [Grey literature] | [specify sources] | — | Reduce publication bias |
+| [Trial registries] | clinicaltrials.gov, WHO ICTRP | — | Identify unpublished studies |
+
+Additional sources:
+- Reference lists of included studies (backward citation)
+- Citation tracking of key studies (forward citation)
+- Contact with experts in the field (if applicable)
+
+### Search Strategy
+
+**[Present the draft search strategy for at least one database. The strategy should be peer-reviewed using the PRESS checklist.]**
+
+Example structure for [primary database]:
 ```
-检索块1 (人群):
+Search Block 1 (Population):
   "higher education" OR "university" OR "college" OR "postsecondary"
 
-检索块2 (干预/暴露):
+Search Block 2 (Intervention/Exposure):
   "quality assurance" OR "accreditation" OR "program review"
 
-检索块3 (结局):
+Search Block 3 (Outcome):
   "student outcomes" OR "learning outcomes" OR "graduation rate"
 
-组合: Block 1 AND Block 2 AND Block 3
-筛选: [date range], [language], [document type]
+Combined: Block 1 AND Block 2 AND Block 3
+Filters: [date range], [language], [document type]
 ```
 
-### 研究记录 (Study Records)
+### Study Records
 
-#### 数据管理 (Data Management)
+#### Data Management
 
-[描述用于管理记录的软件/工具。例如：Covidence、Rayyan、Excel、Zotero]
+[Describe the software/tools to be used for managing records. E.g., Covidence, Rayyan, Excel, Zotero]
 
-#### 筛选过程 (Selection Process)
+#### Selection Process
 
-1. **去重**: [去除重复记录的方法，例如：Covidence自动去重 + 人工检查]
-2. **标题/摘要筛选**: [审查者人数、独立性、解决分歧的流程]
-3. **全文筛选**: [审查者人数、独立性、解决分歧的流程]
-4. **记录方式**: [如何记录排除的研究及原因]
+1. **Deduplication**: [Method for removing duplicates, e.g., automatic in Covidence + manual check]
+2. **Title/Abstract screening**: [Number of reviewers, independence, process for resolving disagreements]
+3. **Full-text screening**: [Number of reviewers, independence, process for resolving disagreements]
+4. **Documentation**: [How excluded studies and reasons will be recorded]
 
-预测试: [描述筛选标准的预测试，例如："两位审查者将独立筛选50条记录以校准标准，然后开始全面筛选"]
+Pilot: [Describe pilot testing of screening criteria, e.g., "Two reviewers will independently screen 50 records to calibrate criteria before full screening"]
 
-#### 数据收集过程 (Data Collection Process)
+#### Data Collection Process
 
-1. **数据提取表**: [描述或附上提取表。用3-5项研究进行预测试]
-2. **提取者**: [人数、独立性、解决差异的流程]
-3. **缺失数据**: [如何处理缺失或不清楚的数据，例如：联系作者]
+1. **Data extraction form**: [Describe or attach the form. Pilot test with 3-5 studies]
+2. **Extractors**: [Number, independence, process for resolving discrepancies]
+3. **Missing data**: [How missing or unclear data will be handled, e.g., contact authors]
 
-### 数据项目 (Data Items)
+### Data Items
 
-| 类别 | 提取变量 |
-|------|----------|
-| **研究元数据** | 作者、年份、国家、期刊、研究设计 |
-| **参与者** | 样本量、人口学特征、场景、纳入标准 |
-| **干预/暴露** | 描述、持续时间、频率、对照组 |
-| **结局** | 主要和次要结局、测量工具、时间点 |
-| **结果** | 效应量 (Effect sizes)、CI、p值、均值、SD、计数 |
-| **质量** | 资金来源、COI声明、注册状态 |
+| Category | Variables to Extract |
+|----------|---------------------|
+| **Study metadata** | Authors, year, country, journal, study design |
+| **Participants** | Sample size, demographics, setting, inclusion criteria |
+| **Intervention/Exposure** | Description, duration, frequency, comparison group |
+| **Outcomes** | Primary and secondary outcomes, measurement tools, time points |
+| **Results** | Effect sizes, CIs, p-values, means, SDs, counts |
+| **Quality** | Funding, COI declarations, registration status |
 
-### 偏倚风险评估 (Risk of Bias Assessment)
+### Risk of Bias Assessment
 
-**工具**: [指定工具]
+**Tool**: [Specify the tool]
 - RCTs: RoB 2 (Sterne et al., 2019)
-- 非随机研究: ROBINS-I (Sterne et al., 2016)
-- 定性研究: [e.g., CASP qualitative checklist]
+- Non-randomized studies: ROBINS-I (Sterne et al., 2016)
+- Qualitative studies: [e.g., CASP qualitative checklist]
 
-**过程**: [评估者人数、独立性、共识形成过程]
+**Process**: [Number of assessors, independence, consensus process]
 
-**在综合分析 (Synthesis) 中的使用**: [偏倚风险结果如何指导综合分析，例如：排除高风险研究的敏感性分析]
+**Use in synthesis**: [How risk of bias results will inform the synthesis, e.g., sensitivity analysis excluding high-risk studies]
 
-### 数据综合 (Data Synthesis)
+### Data Synthesis
 
-#### 定量综合（荟萃分析）(Quantitative Synthesis / Meta-Analysis)
+#### Quantitative Synthesis (Meta-Analysis)
 
-**荟萃分析条件**: [描述何时合并研究，例如："当≥3项研究报告在可比人群中测量的足够相似的结局时"]
+**Conditions for meta-analysis**: [Describe when studies will be pooled, e.g., "When ≥ 3 studies report sufficiently similar outcomes measured in comparable populations"]
 
-**效应量指标**: [Specify, e.g., SMD for continuous outcomes, RR for binary outcomes]
+**Effect measure**: [Specify, e.g., SMD for continuous outcomes, RR for binary outcomes]
 
-**模型**: [Fixed-effect / Random-effects, with justification]
+**Model**: [Fixed-effect / Random-effects, with justification]
 
-**异质性评估**:
-- Q检验 (显著性水平 p < 0.10)
-- I²统计量及95% CI
-- tau²（研究间方差）
-- 预测区间
+**Heterogeneity assessment**:
+- Q-test (significance at p < 0.10)
+- I² statistic with 95% CI
+- tau² (between-study variance)
+- Prediction interval
 
-**亚组分析**（预设）:
-1. [Subgroup variable 1] — 理由: [why]
-2. [Subgroup variable 2] — 理由: [why]
+**Subgroup analyses** (pre-specified):
+1. [Subgroup variable 1] — Rationale: [why]
+2. [Subgroup variable 2] — Rationale: [why]
 
-**敏感性分析**:
-1. 逐项删除分析
-2. 排除高偏倚风险研究
+**Sensitivity analyses**:
+1. Leave-one-out analysis
+2. Exclude high risk of bias studies
 3. [Other planned sensitivity analyses]
 
-**软件**: [Specify, e.g., R metafor package, RevMan]
+**Software**: [Specify, e.g., R metafor package, RevMan]
 
-#### 叙述性综合 (Narrative Synthesis)
+#### Narrative Synthesis
 
-**当荟萃分析不可行时**: [描述叙述性综合方法，例如：SWiM报告指南、计票法、效应方向图]
+**When meta-analysis is not feasible**: [Describe the narrative synthesis approach, e.g., SWiM reporting guideline, vote counting, effect direction plot]
 
-### 元偏倚评估 (Meta-Bias Assessment)
+### Meta-Bias Assessment
 
-**发表偏倚**: [评估方法，例如：漏斗图 + Egger检验（当≥10项研究时）]
+**Publication bias**: [Methods to assess, e.g., funnel plot + Egger's test if ≥ 10 studies]
 
-**选择性报告**: [如何检测，例如：比较方案与发表报告、检索试验注册库]
+**Selective reporting**: [How to detect, e.g., compare protocol to published report, search trial registries]
 
-### 累积证据信心 (Confidence in Cumulative Evidence)
+### Confidence in Cumulative Evidence
 
-**框架**: GRADE (Grading of Recommendations, Assessment, Development and Evaluations)
+**Framework**: GRADE (Grading of Recommendations, Assessment, Development and Evaluations)
 
-[描述如何将 GRADE 应用于评估每个结局的证据确定性]
-
----
-
-## 附录 (APPENDICES)
-
-### 附录 A: 检索策略草案
-
-[主要数据库的完整检索策略]
-
-### 附录 B: 数据提取表
-
-[包含或引用数据提取表]
-
-### 附录 C: PRISMA-P 检查清单
-
-[标记每个 PRISMA-P 条目为已处理，并注明相关页码/章节号]
+[Describe how GRADE will be applied to assess certainty for each outcome]
 
 ---
 
-## 修订日志 (Revision Log)
+## APPENDICES
 
-| 版本 | 日期 | 作者 | 变更内容 |
-|------|------|------|----------|
-| 1.0 | [date] | [name] | 初始方案 |
+### Appendix A: Draft Search Strategy
+
+[Complete search strategy for the primary database]
+
+### Appendix B: Data Extraction Form
+
+[Include or reference the data extraction form]
+
+### Appendix C: PRISMA-P Checklist
+
+[Mark each PRISMA-P item as addressed with the relevant page/section number]
+
+---
+
+## Revision Log
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | [date] | [name] | Initial protocol |

@@ -1,9 +1,9 @@
-# 来源质量层级 — 证据分级框架
+# Source Quality Hierarchy — Evidence Grading Framework
 
-## 目的
-用于评估证据质量的系统性框架，供 source_verification_agent 和 bibliography_agent 使用。
+## Purpose
+Systematic framework for grading evidence quality, used by the source_verification_agent and bibliography_agent.
 
-## 证据金字塔（7级）
+## Evidence Pyramid (7 Levels)
 
 ```
          ╱╲
@@ -23,166 +23,166 @@
 ╱──────────────────────────────╲
 ```
 
-## 各级别详细说明
+## Detailed Level Descriptions
 
-### 级别 I：系统综述 (Systematic Reviews) 与 Meta分析 (Meta-Analyses)
-**权重**：最高
-**描述**：使用预定义的系统性方法，对所有可用证据进行严格综合。
-**特征**：
-- 预注册方案（PROSPERO 或类似平台）
-- 跨多个数据库的全面检索
-- 明确的纳入/排除标准
-- 对纳入研究进行质量评估
-- 适当时进行统计合并（meta-analysis）
-- 遵循 PRISMA 报告指南
+### Level I: Systematic Reviews & Meta-Analyses
+**Weight**: Highest
+**Description**: Rigorous synthesis of all available evidence using predefined, systematic methods.
+**Characteristics**:
+- Pre-registered protocol (PROSPERO or similar)
+- Comprehensive search across multiple databases
+- Explicit inclusion/exclusion criteria
+- Quality assessment of included studies
+- Statistical pooling (meta-analysis) when appropriate
+- PRISMA reporting guidelines followed
 
-**可信来源**：Cochrane Library、Campbell Collaboration、JBI Evidence Synthesis
+**Trusted Sources**: Cochrane Library, Campbell Collaboration, JBI Evidence Synthesis
 
-**注意事项**：质量取决于纳入的研究（"垃圾进，垃圾出"）；若领域发展迅速，可能已过时。
+**Caveats**: Quality depends on included studies ("garbage in, garbage out"); may be outdated if field moves fast.
 
-### 级别 II：随机对照试验 (RCT)
-**权重**：非常高
-**描述**：将受试者随机分配至干预组/对照组的实验性研究。
-**特征**：
-- 随机分配
-- 设有对照/比较组
-- 盲法（单盲、双盲或三盲）
-- 预注册方案
-- 充足的样本量
-- 意向性治疗分析
+### Level II: Randomized Controlled Trials (RCTs)
+**Weight**: Very High
+**Description**: Experimental studies with random allocation to intervention/control groups.
+**Characteristics**:
+- Random assignment
+- Control/comparison group
+- Blinding (single, double, or triple)
+- Pre-registered protocol
+- Adequate sample size
+- Intention-to-treat analysis
 
-**注意事项**：并非总是可行（尤其在社会科学/教育领域）；伦理约束；外部效度存疑。
+**Caveats**: Not always feasible (especially in social science/education); ethical constraints; external validity concerns.
 
-### 级别 III：非随机对照研究
-**权重**：高
-**描述**：设有比较组但未进行随机化的准实验设计。
-**特征**：
-- 设有比较组
-- 前后测量
-- 尝试控制混杂因素
-- 样本量大于病例研究
+### Level III: Controlled Studies Without Randomization
+**Weight**: High
+**Description**: Quasi-experimental designs with comparison groups but no randomization.
+**Characteristics**:
+- Comparison group present
+- Pre-post measurements
+- Attempts to control confounds
+- Larger samples than case studies
 
-**示例**：双重差分法、倾向得分匹配、断点回归设计。
+**Examples**: Difference-in-differences, propensity score matching, regression discontinuity.
 
-**注意事项**：存在选择偏倚风险；混杂变量更难控制。
+**Caveats**: Selection bias risk; confounding variables harder to control.
 
-### 级别 IV：病例对照 (Case-Control) 与队列研究 (Cohort Studies)
-**权重**：中高
-**描述**：追踪群体随时间变化或将病例与对照进行比较的观察性研究。
-**特征**：
-- 纵向（队列）或回顾性（病例对照）
-- 自然变异，无研究者干预
-- 可实现大样本
-- 真实世界情境
+### Level IV: Case-Control & Cohort Studies
+**Weight**: Moderate-High
+**Description**: Observational studies tracking groups over time or comparing cases to controls.
+**Characteristics**:
+- Longitudinal (cohort) or retrospective (case-control)
+- Natural variation, no researcher intervention
+- Large samples possible
+- Real-world context
 
-**注意事项**：无法确立因果关系；可能存在混杂因素；回忆偏倚（病例对照）。
+**Caveats**: Cannot establish causation; confounders possible; recall bias (case-control).
 
-### 级别 V：描述性/定性研究的系统综述
-**权重**：中等
-**描述**：对定性或描述性研究进行严格综合。
-**特征**：
-- 系统性检索与筛选
-- 对纳入研究进行质量评价
-- 元综合或元民族志技术
-- 方法透明
+### Level V: Systematic Reviews of Descriptive/Qualitative Studies
+**Weight**: Moderate
+**Description**: Rigorous synthesis of qualitative or descriptive research.
+**Characteristics**:
+- Systematic search and selection
+- Quality appraisal of included studies
+- Meta-synthesis or meta-ethnography techniques
+- Transparent methods
 
-**注意事项**：质量受限于纳入研究；解释层面增加了主观性。
+**Caveats**: Quality limited by included studies; interpretive layer adds subjectivity.
 
-### 级别 VI：单项描述性或定性研究
-**权重**：中低
-**描述**：个别案例研究、民族志、调查、描述性分析。
-**特征**：
-- 深入、情境丰富
-- 探索性或描述性目的
-- 通常为小样本
-- 厚描述（Thick Description）
+### Level VI: Single Descriptive or Qualitative Studies
+**Weight**: Low-Moderate
+**Description**: Individual case studies, ethnographies, surveys, descriptive analyses.
+**Characteristics**:
+- In-depth, context-rich
+- Exploratory or descriptive purpose
+- Small samples typical
+- Thick description
 
-**注意事项**：可推广性有限；研究者主观性；不可作因果推断。
+**Caveats**: Limited generalizability; researcher subjectivity; no causal claims warranted.
 
-### 级别 VII：专家意见与委员会报告
-**权重**：最低
-**描述**：立场文件、社论、委员会报告、基于专家共识的指南。
-**特征**：
-- 基于专业知识和经验
-- 通常非正式地整合多种证据类型
-- 可能反映机构或意识形态立场
+### Level VII: Expert Opinion & Committee Reports
+**Weight**: Lowest
+**Description**: Position papers, editorials, committee reports, guidelines based on expert consensus.
+**Characteristics**:
+- Based on expertise and experience
+- Often integrates multiple evidence types informally
+- May reflect institutional or ideological positions
 
-**注意事项**：未经实证检验；存在潜在偏倚；"权威" ≠ "证据"。
+**Caveats**: Not empirically tested; potential bias; "authority" ≠ "evidence."
 
-## 评分标准
+## Grading Rubric
 
-每个来源在**两个不同维度**上进行评估，下方表格将二者结合。若将二者混淆，则无论强解释性或定性工作在其自身传统中多么出色，其总体评级都会被封顶在低等级。
+Each source is assessed on **two distinct axes** that the columns below combine. Conflating them caps strong interpretive and qualitative work at a low overall grade no matter how excellent it is within its own tradition.
 
-- **研究设计级别** — 该设计在实验到描述的阶梯上所处的位置（上方7级金字塔）。这是绝对的、领域无关的：一项定性案例研究无论出现在医学还是历史学中，都属于级别 VI。
-- **学科内对主张的适用性** — 该来源在其领域的规范下，对于所支持的具体主张是否优秀。一份原始档案材料在研究设计证据上可以是级别 VI，同时又是其领域内解释性主张的金标准证据。
+- **Study-design level** — where the design sits on the experimental-to-descriptive ladder (the 7-level pyramid above). This is absolute and field-neutral: a single qualitative case study is Level VI whether it appears in medicine or history.
+- **Fitness for claim within a discipline** — whether the source is excellent *by its field's norms for the specific claim being made*. A primary archival source can be Level VI design evidence and at the same time the gold-standard evidence its field offers for an interpretive claim.
 
-下方**证据级别**标准评估的是*适用性*，而非原始设计级别。当一个来源的研究设计级别达到或超过**其自身领域的金标准**（见下方领域特定调整表），而不仅仅是达到级别 I-II 时，即可在证据级别上获得 A 级。因此，在级别 VI 即为其领域金标准的人文学科研究中，级别 VI 的作品可在该标准上获得 A 级。其余五项标准均为领域无关。
+The **Evidence Level** criterion below grades *fitness*, not raw design level. A source earns Grade A on Evidence Level when its study-design level meets or exceeds **its own field's gold standard** (see the Field-Specific Adjustments table below), not only when it reaches Level I-II. So humanities work at Level VI, where Level VI *is* the field's gold standard, can score Grade A on this criterion. The other five criteria are field-neutral.
 
-| 标准 | A 级（优秀） | B 级（良好） | C 级（合格） | D 级（较弱） | F 级（不可接受） |
+| Criterion | Grade A (Excellent) | Grade B (Good) | Grade C (Adequate) | Grade D (Weak) | Grade F (Unacceptable) |
 |-----------|-------|-------|-------|-------|-------|
-| 证据级别 | 达到或超过该领域对该主张的金标准 | 低于领域金标准一级 | 低于领域金标准两级 | 远低于领域规范 | 无法分类或根本不适用于该主张 |
-| 同行评审 (Peer Review) | 严格的同行评审 | 标准同行评审 | 编辑审阅 | 无正式审阅 | 自行发表 |
-| 方法论 | 典范，可复现 | 健全，有描述 | 合格 | 存疑 | 缺失/有缺陷 |
-| 样本/数据 | 大量，有代表性 | 充分 | 有限但已论证 | 小样本，便利取样 | 未说明 |
-| 时效性 | < 3 年 | 3-5 年 | 5-10 年 | > 10 年 | 对该主题已过时 |
-| 利益冲突 | 无声明或未发现 | 轻微，已披露 | 中等，已披露 | 未披露的潜在冲突 | 明确的未披露冲突 |
+| Evidence Level | Meets/exceeds the field's gold standard for the claim | One level below the field's gold standard | Two levels below | Well below field norm | Unclassifiable or fundamentally unfit for the claim |
+| Peer Review | Rigorous peer review | Standard peer review | Editorial review | No formal review | Self-published |
+| Methodology | Exemplary, replicable | Sound, described | Adequate | Questionable | Absent/flawed |
+| Sample/Data | Large, representative | Adequate | Limited but justified | Small, convenience | Unspecified |
+| Currency | < 3 years | 3-5 years | 5-10 years | > 10 years | Outdated for topic |
+| Conflicts | None declared or detected | Minor, disclosed | Moderate, disclosed | Undisclosed potential | Clear undisclosed conflict |
 
-> "时效性"是相对于主张的：当主张涉及该来源本身或其所属时期时，基础性或历史性来源不会因年代久远而受罚。仅当时效性影响主张时（例如，实证性的领域现状断言），才适用上述年限区间。
+> "Currency" is claim-relative: a foundational or historical source is not penalized for age when the claim is about that source itself or its period. Apply the age bands only when recency bears on the claim (e.g., empirical state-of-the-field assertions).
 
-### 总体来源评级
+### Overall Source Grade
 
-总体评级反映的是**对该主张的适用性**，而非原始研究设计级别。设计级别较低的来源（如级别 VI 的原始文献）若在其领域规范下对所支持的主张而言是优秀的，仍可获得总体 A 级。
+The overall grade reflects **fitness for the claim**, not raw study-design level. A source whose design level is low (e.g., a Level VI primary source) can still earn an overall Grade A when it is excellent by its field's norms for the claim it supports.
 
-**聚合规则。** 对上述六项标准分别评级（各 A-F），然后合并：
+**Aggregation rule.** Grade the six criteria above (each A-F), then combine:
 
-1. **诚信底线。** 若**利益冲突**为 F 级（明确的未披露冲突），或**同行评审**在其领域特定调整行（见下方）将正式审阅视为规范的情况下为 F 级，则无论其他标准如何，总体评级封顶为 D。诚信缺陷不被其他方面的优势所抵消。
-2. **基础评级。** 否则，总体评级为六项标准评级的**中位数**（在 A=4 … F=0 的量表上，相邻两个等级取低值）。
-3. **适用性调整。** 当**证据级别**（适用性）为 A 级时，将基础评级上调一级 — 在其领域内达到金标准的来源可获得总体 A 级，即使时效性或样本/数据等领域无关标准较低。若**方法论**为 F 级则不适用此步骤（根本上有缺陷的方法不能被领域适用性所挽救）。永远不超过 A 级。
+1. **Integrity floor.** If **Conflicts** is F (clear undisclosed conflict), or **Peer Review** is F in a field whose Field-Specific Adjustments row (below) treats formal review as the norm, the overall grade is capped at D regardless of the other criteria. Integrity failures are not outweighed by strength elsewhere.
+2. **Base grade.** Otherwise the overall grade is the **median** of the six criterion grades (on the A=4 … F=0 scale, rounding down on a tie between two adjacent grades).
+3. **Fitness adjustment.** Raise the base grade by one step when **Evidence Level** (fitness) is Grade A — a source that is gold-standard for its field reaches overall A even when field-neutral criteria like Currency or Sample/Data sit lower. Do not apply this step if **Methodology** is F (a fundamentally flawed method is not rescued by field fit). Never raise past A.
 
-因此，在其学科内达到金标准的解释性研究可获得总体 A 级，而存在诚信缺陷（步骤1）或方法论根本性缺陷（步骤3但书）的来源在任何领域都不行。
+So an interpretive study that is gold-standard within its discipline reaches overall Grade A, while an integrity-compromised (step 1) or methodologically broken (step 3 proviso) source does not, in any field.
 
-**总体评级含义：**
+**Overall grade meaning:**
 
-- **A**：用作主要证据
-- **B**：用作支持性证据
-- **C**：使用时须明确说明注意事项
-- **D**：仅在无更好来源时使用；承认其不足
-- **F**：不使用；仅在批评时引用
+- **A**: Use as primary evidence
+- **B**: Use as supporting evidence
+- **C**: Use with explicit caveats
+- **D**: Use only if no better source; acknowledge weakness
+- **F**: Do not use; cite only if critiquing
 
-## 领域特定调整
+## Field-Specific Adjustments
 
-并非所有领域使用相同的证据层级。需调整预期：
+Not all fields use the same evidence hierarchy. Adjust expectations:
 
-| 领域 | 金标准 | 常见级别 | 备注 |
+| Field | Gold Standard | Common Level | Notes |
 |-------|--------------|-------------|-------|
-| 医学/健康 | 级别 I-II（RCT、Meta分析） | 级别 I-III | 循证医学传统 |
-| 教育 | 级别 III-IV（准实验） | 级别 IV-VI | 随机化通常不可行 |
-| 社会科学 | 级别 III-V | 级别 IV-VI | 混合方法常见 |
-| 政策 | 级别 IV-V + VII（专家小组） | 级别 V-VII | 依情境而定；专家意见受重视 |
-| 人文学科 | 级别 VI（原始文献） | 级别 VI-VII | 不同的认识论；"证据"含义不同 |
-| 技术 | 级别 III + 行业报告 | 级别 V-VII | 发展迅速；同行评审滞后于现实 |
+| Medicine/Health | Level I-II (RCTs, meta-analyses) | Level I-III | Evidence-based medicine tradition |
+| Education | Level III-IV (quasi-experimental) | Level IV-VI | Randomization often impractical |
+| Social Science | Level III-V | Level IV-VI | Mixed methods common |
+| Policy | Level IV-V + VII (expert panels) | Level V-VII | Context-dependent; expert opinion valued |
+| Humanities | Level VI (primary sources) | Level VI-VII | Different epistemology; "evidence" means different things |
+| Technology | Level III + industry reports | Level V-VII | Fast-moving; peer review lags reality |
 
-## 掠夺性期刊 (Predatory Journal) 识别指标
+## Predatory Publication Indicators
 
-### 红旗清单
-- [ ] 激进的邮件邀稿
-- [ ] 投稿后 72 小时内录用
-- [ ] 无法识别的编委会（或虚假姓名）
-- [ ] 未被 Scopus、Web of Science 或 PubMed 收录
-- [ ] 非 COPE（出版伦理委员会）成员
-- [ ] 未列入 DOAJ（开放获取期刊目录）
-- [ ] 范围异常宽泛（"International Journal of Everything"）
-- [ ] 虚假或夸大的影响因子指标
-- [ ] 期刊网站语法/拼写粗糙
-- [ ] 文章处理费 (APC) 低得可疑（完全开放获取低于 $200）
-- [ ] 编辑部所在国家与声明的地址不同
-- [ ] 无撤稿政策或伦理指南
+### Red Flags Checklist
+- [ ] Aggressive email solicitation to submit
+- [ ] Acceptance within 72 hours of submission
+- [ ] No identifiable editorial board (or fake names)
+- [ ] Not indexed in Scopus, Web of Science, or PubMed
+- [ ] Not member of COPE (Committee on Publication Ethics)
+- [ ] Not listed in DOAJ (Directory of Open Access Journals)
+- [ ] Excessively broad scope ("International Journal of Everything")
+- [ ] Fake or inflated impact metrics
+- [ ] Poor grammar/spelling on journal website
+- [ ] APC (article processing charge) suspiciously low (< $200 for full OA)
+- [ ] Editorial office in different country from stated location
+- [ ] No retraction policy or ethics guidelines
 
-### 验证资源
-- Beall's List（非官方，但可作为有用的起点）
-- Cabell's Predatory Reports（订阅制）
-- DOAJ（合法开放获取期刊白名单）
-- COPE 成员目录
-- Scopus 来源列表
-- Journal Citation Reports（Clarivate）
-- Think. Check. Submit.（thinkchecksubmit.org）
+### Verification Resources
+- Beall's List (unofficial, but useful starting point)
+- Cabell's Predatory Reports (subscription-based)
+- DOAJ (whitelist of legitimate OA journals)
+- COPE member directory
+- Scopus Source List
+- Journal Citation Reports (Clarivate)
+- Think. Check. Submit. (thinkchecksubmit.org)

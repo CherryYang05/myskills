@@ -1,11 +1,11 @@
-# 预注册指南 — 研究预注册指南
+# Preregistration Guide — Research Preregistration Guide
 
-## 目的
-研究预注册的决策指南与操作手册。协助 research_architect_agent 在方法论设计阶段判断是否需要预注册，并指导研究人员完成预注册流程。
+## Purpose
+Decision guide and operational manual for research preregistration. Assists the research_architect_agent in determining whether preregistration is needed during the methodology design stage, and guides researchers through the preregistration process.
 
 ---
 
-## 1. 预注册决策树
+## 1. Preregistration Decision Tree
 
 ```
 Does your research have the following characteristics?
@@ -40,38 +40,38 @@ Does your research have the following characteristics?
         └── Prevents HARKing (Hypothesizing After Results are Known)
 ```
 
-### 不需要预注册的情况
+### When Preregistration Is Not Needed
 
-- 纯定性研究（扎根理论、现象学）
-- 探索性数据分析（无预先设定的假设）
-- 理论性或哲学性研究
-- 文献综述（系统综述除外）
-- 案例报告或案例研究
+- Purely qualitative research (grounded theory, phenomenology)
+- Exploratory data analysis (no pre-specified hypotheses)
+- Theoretical or philosophical research
+- Literature reviews (except systematic reviews)
+- Case reports or case studies
 
-### 强烈建议预注册的情况
+### When Preregistration Is Strongly Recommended
 
-- 任何涉及假设检验的研究
-- 涉及多重比较的研究
-- 需要区分验证性研究与探索性研究分析的研究
-- 可能因 p-hacking 或 HARKing (根据结果假设) 受到质疑的研究
-- 申请研究经费时（展示研究严谨性）
-- 期刊明确要求或鼓励预注册时
+- Any research involving hypothesis testing
+- Research involving multiple comparisons
+- Research needing to distinguish confirmatory vs. exploratory analyses
+- Research that may be questioned for p-hacking or HARKing
+- When applying for research funding (demonstrates research rigor)
+- When journals explicitly require or encourage preregistration
 
 ---
 
-## 2. 预注册平台概览
+## 2. Preregistration Platform Overview
 
-| 平台 | 适用领域 | 特点 | 费用 |
+| Platform | Applicable Field | Features | Cost |
 |------|---------|------|------|
-| **OSF Registries** | 所有学科 | 使用最广泛，多种模板，DOI，永久保存 | 免费 |
-| **PROSPERO** | 系统综述 | 专为系统综述和荟萃分析设立 | 免费 |
-| **AEA Registry** | 经济学 | 美国经济学会的随机对照试验 (RCT) 注册平台 | 免费 |
-| **AsPredicted** | 所有学科 | 简化预注册（9个问题），快速完成 | 免费 |
-| **ClinicalTrials.gov** | 临床试验 | 美国 FDA 要求的随机对照试验 (RCT) 注册 | 免费 |
-| **EGAP** | 政治学 | 治理与政治实验 | 免费 |
-| **RIDIE** | 发展经济学 | 国际发展影响评估注册 | 免费 |
+| **OSF Registries** | All disciplines | Most widely used, multiple templates, DOI, permanent preservation | Free |
+| **PROSPERO** | Systematic reviews | Dedicated to systematic reviews and meta-analyses | Free |
+| **AEA Registry** | Economics | American Economic Association's RCT registration platform | Free |
+| **AsPredicted** | All disciplines | Simplified preregistration (9 questions), quick to complete | Free |
+| **ClinicalTrials.gov** | Clinical trials | US FDA-required RCT registration | Free |
+| **EGAP** | Political science | Experiments in Governance and Politics | Free |
+| **RIDIE** | Development economics | Registry for International Development Impact Evaluations | Free |
 
-### 平台选择指南
+### Platform Selection Guide
 
 ```
 What is your research?
@@ -85,61 +85,61 @@ What is your research?
 
 ---
 
-## 3. 21项核心内容清单
+## 3. 21-Item Core Content Checklist
 
-基于 OSF 标准数据收集前注册格式，以下为21项核心条目：
+Based on the OSF Standard Pre-Data Collection Registration format, the following are the 21 core items:
 
-### A. 研究信息
+### A. Study Information
 
-| # | 条目 | 说明 |
+| # | Item | Description |
 |---|------|------|
-| 1 | **研究标题** | 描述性标题 |
-| 2 | **作者/研究团队** | 所有研究人员姓名及所属机构 |
-| 3 | **研究问题** | 主要研究问题（清晰、具体） |
-| 4 | **假设** | 预先设定的假设（包括方向性预测） |
+| 1 | **Study title** | Descriptive title |
+| 2 | **Authors/Research team** | All researchers' names and affiliations |
+| 3 | **Research questions** | Main research questions (clear, specific) |
+| 4 | **Hypotheses** | Pre-specified hypotheses (including directional predictions) |
 
-### B. 设计方案
+### B. Design Plan
 
-| # | 条目 | 说明 |
+| # | Item | Description |
 |---|------|------|
-| 5 | **研究设计** | 实验/观察性，被试间/被试内，因子设计等 |
-| 6 | **随机化** | 随机化方法（如适用） |
-| 7 | **盲法** | 盲法级别及实施方式（如适用） |
-| 8 | **条件/操纵** | 每个实验条件/组的具体描述 |
+| 5 | **Study design** | Experiment/observational, between/within-subjects, factorial design, etc. |
+| 6 | **Randomization** | Randomization method (if applicable) |
+| 7 | **Blinding** | Blinding level and implementation (if applicable) |
+| 8 | **Conditions/manipulations** | Specific description of each experimental condition/group |
 
-### C. 抽样方案
+### C. Sampling Plan
 
-| # | 条目 | 说明 |
+| # | Item | Description |
 |---|------|------|
-| 9 | **已有数据** | 是否使用已有数据；数据的性质和状态 |
-| 10 | **数据收集程序** | 数据收集方式（问卷调查、访谈、实验、档案） |
-| 11 | **样本量** | 计划样本量及确定依据 |
-| 12 | **样本量依据** | 效力分析 (Power analysis) 或其他样本量计算方法 |
-| 13 | **停止规则** | 何时停止收集数据（固定N / 达到目标效力 / 时间截断） |
+| 9 | **Existing data** | Whether existing data is being used; nature and status of data |
+| 10 | **Data collection procedures** | How data will be collected (survey, interview, experiment, archival) |
+| 11 | **Sample size** | Planned sample size and basis for determination |
+| 12 | **Sample size rationale** | Power analysis or other sample size calculation method |
+| 13 | **Stopping rule** | When to stop collecting data (fixed N / target power reached / time cutoff) |
 
-### D. 变量
+### D. Variables
 
-| # | 条目 | 说明 |
+| # | Item | Description |
 |---|------|------|
-| 14 | **操纵变量** | 自变量的操作化定义 |
-| 15 | **测量变量** | 因变量的操作化定义及测量工具 |
-| 16 | **指标** | 每个变量的具体指标（量表、题项、计分方式） |
+| 14 | **Manipulated variables** | Operational definition of independent variables |
+| 15 | **Measured variables** | Operational definition and measurement instruments of dependent variables |
+| 16 | **Indices** | Specific indicators for each variable (scales, items, scoring methods) |
 
-### E. 分析方案
+### E. Analysis Plan
 
-| # | 条目 | 说明 |
+| # | Item | Description |
 |---|------|------|
-| 17 | **统计模型** | 主要统计分析方法 |
-| 18 | **数据转换** | 数据转换计划（如对数转换、标准化） |
-| 19 | **推断准则** | 显著性水平 (alpha)、校正方法、效应量报告 |
-| 20 | **数据排除** | 排除标准（异常值定义、注意力检查未通过等） |
-| 21 | **探索性分析** | 计划中的非主要假设分析 |
+| 17 | **Statistical models** | Primary statistical methods for analysis |
+| 18 | **Transformations** | Data transformation plan (e.g., log transformation, standardization) |
+| 19 | **Inference criteria** | Significance level (alpha), correction methods, effect size reporting |
+| 20 | **Data exclusion** | Exclusion criteria (outlier definition, attention check failure, etc.) |
+| 21 | **Exploratory analyses** | Planned but non-primary hypothesis analyses |
 
 ---
 
-## 4. 高等教育研究预注册示例
+## 4. Higher Education Research Preregistration Examples
 
-### 示例：教学策略对学习效果的影响
+### Example: Effect of Teaching Strategy on Learning Outcomes
 
 ```
 Title: The Effect of Flipped Classroom on University Students' Critical Thinking
@@ -170,7 +170,7 @@ Exploratory analyses:
 - Learning motivation as a mediating variable
 ```
 
-### 示例：大学辍学因素系统综述
+### Example: Systematic Review of University Dropout Factors
 
 ```
 Title: Factors Influencing University Student Dropout Decisions in Taiwan:
@@ -197,11 +197,11 @@ Registration platform: PROSPERO
 
 ---
 
-## 5. 预注册披露声明模板
+## 5. Preregistration Disclosure Statement Templates
 
-### 在论文中披露预注册
+### Disclosing Preregistration in a Paper
 
-#### 标准声明（已预注册）
+#### Standard Statement (Preregistered)
 ```
 This study was preregistered on [Platform] prior to data collection
 (registration number: [NUMBER]; URL: [URL]). All hypotheses, sample size
@@ -210,7 +210,7 @@ Deviations from the preregistered plan are noted in [section/supplementary
 materials].
 ```
 
-#### 披露与预注册的偏差
+#### Disclosure of Deviations from Preregistration
 ```
 Deviations from preregistered plan:
 1. [Deviation description]: [Reason for deviation]
@@ -220,7 +220,7 @@ The preregistered analyses are reported as planned; additional exploratory
 analyses are clearly labeled.
 ```
 
-#### 未预注册时的披露
+#### Disclosure When Not Preregistered
 ```
 This study was not preregistered. While the hypotheses were formulated before
 data analysis, the distinction between confirmatory and exploratory analyses
@@ -229,20 +229,20 @@ should be interpreted with this limitation in mind.
 
 ---
 
-## 6. 预注册与注册报告
+## 6. Preregistration vs. Registered Reports
 
-| 方面 | 预注册 | 注册报告 |
+| Aspect | Preregistration | Registered Reports |
 |------|-------------------------|-------------------------------|
-| **定义** | 研究计划提前公开注册 | 研究计划提交至期刊进行预审 |
-| **审查** | 不经过同行评审 | 第一阶段同行评审（研究设计） |
-| **接受时机** | 完成后才提交论文 | 通过第一阶段后获得"原则性接受 (IPA)" |
-| **结果偏差** | 减少但未消除（研究者仍可能选择性报告） | 大幅消除（无论结果如何均发表） |
-| **发表偏差** | 无法解决 | 有效解决（零结果也予发表） |
-| **适用期刊** | 所有期刊 | 仅接受注册报告的期刊 |
-| **难度** | 低（只需填写表单） | 高（需要完整方法论并通过评审） |
-| **灵活性** | 较高（偏差需披露但不妨碍投稿） | 较低（重大偏差可能影响接受） |
+| **Definition** | Research plan publicly registered in advance | Research plan submitted to a journal for pre-review |
+| **Review** | Does not undergo peer review | Stage 1 peer review (research design) |
+| **Acceptance timing** | Paper submitted only after completion | Receives "In-Principle Acceptance" (IPA) after passing Stage 1 |
+| **Results bias** | Reduced but not eliminated (researchers can still selectively report) | Substantially eliminated (published regardless of results) |
+| **Publication bias** | Cannot solve | Effectively solved (null results also published) |
+| **Applicable journals** | All journals | Only journals accepting Registered Reports |
+| **Difficulty** | Low (just fill in a form) | High (requires complete methodology and passing review) |
+| **Flexibility** | Higher (deviations require disclosure but don't block submission) | Lower (major deviations may affect acceptance) |
 
-### 注册报告流程
+### Registered Reports Process
 
 ```
 Stage 1: Submit research plan
@@ -270,7 +270,7 @@ Stage 2 Review (execution quality)
 Publication
 ```
 
-### 支持注册报告的高等教育期刊选列
+### Selected Higher Education Journals Supporting Registered Reports
 
 - *Studies in Higher Education*
 - *Higher Education*
@@ -279,14 +279,46 @@ Publication
 - *Educational Research Review*
 - *Learning and Instruction*
 
-> 完整列表：[COS Registered Reports](https://www.cos.io/initiatives/registered-reports)
+> Full list: [COS Registered Reports](https://www.cos.io/initiatives/registered-reports)
 
 ---
 
-## 快速参考：预注册3步骤
+## Quick Reference: 3 Steps to Preregistration
 
-1. **决定是否预注册**：确定您的研究是否涉及假设检验
-2. **选择平台**：系统综述使用 PROSPERO，其他研究使用 OSF
-3. **填写21项清单**：使用 `templates/preregistration_template.md` 模板
+1. **Decide whether to preregister**: Determine if your research involves hypothesis testing
+2. **Choose a platform**: Use PROSPERO for systematic reviews, OSF for everything else
+3. **Fill in the 21-item checklist**: Use the `templates/preregistration_template.md` template
 
-> 预注册不是完美的解决方案，但它是目前最实用的透明度工具。即使是不完美的预注册也胜于没有预注册。
+> Preregistration is not a perfect solution, but it is currently the most practical transparency tool. Even an imperfect preregistration is better than no preregistration at all.
+
+---
+
+## Completed-artifact handoff boundary (#672)
+
+The templates in this guide help an author plan or disclose a preregistration.
+They are never evidence that a study was preregistered and must not be supplied
+as a completed artifact. Cross-document comparison may use only a completed
+artifact explicitly supplied by the caller in the current handoff.
+
+The non-shell research architect records only the caller-declared status
+(`provided`, `not_provided`, `access_failed`, or `retrieval_failed`) and, for
+`provided`, the explicitly named companion handle. It does not compute a digest
+or construct a sidecar. Before handoff, a shell-capable orchestrator runs the
+deterministic `build-preregistration-artifact` subcommand in
+`scripts/build_cross_document_consistency_advisory.py` with an explicit RFC3339
+`declared_at`. That builder emits exactly one closed
+`preregistration-artifact/1.0`, including an explicit unavailable receipt.
+
+The sidecar and provided companion bytes are validated and carried unchanged
+through academic-paper and every pipeline handoff. Later explicit user supply
+requires a new builder-produced, fully bound sidecar; omission or silent
+substitution is invalid. A manuscript/preregistration advisory may identify an
+undisclosed deviation only with exact manuscript and preregistration quotes plus
+an exact named manuscript disclosure scope checked for that same deviation.
+Missing, blank, generic, incomplete, or inaccessible scope means not checked.
+
+#672 does not judge whether preregistration was required, timely, authentic,
+complete, or whether a deviation was justified. Its output is
+`LLM-ADVISORY` / `UNMEASURED`, not a score, gate, agreement certificate, or
+revision instruction. Consent/protocol comparison stays under the separate
+#667/#681 human-subjects authority path.
