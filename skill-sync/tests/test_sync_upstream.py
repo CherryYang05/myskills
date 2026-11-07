@@ -53,6 +53,29 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(config['example']['version'], 'b' * 12)
         self.assertEqual(config['example']['sync']['synced_commit'], 'b' * 40)
 
+    def test_root_report_records_versions_and_leaves_authored_skills_untouched(self):
+        self.materialize(self.before)
+        authored = self.root / 'authored'
+        authored.mkdir()
+        (authored / 'SKILL.md').write_text('personal content')
+        latest = files('new upstream')
+        plan = self.plan(latest)
+        sync.apply_plans(self.root, {'example': self.info}, [(plan, self.before, latest)])
+        report = (self.root / sync.SUMMARY).read_text(encoding='utf-8')
+        self.assertIn('v1.0.0', report)
+        self.assertIn('b' * 12, report)
+        self.assertIn('modified: SKILL.md', report)
+        self.assertIn('docs/upstream-reports/example.md', report)
+        self.assertNotIn('| authored |', report)
+        self.assertEqual((authored / 'SKILL.md').read_text(), 'personal content')
+
+    def test_root_report_includes_unchanged_skills(self):
+        plan = self.plan(self.before)
+        sync.apply_plans(self.root, {'example': self.info}, [(plan, self.before, self.before)])
+        report = (self.root / sync.SUMMARY).read_text(encoding='utf-8')
+        self.assertIn('| example | 无变化 | v1.0.0 | v1.0.0 | 0 |', report)
+        self.assertIn('未发现受管文件或权限变化', report)
+
     def test_changed_upstream_overrides_local_drift_with_mirror_fallback(self):
         customized = files('local customization')
         directory = self.materialize(customized)

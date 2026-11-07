@@ -8,13 +8,14 @@ import json
 import re
 import subprocess
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 
 import yaml
 
 
 CONFIG = "skill-sync/upstreams.json"
+SUMMARY = "UPSTREAM_SYNC_REPORT.md"
 MAX_BYTES = 32 * 1024 * 1024
 
 
@@ -261,6 +262,37 @@ def apply_plans(root, config, plans):
         info["sync"]["last_reported"] = plan["marker"]
     (root / CONFIG).write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     record_monthly_health(root, plans)
+    write_sync_summary(root, config, updated, plans)
+
+
+def write_sync_summary(root, before, after, plans):
+    """Summarize the candidate; it represents applied changes only once merged."""
+    week = datetime.now(timezone(timedelta(hours=8))).strftime("%G-W%V")
+    lines = ["# 外部 Skill 同步与修正报告", "", f"检查周期（北京时间）：{week}", "",
+             "仅检查 `skill-sync/upstreams.json` 登记的外部 Skill；自研 Skill 不参与上游替换。",
+             "本报告随更新候选生成。只有候选通过 CI 并合并到 master 后，才代表已完成同步；失败详情以 Actions 日志为准。", "",
+             "| Skill | 检查结果 | 更新前版本 | 候选版本 | 文件变化数 | 上游提交 |",
+             "|---|---|---|---|---|---|"]
+    labels = {"up_to_date": "无变化", "update_ready": "已准备同步", "review_required": "需审查",
+              "blocked_identity_change": "名称变化阻塞", "blocked_local_changes": "本地差异阻塞"}
+    def cell(value):
+        return str(value).replace("|", "\\|").replace("\n", " ").replace("\r", " ")
+    for plan, _, _ in plans:
+        name = plan["skill"]
+        url = f"https://github.com/{before[name]['sync']['repository']}/commit/{plan['commit']}"
+        lines.append(f"| {name} | {labels.get(plan['status'], plan['status'])} | {cell(before[name]['version'])} | {cell(after[name]['version'])} | {len(plan['changes'])} | [{plan['commit'][:12]}]({url}) |")
+    lines += ["", "## 文件修正明细", ""]
+    for plan, _, _ in plans:
+        if not plan["changes"]:
+            continue
+        name = plan["skill"]
+        lines += [f"### {name}", "", f"[详细报告](./docs/upstream-reports/{name}.md)", ""]
+        for item in plan["changes"]:
+            lines.append(f"- {item['change']}: {cell(item['path'])}")
+        lines.append("")
+    if not any(plan["changes"] for plan, _, _ in plans):
+        lines += ["本次检查未发现受管文件或权限变化。", ""]
+    (root / SUMMARY).write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def record_monthly_health(root, plans, period=None):

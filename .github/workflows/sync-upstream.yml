@@ -2,7 +2,7 @@ name: Sync Skill Upstreams
 
 on:
   schedule:
-    - cron: '30 12 * * 5' # Friday 20:30 Asia/Shanghai; ChatGPT audit runs at 21:00
+    - cron: '30 12 * * 5' # Friday 20:30 Asia/Shanghai
   workflow_dispatch:
     inputs:
       dry_run:
@@ -73,7 +73,7 @@ jobs:
           import subprocess
           from pathlib import Path
           config = json.loads(Path('skill-sync/upstreams.json').read_text())
-          paths = list(config) + ['skill-sync/upstreams.json', 'README.md', '.agents/plugins/marketplace.json', 'docs/upstream-reports']
+          paths = list(config) + ['skill-sync/upstreams.json', 'README.md', 'UPSTREAM_SYNC_REPORT.md', '.agents/plugins/marketplace.json', 'docs/upstream-reports']
           subprocess.run(['git', 'add', '--', *[p for p in paths if Path(p).exists()]], check=True)
           PY
       - name: Create candidate PR, validate its exact commit, and merge

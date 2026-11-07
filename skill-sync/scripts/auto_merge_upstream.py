@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from urllib.parse import quote, urlencode
 
-from sync_upstream import CONFIG, git
+from sync_upstream import CONFIG, SUMMARY, git
 
 
 class GitHub:
@@ -72,7 +72,7 @@ def validate_scope(before, after, paths):
                 raise ValueError("Updated version must match its pinned upstream commit")
     if left != right:
         raise ValueError("Source settings or review-mode synchronized version changed")
-    allowed = {CONFIG, "README.md", ".agents/plugins/marketplace.json", "docs/upstream-reports/health.json"}
+    allowed = {CONFIG, SUMMARY, "README.md", ".agents/plugins/marketplace.json", "docs/upstream-reports/health.json"}
     allowed.update(f"docs/upstream-reports/{name}.md" for name in before)
     for path in paths:
         if path in allowed:

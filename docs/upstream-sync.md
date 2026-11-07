@@ -1,6 +1,6 @@
 # GitHub 上游同步：更新优先，必要时全量替换
 
-GitHub Actions **Sync Skill Upstreams** 每周五北京时间 20:30（UTC 12:30）先执行；ChatGPT 的「Skill 上游同步」任务保留每周五 21:00，用于核查执行结果并在故障时继续处理从 `skill-sync/upstreams.json` 读取所有外部来源配置。README 的「来源」「同步版本」也只读取这份配置。**一次正常检查若发现上游管理范围内有文件或权限差异，必须生成可自动合并的真实更新候选；仅生成“需要人工审查”的报告不算完成同步。**
+GitHub Actions **Sync Skill Upstreams** 每周五北京时间 20:30（UTC 12:30）执行，从 `skill-sync/upstreams.json` 读取所有外部来源配置；未登记的自研 Skill 不参与同步。README 的「来源」「同步版本」也只读取这份配置。**一次正常检查若发现上游管理范围内有文件或权限差异，必须生成可自动合并的真实更新候选；仅生成“需要人工审查”的报告不算完成同步。**
 
 ## 自动更新策略
 
@@ -24,7 +24,9 @@ GitHub Actions **Sync Skill Upstreams** 每周五北京时间 20:30（UTC 12:30�
 
 工作流使用内置 `GITHUB_TOKEN`。创建 PR 需在仓库 **Settings → Actions → General** 开启 Actions 创建 PR 的许可。其校验调度依赖 `actions:write`，校验本身只读。GitHub 对 GITHUB_TOKEN 触发事件有限制，因此通过 `workflow_dispatch` 校验精确候选提交，不依赖未被触发的 PR 校验。分支保护、审批和安全规则不会被绕过。
 
-每个 UTC 月首次正常检查会更新 `docs/upstream-reports/health.json`；同一月无变化不重复提交空报告。定时工作流可能延迟。
+每次实际同步会生成根目录 `UPSTREAM_SYNC_REPORT.md`，汇总全部受管 Skill 的检查结果、更新前后版本、上游 commit 和文件变化；详细报告保留在 `docs/upstream-reports/`。报告在候选分支生成，只有 CI 通过并合并到 master 才代表已落地；失败时查看 Actions 日志和失败 issue。无变化的检查按北京时间周次记录，避免同周重复空提交。
+
+每个 UTC 月首次正常检查会更新 `docs/upstream-reports/health.json`；同一月不重复更新该月健康记录。定时工作流可能延迟。
 
 ## 配置字段
 
@@ -52,6 +54,12 @@ python3 skill-sync/scripts/gen_marketplace.py --check
 ```
 
 GitHub 仓库自动更新成功之后，ChatGPT 手动上传的技能仍需重新安装；此工作流**仅更新 GitHub 仓库**。已通过支持 GitHub Marketplace 的工作区导入、且实际跟踪 `master` 的插件才能使用平台提供的后续同步流程。
+
+## 第二段：GitHub → ChatGPT Marketplace
+
+通过 **Admin → Plugins → Marketplaces** 导入本仓库，Source 使用 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 使用 `master`。工作区 Marketplace 默认每日检查更新，也可选择 **Sync now**，并检查单个插件同步结果。不要固定在 commit 或 tag，否则不会跟随 master。
+
+该链路不需要 GPT 定时任务重复执行第一段上游检查；可停用原来的上游同步/补救任务。Marketplace 的每日同步是平台任务，不等同于 GPT 对话里的定时任务。仅有清单不证明目标工作区已导入或开启同步，实际配置应在管理界面核对。
 
 ## 官方参考
 

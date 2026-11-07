@@ -118,7 +118,7 @@ class AutoMergeTests(unittest.TestCase):
         after['mirror']['version'] = HEAD[:12]
         after['mirror']['sync']['synced_commit'] = HEAD
         after['custom']['sync']['last_reported'] = 'fingerprint'
-        merge.validate_scope(before, after, ['mirror/SKILL.md', 'docs/upstream-reports/custom.md', merge.CONFIG])
+        merge.validate_scope(before, after, ['mirror/SKILL.md', 'docs/upstream-reports/custom.md', merge.CONFIG, merge.SUMMARY])
         for path in ('custom/SKILL.md', '.github/workflows/validate-skills.yml', 'skill-sync/scripts/sync_upstream.py', 'mirror/extra.py'):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 merge.validate_scope(before, after, [path])
