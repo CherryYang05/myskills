@@ -1,88 +1,88 @@
 {
   "schemaVersion": 1,
   "default": {
-    "brandColor": "#576579",
+    "brandColor": "#7B9EB5",
     "concept": "尚未设计专属图标时的临时通用图标",
     "glyph": "<rect x=\"27\" y=\"31\" width=\"74\" height=\"67\" rx=\"12\"/><path d=\"M44 52h40M44 66h27M44 80h20\"/><path d=\"M92 18v20M82 28h20\"/>"
   },
   "skills": {
     "deep-research": {
-      "brandColor": "#365DAD",
+      "brandColor": "#6CA8D8",
       "concept": "书本与放大镜",
       "glyph": "<path d=\"M25 85V33q16-7 31 2v41q-15-9-31-2Z\"/><path d=\"M56 35q14-8 29-3v21\"/><path d=\"M56 35v41\"/><circle cx=\"81\" cy=\"78\" r=\"17\"/><path d=\"m94 91 12 12\"/>"
     },
     "frontend-design": {
-      "brandColor": "#7652A7",
+      "brandColor": "#9785CB",
       "concept": "界面排版与组件网格",
       "glyph": "<rect x=\"23\" y=\"29\" width=\"82\" height=\"71\" rx=\"8\"/><path d=\"M23 48h82M40 39h1M52 39h1\"/><rect x=\"33\" y=\"58\" width=\"20\" height=\"31\" rx=\"3\"/><rect x=\"61\" y=\"58\" width=\"33\" height=\"12\" rx=\"3\"/><path d=\"M63 80h29M63 89h18\"/>"
     },
     "humanizer": {
-      "brandColor": "#AC526F",
+      "brandColor": "#50AFA9",
       "concept": "手写曲线与修订笔尖",
       "glyph": "<path d=\"M26 84c10-22 16-22 22-7s15 14 23-6\"/><path d=\"m63 54 28-28 12 12-28 28-18 6Z\"/><path d=\"m85 32 12 12M63 54l12 12M57 72l5-18\"/><path d=\"M26 101h72\"/>"
     },
     "impeccable": {
-      "brandColor": "#6250A4",
+      "brandColor": "#CF83A6",
       "concept": "精修钻石与星芒",
       "glyph": "<path d=\"m64 29 31 33-31 39-31-39Z\"/><path d=\"M33 62h62M49 44h30M49 44 64 101 79 44\"/><path d=\"M98 23v15M91 30h14\"/>"
     },
     "mermaid-diagrams": {
-      "brandColor": "#3365A2",
+      "brandColor": "#6AA7D5",
       "concept": "连接节点与流程图",
       "glyph": "<rect x=\"47\" y=\"18\" width=\"34\" height=\"26\" rx=\"5\"/><rect x=\"18\" y=\"79\" width=\"36\" height=\"29\" rx=\"5\"/><rect x=\"74\" y=\"79\" width=\"36\" height=\"29\" rx=\"5\"/><path d=\"M64 44v16M36 79V60h56v19\"/><circle cx=\"64\" cy=\"60\" r=\"3\" fill=\"#fff\" stroke=\"none\"/>"
     },
     "shadcn": {
-      "brandColor": "#277A89",
+      "brandColor": "#9E91D3",
       "concept": "可组合的 UI 模块",
       "glyph": "<rect x=\"22\" y=\"24\" width=\"37\" height=\"37\" rx=\"7\"/><rect x=\"69\" y=\"24\" width=\"37\" height=\"18\" rx=\"6\"/><rect x=\"69\" y=\"52\" width=\"37\" height=\"52\" rx=\"7\"/><rect x=\"22\" y=\"71\" width=\"37\" height=\"33\" rx=\"7\"/><path d=\"M31 42h19M87 67v21M78 77h18\"/>"
     },
     "skill-creator": {
-      "brandColor": "#956A29",
+      "brandColor": "#51AFA6",
       "concept": "拼图组件与新建加号",
       "glyph": "<path d=\"M30 43h17c-2-13 16-15 20-5 1 3 1 5 0 5h17v19c12-2 15 16 4 20-2 1-4 1-4 0v19H66c3-12-15-16-19-5-1 3 0 5 0 5H30V81c-12 3-16-15-5-19 3-1 5 0 5 0Z\"/><path d=\"M95 22v17M86 31h18\"/>"
     },
     "web-design-guidelines": {
-      "brandColor": "#536B9B",
+      "brandColor": "#D6899F",
       "concept": "网页框架与测量标尺",
       "glyph": "<rect x=\"19\" y=\"24\" width=\"90\" height=\"80\" rx=\"9\"/><path d=\"M19 44h90M32 34h1M45 34h1\"/><path d=\"m36 86 34-34 20 20-34 34\"/><path d=\"m61 62 5 5m2-12 5 5m2-12 5 5\"/>"
     },
     "ds-mr-reviewer": {
-      "brandColor": "#39728C",
+      "brandColor": "#6A9DD2",
       "concept": "代码审查与勾选",
       "glyph": "<path d=\"m48 37-17 17 17 17m29-34 17 17-17 17M69 31l-9 45\"/><path d=\"m67 95 10 10 23-25\"/><path d=\"M26 91h20\"/>"
     },
     "dt-case-enhancer": {
-      "brandColor": "#287D74",
+      "brandColor": "#9788CF",
       "concept": "测试清单与增强符号",
       "glyph": "<rect x=\"24\" y=\"21\" width=\"67\" height=\"87\" rx=\"8\"/><path d=\"M39 39h23M39 55h23M39 71h15M39 88h17\"/><path d=\"M92 55v31M77 71h30\"/><path d=\"M77 29l4 7 8 3-8 3-4 7-4-7-8-3 8-3Z\" stroke-width=\"4\"/>"
     },
     "dt-case-generator": {
-      "brandColor": "#32708A",
+      "brandColor": "#58ABA8",
       "concept": "自动生成的测试用例卡片",
       "glyph": "<rect x=\"23\" y=\"24\" width=\"67\" height=\"83\" rx=\"8\"/><path d=\"M39 42h32M39 57h22M39 72h28M39 87h13\"/><path d=\"m85 59 6-14 6 14 14 6-14 6-6 14-6-14-14-6Z\" fill=\"#fff\" stroke=\"none\"/>"
     },
     "blog-writer": {
-      "brandColor": "#9B623F",
+      "brandColor": "#CC85A0",
       "concept": "技术文档与写作羽毛笔",
       "glyph": "<path d=\"M27 23h55l17 17v65H27Z\"/><path d=\"M82 23v18h17M39 52h37M39 66h26M39 80h19\"/><path d=\"M58 99q9-29 37-40-3 32-29 38Z\"/><path d=\"m61 100 25-31\"/>"
     },
     "skill-dev-flow": {
-      "brandColor": "#775CA2",
+      "brandColor": "#6DA7D6",
       "concept": "项目开发节点与分支",
       "glyph": "<rect x=\"17\" y=\"40\" width=\"29\" height=\"34\" rx=\"6\"/><rect x=\"81\" y=\"21\" width=\"29\" height=\"34\" rx=\"6\"/><rect x=\"81\" y=\"75\" width=\"29\" height=\"34\" rx=\"6\"/><path d=\"M46 57h18V38h17M64 57v35h17\"/><path d=\"m75 32 6 6-6 6m0 42 6 6-6 6\"/>"
     },
     "skill-dev-sop": {
-      "brandColor": "#476F64",
+      "brandColor": "#9986CE",
       "concept": "标准操作规程与勾选",
       "glyph": "<rect x=\"28\" y=\"26\" width=\"73\" height=\"84\" rx=\"8\"/><rect x=\"46\" y=\"18\" width=\"37\" height=\"17\" rx=\"5\"/><path d=\"m40 58 6 6 11-12M65 58h23m-48 25 6 6 11-12M65 83h23\"/>"
     },
     "skill-iterate": {
-      "brandColor": "#A66344",
+      "brandColor": "#52ACA9",
       "concept": "双向循环箭头与优化星",
       "glyph": "<path d=\"M37 38a39 39 0 0 1 63 18\"/><path d=\"m90 43 10 13 9-14\"/><path d=\"M92 90a39 39 0 0 1-64-18\"/><path d=\"m18 85 10-13 10 13\"/><path d=\"m64 47 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z\" fill=\"#fff\" stroke=\"none\"/>"
     },
     "skill-os-setup": {
-      "brandColor": "#53648B",
+      "brandColor": "#D58A9F",
       "concept": "系统设置目录与齿轮",
       "glyph": "<path d=\"M21 48V34h33l10 11h40v50H21Z\"/><circle cx=\"70\" cy=\"75\" r=\"16\"/><path d=\"M70 50v9m0 32v9M45 75h9m32 0h9m-43-18 7 7m22 22 7 7m0-36-7 7m-22 22-7 7\"/><circle cx=\"70\" cy=\"75\" r=\"5\" fill=\"#fff\" stroke=\"none\"/>"
     }
