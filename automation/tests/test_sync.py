@@ -80,7 +80,7 @@ class SynchronizationTests(unittest.TestCase):
         # Two names within the same upstream repo/ref must reuse a Git fetch.
         (self.root / "skills/external/second").mkdir()
         (self.root / "skills/external/second/SKILL.md").write_text(
-            "---\\nname: second\\ndescription: second\\n---\n"
+            "---\nname: second\ndescription: second\n---\n"
         )
         config = dict(self.config)
         config["second"] = {**self.config["demo"], "path": "skills/second"}
