@@ -1,79 +1,56 @@
-# GitHub 上游同步
+# GitHub 上游同步：更新优先，必要时全量替换
 
-GitHub Actions 每周五北京时间 21:00（UTC 13:00）运行 **Sync Skill Upstreams**，直接读取 `skill-sync/upstreams.json`。README 的来源和同步版本也读取这份配置，不解析 Markdown 表格、不维护第二份来源映射。
+GitHub Actions **Sync Skill Upstreams** 每周五北京时间 21:00（UTC 13:00）从 `skill-sync/upstreams.json` 读取所有外部来源配置。README 的「来源」「同步版本」也只读取这份配置。**一次正常检查若发现上游管理范围内有文件或权限差异，必须生成可自动合并的真实更新候选；仅生成“需要人工审查”的报告不算完成同步。**
 
-| 技能 | 策略 | 管理范围 |
-|---|---|---|
-| humanizer | mirror：生成同步候选 PR | 上游根目录的 SKILL.md |
-| skill-creator | mirror：生成同步候选 PR | 上游 skills/skill-creator 整个目录，包含可执行权限 |
-| deep-research | review：仅生成差异报告 | 上游 deep-research 目录；保留本仓库中文定制和同步版本 |
+## 自动更新策略
 
-工作流生成机器人候选 PR，自动派发完整校验，确认同一提交成功后自动合并到 master。deep-research 的报告也会自动合并，但它的中文技能内容及同步版本始终不被此流程覆盖。
+- 仓库现有 8 个外部 Skill 均设为 `sync.mode=replace`，以后新增外部 Skill 也使用 `replace`。配置验证会拒绝 `review`（只报告不更新）模式，避免无意停滞。
+- `replace` 逐文件按上游跟踪 ref 的**已解析完整 commit**替换技能包，并同步添加、删除、权限更改；包括原本翻译、个性化定制及本地独有文件。原内容可通过 Git 历史恢复，但不继续保存在更新后的技能目录中。请勿在受控目录内放私密文件。
+- `mirror` 为历史兼容策略。若本地完全等于已同步基线，则直接同步；若有本地定制且上游真的发生变化，也回退到完整上游替换；若上游未变而只有本地变化，则保持本地不动。
+- 上游技能变更名称时也准备替换候选，随后通过 Marketplace 唯一性校验阻止非法或重复名称进入默认分支。
+- 脚本不执行从上游获取的脚本。先完整获取、限定路径、大小、symlink/submodule 和 frontmatter 格式，再准备变更。标记新版只可使用该次快照 commit 的短 SHA，完整 `synced_commit` 保存于配置；绝不凭无关的项目 Release 伪造技能版本。
+- 完整替换后删除旧的 `selected_fixes`、`reviewed_commit` 等定制/审查标记，避免误称本地差异仍有效。**包括 deep-research 的中文修改也会被覆盖，这是用户明确选择的升级优先策略。**
 
-## 首次启用
+如果同一候选曾因验证或合并失败而没有进入默认分支，下一次检查**仍须重试**：`last_reported` 只能去重报告，不能跳过实际文件更新。
 
-1. 将此工作流及脚本合并到默认分支 master；定时任务只会在默认分支运行。
-2. 打开仓库 **Settings → Actions → General**，确认 Actions 已启用，并允许 **Allow GitHub Actions to create and approve pull requests**。工作流只申请创建 PR 所需的 contents: write 和 pull-requests: write，不调用 PR 审批或自动合并。
-3. 打开 **Actions → Sync Skill Upstreams → Run workflow**。保持 dry_run 为 false 执行候选生成、完整校验和自动合并；勾选则只检查并提供报告，不写来源文件、不创建或合并 PR。
-4. 查看运行日志和 **upstream-sync-report**（或 **upstream-preview**）附件。没有新内容且本月检查摘要已记录时不创建 PR；有候选时，运行摘要提供 PR、独立校验及合并提交的链接。
+## 提交、验证和失败处理
 
-使用内置 GITHUB_TOKEN，不要求个人令牌或 API 密钥。同步 job 的 actions: write 仅用于 workflow_dispatch 派发校验；Validate Skills 使用 contents: read 并且不在 checkout 中保留凭据。
+1. 获取所有上游快照并计算文件/权限变化；生成候选文件、配置版本、README 和 Marketplace。
+2. 仅添加受管辖 Skill 文件及衍生报告，推送机器人候选分支和 PR。
+3. 单独启动候选 head SHA 对应的只读 **Validate Skills**，检查配置、安全变更范围、单元测试、frontmatter、README 可复现性、Marketplace 可复现性、Python 语法。
+4. **只有确切候选 SHA 校验成功**且 PR、主分支和文件范围未变化才自动合并。校验失败或 GitHub API/Runner 不可用时绝不伪称成功，也不绕过 CI 强推；候选 PR 保留，后续重复运行可以重试。
 
-GitHub 使用 GITHUB_TOKEN 创建 PR 时，额外的 pull_request 事件校验可能显示等待人工批准。本流程通过官方支持的 workflow_dispatch 独立派发完整 Validate Skills，明确匹配候选 head SHA，等待成功后才合并，不依赖那些未启动的事件校验；不关闭仓库的审批策略、不绕过分支保护。
+受保护的配置字段、上游仓库地址、脚本本身和其他自研 Skill 不能被候选 PR 顺带修改。定时任务有可能因 GitHub 服务、GitHub Actions 配额、权限、恶意上游或无法通过验证而失败；无法对外部平台承诺 100% 成功。必须报告失败的具体执行步骤与候选链接，继续重试或修复，不得把“发现更新”冒充完成。
 
-公开仓库长期没有活动时 GitHub 可能停用定时任务。每个 UTC 月首次完整检查会提交一份 docs/upstream-reports/health.json，记录当月实际检查的提交及状态，避免正常运行但长期无上游变化的仓库因没有提交而闲置。它不改变技能版本，同一月重复检查不会制造摘要提交。定时运行仍可能延迟，不是准点执行保证。
+工作流使用内置 `GITHUB_TOKEN`。创建 PR 需在仓库 **Settings → Actions → General** 开启 Actions 创建 PR 的许可。其校验调度依赖 `actions:write`，校验本身只读。GitHub 对 GITHUB_TOKEN 触发事件有限制，因此通过 `workflow_dispatch` 校验精确候选提交，不依赖未被触发的 PR 校验。分支保护、审批和安全规则不会被绕过。
+
+每个 UTC 月首次正常检查会更新 `docs/upstream-reports/health.json`；同一月无变化不重复提交空报告。定时工作流可能延迟。
 
 ## 配置字段
 
-每个键是本地技能目录名。`url` 是 README 来源链接，`version` 是实际同步基线；`selected_fixes` 保留人工选择性移植记录。
+- `url`：README 来源地址；`version`：当前仓库实际同步的 commit 短 SHA（历史记录可保留原 tag/version，后续更新转为 SHA）。
+- `sync.repository`、`sync.path`、`sync.ref`：GitHub 上游仓库、技能子目录及跟踪分支。
+- `sync.mode`：默认 `replace`，遗留 `mirror` 可用；定时任务禁止仅报告的 `review`。
+- `sync.files`：可选文件白名单。若要真正全量同步应移除白名单；已显式限制单文件的技能（例如 Humanizer）只替换其指定范围。
+- `sync.synced_commit`：完整 SHA；更新成功后对应本次真实上游快照。
+- `sync.last_reported`：报告去重标识，**不阻止未合并更新重试**。
 
-`sync` 配置：
+## 手动执行与本机检查
 
-- `repository`：上游 owner/repo，仅接受 GitHub 仓库。
-- `path`：技能在上游的目录，空字符串表示仓库根目录。
-- `ref`：跟踪分支或明确指定的 Git ref。
-- `mode`：mirror 或 review。
-- `files`：可选的明确文件白名单；没有此字段则管理整个技能目录。
-- `synced_commit`：mirror 必须提供完整的已同步 commit SHA，作为保护本地定制的比较基线。不要填写上游最新 SHA 冒充已同步。
-- `last_reported`：脚本维护的本地/上游内容指纹，仅用于避免重复报告，不代表已经同步。
-
-新增外部技能时，先登记为 review 并核查范围。只有确认本地管理范围与某个上游提交一致后，才配置 mirror 和 synced_commit。
-
-## 更新和保护逻辑
-
-检查按文件内容及可执行权限进行。上游项目发 Release，或跟踪分支出现无关目录提交，不会单独触发技能更新。
-
-mirror 更新前，本地管理范围必须仍与 synced_commit 的文件和权限一致。出现本地定制或技能 name 变化时，生成 blocked 报告，保留技能内容和版本。review 模式始终保留源文件，只更新报告及 last_reported。
-
-mirror 候选将本次完整上游 commit 记录到 synced_commit，并将 README 同步版本更新为可追溯的 commit 短 SHA，不根据项目 Release 或可能过期的技能 metadata 推断版本。报告记录候选提交及文件列表；只有 PR 合并后才是主分支的新基线。
-
-同步脚本先获取并验证所有来源，再准备改动。获取失败、文件缺失、异常 frontmatter、符号链接或子模块会使运行失败，不发布部分结果。读取上游文件不会执行上游脚本；自动任务使用本仓库同步代码与生成器。CI 在 PR 中另行校验候选。
-
-同一基线和候选 diff 使用固定的 automation/upstream-<base SHA>-<diff hash> 分支；已有开放 PR 时核对其完整树内容并重试校验，已关闭的相同候选不重复创建。工作流不强制推送、不覆盖用户编辑的远端分支。主分支前进后会根据新基线重新生成候选。
-
-自动合并只接受 github-actions[bot] 在本仓库创建的指定候选分支。改动范围仅限配置允许 mirror 的文件、对应报告、月度检查摘要、来源状态和两个生成文件；不允许变更更新策略、上游地址、review 技能版本或同步程序。校验失败、超时、PR head 变更、主分支前进、权限不足或分支保护不满足时均停止，保留开放 PR 和运行记录，供后续通过 GPT 排查，不会直接推送覆盖 master。
-
-已合并的报告位于 docs/upstream-reports/。deep-research 报告自动合并仅记录“已报告”，不代表移植完成；移植仍需审查上游变更、保留中文规则并正确维护同步基线。
-
-## 本地检查
+在 GitHub **Actions → Sync Skill Upstreams → Run workflow** 中，将 `dry_run` 留为 `false`，可启动真正的候选生成、CI 和自动合并。设为 `true` 则只检查并生成报告。
 
 ```bash
 python3 -m pip install pyyaml
 python3 skill-sync/scripts/sync_upstream.py --validate-config
 python3 -m unittest discover -s skill-sync/tests -v
-# 默认只读检查
 python3 skill-sync/scripts/sync_upstream.py --report /tmp/upstream-report.json
-# 仅在干净的源码开发分支生成候选，不提交、不推送
+# 仅在本地临时分支预览实际替换，必须检查 git diff
 python3 skill-sync/scripts/sync_upstream.py --apply
 python3 skill-sync/scripts/gen_readme.py
-python3 skill-sync/scripts/gen_marketplace.py
+python3 skill-sync/scripts/gen_marketplace.py --check
 ```
 
-## 与本机 Codex 的关系
-
-GitHub 上游检查 → 更新 PR → 合并 master → 本机 Codex 刷新 GitHub 来源，这是不同步骤。本工作流不直接更新你的电脑或个人空间中上传的技能。
-
-本机 marketplace 必须跟踪 master，才能接收主分支合并的更新。随后可使用 `codex plugin marketplace upgrade cherry-myskills` 刷新来源。只跟踪旧 PR 分支时，不会收到 master 的新提交；本机每日自动刷新需另行设置。
+GitHub 仓库自动更新成功之后，ChatGPT 手动上传的技能仍需重新安装；此工作流**仅更新 GitHub 仓库**。已通过支持 GitHub Marketplace 的工作区导入、且实际跟踪 `master` 的插件才能使用平台提供的后续同步流程。
 
 ## 官方参考
 
