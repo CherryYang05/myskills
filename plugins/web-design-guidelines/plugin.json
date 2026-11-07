@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "web-design-guidelines",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
   "author": {
     "name": "CherryYang05",
@@ -17,7 +17,10 @@
         "longDescription": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\".",
         "developerName": "CherryYang05",
         "category": "Productivity",
-        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/external/web-design-guidelines"
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/external/web-design-guidelines",
+        "brandColor": "#536B9B",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
       }
     }
   }
