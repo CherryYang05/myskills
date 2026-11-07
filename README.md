@@ -20,30 +20,37 @@ npx skills add CherryYang05/myskills --list
 # 交互式选择 Skill 和客户端（当前项目）
 npx skills add CherryYang05/myskills
 
+# 推荐：通过 -s 指定 Skill；无需填写很长的 GitHub 子目录 URL
+npx skills add CherryYang05/myskills -s humanizer
+
 # 给 Codex 全局安装指定 Skill
-npx skills add CherryYang05/myskills --skill humanizer -a codex -g -y
+npx skills add CherryYang05/myskills -s humanizer -a codex -g -y
 
 # 给 Claude Code 全局安装指定 Skill
-npx skills add CherryYang05/myskills --skill blog-writer -a claude-code -g -y
+npx skills add CherryYang05/myskills -s blog-writer -a claude-code -g -y
 
 # 给 Cursor 当前项目安装指定 Skill
-npx skills add CherryYang05/myskills --skill impeccable -a cursor -y
+npx skills add CherryYang05/myskills -s impeccable -a cursor -y
 
 # 同时将两个指定 Skill 安装到 Codex 和 Claude Code（当前项目）
-npx skills add CherryYang05/myskills --skill humanizer --skill blog-writer -a codex -a claude-code -y
+npx skills add CherryYang05/myskills -s humanizer -s blog-writer -a codex -a claude-code -y
 
 # 将本仓库全部 16 个 Skill 安装给三个指定客户端（全局）
-npx skills add CherryYang05/myskills --skill '*' -a codex -a claude-code -a cursor -g -y
+npx skills add CherryYang05/myskills -s '*' -a codex -a claude-code -a cursor -g -y
 
 # 在所有受支持的客户端安装全部 Skill（范围较大，谨慎使用）
 npx skills add CherryYang05/myskills --all
 ```
 
-也可以直接指定一个 Skill 子目录，而不加载仓库的其他技能：
+**记忆方式：** `npx skills add CherryYang05/myskills -s <skill-name>`。例如只安装 Humanizer，直接用 `-s humanizer`；不需要记住 `skills/external/` 或 `skills/personal/` 的目录位置。
+
+如果只是临时使用而不安装，Skills CLI 另有 `use` 命令（`@` 后面是 Skill 名称）：
 
 ```bash
-npx skills add https://github.com/CherryYang05/myskills/tree/master/skills/external/humanizer -a codex -g -y
+npx skills use CherryYang05/myskills@humanizer -a codex
 ```
+
+注意 `npx skills add humanizer@CherryYang05/myskills` 并非 CLI 支持的指定 Skill 语法；`add` 使用 `-s`，而 `use` 才使用 `owner/repo@skill`。
 
 查看、更新和卸载通过 Skills CLI 安装的 Skill：
 
@@ -57,7 +64,7 @@ npx skills update -g            # 更新所有全局 Skill
 npx skills remove humanizer -g  # 卸载全局安装的 humanizer
 ```
 
-`--skill`（或 `-s`）选择名称，`-a` 选择目标客户端，`-g` 代表用户级安装，`-y` 跳过确认；`--all` 同时涵盖所有技能和所有受支持的客户端。可用 `--copy` 改用复制而非符号链接。更多参数见 [Skills CLI 官方命令文档](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
+`-s`（或 `--skill`）选择名称，`-a` 选择目标客户端，`-g` 代表用户级安装，`-y` 跳过确认；`--all` 同时涵盖所有技能和所有受支持的客户端。可用 `--copy` 改用复制而非符号链接。更多参数见 [Skills CLI 官方命令文档](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
 
 ### 方法二：各客户端的 Plugin Marketplace
 
