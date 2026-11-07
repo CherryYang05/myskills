@@ -53,7 +53,7 @@ def validate_config(config, root):
         ref = sync["ref"]
         if not isinstance(ref, str) or not ref or ref.startswith("-"):
             raise ValueError(f"Invalid tracked ref for {name}")
-        if sync["mode"] not in {"mirror", "review"}:
+        if sync["mode"] not in {"mirror", "review", "replace"}:
             raise ValueError(f"Unsupported update mode for {name}")
         if sync["mode"] == "mirror" and not re.fullmatch(r"[0-9a-f]{40}", sync.get("synced_commit", "")):
             raise ValueError(f"Mirror mode needs a full synced_commit for {name}")
@@ -147,12 +147,18 @@ def plan_skill(name, info, local, latest, baseline, commit):
     changes = differences(local, latest)
     if not changes:
         status = "up_to_date"
+    elif info["sync"]["mode"] == "replace":
+        # User-authorized complete replacement: trust the pinned upstream
+        # package identity, with marketplace uniqueness checked by CI.
+        status = "update_ready"
     elif identity_changed:
         status = "blocked_identity_change"
     elif info["sync"]["mode"] == "review":
         status = "review_required"
     elif local != baseline:
-        status = "blocked_local_changes"
+        # Mirror mode can discard local drift only when upstream really moved.
+        # Otherwise preserve local changes instead of resetting them.
+        status = "update_ready" if latest != baseline else "blocked_local_changes"
     else:
         status = "update_ready"
     marker = fingerprint(local) + ":" + fingerprint(latest) + ":" + status
@@ -188,7 +194,7 @@ def markdown(plan, info):
     prefix = sync["path"] + "/" if sync["path"] else ""
     lines = [f"# {name} 上游检查", "", f"状态：`{plan['status']}`", "",
              f"本仓库同步基线：`{info['version']}`。检查提交：[{plan['commit']}](https://github.com/{sync['repository']}/commit/{plan['commit']})。", "",
-             "此报告不表示已经完整同步。review 模式及 blocked 状态不修改技能文件或同步版本；last_reported 仅用于避免重复报告。", "",
+             "候选说明：replace 模式将完整覆盖对应技能目录（包括本地新增文件），历史修改仍可从 Git 恢复；review/blocked 状态不修改技能版本。last_reported 不阻止失败候选重试。", "",
              "| 文件 | 变化（包含权限差异） | 上游文件 |", "|---|---|---|"]
     from urllib.parse import quote
     for item in plan["changes"]:
@@ -203,7 +209,11 @@ def apply_plans(root, config, plans):
     updated = copy.deepcopy(config)
     for plan, before, latest in plans:
         name = plan["skill"]
-        if not plan["changes"] or not plan["report_changed"]:
+        if not plan["changes"]:
+            continue
+        # A previous candidate PR can fail validation or merge; last_reported
+        # must never suppress retrying an unapplied, update_ready candidate.
+        if not plan["report_changed"] and plan["status"] != "update_ready":
             continue
         info = updated[name]
         report = root / "docs/upstream-reports" / f"{name}.md"
@@ -226,6 +236,11 @@ def apply_plans(root, config, plans):
                     target.write_bytes(content)
                     target.chmod(0o755 if mode == "100755" else 0o644)
             info["sync"]["synced_commit"] = plan["commit"]
+            # A complete replacement supersedes selectively ported fixes and
+            # previous review-only pointers; Git history preserves old sources.
+            if info["sync"]["mode"] == "replace":
+                info.pop("selected_fixes", None)
+                info["sync"].pop("reviewed_commit", None)
             # A resolved Git commit is always traceable; do not invent a release version.
             info["version"] = plan["commit"][:12]
         info["sync"]["last_reported"] = plan["marker"]
