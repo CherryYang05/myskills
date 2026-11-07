@@ -42,6 +42,8 @@ jobs:
           set -euo pipefail
           npx --yes skills@latest add . --list | tee "$RUNNER_TEMP/skills-cli-list.txt"
           python3 automation/scripts/check_cli_inventory.py "$RUNNER_TEMP/skills-cli-list.txt"
+      - name: Validate Claude Code plugin marketplace
+        run: npx --yes @anthropic-ai/claude-code@latest plugin validate .
       - name: Smoke-test Skills CLI installation for Claude Code and Cursor
         env:
           DISABLE_TELEMETRY: '1'
