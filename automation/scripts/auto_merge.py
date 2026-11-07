@@ -50,6 +50,10 @@ def validate_scope(before, after, changed_paths):
             continue
         found = False
         for name, source in before.items():
+            plugin_prefix = f"plugins/{name}/"
+            if path.startswith(plugin_prefix):
+                found = True
+                break
             prefix = f"{EXTERNAL}/{name}/"
             if path.startswith(prefix):
                 relative = path[len(prefix):]

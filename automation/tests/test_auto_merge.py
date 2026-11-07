@@ -89,8 +89,8 @@ class AutoMergeTests(unittest.TestCase):
         before = {"demo": {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE}}
         after = copy.deepcopy(before)
         after["demo"]["sha"] = HEAD
-        auto_merge.validate_scope(before, after, ["skills/external/demo/SKILL.md", auto_merge.CONFIG, auto_merge.SUMMARY])
-        for path in ("skills/personal/own/SKILL.md", "automation/scripts/sync.py", ".github/workflows/sync-upstream.yml", "skills/external/other/SKILL.md"):
+        auto_merge.validate_scope(before, after, ["skills/external/demo/SKILL.md", "plugins/demo/plugin.json", "plugins/demo/skills/demo/SKILL.md", auto_merge.CONFIG, auto_merge.SUMMARY])
+        for path in ("skills/personal/own/SKILL.md", "automation/scripts/sync.py", ".github/workflows/sync-upstream.yml", "skills/external/other/SKILL.md", "plugins/other/plugin.json"):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 auto_merge.validate_scope(before, after, [path])
         after["demo"]["ref"] = "untrusted"
