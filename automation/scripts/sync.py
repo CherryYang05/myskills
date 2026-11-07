@@ -139,14 +139,21 @@ def diff(before, after):
 def fetch_snapshots(config):
     """Build every plan before mutating the checkout."""
     planned = []
+    # Reuse one remote checkout for Skills sharing a repository and tracked ref.
+    # This saves network fetches without changing the pinned commit semantics.
     with tempfile.TemporaryDirectory(prefix="myskills-sync-") as temp:
+        fetched = {}
         for name, source in sorted(config.items()):
-            repo_dir = Path(temp) / name
-            repo_dir.mkdir()
-            git(repo_dir, "init", "--bare", "--quiet")
-            git(repo_dir, "remote", "add", "origin", f"https://github.com/{source['repo']}.git")
-            git(repo_dir, "fetch", "--quiet", "--depth=1", "origin", source["ref"])
-            remote_sha = git(repo_dir, "rev-parse", "FETCH_HEAD").decode().strip()
+            key = (source["repo"], source["ref"])
+            if key not in fetched:
+                repo_dir = Path(temp) / f"remote-{len(fetched)}"
+                repo_dir.mkdir()
+                git(repo_dir, "init", "--bare", "--quiet")
+                git(repo_dir, "remote", "add", "origin", f"https://github.com/{source['repo']}.git")
+                git(repo_dir, "fetch", "--quiet", "--depth=1", "origin", source["ref"])
+                remote_sha = git(repo_dir, "rev-parse", "FETCH_HEAD").decode().strip()
+                fetched[key] = (repo_dir, remote_sha)
+            repo_dir, remote_sha = fetched[key]
             latest = tree_snapshot(repo_dir, remote_sha, source["path"])
             preserve = set(source.get("preserve", []))
             if preserve.intersection(latest):
@@ -207,6 +214,10 @@ def render_report(before_config, after_config, planned, period=None):
 
 def apply_plans(root, config, planned, period=None):
     updated = copy.deepcopy(config)
+    # A check with no content/permission changes must not create a weekly PR
+    # solely to refresh timestamps in UPSTREAM_SYNC_REPORT.md.
+    if not any(changes for _, _, _, _, changes in planned):
+        return updated
     for name, remote_sha, old, latest, changes in planned:
         if changes:
             apply_snapshot(root / EXTERNAL / name, old, latest, changes)
@@ -214,6 +225,30 @@ def apply_plans(root, config, planned, period=None):
     (root / CONFIG).write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (root / SUMMARY).write_text(render_report(config, updated, planned, period), encoding="utf-8")
     return updated
+
+
+def append_action_summary(planned):
+    """Record every check as a GitHub Actions run summary, including no-ops."""
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not summary_path:
+        return
+    lines = [
+        "## Upstream Skill check", "",
+        f"Checked {len(planned)} registered external Skills.",
+        "", "| Skill | Upstream commit | Changed files |",
+        "|---|---|---:|",
+    ]
+    for name, sha, _, _, changes in planned:
+        lines.append(f"| {name} | `{sha[:12]}` | {len(changes)} |")
+    changes = sum(bool(changes) for _, _, _, _, changes in planned)
+    lines.extend([
+        "",
+        (f"{changes} Skill(s) changed; candidate PR requires validated merge."
+         if changes else "No changes detected; no PR or report commit will be created."),
+        "",
+    ])
+    with open(summary_path, "a", encoding="utf-8") as file:
+        file.write("\n".join(lines))
 
 
 def main():
@@ -234,6 +269,7 @@ def main():
             "skills": [{"name": name, "upstream": sha, "changed_files": len(changes)}
                        for name, sha, _, _, changes in planned]
         }, indent=2) + "\n", encoding="utf-8")
+    append_action_summary(planned)
     if args.apply:
         apply_plans(ROOT, config, planned)
 
