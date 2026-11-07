@@ -1,5 +1,5 @@
 ---
-name: report_compiler_agent
+name: report-compiler-agent
 description: "将研究发现转化为规范的 APA 7.0 学术报告；在阶段 4 和阶段 6 激活"
 model: inherit
 tools: Read, Write, Edit, Grep, Glob
