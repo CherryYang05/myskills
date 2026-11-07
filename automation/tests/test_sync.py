@@ -104,6 +104,21 @@ class SynchronizationTests(unittest.TestCase):
         self.assertIn("./skills/external/demo", generated["README.md"])
         self.assertIn("./skills/personal/own", generated["README.md"])
 
+        self.assertIn("./plugins/demo", generated[generate.MARKETPLACE])
+        self.assertIn("./plugins/own", generated[generate.MARKETPLACE])
+        packaged = generate.render_plugin_files(self.root)
+        demo = json.loads(packaged["plugins/demo/plugin.json"][1])
+        self.assertEqual(demo["name"], "demo")
+        self.assertEqual(demo["homepage"], "https://github.com/CherryYang05/myskills/tree/master/skills/external/demo")
+        self.assertEqual(packaged["plugins/demo/skills/demo/SKILL.md"], self.old["SKILL.md"])
+        self.assertEqual(packaged["plugins/demo/skills/demo/scripts/run.py"], self.old["scripts/run.py"])
+        self.assertIn("plugins/own/skills/own/SKILL.md", packaged)
+        generate.check_or_write_plugin_files(self.root, packaged, False)
+        generate.check_or_write_plugin_files(self.root, packaged, True)
+        (self.root / "plugins/demo/skills/demo/SKILL.md").write_text("stale!")
+        with self.assertRaisesRegex(SystemExit, "stale"):
+            generate.check_or_write_plugin_files(self.root, packaged, True)
+
     def test_future_frontmatter_keys_are_forward_compatible(self):
         path = self.external / "SKILL.md"
         path.write_text(

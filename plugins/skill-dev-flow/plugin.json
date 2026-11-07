@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "skill-dev-flow",
+  "version": "1.0.0",
+  "description": "固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档。当用户说\"开个新需求\"、\"帮我把这个需求拆一下\"、\"按流程开发\"、\"初始化项目文档\"、\"写个设计文档\"、\"这个功能怎么拆\"、\"建 AGENTS.md\"、\"开发流程\"，或描述了一个待开发的需求/功能/项目时，必须立即触发本技能。即使用户只是丢来一句模糊需求（\"我想做个 X\"），也应主动按本流程推进。流程产物以中文撰写，技术术语、代码、文件名保留英文。",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/skill-dev-flow",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "skill-dev-flow",
+        "shortDescription": "固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档。当用户说\"开个新需求\"、\"帮我把这个需求拆一下\"、\"按流程开发\"、\"初始化项目文…",
+        "longDescription": "固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档。当用户说\"开个新需求\"、\"帮我把这个需求拆一下\"、\"按流程开发\"、\"初始化项目文档\"、\"写个设计文档\"、\"这个功能怎么拆\"、\"建 AGENTS.md\"、\"开发流程\"，或描述了一个待开发的需求/功能/项目时，必须立即触发本技能。即使用户只是丢来一句模糊需求（\"我想做个 X\"），也应主动按本流程推进。流程产物以中文撰写，技术术语、代码、文件名保留英文。",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/skill-dev-flow"
+      }
+    }
+  }
+}

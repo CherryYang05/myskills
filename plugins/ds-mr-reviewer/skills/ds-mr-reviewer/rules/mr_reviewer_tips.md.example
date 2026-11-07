@@ -1,0 +1,14 @@
+---
+link_repo: 声明当前代码仓还需要遵循其他代码仓的检视规则（mr_reviewer_rules.md 或 mr_reviewer_tips.md），多个仓库用英文逗号分隔。示例：NCE-T/TransNeWebService,NCE-T/TransFrontendService
+depend_repo: 声明当前代码仓代码依赖其它的代码仓，在AI检视时可以去其它代码仓搜索代码，多个仓库用英文逗号分隔。示例：NCE-T/TransNeWebService,NCE-T/TransFrontendService
+language: 声明当前代码仓主要编程语言，用于提取检视规则，多个语言用英文逗号分隔，建议配置。示例：java,ts
+---
+
+# MR Reviewer Rules
+
+本文件为代码仓的MR检视规则配置文件，放置于代码仓根目录（文件名推荐使用 `mr_reviewer_rules.md`，兼容旧命名 `mr_reviewer_tips.md`），以下所有检视规则必须遵守。
+
+### BIZ-001: [规则标题，使用命令式语言描述要检查什么]
+- **检查锚点**: [AI重点扫描的关键字/代码模式/代码结构，多个用逗号分隔]
+- **反例**: `[不好的代码片段]`
+- **正例**: `[推荐的代码片段]`

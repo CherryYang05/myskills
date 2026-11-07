@@ -8,7 +8,7 @@
       "name": "deep-research",
       "source": {
         "source": "local",
-        "path": "./skills/external/deep-research"
+        "path": "./plugins/deep-research"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -20,7 +20,7 @@
       "name": "frontend-design",
       "source": {
         "source": "local",
-        "path": "./skills/external/frontend-design"
+        "path": "./plugins/frontend-design"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -32,7 +32,7 @@
       "name": "humanizer",
       "source": {
         "source": "local",
-        "path": "./skills/external/humanizer"
+        "path": "./plugins/humanizer"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -44,7 +44,7 @@
       "name": "impeccable",
       "source": {
         "source": "local",
-        "path": "./skills/external/impeccable"
+        "path": "./plugins/impeccable"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -56,7 +56,7 @@
       "name": "mermaid-diagrams",
       "source": {
         "source": "local",
-        "path": "./skills/external/mermaid-diagrams"
+        "path": "./plugins/mermaid-diagrams"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -68,7 +68,7 @@
       "name": "shadcn",
       "source": {
         "source": "local",
-        "path": "./skills/external/shadcn"
+        "path": "./plugins/shadcn"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -80,7 +80,7 @@
       "name": "skill-creator",
       "source": {
         "source": "local",
-        "path": "./skills/external/skill-creator"
+        "path": "./plugins/skill-creator"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -92,7 +92,7 @@
       "name": "web-design-guidelines",
       "source": {
         "source": "local",
-        "path": "./skills/external/web-design-guidelines"
+        "path": "./plugins/web-design-guidelines"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -104,7 +104,7 @@
       "name": "ds-mr-reviewer",
       "source": {
         "source": "local",
-        "path": "./skills/personal/ds-mr-reviewer"
+        "path": "./plugins/ds-mr-reviewer"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -116,7 +116,7 @@
       "name": "dt-case-enhancer",
       "source": {
         "source": "local",
-        "path": "./skills/personal/dt-case-enhancer"
+        "path": "./plugins/dt-case-enhancer"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -128,7 +128,7 @@
       "name": "dt-case-generator",
       "source": {
         "source": "local",
-        "path": "./skills/personal/dt-case-generator"
+        "path": "./plugins/dt-case-generator"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -140,7 +140,7 @@
       "name": "blog-writer",
       "source": {
         "source": "local",
-        "path": "./skills/personal/skill-blog-writer"
+        "path": "./plugins/blog-writer"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -152,7 +152,7 @@
       "name": "skill-dev-flow",
       "source": {
         "source": "local",
-        "path": "./skills/personal/skill-dev-flow"
+        "path": "./plugins/skill-dev-flow"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -164,7 +164,7 @@
       "name": "skill-dev-sop",
       "source": {
         "source": "local",
-        "path": "./skills/personal/skill-dev-sop"
+        "path": "./plugins/skill-dev-sop"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -176,7 +176,7 @@
       "name": "skill-iterate",
       "source": {
         "source": "local",
-        "path": "./skills/personal/skill-iterate"
+        "path": "./plugins/skill-iterate"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -188,7 +188,7 @@
       "name": "skill-os-setup",
       "source": {
         "source": "local",
-        "path": "./skills/personal/skill-os-setup"
+        "path": "./plugins/skill-os-setup"
       },
       "policy": {
         "installation": "AVAILABLE",

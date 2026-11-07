@@ -6,12 +6,13 @@
 skills/
   external/<skill>/     原样镜像第三方 Skill 包，自动覆盖
   personal/<skill>/     自研 Skill，仅由维护者修改
+plugins/<skill>/         自动生成的自包含 Plugin 安装包；plugin.json + skills/<skill>/
 automation/
   upstreams.json        外部来源唯一注册表
   scripts/
     sync.py             获取、比较、替换上游 Skill；产出根目录报告
     verify.py           校验 Skill 名称、来源完整性和 Frontmatter
-    generate.py         统一生成 README 和 Marketplace
+    generate.py         统一生成 README、Marketplace 和 Plugin 安装包
     auto_merge.py       精确 SHA 的 CI 验证 + 限域自动合并
   tests/                同步安全与报告、配置回归测试
 .github/workflows/
@@ -34,13 +35,13 @@ UPSTREAM_SYNC_REPORT.md           上游同步与文件修正报告（自动生�
 
 每周五北京时间 20:30 自动执行，可在 Actions 中手动启动。同步流程依次取得所有上游快照，只接收 regular Git blobs，拒绝符号链接、子模块、越界路径、超限文件集合；不会执行上游 Skill 中的脚本。所有快照获取完成才开始修改。
 
-有变化时使用上游确切提交替换相关 external 目录、更新 SHA、生成 README / Marketplace / 根目录修正报告。即使没有内容更新，周度报告也可记录该次检查。候选 PR 只允许改动注册表中受管目录及四个生成物，不能碰 personal、同步脚本、工作流、来源地址或 legal preserve 文件。
+有变化时使用上游确切提交替换相关 external 目录、更新 SHA、生成 README / Marketplace / 完整 Plugin 包 / 根目录修正报告。即使没有内容更新，周度报告也可记录该次检查。候选 PR 只允许改动注册表中受管目录及生成物（包括对应 `plugins/<external-name>/` 包），不能碰 personal、同步脚本、工作流、来源地址或 legal preserve 文件。
 
 候选 PR 的同一 head SHA 必须在 `Validate Skills` 完整通过且主分支仍等于预期基础 SHA，才允许自动合并。否则留下 PR 并在 Issue 通知，而不会强推或标记成功。
 
 ## myskills → ChatGPT
 
-清单位于仓库根目录 `.agents/plugins/marketplace.json`，记录全部 16 个 Skill 的相对目录，其中既有 external 也有 personal。
+清单位于仓库根目录 `.agents/plugins/marketplace.json`，列出全部 16 个 Skill 对应的 `./plugins/<name>` 安装包。`plugins/` 是构建产物：每个包都有根目录 `plugin.json`，以及 `skills/<name>/SKILL.md` 和原 Skill 的脚本、参考资料、资源文件。原始源码仍位于 `skills/external/` 或 `skills/personal/`，禁止手动编辑 `plugins/`；生成器会完整重建它们。
 
 **ChatGPT 工作区管理员**可以通过 **Admin → Plugins → Add → Import marketplace** 导入仓库，Source 填 `https://github.com/CherryYang05/myskills`，Path 留空，Branch 选 `master`。平台提供默认每日自动同步和手动 Sync now；这项同步必须在实际目标工作区完成导入后才能生效。具体入口和行为请参阅 [官方文档](https://learn.chatgpt.com/docs/enterprise/plugin-management)。
 
@@ -58,4 +59,4 @@ python3 automation/scripts/generate.py --check
 python3 automation/scripts/sync.py --check-config
 ```
 
-生成物由 `python3 automation/scripts/generate.py` 写入。不要在根目录保留第二份手写来源索引，也不要把 Python 缓存、下载生成的二进制或测试输出提交到 Git。历史清理文件仍可从 Git 历史恢复。
+生成物由 `python3 automation/scripts/generate.py` 写入。CI 对每个 Plugin 的 manifest、Skill 文件内容和执行权限做一致性校验。不要在根目录保留第二份手写来源索引，也不要把 Python 缓存、下载生成的二进制或测试输出提交到 Git。历史清理文件仍可从 Git 历史恢复。
