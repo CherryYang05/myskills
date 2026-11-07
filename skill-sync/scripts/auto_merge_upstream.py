@@ -47,7 +47,7 @@ def validate_scope(before, after, paths):
     for name in before:
         mode = before[name]["sync"]["mode"]
         if mode in {"mirror", "replace"}:
-            for side in (left, right):
+            for side in (left[name], right[name]):
                 side.pop("version", None)
                 side["sync"].pop("synced_commit", None)
         if mode == "replace":
@@ -58,7 +58,7 @@ def validate_scope(before, after, paths):
             if (after[name]["sync"].get("reviewed_commit") not in
                     (None, before[name]["sync"].get("reviewed_commit"))):
                 raise ValueError("Replacement cannot fabricate a reviewed commit")
-            for side in (left, right):
+            for side in (left[name], right[name]):
                 side.pop("selected_fixes", None)
                 side["sync"].pop("reviewed_commit", None)
         for side in (left, right):
