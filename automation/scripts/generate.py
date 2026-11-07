@@ -31,7 +31,7 @@ def short_description(description, limit=88):
             if last_space > limit // 2:
                 shortened = shortened[:last_space]
         text = shortened.rstrip(" ,.;:，。；：、") + "…"
-    return text.replace("|", r"\|").replace("`, "'")
+    return text.replace("|", r"\|").replace("`", "'")
 
 
 def render(root=ROOT):
