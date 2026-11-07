@@ -51,6 +51,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: write # Dispatch read-only validation for the candidate commit.
+      issues: write  # Raise one actionable failure issue if a scheduled sync fails.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -121,13 +122,29 @@ jobs:
           lines = ['Automatically prepared upstream candidates. Auto-merge follows successful exact-commit validation.', '', '| Skill | Result | File differences |', '|---|---|---|']
           for entry in report['skills']:
               lines.append(f"| {entry['skill']} | {entry['status']} | {len(entry['changes'])} |")
-          lines += ['', 'Review reports are in docs/upstream-reports/. Review and blocked skills retain their source files and synchronized versions.', '', 'The workflow dispatches read-only Validate Skills on this exact candidate commit, waits for success, verifies PR ownership/scope and unchanged head/base, then merges without a manual approval step.', '', os.environ['RUN_URL']]
+          lines += ['', 'Sync policy: replace upstream-managed Skill files in full when necessary, including local-only files. Original content remains recoverable from Git history. Reports are in docs/upstream-reports/.', '', 'The workflow dispatches read-only Validate Skills on this exact candidate commit, retries failed validations up to three attempts, verifies PR ownership/scope and unchanged head/base, then merges without a manual approval step. Failed checks never bypass CI.', '', os.environ['RUN_URL']]
           (Path(os.environ['RUNNER_TEMP']) / 'upstream-pr.md').write_text('\n'.join(lines) + '\n')
           PY
           pr_url=$(gh pr create --repo "$REPOSITORY" --base "$BASE_BRANCH" --head "$branch" --title 'chore: skill upstream updates and review reports' --body-file "$RUNNER_TEMP/upstream-pr.md")
           echo "$pr_url" >> "$GITHUB_STEP_SUMMARY"
           number=$(gh pr view "$pr_url" --repo "$REPOSITORY" --json number --jq '.number')
           python3 skill-sync/scripts/auto_merge_upstream.py --pr "$number" --branch "$branch" --head "$(git rev-parse HEAD)" --base-sha "$base_sha"
+      - name: Report failed automatic synchronization
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='[sync] Upstream synchronization requires repair'
+          existing=$(gh issue list --repo "$REPOSITORY" --state open --limit 100 --json title,number --jq '.[] | select(.title == "[sync] Upstream synchronization requires repair") | .number' | head -n 1 || true)
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPOSITORY" --body "Latest failed scheduled sync: $RUN_URL. Repository changes were not merged; inspect the candidate PR and validation failures." || true
+          else
+            gh issue create --repo "$REPOSITORY" --title "$title" --body "An automatic upstream synchronization failed: $RUN_URL. Updates MUST NOT be considered complete until the candidate is validated and merged. Inspect the run, repair the failure and rerun the workflow." || true
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
