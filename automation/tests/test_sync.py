@@ -106,6 +106,11 @@ class SynchronizationTests(unittest.TestCase):
         for invalid in (0, -1, "lots", 512 * 1024 * 1024):
             with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_bytes"):
                 sync.validate_config({"demo": {**large, "max_bytes": invalid}}, self.root)
+        roomy = {**large, "max_files": 10000}
+        sync.validate_config({"demo": roomy}, self.root)
+        for invalid in (0, "a lot", 50000):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_files"):
+                sync.validate_config({"demo": {**roomy, "max_files": invalid}}, self.root)
 
     def test_only_sha_is_changed_on_apply(self):
         newer = package("new", "100755")
