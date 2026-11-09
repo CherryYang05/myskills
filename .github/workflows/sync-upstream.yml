@@ -1,6 +1,12 @@
 name: Sync Skill Upstreams
 
 on:
+  push:
+    branches: [master]
+    paths:
+      - 'automation/upstreams.json'
+      - 'automation/plugin-appearance.json'
+      - '.github/workflows/sync-upstream.yml'
   schedule:
     - cron: '30 12 * * 5' # Friday 20:30 Asia/Shanghai
   workflow_dispatch:
@@ -64,8 +70,10 @@ jobs:
       - name: Fetch all upstreams and prepare candidate
         run: |
           python3 automation/scripts/sync.py --apply --report-json "$RUNNER_TEMP/upstream-check.json"
-          python3 automation/scripts/generate.py
           python3 automation/scripts/verify.py
+          python3 automation/scripts/review_imports.py
+          python3 automation/scripts/verify_appearance.py
+          python3 automation/scripts/generate.py
           python3 automation/scripts/generate.py --check
       - name: Stage exclusively managed Skill packages and generated outputs
         run: |
