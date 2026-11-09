@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "caveman",
+  "version": "1.0.0",
+  "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/CherryYang05/myskills/tree/master/skills/external/caveman",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "caveman",
+        "shortDescription": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk lik…",
+        "longDescription": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\".",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/external/caveman",
+        "brandColor": "#715A65",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}
