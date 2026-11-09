@@ -64,7 +64,8 @@
     "ref": "main",
     "sha": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
     "root_license": "LICENSE",
-    "max_bytes": 134217728
+    "max_bytes": 134217728,
+    "max_files": 10000
   },
   "playwright": {
     "repo": "openai/skills",
