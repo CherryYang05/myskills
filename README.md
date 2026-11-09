@@ -19,7 +19,7 @@
 | [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
 | [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
+| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 把学习对话、笔记和实践记录整理成可独立阅读的中文博客，涵盖知识解析、实操教程和复盘等主题 |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合… |
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
