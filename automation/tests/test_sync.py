@@ -100,6 +100,13 @@ class SynchronizationTests(unittest.TestCase):
         self.assertEqual(latest["LICENSE.upstream.txt"], ("100644", b"MIT License\\n"))
         self.assertTrue(any(call.args[1] == "show" for call in fetch.call_args_list))
 
+    def test_per_source_size_override_is_bounded(self):
+        large = {**self.config["demo"], "max_bytes": 128 * 1024 * 1024}
+        sync.validate_config({"demo": large}, self.root)
+        for invalid in (0, -1, "lots", 512 * 1024 * 1024):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_bytes"):
+                sync.validate_config({"demo": {**large, "max_bytes": invalid}}, self.root)
+
     def test_only_sha_is_changed_on_apply(self):
         newer = package("new", "100755")
         newer["references/notes.md"] = ("100644", b"added")
