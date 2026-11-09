@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanizer English"
+  short_description: "Polish English prose while preserving meaning and voice"
+  default_prompt: "Use $humanizer-en to edit the passage for a first reading and preserve the writer's voice."
