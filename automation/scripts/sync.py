@@ -19,6 +19,7 @@ CONFIG = "automation/upstreams.json"
 SUMMARY = "UPSTREAM_SYNC_REPORT.md"
 EXTERNAL = "skills/external"
 MAX_BYTES = 32 * 1024 * 1024
+MAX_OVERSIZE_BYTES = 128 * 1024 * 1024
 MAX_FILES = 1500
 SHA_PATTERN = re.compile(r"[0-9a-f]{40}")
 NAME_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
@@ -62,13 +63,16 @@ def validate_config(config, root, allow_missing=False):
     for name, source in config.items():
         if not NAME_PATTERN.fullmatch(name) or not isinstance(source, dict):
             raise ValueError(f"Invalid external Skill: {name!r}")
-        allowed_fields = {"repo", "path", "ref", "sha", "preserve", "root_license"}
+        allowed_fields = {"repo", "path", "ref", "sha", "preserve", "root_license", "max_bytes"}
         if set(source) - allowed_fields:
             raise ValueError(f"Unexpected registry settings for {name}: {set(source) - allowed_fields}")
         repo = source.get("repo")
         if not isinstance(repo, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo):
             raise ValueError(f"Invalid GitHub repository for {name}")
         safe_path(source.get("path"), empty=True)
+        max_bytes = source.get("max_bytes", MAX_BYTES)
+        if (type(max_bytes) is not int or not MAX_BYTES <= max_bytes <= MAX_OVERSIZE_BYTES):
+            raise ValueError(f"{name}: max_bytes must be an integer within approved import bounds")
         root_license = source.get("root_license")
         if root_license is not None:
             safe_path(root_license)
@@ -90,7 +94,7 @@ def validate_config(config, root, allow_missing=False):
                 raise ValueError(f"Only legal notices can be preserved: {name}/{path}")
 
 
-def tree_snapshot(repository, commit, subdirectory):
+def tree_snapshot(repository, commit, subdirectory, max_bytes=MAX_BYTES):
     """Get regular Git blobs, including executable mode. Reject links/submodules."""
     prefix = subdirectory + "/" if subdirectory else ""
     result = {}
@@ -109,8 +113,11 @@ def tree_snapshot(repository, commit, subdirectory):
             raise ValueError(f"Unsupported Git object in upstream: {relative}")
         length = int(git(repository, "cat-file", "-s", blob_sha))
         size_total += length
-        if size_total > MAX_BYTES or len(result) >= MAX_FILES:
-            raise ValueError("External Skill package exceeds safety bounds")
+        if size_total > max_bytes or len(result) >= MAX_FILES:
+            raise ValueError(
+                f"External Skill package exceeds safety bounds: {subdirectory} "
+                f"({size_total} bytes, limit={max_bytes}, files={len(result) + 1})"
+            )
         result[relative] = (mode, git(repository, "cat-file", "blob", blob_sha))
     if "SKILL.md" not in result:
         raise ValueError(f"Missing SKILL.md in upstream subdirectory: {subdirectory}")
@@ -162,7 +169,10 @@ def fetch_snapshots(config):
                 remote_sha = git(repo_dir, "rev-parse", "FETCH_HEAD").decode().strip()
                 fetched[key] = (repo_dir, remote_sha)
             repo_dir, remote_sha = fetched[key]
-            latest = tree_snapshot(repo_dir, remote_sha, source["path"])
+            latest = tree_snapshot(
+                repo_dir, remote_sha, source["path"],
+                max_bytes=source.get("max_bytes", MAX_BYTES),
+            )
             # Attach the exact root license when the selected Skill subfolder
             # does not include its own. No upstream script is ever executed.
             root_license = source.get("root_license")
