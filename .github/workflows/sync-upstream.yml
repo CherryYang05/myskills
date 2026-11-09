@@ -6,6 +6,7 @@ on:
     paths:
       - 'automation/upstreams.json'
       - 'automation/plugin-appearance.json'
+      - 'automation/scripts/sync.py'
       - '.github/workflows/sync-upstream.yml'
   schedule:
     - cron: '30 12 * * 5' # Friday 20:30 Asia/Shanghai
