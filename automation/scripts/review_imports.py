@@ -39,7 +39,9 @@ def review(root=ROOT):
         for file in files:
             if file.suffix.lower() not in CODE_SUFFIXES:
                 continue
-            if file.stat().st_size > 1_000_000:
+            # A large generated design checker is normal for Taste. The
+            # aggregate import quota remains enforced by sync.py.
+            if file.stat().st_size > 16 * 1024 * 1024:
                 raise ValueError(f"{name}: oversized source script: {file.name}")
             code = file.read_text(encoding="utf-8", errors="replace")
             for label, pattern in SEVERE.items():
