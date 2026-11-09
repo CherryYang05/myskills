@@ -1,8 +1,21 @@
 # 候选 Agent Skills 调研清单
 
-> 核查日期：2026-11-10。此文是**调研/待选清单**，不代表 Skill 已安装、已完成供应链审查或已经加入 `automation/upstreams.json`。Star 数是核查时的近似快照，随时可能变化。正式引入须遵守 [AGENTS.md](./AGENTS.md) 的来源、许可证、安全、图标和 CI 流程。
+> 核查日期：2026-11-10。**执行状态**：Caveman、Taste、Playwright 与 GSAP 官方 8 个子 Skill 已通过 [PR #33](https://github.com/CherryYang05/myskills/pull/33) 导入本仓库（共 11 项）；Hypit 仍是候选，**没有导入**。导入 GitHub 仓库不代表已安装到本地 Codex 或 ChatGPT。Star 数为调研时近似值。安全校验为静态检查，不能保证上游代码绝对安全。
 
-## 结论
+## 当前状态与建议
+
+- **已引入**：`caveman`、`design-taste-frontend`、`playwright`、`gsap-core`、`gsap-timeline`、`gsap-scrolltrigger`、`gsap-plugins`、`gsap-utils`、`gsap-react`、`gsap-performance`、`gsap-frameworks`。完整源码位于 `skills/external/`，可分发插件位于 `plugins/`，许可证和 SVG 图标随包提供。
+- **仅候选**：Hypit。其内容未进入上游注册表、Plugin 或自动同步。
+- **验证**：[PR #33](https://github.com/CherryYang05/myskills/pull/33) 已通过精确提交验证并合并。首次引入后，后续更新由原每周同步机制管理。
+- **本地 Codex 安装示例**：
+
+  ```bash
+  npx skills add CherryYang05/myskills -s caveman -a codex -g -y
+  npx skills add CherryYang05/myskills -s design-taste-frontend -a codex -g -y
+  npx skills add CherryYang05/myskills -s playwright -a codex -g -y
+  npx skills add CherryYang05/myskills -s gsap-core -a codex -g -y
+  ```
+
 
 以当前仓库已有的 [frontend-design](./skills/external/frontend-design)、[impeccable](./skills/external/impeccable)、[shadcn](./skills/external/shadcn)、[web-design-guidelines](./skills/external/web-design-guidelines) 为参照，推荐顺序为：
 
@@ -86,7 +99,7 @@
 
 ## 引入策略与维护
 
-- **状态**：以上五项均为“候选/未引入”；不修改 `skills/external/`、`automation/upstreams.json`、`automation/plugin-appearance.json` 或 Marketplace 生成物，不触发上游自动同步。
+- **状态**：前四个项目已引入 GitHub 仓库（GSAP 拆成 8 个子 Skill），Hypit 未引入。上游版本、图标和生成包由自动工作流维护。
 - **评估规则**：在隔离项目先审查 `SKILL.md`、脚本、依赖与权限，再安装试用；比较有/无 Skill 的真实任务产出，避免用 Stars 或营销节省比例替代评估。
 - **正式引入**：按 [AGENTS.md](./AGENTS.md) 固定源 SHA、核对完整许可、静态审查脚本、加入规范图标和 CI 验证，再合入主分支。
 - **关于“Codex 搜不到”**：技能仓库不一定进入 Codex 内置目录。安装前确认 Node/npm；可使用上述 `npx skills add ... -a codex` 指向明确 GitHub 仓库和 Skill 名，完成后用 `npx skills ls -g` 检查并重新开启 Codex 会话。仓库记录与客户端实际安装状态分别核验。
