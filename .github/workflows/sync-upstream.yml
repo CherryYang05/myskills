@@ -82,7 +82,7 @@ jobs:
           python3 automation/scripts/generate.py --check
       - name: Stage exclusively managed Skill packages and generated outputs
         run: |
-          git add -A -- skills/external plugins automation/upstreams.json README.md UPSTREAM_SYNC_REPORT.md .agents/plugins/marketplace.json .claude-plugin/marketplace.json .cursor-plugin/marketplace.json skills.sh.json
+          git add -A -- skills/external skill-changelogs/external plugins automation/upstreams.json README.md UPSTREAM_SYNC_REPORT.md .agents/plugins/marketplace.json .claude-plugin/marketplace.json .cursor-plugin/marketplace.json skills.sh.json
       - name: Create candidate PR, exact-commit validate, and merge
         env:
           GH_TOKEN: ${{ github.token }}

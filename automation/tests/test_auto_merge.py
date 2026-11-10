@@ -116,6 +116,15 @@ class AutoMergeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "legal notice"):
             auto_merge.validate_scope(before, before, ["skills/external/demo/LICENSE"])
 
+    def test_scope_allows_only_the_matching_external_revision_log(self):
+        registry = {"demo": {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE}}
+        skill = "skills/external/demo/SKILL.md"
+        log = "skill-changelogs/external/demo.md"
+        auto_merge.validate_scope(registry, registry, [skill, log])
+        for paths in ([log], [skill, "skill-changelogs/personal/demo.md"]):
+            with self.subTest(paths=paths), self.assertRaisesRegex(ValueError, "unapproved"):
+                auto_merge.validate_scope(registry, registry, paths)
+
     def test_scope_allows_only_trusted_fully_external_bundles(self):
         source = {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE}
         before = {"demo": source, "second": source}

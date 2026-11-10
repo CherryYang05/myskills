@@ -10,6 +10,7 @@ import sync
 import verify
 import generate
 import plugin_groups
+from skill_changelog import record_path
 
 
 def package(body="old", mode="100644"):
@@ -125,6 +126,9 @@ class SynchronizationTests(unittest.TestCase):
         self.assertIn("2026-W45", report)
         self.assertIn("scripts/run.py", report)
         self.assertIn("b" * 12, report)
+        log = (self.root / record_path("external", "demo")).read_text()
+        self.assertIn(f"/compare/{'a' * 40}...{'b' * 40}", log)
+        self.assertIn(f"变更 {len(changes)} 个文件", log)
 
     def test_unrelated_upstream_commit_does_not_advance_source_sha(self):
         self.assertEqual(sync.diff(self.old, dict(self.old)), [])
@@ -136,6 +140,7 @@ class SynchronizationTests(unittest.TestCase):
         # A weekly no-op must not create a false release or report-only PR.
         self.assertEqual(report.read_text(), "previous actual update")
         self.assertEqual((self.root / sync.CONFIG).read_bytes(), old_registry)
+        self.assertFalse((self.root / record_path("external", "demo")).exists())
 
     def test_shared_upstream_repo_is_fetched_only_once(self):
         # Two names within the same upstream repo/ref must reuse a Git fetch.
