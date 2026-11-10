@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "humanizer-zh",
+  "version": "1.0.1",
+  "description": "编辑或审阅已有的中文稿件。用户要求中文去 AI 味、去套话或翻译腔、润色得更自然或更好读时使用。按读者和文体改语序、话题衔接与口吻，保留原意、证据和作者声音。适用于指定段落或整篇中文正文。",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/humanizer-zh",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "humanizer-zh",
+        "shortDescription": "编辑或审阅已有的中文稿件。用户要求中文去 AI 味、去套话或翻译腔、润色得更自然或更好读时使用。按读者和文体改语序、话题衔接与口吻，保留原意、证据和作者声音。适用于指定段落或整篇中文正文。",
+        "longDescription": "编辑或审阅已有的中文稿件。用户要求中文去 AI 味、去套话或翻译腔、润色得更自然或更好读时使用。按读者和文体改语序、话题衔接与口吻，保留原意、证据和作者声音。适用于指定段落或整篇中文正文。",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/humanizer-zh",
+        "brandColor": "#9C4860",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}

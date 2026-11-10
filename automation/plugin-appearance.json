@@ -21,6 +21,16 @@
       "concept": "手写曲线与修订笔尖",
       "glyph": "<path d=\"M26 84c10-22 16-22 22-7s15 14 23-6\"/><path d=\"m63 54 28-28 12 12-28 28-18 6Z\"/><path d=\"m85 32 12 12M63 54l12 12M57 72l5-18\"/><path d=\"M26 101h72\"/>"
     },
+    "humanizer-zh": {
+      "brandColor": "#9C4860",
+      "concept": "竖排标记与汉字改稿笔",
+      "glyph": "<path d=\"M32 40h52M58 27v53M36 42v23h44V42M28 99h69\"/><path d=\"m77 89 20-20 8 8-20 20-11 3Z\"/>"
+    },
+    "humanizer-en": {
+      "brandColor": "#355F81",
+      "concept": "英文字母与校订线",
+      "glyph": "<path d=\"m29 80 24-49 24 49M39 61h28M27 99h74\"/><path d=\"m84 65 8 8 14-18\"/>"
+    },
     "impeccable": {
       "brandColor": "#6250A4",
       "concept": "精修钻石与星芒",
