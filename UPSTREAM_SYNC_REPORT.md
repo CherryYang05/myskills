@@ -19,8 +19,8 @@
 | gsap-scrolltrigger | 无变化 | aed9cfd32777 | aed9cfd32777 | 0 |
 | gsap-timeline | 无变化 | aed9cfd32777 | aed9cfd32777 | 0 |
 | gsap-utils | 无变化 | aed9cfd32777 | aed9cfd32777 | 0 |
-| humanizer | 已同步 | 0ef9fe5bc357 | b48c832f0f80 | 7 |
-| impeccable | 已同步 | b3ced85312e9 | 7537147d3541 | 16 |
+| humanizer | 无变化 | b48c832f0f80 | b48c832f0f80 | 0 |
+| impeccable | 已同步 | 7537147d3541 | ec229b48547f | 2 |
 | mermaid-diagrams | 无变化 | 3027f20f3181 | 3027f20f3181 | 0 |
 | playwright | 无变化 | 49f948faa925 | 49f948faa925 | 0 |
 | shadcn | 无变化 | 42f3bb63b46a | 42f3bb63b46a | 0 |
@@ -29,39 +29,11 @@
 
 ## 文件变更
 
-### humanizer
-
-上游提交：[b48c832f0f809c1b5658edbb838c2521b72f2413](https://github.com/blader/humanizer/commit/b48c832f0f809c1b5658edbb838c2521b72f2413)
-
-| 文件路径 | 变化 |
-|---|---|
-| .claude-plugin/plugin.json | modified |
-| .cursor-plugin/plugin.json | modified |
-| AGENTS.md | modified |
-| CHANGELOG.md | modified |
-| README.md | modified |
-| SKILL.md | modified |
-| package.json | added |
-
 ### impeccable
 
-上游提交：[7537147d3541d758cbdd9931354ca97fcdfa54ce](https://github.com/pbakaus/impeccable/commit/7537147d3541d758cbdd9931354ca97fcdfa54ce)
+上游提交：[ec229b48547f24685ffb22aa51c462c5ae27908c](https://github.com/pbakaus/impeccable/commit/ec229b48547f24685ffb22aa51c462c5ae27908c)
 
 | 文件路径 | 变化 |
 |---|---|
-| SKILL.md | modified |
-| agents/impeccable_finish_reviewer.toml | modified |
-| reference/adapt.md | modified |
-| reference/audit.md | modified |
-| reference/audit.native.md | modified |
 | reference/critique.md | modified |
-| reference/degraded/finish-reviewer.md | modified |
-| reference/distill.md | modified |
-| reference/new-work.md | modified |
 | reference/onboard.md | modified |
-| reference/overdrive.md | modified |
-| reference/quieter.md | modified |
-| scripts/VERSION | modified |
-| scripts/engine-checksums.txt | modified |
-| scripts/impeccable | modified |
-| scripts/impeccable.cmd | modified |
