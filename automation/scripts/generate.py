@@ -188,6 +188,20 @@ def render_plugin_files(root=ROOT):
                 }
             }
         }
+        if group == "personal":
+            metadata = fields.get("metadata", {})
+            interface = manifest["extensions"]["com.openai"]["interface"]
+            for key, field, max_length in (
+                ("plugin-display-name", "displayName", 64),
+                ("plugin-short-description", "shortDescription", 30),
+                ("plugin-default-prompt", "defaultPrompt", 500),
+            ):
+                if key not in metadata:
+                    continue
+                value = metadata[key]
+                if not isinstance(value, str) or not value.strip() or len(value) > max_length:
+                    raise ValueError(f"{name}: invalid {key}")
+                interface[field] = value
         package = {"assets/icon.svg": ("100644", icon_svg)}
         for relative, (mode, content) in sorted(local_snapshot(source).items()):
             if omit_from_chatgpt_plugin(relative):
