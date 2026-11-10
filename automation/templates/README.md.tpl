@@ -8,8 +8,6 @@
 
 {{SKILL_TABLE}}
 
-**Blog** 把当前对话或学习笔记整理成博客，按读者视角审稿并润色，交付含内嵌 HTML 图的 Markdown。从 **Cherry Skills** 安装 **Blog** 后，在插件菜单选择它即可使用。已有 Halo 连接时，指定「同步到 Halo 草稿」即可复用站内分类和标签。连接步骤见 [Halo 草稿同步](skills/personal/blog-workflow/references/halo.md)。
-
 ## 安装与更新
 
 ### Skills CLI（Codex / Claude Code / Cursor 等）
