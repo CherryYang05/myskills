@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "blog-writer",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校。围绕读者的问题组织知识解析、教程或经验复盘，保留追问、纠正与证据，按需使用智能可视化，将图作为 HTML 嵌入最终 Markdown。用户要求时将成稿同步到 Halo。",
   "author": {
     "name": "CherryYang05",
