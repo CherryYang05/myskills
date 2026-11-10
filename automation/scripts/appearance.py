@@ -2,8 +2,8 @@
 
 The SVG glyphs are structured source data, not executable scripts. A shared
 rendering shell enforces dimensions, corner radii, strokes and spacing.
-Every committed Skill must have explicit appearance metadata; the generic
-default exists solely for previews of new, not-yet-reviewed Skills.
+Every generated plugin must have explicit appearance metadata; the generic
+default exists solely for previews of new, not-yet-reviewed plugins.
 """
 import json
 import re
@@ -36,7 +36,7 @@ def load_config(root):
     validate_entry("default", config["default"])
     for name, entry in config["skills"].items():
         if not isinstance(name, str) or not NAME.fullmatch(name):
-            raise ValueError(f"Invalid appearance Skill name: {name!r}")
+            raise ValueError(f"Invalid appearance plugin name: {name!r}")
         validate_entry(name, entry)
     return config
 
@@ -88,15 +88,15 @@ def validate_entry(name, entry):
                 raise ValueError(f"{name}: invalid numeric SVG attribute {key}")
 
 
-def validate_coverage(config, skill_names):
-    names = set(skill_names)
+def validate_coverage(config, plugin_names):
+    names = set(plugin_names)
     configured = set(config["skills"])
     missing, extra = sorted(names - configured), sorted(configured - names)
     if missing or extra:
         raise ValueError(
             f"Plugin appearance coverage mismatch: missing={missing}, extra={extra}. "
             "Design a semantic glyph and add it to automation/plugin-appearance.json "
-            "before merging a new Skill."
+            "before merging a new plugin."
         )
     return len(names)
 

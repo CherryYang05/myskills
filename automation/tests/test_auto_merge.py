@@ -116,6 +116,24 @@ class AutoMergeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "legal notice"):
             auto_merge.validate_scope(before, before, ["skills/external/demo/LICENSE"])
 
+    def test_scope_allows_only_trusted_fully_external_bundles(self):
+        source = {"repo": "upstream/demo", "path": "", "ref": "main", "sha": BASE}
+        before = {"demo": source, "second": source}
+        groups = {"suite": {"skills": ["external/demo", "external/second"]}}
+        auto_merge.validate_scope(before, before, [
+            "plugins/suite/plugin.json", "plugins/suite/skills/second/SKILL.md",
+            "skills/external/second/SKILL.md",
+        ], groups)
+        for path in ("plugins/unregistered/plugin.json", auto_merge.GROUPS_CONFIG,
+                     "skills/personal/second/SKILL.md"):
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, "unapproved"):
+                auto_merge.validate_scope(before, before, [path], groups)
+        for member in ("personal/second", "external/missing"):
+            with self.subTest(member=member), self.assertRaisesRegex(ValueError, "unapproved"):
+                auto_merge.validate_scope(before, before, ["plugins/suite/plugin.json"], {
+                    "suite": {"skills": ["external/demo", member]},
+                })
+
 
 if __name__ == "__main__":
     unittest.main()

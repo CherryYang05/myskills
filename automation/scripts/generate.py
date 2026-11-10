@@ -9,6 +9,7 @@ from pathlib import Path
 from sync import ROOT, CONFIG, local_snapshot
 from verify import inventory
 from appearance import load_config as load_appearance_config, render_icon
+from plugin_groups import plugin_inventory
 
 MARKETPLACE = ".agents/plugins/marketplace.json"
 CLAUDE_MARKETPLACE = ".claude-plugin/marketplace.json"
@@ -62,9 +63,8 @@ def render(root=ROOT):
     }
     cli_paths = ["./skills/external", "./skills/personal"]
     rows = ["| Skill | 类型 | 来源 / 当前版本 | 说明 |", "|---|---|---|---|"]
-    for group, directory, fields in packages:
-        name = fields["name"]
-        path = f"./skills/{group}/{directory}"
+    for plugin in plugin_inventory(root, packages):
+        name = plugin["name"]
         plugin_path = f"./plugins/{name}"
         catalog["plugins"].append({
             "name": name,
@@ -75,13 +75,16 @@ def render(root=ROOT):
         # Claude Code takes plugin names from marketplace entries when there is
         # no .claude-plugin/plugin.json; Cursor accepts root Agent Plugins.
         # Both platforms use the same generated self-contained plugin package.
-        marketplace_desc = re.sub(r"\s+", " ", fields["description"]).strip()
+        marketplace_desc = re.sub(r"\s+", " ", plugin["description"]).strip()
         claude_catalog["plugins"].append({
             "name": name, "source": plugin_path, "description": marketplace_desc
         })
         cursor_catalog["plugins"].append({
             "name": name, "source": plugin_path, "description": marketplace_desc
         })
+    for group, directory, fields in packages:
+        name = fields["name"]
+        path = f"./skills/{group}/{directory}"
         desc = short_description(fields["description"])
         label = f"[{name}]({path})"
         if group == "external":
@@ -153,13 +156,13 @@ def render_plugin_files(root=ROOT):
     """
     generated = {}
     appearance = load_appearance_config(root)
-    for group, directory, fields in inventory(root):
-        name = fields["name"]
-        source = root / "skills" / group / directory
+    for plugin in plugin_inventory(root):
+        name = plugin["name"]
         plugin_root = f"plugins/{name}"
-        homepage = f"https://github.com/CherryYang05/myskills/tree/master/skills/{group}/{directory}"
-        description = re.sub(r"\s+", " ", fields["description"]).strip()
-        subtitle = description[:117].rstrip() + ("…" if len(description) > 117 else "")
+        homepage = plugin["homepage"]
+        description = re.sub(r"\s+", " ", plugin["description"]).strip()
+        subtitle = (short_description(description, limit=29) if len(plugin["skills"]) > 1
+                    else description[:117].rstrip() + ("…" if len(description) > 117 else ""))
         icon_svg, brand_color, _fallback = render_icon(name, appearance)
         manifest = {
             "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
@@ -175,7 +178,7 @@ def render_plugin_files(root=ROOT):
             "extensions": {
                 "com.openai": {
                     "interface": {
-                        "displayName": name,
+                        "displayName": plugin["displayName"],
                         "shortDescription": subtitle,
                         "longDescription": description,
                         "developerName": "CherryYang05",
@@ -189,10 +192,12 @@ def render_plugin_files(root=ROOT):
             }
         }
         package = {"assets/icon.svg": ("100644", icon_svg)}
-        for relative, (mode, content) in sorted(local_snapshot(source).items()):
-            if omit_from_chatgpt_plugin(relative):
-                continue
-            package[f"skills/{name}/{relative}"] = (mode, content)
+        for group, directory, fields in plugin["skills"]:
+            source = root / "skills" / group / directory
+            for relative, (mode, content) in sorted(local_snapshot(source).items()):
+                if omit_from_chatgpt_plugin(relative):
+                    continue
+                package[f"skills/{fields['name']}/{relative}"] = (mode, content)
         package["plugin.json"] = (
             "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
         )

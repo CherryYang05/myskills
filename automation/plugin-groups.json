@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "plugins": {
+    "gsap": {
+      "displayName": "GSAP",
+      "description": "Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins, utilities, React, Vue, and Svelte. Includes all eight official GSAP skill categories in one plugin.",
+      "homepage": "https://github.com/greensock/gsap-skills",
+      "skills": [
+        "external/gsap-core",
+        "external/gsap-timeline",
+        "external/gsap-scrolltrigger",
+        "external/gsap-plugins",
+        "external/gsap-utils",
+        "external/gsap-react",
+        "external/gsap-performance",
+        "external/gsap-frameworks"
+      ]
+    }
+  }
+}

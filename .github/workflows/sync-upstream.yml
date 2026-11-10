@@ -6,6 +6,7 @@ on:
     paths:
       - 'automation/upstreams.json'
       - 'automation/plugin-appearance.json'
+      - 'automation/plugin-groups.json'
       - 'automation/scripts/sync.py'
       - 'automation/scripts/review_imports.py'
       - '.github/workflows/sync-upstream.yml'
@@ -22,6 +23,8 @@ on:
       - '.github/workflows/sync-upstream.yml'
       - 'automation/scripts/sync.py'
       - 'automation/scripts/auto_merge.py'
+      - 'automation/scripts/plugin_groups.py'
+      - 'automation/plugin-groups.json'
       - 'automation/upstreams.json'
       - 'automation/tests/**'
 
