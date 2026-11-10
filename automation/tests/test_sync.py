@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import sync
 import verify
 import generate
+import plugin_groups
 
 
 def package(body="old", mode="100644"):
@@ -65,6 +66,52 @@ class SynchronizationTests(unittest.TestCase):
             sync.validate_config({}, self.root)
         with self.assertRaisesRegex(ValueError, "mismatch"):
             sync.validate_config({"missing": self.config["demo"]}, self.root)
+
+    def test_registration_bootstrap_allows_missing_only_during_apply(self):
+        pending = dict(self.config)
+        pending["brand-new"] = {
+            "repo": "example/other", "path": "skills/brand-new",
+            "ref": "main", "sha": "b" * 40,
+            "root_license": "LICENSE",
+        }
+        with self.assertRaisesRegex(ValueError, "mismatch"):
+            sync.validate_config(pending, self.root)
+        sync.validate_config(pending, self.root, allow_missing=True)
+        with self.assertRaisesRegex(ValueError, "legal"):
+            sync.validate_config({
+                **self.config,
+                "brand-new": {**pending["brand-new"], "root_license": "src/unsafe.py"},
+            }, self.root, allow_missing=True)
+
+    def test_upstream_root_license_is_bundled_from_same_commit(self):
+        with mock.patch.object(sync, "ROOT", self.root), \
+                mock.patch.object(sync, "git") as fetch, \
+                mock.patch.object(sync, "tree_snapshot", return_value=self.old):
+            def fake_git(_directory, *args):
+                if args[0] == "rev-parse":
+                    return b"b" * 40
+                if args[0] == "show":
+                    return b"MIT License\\n"
+                return b""
+            fetch.side_effect = fake_git
+            plans = sync.fetch_snapshots({
+                "demo": {**self.config["demo"], "root_license": "LICENSE"},
+            })
+        latest = plans[0][3]
+        self.assertEqual(latest["LICENSE.upstream.txt"], ("100644", b"MIT License\\n"))
+        self.assertTrue(any(call.args[1] == "show" for call in fetch.call_args_list))
+
+    def test_per_source_size_override_is_bounded(self):
+        large = {**self.config["demo"], "max_bytes": 128 * 1024 * 1024}
+        sync.validate_config({"demo": large}, self.root)
+        for invalid in (0, -1, "lots", 512 * 1024 * 1024):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_bytes"):
+                sync.validate_config({"demo": {**large, "max_bytes": invalid}}, self.root)
+        roomy = {**large, "max_files": 10000}
+        sync.validate_config({"demo": roomy}, self.root)
+        for invalid in (0, "a lot", 50000):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_files"):
+                sync.validate_config({"demo": {**roomy, "max_files": invalid}}, self.root)
 
     def test_only_sha_is_changed_on_apply(self):
         newer = package("new", "100755")
@@ -141,6 +188,99 @@ class SynchronizationTests(unittest.TestCase):
         ignored.parent.mkdir()
         ignored.write_text('{"name":"demo"}')
         self.assertEqual(generate.render_plugin_files(self.root), second)
+
+    def write_plugin_group(self):
+        group = {
+            "displayName": "Demo Suite", "description": "Use both demo workflows together.",
+            "homepage": "https://example.com/suite",
+            "skills": ["external/demo", "personal/own"],
+        }
+        (self.root / plugin_groups.CONFIG).write_text(json.dumps({
+            "schemaVersion": 1, "plugins": {"suite": group},
+        }))
+        path = self.root / "automation/plugin-appearance.json"
+        appearance = json.loads(path.read_text())
+        appearance["skills"] = {"suite": appearance["skills"]["demo"]}
+        path.write_text(json.dumps(appearance))
+        return group
+
+    def test_plugin_bundle_replaces_listings_and_keeps_all_skill_files(self):
+        old = generate.render_plugin_files(self.root)
+        generate.check_or_write_plugin_files(self.root, old, False)
+        self.write_plugin_group()
+        original = sync.local_snapshot(self.external)
+        grouped = generate.render_plugin_files(self.root)
+        for catalog_path in (generate.MARKETPLACE, generate.CLAUDE_MARKETPLACE,
+                             generate.CURSOR_MARKETPLACE):
+            entries = json.loads(generate.render(self.root)[catalog_path])["plugins"]
+            self.assertEqual([entry["name"] for entry in entries], ["suite"])
+        self.assertEqual(grouped["plugins/suite/skills/demo/SKILL.md"], self.old["SKILL.md"])
+        self.assertEqual(grouped["plugins/suite/skills/demo/scripts/run.py"], self.old["scripts/run.py"])
+        self.assertIn("plugins/suite/skills/own/SKILL.md", grouped)
+        manifest = json.loads(grouped["plugins/suite/plugin.json"][1])
+        interface = manifest["extensions"]["com.openai"]["interface"]
+        self.assertEqual(interface["displayName"], "Demo Suite")
+        self.assertLessEqual(len(interface["shortDescription"]), 30)
+        self.assertEqual(sync.local_snapshot(self.external), original)
+        self.assertEqual(len(verify.inventory(self.root)), 2)
+        with self.assertRaisesRegex(SystemExit, "stale"):
+            generate.check_or_write_plugin_files(self.root, grouped, True)
+        generate.check_or_write_plugin_files(self.root, grouped, False)
+        self.assertFalse((self.root / "plugins/demo").exists())
+        self.assertFalse((self.root / "plugins/own").exists())
+        generate.check_or_write_plugin_files(self.root, grouped, True)
+
+    def test_changing_any_bundled_skill_bumps_the_shared_plugin_once(self):
+        self.write_plugin_group()
+        first = generate.render_plugin_files(self.root)
+        generate.check_or_write_plugin_files(self.root, first, False)
+        self.assertEqual(generate.render_plugin_files(self.root), first)
+        source = self.root / "skills/personal/own/SKILL.md"
+        source.write_text(source.read_text() + "\nUpdated secondary workflow.\n")
+        second = generate.render_plugin_files(self.root)
+        self.assertEqual(json.loads(second["plugins/suite/plugin.json"][1])["version"], "1.0.1")
+        generate.check_or_write_plugin_files(self.root, second, False)
+        self.assertEqual(generate.render_plugin_files(self.root), second)
+
+    def test_personal_listing_overrides_apply_only_to_the_individual_plugin(self):
+        source = self.root / "skills/personal/own/SKILL.md"
+        source.write_text(
+            "---\nname: own\ndescription: My own skill.\nmetadata:\n"
+            "  plugin-display-name: Personal Tool\n"
+            "  plugin-short-description: Personal workflow\n"
+            "  plugin-default-prompt: Use my workflow.\n---\n"
+        )
+        generated = generate.render_plugin_files(self.root)
+        interface = lambda name: json.loads(generated[f"plugins/{name}/plugin.json"][1])["extensions"]["com.openai"]["interface"]
+        self.assertEqual(interface("own")["displayName"], "Personal Tool")
+        self.assertEqual(interface("own")["shortDescription"], "Personal workflow")
+        self.assertEqual(interface("own")["defaultPrompt"], "Use my workflow.")
+        self.assertEqual(interface("demo")["displayName"], "demo")
+        self.assertNotIn("defaultPrompt", interface("demo"))
+        self.write_plugin_group()
+        generated = generate.render_plugin_files(self.root)
+        self.assertEqual(interface("suite")["displayName"], "Demo Suite")
+        self.assertNotIn("defaultPrompt", interface("suite"))
+
+    def test_group_configuration_rejects_missing_duplicate_and_unsafe_members(self):
+        group = self.write_plugin_group()
+        cases = [
+            {"suite": {**group, "skills": ["external/demo", "external/missing"]}},
+            {"suite": {**group, "skills": ["external/demo", "external/demo"]}},
+            {"suite": {**group, "skills": ["external/demo", "../personal/own"]}},
+            {"suite": {**group, "skills": ["external/demo"]}},
+            {"suite": group, "other": group},
+            {"demo": group},
+            {"../suite": group},
+            {"suite": {**group, "homepage": "https://user:password@example.com"}},
+        ]
+        for groups in cases:
+            with self.subTest(groups=groups):
+                (self.root / plugin_groups.CONFIG).write_text(json.dumps({
+                    "schemaVersion": 1, "plugins": groups,
+                }))
+                with self.assertRaises(ValueError):
+                    plugin_groups.plugin_inventory(self.root)
 
     def test_readme_template_requires_one_placeholder(self):
         indexes = generate.render(self.root)

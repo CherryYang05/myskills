@@ -8,22 +8,38 @@
 
 | Skill | 类型 | 来源 / 当前版本 | 说明 |
 |---|---|---|---|
+| [caveman](./skills/external/caveman) | 外&#8288;部&#8288;同&#8288;步 | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman/tree/main/skills/caveman) · `3dc497a7f858` | Terse caveman voice: answer first, fluff gone, every technical fact kept |
 | [deep-research](./skills/external/deep-research) | 外&#8288;部&#8288;同&#8288;步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `6d9388674de1` | Universal deep research agent team |
+| [design-taste-frontend](./skills/external/design-taste-frontend) | 外&#8288;部&#8288;同&#8288;步 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/taste-skill) · `f6b76575f949` | tasteskill 2.5.1, the anti-slop frontend skill |
 | [frontend-design](./skills/external/frontend-design) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design) · `ca45fc496a34` | Guidance for distinctive, intentional visual design when building new UI or reshaping an… |
-| [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `0ef9fe5bc357` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
-| [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `687bc381bc90` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
+| [gsap-core](./skills/external/gsap-core) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-core) · `aed9cfd32777` | Official GSAP skill for the core API — gsap.to(), from(), fromTo(), easing, duration… |
+| [gsap-frameworks](./skills/external/gsap-frameworks) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-frameworks) · `aed9cfd32777` | Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping… |
+| [gsap-performance](./skills/external/gsap-performance) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-performance) · `aed9cfd32777` | Official GSAP skill for performance — prefer transforms, avoid layout thrashing… |
+| [gsap-plugins](./skills/external/gsap-plugins) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-plugins) · `aed9cfd32777` | Official GSAP skill for GSAP plugins — registration, ScrollToPlugin, ScrollSmoother… |
+| [gsap-react](./skills/external/gsap-react) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-react) · `aed9cfd32777` | Official GSAP skill for React — useGSAP hook, refs, gsap.context(), cleanup |
+| [gsap-scrolltrigger](./skills/external/gsap-scrolltrigger) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-scrolltrigger) · `aed9cfd32777` | Official GSAP skill for ScrollTrigger — scroll-linked animations, pinning, scrub… |
+| [gsap-timeline](./skills/external/gsap-timeline) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-timeline) · `aed9cfd32777` | Official GSAP skill for timelines — gsap.timeline(), position parameter, nesting… |
+| [gsap-utils](./skills/external/gsap-utils) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-utils) · `aed9cfd32777` | Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random… |
+| [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `b48c832f0f80` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
+| [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `ec229b48547f` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
 | [mermaid-diagrams](./skills/external/mermaid-diagrams) | 外&#8288;部&#8288;同&#8288;步 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) · `3027f20f3181` | Comprehensive guide for creating software diagrams using Mermaid syntax |
+| [playwright](./skills/external/playwright) | 外&#8288;部&#8288;同&#8288;步 | [openai/skills](https://github.com/openai/skills/tree/main/skills/.curated/playwright) · `49f948faa925` | Use when the task requires automating a real browser from the terminal (navigation, form… |
 | [shadcn](./skills/external/shadcn) | 外&#8288;部&#8288;同&#8288;步 | [shadcn-ui/ui](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn) · `42f3bb63b46a` | Manages shadcn components and projects — adding, searching, fixing, debugging, styling… |
 | [skill-creator](./skills/external/skill-creator) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator) · `b9e19e6f4477` | Create new skills, modify and improve existing skills, and measure skill performance |
 | [web-design-guidelines](./skills/external/web-design-guidelines) | 外&#8288;部&#8288;同&#8288;步 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) · `1a2c79d4e6c4` | Review UI code for Web Interface Guidelines compliance |
+| [blog-workflow](./skills/personal/blog-workflow) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
 | [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
+| [humanizer-en](./skills/personal/humanizer-en) | 自研 | 自研 | Edit or review existing English prose when asked to humanize it, remove AI tone, or… |
+| [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
 | [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合… |
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skills/personal/skill-os-setup) | 自研 | 自研 | 用于维护 EasyNewOS 仓库 |
+
+**Blog** 把当前对话或学习笔记整理成博客，按读者视角审稿并润色，交付含内嵌 HTML 图的 Markdown。从 **Cherry Skills** 安装 **Blog** 后，在插件菜单选择它即可使用。已有 Halo 连接时，指定「同步到 Halo 草稿」即可复用站内分类和标签。连接步骤见 [Halo 草稿同步](skills/personal/blog-workflow/references/halo.md)。
 
 ## 安装与更新
 
@@ -62,6 +78,8 @@ npx skills remove humanizer -g   # 卸载指定 Skill
 
 Marketplace 提供的是另一种分发方式：先注册仓库，再选择具体 Plugin 安装。已经通过 Skills CLI 安装的同名 Skill 通常无需重复安装。
 
+**GSAP 系列统一安装 `gsap` 插件**，其中包含 core、timeline、ScrollTrigger、plugins、utils、React、performance 和 frameworks 八个分类。三个 Marketplace 均只显示一个 GSAP 插件入口；上方清单与 Skills CLI 仍按原始分类列出技能。已安装旧分类插件时，刷新 Marketplace 后安装 `gsap`，再卸载旧的 `gsap-*` 插件，避免重复加载。
+
 **Codex CLI / ChatGPT 桌面版**
 
 ```bash
@@ -85,10 +103,19 @@ claude plugin install humanizer@cherry-skills
 
 **ChatGPT 工作区**：支持 GitHub Marketplace 的管理员可在 Admin → Plugins → Add → Import marketplace 中导入本仓库并跟踪 `master`，随后从 **Cherry Skills** 安装。既有手动上传的插件不会被 GitHub Action 自动替换。
 
+## 新增 Skill 的自动生成流程
+
+1. 在 `automation/upstreams.json` 登记经过来源、许可和安全审查的上游 Skill，使用完整的 Git commit SHA；如许可证位于仓库根目录，填写 `root_license: "LICENSE"`（实际为 JSON 键 `"root_license": "LICENSE"`）。
+2. 默认每个 Skill 生成一个插件；系列技能可在 `automation/plugin-groups.json` 明确列出成员，合成一个插件。随后在 `automation/plugin-appearance.json` 按 **Plugin 名称**设置专属颜色、SVG `glyph` 与概念说明。Actions 负责将这些矢量源数据渲染成统一的 128×128 图标，不会自动创作图形。
+3. 推送到 `master` 后，`Sync Skill Upstreams` 的 Push 触发器会拉取缺失的第三方 Skill、做静态安全/许可证检查、生成 Plugin/Marketplace/README 与版本号，并创建候选 PR。
+4. 只有候选 PR 的**精确提交**通过 `Validate Skills` 后才会自动合并。第一次登记但未生成时，短暂的主分支验证失败属于引导阶段状态；如 Action 受账户权限/计费限制未运行，不能认为导入完成，需查看 Workflow/PR 结果。
+
+新增或移除上游的注册表修改必须经过人工/Agent 明确审查和提交；自动流程不会自行发现、添加来源。每周五的同步仍仅更新已经登记的来源。
+
 ## 仓库维护
 
 - `skills/external/` 保存第三方 Skill 的完整上游快照，来源与固定提交记录在 `automation/upstreams.json`；`skills/personal/` 保存自研 Skill，不受上游同步覆盖。
-- `plugins/`、三个平台的 Marketplace、`skills.sh.json`、本 README 均由 `automation/scripts/generate.py` 生成。README 正文编辑 `automation/templates/README.md.tpl`；SVG 图标编辑 `automation/plugin-appearance.json`。**不要直接修改生成物**。
+- `plugins/`、三个平台的 Marketplace、`skills.sh.json`、本 README 均由 `automation/scripts/generate.py` 生成。README 正文编辑 `automation/templates/README.md.tpl`；插件分组编辑 `automation/plugin-groups.json`；SVG 图标编辑 `automation/plugin-appearance.json`。**不要直接修改生成物**。
 - 每周五北京时间 20:30，GitHub Actions 检查上游；有变动才创建候选 PR，通过 CI 后自动合并。无变化的检查结果留在 Action Summary / Artifact；最近一次实际同步记录见 [UPSTREAM_SYNC_REPORT.md](./UPSTREAM_SYNC_REPORT.md)。
 - GitHub 生成与合并成功不保证客户端已刷新。安装和更新结果须在目标客户端核验。
 

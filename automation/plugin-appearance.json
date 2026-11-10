@@ -21,6 +21,16 @@
       "concept": "手写曲线与修订笔尖",
       "glyph": "<path d=\"M26 84c10-22 16-22 22-7s15 14 23-6\"/><path d=\"m63 54 28-28 12 12-28 28-18 6Z\"/><path d=\"m85 32 12 12M63 54l12 12M57 72l5-18\"/><path d=\"M26 101h72\"/>"
     },
+    "humanizer-zh": {
+      "brandColor": "#9C4860",
+      "concept": "中字与中文改稿笔",
+      "glyph": "<rect x=\"28\" y=\"36\" width=\"48\" height=\"34\" rx=\"1\"/><path d=\"M52 22v62M27 102h35\"/><path d=\"m78 90 20-20 8 8-20 20-11 3ZM92 76l8 8\"/>"
+    },
+    "humanizer-en": {
+      "brandColor": "#355F81",
+      "concept": "英文字母与校订线",
+      "glyph": "<path d=\"m29 80 24-49 24 49M39 61h28M27 99h74\"/><path d=\"m84 65 8 8 14-18\"/>"
+    },
     "impeccable": {
       "brandColor": "#6250A4",
       "concept": "精修钻石与星芒",
@@ -61,6 +71,11 @@
       "concept": "自动生成的测试用例卡片",
       "glyph": "<rect x=\"23\" y=\"24\" width=\"67\" height=\"83\" rx=\"8\"/><path d=\"M39 42h32M39 57h22M39 72h28M39 87h13\"/><path d=\"m85 59 6-14 6 14 14 6-14 6-6 14-6-14-14-6Z\" fill=\"#fff\" stroke=\"none\"/>"
     },
+    "blog-workflow": {
+      "brandColor": "#365A7D",
+      "concept": "对话框与博客文章",
+      "glyph": "<path d=\"M30 26h64a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H51L31 76V64h-1a8 8 0 0 1-8-8V34a8 8 0 0 1 8-8Z\"/><path d=\"M40 43h44M40 53h26M45 83h54M35 99h64\"/>"
+    },
     "blog-writer": {
       "brandColor": "#9B623F",
       "concept": "技术文档与写作羽毛笔",
@@ -85,6 +100,26 @@
       "brandColor": "#53648B",
       "concept": "系统设置目录与齿轮",
       "glyph": "<path d=\"M21 48V34h33l10 11h40v50H21Z\"/><circle cx=\"70\" cy=\"75\" r=\"16\"/><path d=\"M70 50v9m0 32v9M45 75h9m32 0h9m-43-18 7 7m22 22 7 7m0-36-7 7m-22 22-7 7\"/><circle cx=\"70\" cy=\"75\" r=\"5\" fill=\"#fff\" stroke=\"none\"/>"
+    },
+    "caveman": {
+      "brandColor": "#715A65",
+      "concept": "简短消息气泡与精炼文字",
+      "glyph": "<path d=\"M29 33h70v52H61L43 99V85H29Z\"/><path d=\"M44 52h39M44 67h26\"/>"
+    },
+    "design-taste-frontend": {
+      "brandColor": "#755690",
+      "concept": "构图网格与视觉层级",
+      "glyph": "<rect x=\"21\" y=\"24\" width=\"86\" height=\"80\" rx=\"10\"/><path d=\"M21 45h86M52 45v59M65 59h29M65 72h23M65 85h15\"/><circle cx=\"37\" cy=\"75\" r=\"9\"/>"
+    },
+    "playwright": {
+      "brandColor": "#356C75",
+      "concept": "浏览器窗口与自动化指针",
+      "glyph": "<rect x=\"21\" y=\"24\" width=\"86\" height=\"79\" rx=\"9\"/><path d=\"M21 45h86M35 34h1M46 34h1\"/><path d=\"m50 58 35 20-19 1-6 18Z\"/>"
+    },
+    "gsap": {
+      "brandColor": "#487646",
+      "concept": "运动曲线与动画关键点，统一 GSAP 系列入口",
+      "glyph": "<path d=\"M21 92c22 0 23-56 49-56 15 0 23 15 37 15\"/><circle cx=\"21\" cy=\"92\" r=\"6\"/><circle cx=\"70\" cy=\"36\" r=\"6\"/><circle cx=\"107\" cy=\"51\" r=\"6\"/>"
     }
   }
 }

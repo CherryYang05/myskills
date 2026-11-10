@@ -19,7 +19,9 @@ CONFIG = "automation/upstreams.json"
 SUMMARY = "UPSTREAM_SYNC_REPORT.md"
 EXTERNAL = "skills/external"
 MAX_BYTES = 32 * 1024 * 1024
+MAX_OVERSIZE_BYTES = 128 * 1024 * 1024
 MAX_FILES = 1500
+MAX_OVERSIZE_FILES = 10000
 SHA_PATTERN = re.compile(r"[0-9a-f]{40}")
 NAME_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 
@@ -44,28 +46,42 @@ def safe_path(value, empty=False):
     return value
 
 
-def load_config(root=ROOT):
+def load_config(root=ROOT, allow_missing=False):
     config = json.loads((root / CONFIG).read_text(encoding="utf-8"))
-    validate_config(config, root)
+    validate_config(config, root, allow_missing=allow_missing)
     return config
 
 
-def validate_config(config, root):
+def validate_config(config, root, allow_missing=False):
     if not isinstance(config, dict) or not config:
         raise ValueError("Upstream registry must be a nonempty mapping")
     parent = root / EXTERNAL
     names = {p.name for p in parent.iterdir() if p.is_dir() and (p / "SKILL.md").is_file()} if parent.is_dir() else set()
-    if names != set(config):
-        raise ValueError(f"External directory and registry mismatch: unregistered={sorted(names - set(config))}, missing={sorted(set(config) - names)}")
+    unregistered = names - set(config)
+    missing = set(config) - names
+    if unregistered or (missing and not allow_missing):
+        raise ValueError(f"External directory and registry mismatch: unregistered={sorted(unregistered)}, missing={sorted(missing)}")
     for name, source in config.items():
         if not NAME_PATTERN.fullmatch(name) or not isinstance(source, dict):
             raise ValueError(f"Invalid external Skill: {name!r}")
-        if set(source) - {"repo", "path", "ref", "sha", "preserve"}:
-            raise ValueError(f"Unexpected registry settings for {name}: {set(source) - {'repo', 'path', 'ref', 'sha', 'preserve'}}")
+        allowed_fields = {"repo", "path", "ref", "sha", "preserve", "root_license", "max_bytes", "max_files"}
+        if set(source) - allowed_fields:
+            raise ValueError(f"Unexpected registry settings for {name}: {set(source) - allowed_fields}")
         repo = source.get("repo")
         if not isinstance(repo, str) or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo):
             raise ValueError(f"Invalid GitHub repository for {name}")
         safe_path(source.get("path"), empty=True)
+        max_bytes = source.get("max_bytes", MAX_BYTES)
+        if (type(max_bytes) is not int or not MAX_BYTES <= max_bytes <= MAX_OVERSIZE_BYTES):
+            raise ValueError(f"{name}: max_bytes must be an integer within approved import bounds")
+        max_files = source.get("max_files", MAX_FILES)
+        if (type(max_files) is not int or not MAX_FILES <= max_files <= MAX_OVERSIZE_FILES):
+            raise ValueError(f"{name}: max_files must be an integer within approved import bounds")
+        root_license = source.get("root_license")
+        if root_license is not None:
+            safe_path(root_license)
+            if PurePosixPath(root_license).name not in {"LICENSE", "LICENSE.txt", "NOTICE", "NOTICE.md", "COPYING"}:
+                raise ValueError(f"Only an upstream legal notice can be included: {name}")
         ref = source.get("ref")
         if not isinstance(ref, str) or not ref or ref.startswith("-") or any(c.isspace() for c in ref):
             raise ValueError(f"Invalid tracked ref for {name}")
@@ -82,7 +98,7 @@ def validate_config(config, root):
                 raise ValueError(f"Only legal notices can be preserved: {name}/{path}")
 
 
-def tree_snapshot(repository, commit, subdirectory):
+def tree_snapshot(repository, commit, subdirectory, max_bytes=MAX_BYTES, max_files=MAX_FILES):
     """Get regular Git blobs, including executable mode. Reject links/submodules."""
     prefix = subdirectory + "/" if subdirectory else ""
     result = {}
@@ -101,8 +117,11 @@ def tree_snapshot(repository, commit, subdirectory):
             raise ValueError(f"Unsupported Git object in upstream: {relative}")
         length = int(git(repository, "cat-file", "-s", blob_sha))
         size_total += length
-        if size_total > MAX_BYTES or len(result) >= MAX_FILES:
-            raise ValueError("External Skill package exceeds safety bounds")
+        if size_total > max_bytes or len(result) >= max_files:
+            raise ValueError(
+                f"External Skill package exceeds safety bounds: {subdirectory} "
+                f"({size_total} bytes, limit={max_bytes}, files={len(result) + 1}, file_limit={max_files})"
+            )
         result[relative] = (mode, git(repository, "cat-file", "blob", blob_sha))
     if "SKILL.md" not in result:
         raise ValueError(f"Missing SKILL.md in upstream subdirectory: {subdirectory}")
@@ -154,7 +173,22 @@ def fetch_snapshots(config):
                 remote_sha = git(repo_dir, "rev-parse", "FETCH_HEAD").decode().strip()
                 fetched[key] = (repo_dir, remote_sha)
             repo_dir, remote_sha = fetched[key]
-            latest = tree_snapshot(repo_dir, remote_sha, source["path"])
+            latest = tree_snapshot(
+                repo_dir, remote_sha, source["path"],
+                max_bytes=source.get("max_bytes", MAX_BYTES),
+                max_files=source.get("max_files", MAX_FILES),
+            )
+            # Attach the exact root license when the selected Skill subfolder
+            # does not include its own. No upstream script is ever executed.
+            root_license = source.get("root_license")
+            if root_license:
+                target = "LICENSE.upstream.txt"
+                if target in latest:
+                    raise ValueError(f"Upstream license overlay path conflict: {name}")
+                legal = git(repo_dir, "show", f"{remote_sha}:{root_license}")
+                if not legal or len(legal) > 256 * 1024:
+                    raise ValueError(f"Missing or oversized upstream license: {name}")
+                latest[target] = ("100644", legal)
             preserve = set(source.get("preserve", []))
             if preserve.intersection(latest):
                 raise ValueError(f"Preserved legal notice conflicts with upstream: {name}")
@@ -257,7 +291,9 @@ def main():
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--report-json", type=Path)
     args = parser.parse_args()
-    config = load_config()
+    # A registry entry may precede its first generated snapshot. Only the
+    # apply path may temporarily accept this bootstrap state.
+    config = load_config(allow_missing=args.apply)
     if args.check_config:
         print(f"Validated {len(config)} external Skill sources")
         return
@@ -272,6 +308,8 @@ def main():
     append_action_summary(planned)
     if args.apply:
         apply_plans(ROOT, config, planned)
+        # Do not accept a half-populated registry after the fetch completes.
+        load_config()
 
 
 if __name__ == "__main__":

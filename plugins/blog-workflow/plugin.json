@@ -1,0 +1,28 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "blog-workflow",
+  "version": "1.0.0",
+  "description": "从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校。围绕读者的问题组织知识解析、教程或经验复盘，保留追问、纠正与证据，按需使用智能可视化，将图作为 HTML 嵌入最终 Markdown。用户要求时将成稿同步到 Halo。",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/blog-workflow",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Blog",
+        "shortDescription": "对话成文、读者审稿与 Halo 草稿",
+        "longDescription": "从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校。围绕读者的问题组织知识解析、教程或经验复盘，保留追问、纠正与证据，按需使用智能可视化，将图作为 HTML 嵌入最终 Markdown。用户要求时将成稿同步到 Halo。",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/blog-workflow",
+        "brandColor": "#365A7D",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg",
+        "defaultPrompt": "把本次学习整理成一篇可独立阅读的博客。审稿并润色，交付含内嵌 HTML 图的 Markdown。"
+      }
+    }
+  }
+}

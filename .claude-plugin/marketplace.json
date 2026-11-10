@@ -7,9 +7,19 @@
   },
   "plugins": [
     {
+      "name": "caveman",
+      "source": "./plugins/caveman",
+      "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\"."
+    },
+    {
       "name": "deep-research",
       "source": "./plugins/deep-research",
       "description": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 8 modes: full research, quick brief, paper review, lit-review, fact-check, three-way literature scan, Socratic guided research dialogue, and systematic review with optional meta-analysis. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, risk of bias assessment, meta-analysis, APA 7.0 report compilation, editorial review, devil's advocate challenges, ethics review, and post-research literature monitoring. Triggers on: research, deep research, literature review, systematic review, meta-analysis, PRISMA, evidence synthesis, fact-check, WHY HOW WHAT papers, 3W literature scan, guide my research, help me think through, 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 事實查核, 三段式文獻掃描, 引導我的研究, 幫我釐清, 幫我想想, 我不確定要研究什麼, 研究方向, 研究主題, 심층 연구, 문헌 조사, 체계적 문헌고찰, 메타분석, 사실 확인, 연구 방향을 잡아줘, 연구 주제 정하는 것을 도와줘, revisión de literatura, metaanálisis"
+    },
+    {
+      "name": "design-taste-frontend",
+      "source": "./plugins/design-taste-frontend",
+      "description": "tasteskill 2.5.1, the anti-slop frontend skill. Builds professional company websites at the level of figma.com and x.ai: plain copy in a voice of its own, one system, one section per screen, equal edges, real photographs and real product UI (licensed stand-in photographs when the client has none; a product render only when the brief asks for 3D), a hero entrance and one or two dealt moments on every page, shader effects and scenes only on tech, gaming and software pages, quiet micro-interactions, and a checker and finish gate that enforce it in a real browser. Use this whenever you build, design, redesign, restyle, polish or review a landing page, company, product, shop, cafe, hotel, studio, SaaS, AI, developer-tool or game site, as static HTML/CSS or inside an existing React, Next.js, Vue, Svelte, Astro or Tailwind project, or when the user says a page looks generic, templated or \"AI-made\"."
     },
     {
       "name": "frontend-design",
@@ -17,9 +27,14 @@
       "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults."
     },
     {
+      "name": "gsap",
+      "source": "./plugins/gsap",
+      "description": "Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins, utilities, React, Vue, and Svelte. Includes all eight official GSAP skill categories in one plugin."
+    },
+    {
       "name": "humanizer",
       "source": "./plugins/humanizer",
-      "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler. Based on Wikipedia's \"Signs of AI writing.\""
+      "description": "Rewrite AI-sounding text so it reads like the writer without changing what it says. Use when editing or reviewing prose for AI tells: not-X-but-Y contrasts, one-line closers, staged openers, forced triads, dashes everywhere, inflated claims, sales language, stock AI words, bold labels, or filler."
     },
     {
       "name": "impeccable",
@@ -30,6 +45,11 @@
       "name": "mermaid-diagrams",
       "source": "./plugins/mermaid-diagrams",
       "description": "Comprehensive guide for creating software diagrams using Mermaid syntax. Use when users need to create, visualize, or document software through diagrams including class diagrams (domain modeling, object-oriented design), sequence diagrams (application flows, API interactions, code execution), flowcharts (processes, algorithms, user journeys), entity relationship diagrams (database schemas), C4 architecture diagrams (system context, containers, components), state diagrams, git graphs, pie charts, gantt charts, or any other diagram type. Triggers include requests to \"diagram\", \"visualize\", \"model\", \"map out\", \"show the flow\", or when explaining system architecture, database design, code structure, or user/application flows."
+    },
+    {
+      "name": "playwright",
+      "source": "./plugins/playwright",
+      "description": "Use when the task requires automating a real browser from the terminal (navigation, form filling, snapshots, screenshots, data extraction, UI-flow debugging) via `playwright-cli` or the bundled wrapper script."
     },
     {
       "name": "shadcn",
@@ -47,6 +67,11 @@
       "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\"."
     },
     {
+      "name": "blog-workflow",
+      "source": "./plugins/blog-workflow",
+      "description": "从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校。围绕读者的问题组织知识解析、教程或经验复盘，保留追问、纠正与证据，按需使用智能可视化，将图作为 HTML 嵌入最终 Markdown。用户要求时将成稿同步到 Halo。"
+    },
+    {
       "name": "ds-mr-reviewer",
       "source": "./plugins/ds-mr-reviewer",
       "description": "MR代码检视工具。提供MR URL，自动分析代码变更、识别功能风险、给出验证场景建议、生成检视报告并发送WeLink通知。当用户提供检视代码的url链接，并且url包含codehub时，必须使用此技能。也支持本地仓库路径输入。"
@@ -60,6 +85,16 @@
       "name": "dt-case-generator",
       "source": "./plugins/dt-case-generator",
       "description": "使用CodeAgent生成DT(开发者自测试)用例。这是一个通用的的skill,指导用户通过思维链(CoT)的方式分步骤生成高质量的DT测试用例。当用户提到DT用例生成、测试用例生成、LLT测试等关键词时,应使用此skill。特别适用于大颗粒特性(如2w行代码规模)的DT用例生成。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。"
+    },
+    {
+      "name": "humanizer-en",
+      "source": "./plugins/humanizer-en",
+      "description": "Edit or review existing English prose when asked to humanize it, remove AI tone, or improve readability and naturalness. Repair sentences that force rereading and trim formulaic prose while preserving claims, evidence, genre, dialect, and the writer's voice. Works on selected passages or full drafts."
+    },
+    {
+      "name": "humanizer-zh",
+      "source": "./plugins/humanizer-zh",
+      "description": "编辑或审阅已有的中文稿件。用户要求中文去 AI 味、去套话或翻译腔、润色得更自然或更好读时使用。按读者和文体改语序、话题衔接与口吻，保留原意、证据和作者声音。适用于指定段落或整篇中文正文。"
     },
     {
       "name": "blog-writer",

@@ -9,7 +9,7 @@
     "repo": "blader/humanizer",
     "path": "",
     "ref": "main",
-    "sha": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0"
+    "sha": "b48c832f0f809c1b5658edbb838c2521b72f2413"
   },
   "skill-creator": {
     "repo": "anthropics/skills",
@@ -45,10 +45,88 @@
     "repo": "pbakaus/impeccable",
     "path": ".agents/skills/impeccable",
     "ref": "main",
-    "sha": "687bc381bc9091bf252c0a05303640561014a425",
+    "sha": "ec229b48547f24685ffb22aa51c462c5ae27908c",
     "preserve": [
       "LICENSE",
       "NOTICE.md"
     ]
+  },
+  "caveman": {
+    "repo": "JuliusBrussee/caveman",
+    "path": "skills/caveman",
+    "ref": "main",
+    "sha": "3dc497a7f858c774d6e15b25e8c6120ef3a0eda8",
+    "root_license": "LICENSE"
+  },
+  "design-taste-frontend": {
+    "repo": "Leonxlnx/taste-skill",
+    "path": "skills/taste-skill",
+    "ref": "main",
+    "sha": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
+    "root_license": "LICENSE",
+    "max_bytes": 134217728,
+    "max_files": 10000
+  },
+  "playwright": {
+    "repo": "openai/skills",
+    "path": "skills/.curated/playwright",
+    "ref": "main",
+    "sha": "49f948faa9258a0c61caceaf225e179651397431"
+  },
+  "gsap-core": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-core",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-timeline": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-timeline",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-scrolltrigger": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-scrolltrigger",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-plugins": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-plugins",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-utils": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-utils",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-react": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-react",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-performance": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-performance",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
+  },
+  "gsap-frameworks": {
+    "repo": "greensock/gsap-skills",
+    "path": "skills/gsap-frameworks",
+    "ref": "main",
+    "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "root_license": "LICENSE"
   }
 }

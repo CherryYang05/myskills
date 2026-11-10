@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import quote, urlencode
 
 from sync import CONFIG, EXTERNAL, SUMMARY, ROOT
+from plugin_groups import CONFIG as GROUPS_CONFIG, parse_groups
 
 SHA_RE = re.compile(r"[0-9a-f]{40}")
 
@@ -32,7 +33,7 @@ class GitHub:
         return json.loads(response) if response.strip() else None
 
 
-def validate_scope(before, after, changed_paths):
+def validate_scope(before, after, changed_paths, groups=None):
     if set(before) != set(after):
         raise ValueError("Automatic sync may not add or remove source entries")
     for name in before:
@@ -47,15 +48,20 @@ def validate_scope(before, after, changed_paths):
     allowed = {CONFIG, SUMMARY, "README.md", ".agents/plugins/marketplace.json",
                ".claude-plugin/marketplace.json", ".cursor-plugin/marketplace.json",
                "skills.sh.json"}
+    # Bundle metadata is read from the trusted base commit, never the candidate.
+    # A bundle containing personal or unregistered Skills requires manual review.
+    plugin_names = set(before)
+    for name, group in (groups or {}).items():
+        if all(member.startswith("external/") and member.split("/", 1)[1] in before
+               for member in group["skills"]):
+            plugin_names.add(name)
     for path in changed_paths:
         if path in allowed:
             continue
+        if any(path.startswith(f"plugins/{name}/") for name in plugin_names):
+            continue
         found = False
         for name, source in before.items():
-            plugin_prefix = f"plugins/{name}/"
-            if path.startswith(plugin_prefix):
-                found = True
-                break
             prefix = f"{EXTERNAL}/{name}/"
             if path.startswith(prefix):
                 relative = path[len(prefix):]
@@ -127,7 +133,8 @@ def main():
     before = json.loads(git(ROOT, "show", f"{args.base_sha}:{CONFIG}"))
     after = json.loads(git(ROOT, "show", f"{args.head}:{CONFIG}"))
     names = git(ROOT, "diff", "--no-renames", "--name-only", "-z", args.base_sha, args.head).decode().strip("\0").split("\0")
-    validate_scope(before, after, names)
+    groups = parse_groups(json.loads(git(ROOT, "show", f"{args.base_sha}:{GROUPS_CONFIG}")))
+    validate_scope(before, after, names, groups)
     repo, base = os.environ["REPOSITORY"], os.environ["BASE_BRANCH"]
     ci_url, merge_sha = validate_and_merge(GitHub(repo), repo, args.pr, args.branch, args.head, base, args.base_sha)
     message = f"Validated exact commit {args.head} in {ci_url}; merged candidate PR #{args.pr} as {merge_sha}.\n"
