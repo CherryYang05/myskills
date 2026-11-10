@@ -95,6 +95,61 @@
       "brandColor": "#53648B",
       "concept": "系统设置目录与齿轮",
       "glyph": "<path d=\"M21 48V34h33l10 11h40v50H21Z\"/><circle cx=\"70\" cy=\"75\" r=\"16\"/><path d=\"M70 50v9m0 32v9M45 75h9m32 0h9m-43-18 7 7m22 22 7 7m0-36-7 7m-22 22-7 7\"/><circle cx=\"70\" cy=\"75\" r=\"5\" fill=\"#fff\" stroke=\"none\"/>"
+    },
+    "caveman": {
+      "brandColor": "#715A65",
+      "concept": "简短消息气泡与精炼文字",
+      "glyph": "<path d=\"M29 33h70v52H61L43 99V85H29Z\"/><path d=\"M44 52h39M44 67h26\"/>"
+    },
+    "design-taste-frontend": {
+      "brandColor": "#755690",
+      "concept": "构图网格与视觉层级",
+      "glyph": "<rect x=\"21\" y=\"24\" width=\"86\" height=\"80\" rx=\"10\"/><path d=\"M21 45h86M52 45v59M65 59h29M65 72h23M65 85h15\"/><circle cx=\"37\" cy=\"75\" r=\"9\"/>"
+    },
+    "playwright": {
+      "brandColor": "#356C75",
+      "concept": "浏览器窗口与自动化指针",
+      "glyph": "<rect x=\"21\" y=\"24\" width=\"86\" height=\"79\" rx=\"9\"/><path d=\"M21 45h86M35 34h1M46 34h1\"/><path d=\"m50 58 35 20-19 1-6 18Z\"/>"
+    },
+    "gsap-core": {
+      "brandColor": "#487646",
+      "concept": "运动曲线与动画关键点",
+      "glyph": "<path d=\"M21 92c22 0 23-56 49-56 15 0 23 15 37 15\"/><circle cx=\"21\" cy=\"92\" r=\"6\"/><circle cx=\"70\" cy=\"36\" r=\"6\"/><circle cx=\"107\" cy=\"51\" r=\"6\"/>"
+    },
+    "gsap-timeline": {
+      "brandColor": "#557E3E",
+      "concept": "时间轴与动画关键帧",
+      "glyph": "<path d=\"M23 88h82M23 40h82M36 40v48M64 40v48M92 40v48\"/><circle cx=\"36\" cy=\"64\" r=\"7\"/><circle cx=\"64\" cy=\"64\" r=\"7\"/><circle cx=\"92\" cy=\"64\" r=\"7\"/>"
+    },
+    "gsap-scrolltrigger": {
+      "brandColor": "#467C69",
+      "concept": "滚动轨迹与触发位置",
+      "glyph": "<rect x=\"27\" y=\"21\" width=\"74\" height=\"87\" rx=\"10\"/><path d=\"M42 42h32M42 54h32M42 66h22M85 43v43m-10-9 10 9 10-9\"/><circle cx=\"85\" cy=\"93\" r=\"4\"/>"
+    },
+    "gsap-plugins": {
+      "brandColor": "#537A4F",
+      "concept": "动画扩展模块拼图",
+      "glyph": "<path d=\"M24 41h21c-3-13 16-15 19-4 0 2 0 4-1 4h20v20c11-2 15 15 4 19h-4v22H63c2-12-16-14-19-3v3H24V82c-12 2-15-15-4-19h4Z\"/>"
+    },
+    "gsap-utils": {
+      "brandColor": "#52746F",
+      "concept": "变换工具与数值滑杆",
+      "glyph": "<path d=\"M28 35h72M28 63h72M28 91h72\"/><circle cx=\"55\" cy=\"35\" r=\"9\"/><circle cx=\"83\" cy=\"63\" r=\"9\"/><circle cx=\"46\" cy=\"91\" r=\"9\"/>"
+    },
+    "gsap-react": {
+      "brandColor": "#4F7180",
+      "concept": "组件结构与生命周期动画",
+      "glyph": "<rect x=\"24\" y=\"25\" width=\"80\" height=\"79\" rx=\"10\"/><path d=\"M24 47h80M39 65h22M39 80h40M76 58v20m-9-10 9 10 9-10\"/>"
+    },
+    "gsap-performance": {
+      "brandColor": "#527C54",
+      "concept": "性能仪表盘与流畅指针",
+      "glyph": "<path d=\"M27 95a40 40 0 0 1 74 0\"/><path d=\"M39 87h1M49 66h1M78 61h1M92 80h1\"/><path d=\"M64 95 85 52\"/><circle cx=\"64\" cy=\"95\" r=\"6\"/>"
+    },
+    "gsap-frameworks": {
+      "brandColor": "#4A7376",
+      "concept": "跨框架组件与连接线",
+      "glyph": "<rect x=\"21\" y=\"25\" width=\"34\" height=\"32\" rx=\"6\"/><rect x=\"73\" y=\"25\" width=\"34\" height=\"32\" rx=\"6\"/><rect x=\"47\" y=\"77\" width=\"34\" height=\"32\" rx=\"6\"/><path d=\"M38 57v9h26v11M90 57v9H64\"/>"
     }
   }
 }

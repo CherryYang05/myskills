@@ -68,6 +68,15 @@ claude plugin install humanizer@cherry-skills
 
 **ChatGPT 工作区**：支持 GitHub Marketplace 的管理员可在 Admin → Plugins → Add → Import marketplace 中导入本仓库并跟踪 `master`，随后从 **Cherry Skills** 安装。既有手动上传的插件不会被 GitHub Action 自动替换。
 
+## 新增 Skill 的自动生成流程
+
+1. 在 `automation/upstreams.json` 登记经过来源、许可和安全审查的上游 Skill，使用完整的 Git commit SHA；如许可证位于仓库根目录，填写 `root_license: "LICENSE"`（实际为 JSON 键 `"root_license": "LICENSE"`）。
+2. 在 `automation/plugin-appearance.json` 为对应的 **Skill 名称**设置专属颜色、SVG `glyph` 与概念说明。Actions 负责将这些矢量源数据渲染成统一的 128×128 图标，不会自动创作图形。
+3. 推送到 `master` 后，`Sync Skill Upstreams` 的 Push 触发器会拉取缺失的第三方 Skill、做静态安全/许可证检查、生成 Plugin/Marketplace/README 与版本号，并创建候选 PR。
+4. 只有候选 PR 的**精确提交**通过 `Validate Skills` 后才会自动合并。第一次登记但未生成时，短暂的主分支验证失败属于引导阶段状态；如 Action 受账户权限/计费限制未运行，不能认为导入完成，需查看 Workflow/PR 结果。
+
+新增或移除上游的注册表修改必须经过人工/Agent 明确审查和提交；自动流程不会自行发现、添加来源。每周五的同步仍仅更新已经登记的来源。
+
 ## 仓库维护
 
 - `skills/external/` 保存第三方 Skill 的完整上游快照，来源与固定提交记录在 `automation/upstreams.json`；`skills/personal/` 保存自研 Skill，不受上游同步覆盖。

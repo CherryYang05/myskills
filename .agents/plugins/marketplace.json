@@ -5,6 +5,18 @@
   },
   "plugins": [
     {
+      "name": "caveman",
+      "source": {
+        "source": "local",
+        "path": "./plugins/caveman"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "deep-research",
       "source": {
         "source": "local",
@@ -17,10 +29,118 @@
       "category": "Productivity"
     },
     {
+      "name": "design-taste-frontend",
+      "source": {
+        "source": "local",
+        "path": "./plugins/design-taste-frontend"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "frontend-design",
       "source": {
         "source": "local",
         "path": "./plugins/frontend-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-core",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-core"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-frameworks",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-frameworks"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-performance",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-performance"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-plugins",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-plugins"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-react",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-react"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-scrolltrigger",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-scrolltrigger"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-timeline",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-timeline"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "gsap-utils",
+      "source": {
+        "source": "local",
+        "path": "./plugins/gsap-utils"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -57,6 +177,18 @@
       "source": {
         "source": "local",
         "path": "./plugins/mermaid-diagrams"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "playwright",
+      "source": {
+        "source": "local",
+        "path": "./plugins/playwright"
       },
       "policy": {
         "installation": "AVAILABLE",

@@ -66,6 +66,52 @@ class SynchronizationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "mismatch"):
             sync.validate_config({"missing": self.config["demo"]}, self.root)
 
+    def test_registration_bootstrap_allows_missing_only_during_apply(self):
+        pending = dict(self.config)
+        pending["brand-new"] = {
+            "repo": "example/other", "path": "skills/brand-new",
+            "ref": "main", "sha": "b" * 40,
+            "root_license": "LICENSE",
+        }
+        with self.assertRaisesRegex(ValueError, "mismatch"):
+            sync.validate_config(pending, self.root)
+        sync.validate_config(pending, self.root, allow_missing=True)
+        with self.assertRaisesRegex(ValueError, "legal"):
+            sync.validate_config({
+                **self.config,
+                "brand-new": {**pending["brand-new"], "root_license": "src/unsafe.py"},
+            }, self.root, allow_missing=True)
+
+    def test_upstream_root_license_is_bundled_from_same_commit(self):
+        with mock.patch.object(sync, "ROOT", self.root), \
+                mock.patch.object(sync, "git") as fetch, \
+                mock.patch.object(sync, "tree_snapshot", return_value=self.old):
+            def fake_git(_directory, *args):
+                if args[0] == "rev-parse":
+                    return b"b" * 40
+                if args[0] == "show":
+                    return b"MIT License\\n"
+                return b""
+            fetch.side_effect = fake_git
+            plans = sync.fetch_snapshots({
+                "demo": {**self.config["demo"], "root_license": "LICENSE"},
+            })
+        latest = plans[0][3]
+        self.assertEqual(latest["LICENSE.upstream.txt"], ("100644", b"MIT License\\n"))
+        self.assertTrue(any(call.args[1] == "show" for call in fetch.call_args_list))
+
+    def test_per_source_size_override_is_bounded(self):
+        large = {**self.config["demo"], "max_bytes": 128 * 1024 * 1024}
+        sync.validate_config({"demo": large}, self.root)
+        for invalid in (0, -1, "lots", 512 * 1024 * 1024):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_bytes"):
+                sync.validate_config({"demo": {**large, "max_bytes": invalid}}, self.root)
+        roomy = {**large, "max_files": 10000}
+        sync.validate_config({"demo": roomy}, self.root)
+        for invalid in (0, "a lot", 50000):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "max_files"):
+                sync.validate_config({"demo": {**roomy, "max_files": invalid}}, self.root)
+
     def test_only_sha_is_changed_on_apply(self):
         newer = package("new", "100755")
         newer["references/notes.md"] = ("100644", b"added")
