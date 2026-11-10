@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blog"
+  short_description: "提取学习对话、写作审稿、生成 Markdown 和 Halo 草稿"
+  default_prompt: "用 $blog-workflow 把这次学习写成一篇博客，按读者视角修稿，交付带 HTML 图的 Markdown。"
+policy:
+  allow_implicit_invocation: false
