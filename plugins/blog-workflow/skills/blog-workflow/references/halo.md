@@ -8,7 +8,15 @@
 2. 保留下载用的 Markdown 首行 H1。同步时用 H1 的文字作 Halo 标题，正文从其后一行开始。保持 Markdown 中的原始 HTML 图与 KaTeX 公式。提供与 Markdown 同稿的渲染 HTML，禁止把 Markdown 冒充渲染 HTML。可在本地使用随附的 ByteMD 预检工具。
 3. 首次使用可读的稳定 slug，文章名用 `blog-<slug>`，总长不超过 63 个字符。已经有记录时优先用旧 ID。按 slug 和 ID 查现有文章，包括草稿，防止覆盖或重复。碰到回收记录、同 slug 的其他文章、后端拒绝访问或状态不明时先核对。
 
-## 已连接 Halo 官方 MCP 时
+## 使用 Blog 内置 Halo MCP
+
+在 macOS 的 ChatGPT 桌面端或本机 Codex 会话中选择 Blog。插件自带 `blog-halo`，通过本机 Python 3 连接 Bearguin 的 Halo MCP。它从 macOS 钥匙串读取账户为 `blog`、服务名为 `bearguin-halo-mcp` 的密钥。已经保存过该条目即可复用。独立安装 Skill 时也可以使用客户端中已连接的 Halo MCP。
+
+第一次配置或轮换密钥时，在终端运行以下命令，在密码提示出现后粘贴密钥。重新开一个本机对话，再让 Blog 只读列出 Halo 分类，验证 `blog-halo` 已连接。
+
+```bash
+/usr/bin/security add-generic-password -U -a blog -s bearguin-halo-mcp -w
+```
 
 以下名称来自 Halo MCP Server 1.3.3。以当前工具的实际参数为准。
 
@@ -16,7 +24,7 @@
 - `halo_create_post` 用 `name`、`title`、`slug`、`raw`（Markdown 正文）、`rawType: "markdown"`、`content`（渲染后的 HTML）、`categories`、`tags` 和显式的 `publish: false`。不设置计划发布时间。实际的创建工具可直接发布，因此不能把密钥的工具清单当作草稿状态的强制限制。
 - 请求超时先按稳定 ID 回读。若看到同一稿件，核对内容后使用现有 ID。状态未知时不再创建。用户明确要求改同一未发布草稿时，先核对其当前版本，处理人工改动，再使用已授权的更新工具。公开动作使用用户明确指定的稿件和发布操作。
 
-连接使用独立、按工具授权的 Halo MCP 密钥。用户通过 Halo 控制台生成密钥，并在客户端的安全输入框配置。插件包、命令参数、文件与聊天中均不放密钥。连接未就绪时交付正文，标明草稿未写入。
+连接使用独立、按工具授权的 Halo MCP 密钥。插件包、命令参数、普通配置文件与聊天中均不放密钥。连接未就绪时交付正文，标明草稿未写入。用户要验证插件连接时，使用 `blog-halo`，并如实报告是否发现工具和读到结果。
 
 ## Codex 本地同步
 

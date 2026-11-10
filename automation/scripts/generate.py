@@ -211,6 +211,12 @@ def render_plugin_files(root=ROOT):
             for relative, (mode, content) in sorted(local_snapshot(source).items()):
                 if omit_from_chatgpt_plugin(relative):
                     continue
+                if group == "personal" and len(plugin["skills"]) == 1 and relative == "mcp.json":
+                    package["mcp.json"] = (mode, content)
+                    servers = json.loads(content)["mcpServers"]
+                    if any(server.get("type") == "stdio" for server in servers.values()):
+                        manifest["extensions"]["com.openai"]["requires_local_executor"] = True
+                    continue
                 package[f"skills/{fields['name']}/{relative}"] = (mode, content)
         package["plugin.json"] = (
             "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")

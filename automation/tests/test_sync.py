@@ -352,6 +352,15 @@ class SynchronizationTests(unittest.TestCase):
         generate.check_or_write_plugin_files(self.root, generated, False)
         generate.check_or_write_plugin_files(self.root, generated, True)
 
+    def test_personal_skill_mcp_is_generated_at_the_plugin_root(self):
+        config = {"mcpServers": {"example": {"type": "stdio", "command": "python3"}}}
+        (self.root / "skills/personal/own/mcp.json").write_text(json.dumps(config))
+        files = generate.render_plugin_files(self.root)
+        self.assertEqual(json.loads(files["plugins/own/mcp.json"][1]), config)
+        self.assertNotIn("plugins/own/skills/own/mcp.json", files)
+        manifest = json.loads(files["plugins/own/plugin.json"][1])
+        self.assertIs(manifest["extensions"]["com.openai"]["requires_local_executor"], True)
+
     def test_generated_plugins_include_functional_icon_assets(self):
         generated = generate.render_plugin_files(self.root)
         for name in ("demo", "own"):
