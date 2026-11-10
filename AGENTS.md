@@ -8,6 +8,7 @@ This file is the **single maintenance policy** for AI agents and contributors. T
 |---|---|
 | `skills/external/<name>/` | Full, unmodified third-party Skill snapshot; tracked by `automation/upstreams.json` (`repo`, `path`, `ref`, full 40-character `sha`, optional legal `preserve`) |
 | `skills/personal/<name>/` | Self-authored Skills; scheduled upstream sync must never overwrite them |
+| `skill-changelogs/{external,personal}/<directory>.md` | Append-only per-Skill revision logs. Use the canonical source directory name. |
 | `automation/plugin-groups.json` | Explicit multi-Skill plugin bundles with canonical member paths and listing metadata; ungrouped Skills retain individual plugins |
 | `automation/plugin-appearance.json` | One semantic icon entry per generated plugin (keys under `skills`): `brandColor`, `concept`, safe vector `glyph`; generated fallback is preview-only |
 | `automation/templates/README.md.tpl` | Editable README prose with exactly one `{{SKILL_TABLE}}` placeholder |
@@ -28,13 +29,18 @@ The canonical Skill trees remain complete (including upstream Claude/Cursor meta
 
 ## Changes, CI and sync safeguards
 
-Before manual changes, verify the checkout/remote/status, inspect the diff and avoid committing secrets, Python caches or unrelated files. Edit canonical sources or the README template/icon registry, then regenerate:
+Before manual changes, verify the checkout/remote/status, inspect the diff and avoid committing secrets, Python caches or unrelated files.
+
+When adding, updating or removing a canonical Skill, append a dated entry to its log in the same PR. Use `- YYYY-MM-DD — summary` and state what changed and why. Keep existing entries and retain the log for a removed Skill. Upstream synchronization appends entries automatically when it changes an external Skill's snapshot. Keep these logs outside the upstream and distributable packages.
+
+After editing canonical sources, revision logs or the README template/icon registry, validate and regenerate as applicable.
 
 ```bash
 python3 -m pip install pyyaml
 python3 automation/scripts/generate.py
 python3 -m unittest discover -s automation/tests -v
 python3 automation/scripts/verify.py
+python3 automation/scripts/skill_changelog.py --base origin/master
 python3 automation/scripts/review_imports.py
 python3 automation/scripts/verify_appearance.py
 python3 automation/scripts/sync.py --check-config

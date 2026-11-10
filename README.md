@@ -31,6 +31,8 @@
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skills/personal/skill-os-setup) | 自研 | 自研 | 用于维护 EasyNewOS 仓库 |
 
+[查看各 Skill 的修订记录](./skill-changelogs)。
+
 ## 安装与更新
 
 ### Skills CLI（Codex / Claude Code / Cursor 等）

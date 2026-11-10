@@ -8,6 +8,8 @@
 
 {{SKILL_TABLE}}
 
+[查看各 Skill 的修订记录](./skill-changelogs)。
+
 ## 安装与更新
 
 ### Skills CLI（Codex / Claude Code / Cursor 等）

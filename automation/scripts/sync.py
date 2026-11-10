@@ -14,6 +14,8 @@ import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 
+from skill_changelog import record_path
+
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG = "automation/upstreams.json"
 SUMMARY = "UPSTREAM_SYNC_REPORT.md"
@@ -252,10 +254,22 @@ def apply_plans(root, config, planned, period=None):
     # solely to refresh timestamps in UPSTREAM_SYNC_REPORT.md.
     if not any(changes for _, _, _, _, changes in planned):
         return updated
+    today = datetime.now(timezone(timedelta(hours=8))).date().isoformat()
     for name, remote_sha, old, latest, changes in planned:
         if changes:
             apply_snapshot(root / EXTERNAL / name, old, latest, changes)
             updated[name]["sha"] = remote_sha
+            record = root / record_path("external", name)
+            record.parent.mkdir(parents=True, exist_ok=True)
+            previous_sha = config[name]["sha"]
+            repo = config[name]["repo"]
+            revision = f"[{remote_sha[:12]}](https://github.com/{repo}/commit/{remote_sha})"
+            comparison = f"https://github.com/{repo}/compare/{previous_sha}...{remote_sha}"
+            detail = f"（[查看差异]({comparison})）" if previous_sha != remote_sha else ""
+            with record.open("a", encoding="utf-8") as log:
+                if log.tell() == 0:
+                    log.write(f"# {name} 修订记录\n\n")
+                log.write(f"- {today} — 同步上游 {revision}，变更 {len(changes)} 个文件{detail}。\n")
     (root / CONFIG).write_text(json.dumps(updated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (root / SUMMARY).write_text(render_report(config, updated, planned, period), encoding="utf-8")
     return updated

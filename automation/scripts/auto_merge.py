@@ -12,6 +12,7 @@ from urllib.parse import quote, urlencode
 
 from sync import CONFIG, EXTERNAL, SUMMARY, ROOT
 from plugin_groups import CONFIG as GROUPS_CONFIG, parse_groups
+from skill_changelog import record_path
 
 SHA_RE = re.compile(r"[0-9a-f]{40}")
 
@@ -48,6 +49,8 @@ def validate_scope(before, after, changed_paths, groups=None):
     allowed = {CONFIG, SUMMARY, "README.md", ".agents/plugins/marketplace.json",
                ".claude-plugin/marketplace.json", ".cursor-plugin/marketplace.json",
                "skills.sh.json"}
+    allowed.update(record_path("external", name).as_posix() for name in before
+                   if any(path.startswith(f"{EXTERNAL}/{name}/") for path in changed_paths))
     # Bundle metadata is read from the trusted base commit, never the candidate.
     # A bundle containing personal or unregistered Skills requires manual review.
     plugin_names = set(before)
