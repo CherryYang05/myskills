@@ -23,8 +23,8 @@
     },
     "humanizer-zh": {
       "brandColor": "#9C4860",
-      "concept": "竖排标记与汉字改稿笔",
-      "glyph": "<path d=\"M32 40h52M58 27v53M36 42v23h44V42M28 99h69\"/><path d=\"m77 89 20-20 8 8-20 20-11 3Z\"/>"
+      "concept": "中字与中文改稿笔",
+      "glyph": "<rect x=\"28\" y=\"36\" width=\"48\" height=\"34\" rx=\"1\"/><path d=\"M52 22v62M27 102h35\"/><path d=\"m78 90 20-20 8 8-20 20-11 3ZM92 76l8 8\"/>"
     },
     "humanizer-en": {
       "brandColor": "#355F81",
