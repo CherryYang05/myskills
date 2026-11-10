@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <title>gsap-plugins — 动画扩展模块拼图</title>
-  <rect width="128" height="128" rx="30" fill="#537A4F"/>
-  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
-  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M24 41h21c-3-13 16-15 19-4 0 2 0 4-1 4h20v20c11-2 15 15 4 19h-4v22H63c2-12-16-14-19-3v3H24V82c-12 2-15-15-4-19h4Z"/>
-  </g>
-</svg>

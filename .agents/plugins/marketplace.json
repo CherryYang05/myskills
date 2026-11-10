@@ -53,94 +53,10 @@
       "category": "Productivity"
     },
     {
-      "name": "gsap-core",
+      "name": "gsap",
       "source": {
         "source": "local",
-        "path": "./plugins/gsap-core"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-frameworks",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-frameworks"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-performance",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-performance"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-plugins",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-plugins"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-react",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-react"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-scrolltrigger",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-scrolltrigger"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-timeline",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-timeline"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "gsap-utils",
-      "source": {
-        "source": "local",
-        "path": "./plugins/gsap-utils"
+        "path": "./plugins/gsap"
       },
       "policy": {
         "installation": "AVAILABLE",

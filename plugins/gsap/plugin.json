@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "gsap",
+  "version": "1.0.0",
+  "description": "Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins, utilities, React, Vue, and Svelte. Includes all eight official GSAP skill categories in one plugin.",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/greensock/gsap-skills",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GSAP",
+        "shortDescription": "Build and optimize GSAP…",
+        "longDescription": "Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins, utilities, React, Vue, and Svelte. Includes all eight official GSAP skill categories in one plugin.",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/greensock/gsap-skills",
+        "brandColor": "#487646",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}
