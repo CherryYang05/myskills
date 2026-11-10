@@ -210,10 +210,15 @@ class SynchronizationTests(unittest.TestCase):
         self.write_plugin_group()
         original = sync.local_snapshot(self.external)
         grouped = generate.render_plugin_files(self.root)
+        indexes = generate.render(self.root)
         for catalog_path in (generate.MARKETPLACE, generate.CLAUDE_MARKETPLACE,
                              generate.CURSOR_MARKETPLACE):
-            entries = json.loads(generate.render(self.root)[catalog_path])["plugins"]
+            entries = json.loads(indexes[catalog_path])["plugins"]
             self.assertEqual([entry["name"] for entry in entries], ["suite"])
+        readme = indexes[generate.README]
+        self.assertEqual(readme.count("[Demo Suite](./plugins/suite)"), 1)
+        self.assertNotIn("./skills/external/demo", readme)
+        self.assertNotIn("./skills/personal/own", readme)
         self.assertEqual(grouped["plugins/suite/skills/demo/SKILL.md"], self.old["SKILL.md"])
         self.assertEqual(grouped["plugins/suite/skills/demo/scripts/run.py"], self.old["scripts/run.py"])
         self.assertIn("plugins/suite/skills/own/SKILL.md", grouped)

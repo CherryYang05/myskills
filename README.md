@@ -4,22 +4,15 @@
 
 [![Validate Skills](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml) [![Sync Skill Upstreams](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml)
 
-## Skill 清单
+## Skill 与插件清单
 
-| Skill | 类型 | 来源 / 当前版本 | 说明 |
+| Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |
 |---|---|---|---|
 | [caveman](./skills/external/caveman) | 外&#8288;部&#8288;同&#8288;步 | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman/tree/main/skills/caveman) · `3dc497a7f858` | Terse caveman voice: answer first, fluff gone, every technical fact kept |
 | [deep-research](./skills/external/deep-research) | 外&#8288;部&#8288;同&#8288;步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `6d9388674de1` | Universal deep research agent team |
 | [design-taste-frontend](./skills/external/design-taste-frontend) | 外&#8288;部&#8288;同&#8288;步 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/taste-skill) · `f6b76575f949` | tasteskill 2.5.1, the anti-slop frontend skill |
 | [frontend-design](./skills/external/frontend-design) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design) · `ca45fc496a34` | Guidance for distinctive, intentional visual design when building new UI or reshaping an… |
-| [gsap-core](./skills/external/gsap-core) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-core) · `aed9cfd32777` | Official GSAP skill for the core API — gsap.to(), from(), fromTo(), easing, duration… |
-| [gsap-frameworks](./skills/external/gsap-frameworks) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-frameworks) · `aed9cfd32777` | Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping… |
-| [gsap-performance](./skills/external/gsap-performance) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-performance) · `aed9cfd32777` | Official GSAP skill for performance — prefer transforms, avoid layout thrashing… |
-| [gsap-plugins](./skills/external/gsap-plugins) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-plugins) · `aed9cfd32777` | Official GSAP skill for GSAP plugins — registration, ScrollToPlugin, ScrollSmoother… |
-| [gsap-react](./skills/external/gsap-react) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-react) · `aed9cfd32777` | Official GSAP skill for React — useGSAP hook, refs, gsap.context(), cleanup |
-| [gsap-scrolltrigger](./skills/external/gsap-scrolltrigger) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-scrolltrigger) · `aed9cfd32777` | Official GSAP skill for ScrollTrigger — scroll-linked animations, pinning, scrub… |
-| [gsap-timeline](./skills/external/gsap-timeline) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-timeline) · `aed9cfd32777` | Official GSAP skill for timelines — gsap.timeline(), position parameter, nesting… |
-| [gsap-utils](./skills/external/gsap-utils) | 外&#8288;部&#8288;同&#8288;步 | [greensock/gsap-skills](https://github.com/greensock/gsap-skills/tree/main/skills/gsap-utils) · `aed9cfd32777` | Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random… |
+| [GSAP](./plugins/gsap) | 插件合集 | [项目主页](https://github.com/greensock/gsap-skills) | 包含 8 个 Skill。Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins… |
 | [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `b48c832f0f80` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
 | [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `ec229b48547f` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
 | [mermaid-diagrams](./skills/external/mermaid-diagrams) | 外&#8288;部&#8288;同&#8288;步 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) · `3027f20f3181` | Comprehensive guide for creating software diagrams using Mermaid syntax |
@@ -32,7 +25,7 @@
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [humanizer-en](./skills/personal/humanizer-en) | 自研 | 自研 | Edit or review existing English prose when asked to humanize it, remove AI tone, or… |
 | [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
-| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 将技术对话整理为结构完整、可独立阅读的中文技术文章 |
+| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合… |
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
@@ -75,7 +68,7 @@ npx skills remove humanizer -g   # 卸载指定 Skill
 
 Marketplace 提供的是另一种分发方式：先注册仓库，再选择具体 Plugin 安装。已经通过 Skills CLI 安装的同名 Skill 通常无需重复安装。
 
-**GSAP 系列统一安装 `gsap` 插件**，其中包含 core、timeline、ScrollTrigger、plugins、utils、React、performance 和 frameworks 八个分类。三个 Marketplace 均只显示一个 GSAP 插件入口；上方清单与 Skills CLI 仍按原始分类列出技能。已安装旧分类插件时，刷新 Marketplace 后安装 `gsap`，再卸载旧的 `gsap-*` 插件，避免重复加载。
+组合插件在清单中只列一次，Skills CLI 仍可单独安装其中的 Skill。
 
 **Codex CLI / ChatGPT 桌面版**
 

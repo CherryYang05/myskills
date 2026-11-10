@@ -4,7 +4,7 @@
 
 [![Validate Skills](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/validate-skills.yml) [![Sync Skill Upstreams](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml/badge.svg?branch=master)](https://github.com/CherryYang05/myskills/actions/workflows/sync-upstream.yml)
 
-## Skill 清单
+## Skill 与插件清单
 
 {{SKILL_TABLE}}
 
@@ -45,7 +45,7 @@ npx skills remove humanizer -g   # 卸载指定 Skill
 
 Marketplace 提供的是另一种分发方式：先注册仓库，再选择具体 Plugin 安装。已经通过 Skills CLI 安装的同名 Skill 通常无需重复安装。
 
-**GSAP 系列统一安装 `gsap` 插件**，其中包含 core、timeline、ScrollTrigger、plugins、utils、React、performance 和 frameworks 八个分类。三个 Marketplace 均只显示一个 GSAP 插件入口；上方清单与 Skills CLI 仍按原始分类列出技能。已安装旧分类插件时，刷新 Marketplace 后安装 `gsap`，再卸载旧的 `gsap-*` 插件，避免重复加载。
+组合插件在清单中只列一次，Skills CLI 仍可单独安装其中的 Skill。
 
 **Codex CLI / ChatGPT 桌面版**
 
