@@ -36,8 +36,12 @@ def read_frontmatter(file):
     if "compatibility" in data and (not isinstance(data["compatibility"], str)
                                     or len(data["compatibility"]) > 500):
         raise ValueError(f"{file}: invalid compatibility")
-    if "allowed-tools" in data and not isinstance(data["allowed-tools"], str):
-        raise ValueError(f"{file}: invalid allowed-tools")
+    if "allowed-tools" in data:
+        allowed = data["allowed-tools"]
+        if not (isinstance(allowed, str) or (
+                isinstance(allowed, list)
+                and all(isinstance(tool, str) and tool.strip() for tool in allowed))):
+            raise ValueError(f"{file}: invalid allowed-tools")
     return data
 
 

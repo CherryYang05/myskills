@@ -14,6 +14,7 @@
 | [frontend-design](./skills/external/frontend-design) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design) · `ca45fc496a34` | Guidance for distinctive, intentional visual design when building new UI or reshaping an… |
 | [GSAP](./plugins/gsap) | 插件合集 | [项目主页](https://github.com/greensock/gsap-skills) | 包含 8 个 Skill。Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins… |
 | [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `b48c832f0f80` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
+| [humanizer-zh](./skills/external/humanizer-zh) | 外&#8288;部&#8288;同&#8288;步 | [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) · `f4518a8eab97` | 编辑中文文章、评论和文档中的空话、重复及模板化表达，让文字更自然，同时保留事实、确定程度和作者声音 |
 | [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `ec229b48547f` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
 | [mermaid-diagrams](./skills/external/mermaid-diagrams) | 外&#8288;部&#8288;同&#8288;步 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) · `3027f20f3181` | Comprehensive guide for creating software diagrams using Mermaid syntax |
 | [playwright](./skills/external/playwright) | 外&#8288;部&#8288;同&#8288;步 | [openai/skills](https://github.com/openai/skills/tree/main/skills/.curated/playwright) · `49f948faa925` | Use when the task requires automating a real browser from the terminal (navigation, form… |
@@ -23,8 +24,6 @@
 | [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
 | [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [humanizer-en](./skills/personal/humanizer-en) | 自研 | 自研 | Edit or review existing English prose when asked to humanize it, remove AI tone, or… |
-| [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
 | [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合… |

@@ -11,6 +11,12 @@
     "ref": "main",
     "sha": "b48c832f0f809c1b5658edbb838c2521b72f2413"
   },
+  "humanizer-zh": {
+    "repo": "op7418/Humanizer-zh",
+    "path": "",
+    "ref": "main",
+    "sha": "f4518a8eab97b8bfebc66a89d34320a89bef6930"
+  },
   "skill-creator": {
     "repo": "anthropics/skills",
     "path": "skills/skill-creator",
