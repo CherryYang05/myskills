@@ -8,6 +8,8 @@
 
 {{SKILL_TABLE}}
 
+Lieflat Charts 按 [PolyForm Noncommercial 1.0.0](https://github.com/larashero3-dotcom/lieflat-charts/blob/75c697872e622a34471bec875874c038b37da89f/LICENSE) 收录，商业使用需要另行取得上游授权。
+
 [查看各 Skill 的修订记录](./skill-changelogs)。
 
 ## 安装与更新
