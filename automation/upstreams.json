@@ -9,7 +9,7 @@
     "repo": "blader/humanizer",
     "path": "",
     "ref": "main",
-    "sha": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0"
+    "sha": "b48c832f0f809c1b5658edbb838c2521b72f2413"
   },
   "skill-creator": {
     "repo": "anthropics/skills",
@@ -45,7 +45,7 @@
     "repo": "pbakaus/impeccable",
     "path": ".agents/skills/impeccable",
     "ref": "main",
-    "sha": "b3ced85312e91797bcb7929f858cecdf6138d3bd",
+    "sha": "7537147d3541d758cbdd9931354ca97fcdfa54ce",
     "preserve": [
       "LICENSE",
       "NOTICE.md"
