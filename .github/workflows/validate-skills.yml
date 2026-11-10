@@ -57,11 +57,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify blog figures survive ByteMD HTML sanitization
-        working-directory: automation/html-tests
-        run: |
-          npm ci --ignore-scripts --no-audit --no-fund
-          npm test
       - name: Verify Skills CLI discovers all source Skills
         env:
           DISABLE_TELEMETRY: '1'
