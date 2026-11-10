@@ -62,7 +62,7 @@ def render(root=ROOT):
         "plugins": [],
     }
     cli_paths = ["./skills/external", "./skills/personal"]
-    rows = ["| Skill | 类型 | 来源 / 当前版本 | 说明 |", "|---|---|---|---|"]
+    rows = ["| Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |", "|---|---|---|---|"]
     for plugin in plugin_inventory(root, packages):
         name = plugin["name"]
         plugin_path = f"./plugins/{name}"
@@ -82,7 +82,14 @@ def render(root=ROOT):
         cursor_catalog["plugins"].append({
             "name": name, "source": plugin_path, "description": marketplace_desc
         })
-    for group, directory, fields in packages:
+        members = plugin["skills"]
+        if len(members) > 1:
+            label = f"[{plugin['displayName']}]({plugin_path})"
+            origin = f"[项目主页]({plugin['homepage']})"
+            desc = short_description(plugin["description"])
+            rows.append(f"| {label} | 插件合集 | {origin} | 包含 {len(members)} 个 Skill。{desc} |")
+            continue
+        group, directory, fields = members[0]
         name = fields["name"]
         path = f"./skills/{group}/{directory}"
         desc = short_description(fields["description"])

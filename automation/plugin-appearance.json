@@ -71,11 +71,6 @@
       "concept": "自动生成的测试用例卡片",
       "glyph": "<rect x=\"23\" y=\"24\" width=\"67\" height=\"83\" rx=\"8\"/><path d=\"M39 42h32M39 57h22M39 72h28M39 87h13\"/><path d=\"m85 59 6-14 6 14 14 6-14 6-6 14-6-14-14-6Z\" fill=\"#fff\" stroke=\"none\"/>"
     },
-    "blog-workflow": {
-      "brandColor": "#365A7D",
-      "concept": "对话框与博客文章",
-      "glyph": "<path d=\"M30 26h64a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8H51L31 76V64h-1a8 8 0 0 1-8-8V34a8 8 0 0 1 8-8Z\"/><path d=\"M40 43h44M40 53h26M45 83h54M35 99h64\"/>"
-    },
     "blog-writer": {
       "brandColor": "#9B623F",
       "concept": "技术文档与写作羽毛笔",

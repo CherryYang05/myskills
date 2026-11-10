@@ -68,11 +68,6 @@
       "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\"."
     },
     {
-      "name": "blog-workflow",
-      "source": "./plugins/blog-workflow",
-      "description": "从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校。围绕读者的问题组织知识解析、教程或经验复盘，保留追问、纠正与证据，按需使用智能可视化，将图作为 HTML 嵌入最终 Markdown。用户要求时将成稿同步到 Halo。"
-    },
-    {
       "name": "ds-mr-reviewer",
       "source": "./plugins/ds-mr-reviewer",
       "description": "MR代码检视工具。提供MR URL，自动分析代码变更、识别功能风险、给出验证场景建议、生成检视报告并发送WeLink通知。当用户提供检视代码的url链接，并且url包含codehub时，必须使用此技能。也支持本地仓库路径输入。"
