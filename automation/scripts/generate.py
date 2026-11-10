@@ -191,8 +191,8 @@ def render_plugin_files(root=ROOT):
                 }
             }
         }
-        if group == "personal":
-            metadata = fields.get("metadata", {})
+        if len(plugin["skills"]) == 1 and plugin["skills"][0][0] == "personal":
+            metadata = plugin["skills"][0][2].get("metadata", {})
             interface = manifest["extensions"]["com.openai"]["interface"]
             for key, field, max_length in (
                 ("plugin-display-name", "displayName", 64),

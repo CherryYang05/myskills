@@ -242,6 +242,26 @@ class SynchronizationTests(unittest.TestCase):
         generate.check_or_write_plugin_files(self.root, second, False)
         self.assertEqual(generate.render_plugin_files(self.root), second)
 
+    def test_personal_listing_overrides_apply_only_to_the_individual_plugin(self):
+        source = self.root / "skills/personal/own/SKILL.md"
+        source.write_text(
+            "---\nname: own\ndescription: My own skill.\nmetadata:\n"
+            "  plugin-display-name: Personal Tool\n"
+            "  plugin-short-description: Personal workflow\n"
+            "  plugin-default-prompt: Use my workflow.\n---\n"
+        )
+        generated = generate.render_plugin_files(self.root)
+        interface = lambda name: json.loads(generated[f"plugins/{name}/plugin.json"][1])["extensions"]["com.openai"]["interface"]
+        self.assertEqual(interface("own")["displayName"], "Personal Tool")
+        self.assertEqual(interface("own")["shortDescription"], "Personal workflow")
+        self.assertEqual(interface("own")["defaultPrompt"], "Use my workflow.")
+        self.assertEqual(interface("demo")["displayName"], "demo")
+        self.assertNotIn("defaultPrompt", interface("demo"))
+        self.write_plugin_group()
+        generated = generate.render_plugin_files(self.root)
+        self.assertEqual(interface("suite")["displayName"], "Demo Suite")
+        self.assertNotIn("defaultPrompt", interface("suite"))
+
     def test_group_configuration_rejects_missing_duplicate_and_unsafe_members(self):
         group = self.write_plugin_group()
         cases = [
