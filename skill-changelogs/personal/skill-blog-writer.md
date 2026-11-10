@@ -1,3 +1,4 @@
 # blog-writer 修订记录
 
 - 2026-11-10 — 建立当前仓库版本的修订基线。[8561edd6e7c8](https://github.com/CherryYang05/myskills/commit/8561edd6e7c86a9e2289fad0c316741bc33e3834) · 重写 blog-writer，以读者目标和证据组织博客 (#30)
+- 2026-11-10 — 修复 ByteMD 清理内联样式后配图布局丢失的问题：默认使用不依赖 CSS 的 HTML 行列和步骤结构，增加分组、耗时示例及真实清理器回归检查。
