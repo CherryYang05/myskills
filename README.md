@@ -24,7 +24,6 @@
 | [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
 | [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
-| [humanizer-en](./skills/personal/humanizer-en) | 自研 | 自研 | Edit or review existing English prose when asked to humanize it, remove AI tone, or… |
 | [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
 | [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |

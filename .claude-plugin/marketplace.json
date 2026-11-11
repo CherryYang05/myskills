@@ -87,11 +87,6 @@
       "description": "使用CodeAgent生成DT(开发者自测试)用例。这是一个通用的的skill,指导用户通过思维链(CoT)的方式分步骤生成高质量的DT测试用例。当用户提到DT用例生成、测试用例生成、LLT测试等关键词时,应使用此skill。特别适用于大颗粒特性(如2w行代码规模)的DT用例生成。**重要**: 这个skill采用严格的交互式工作流程,每一步完成后必须真正等待用户回复,绝不能自问自答或自动继续。"
     },
     {
-      "name": "humanizer-en",
-      "source": "./plugins/humanizer-en",
-      "description": "Edit or review existing English prose when asked to humanize it, remove AI tone, or improve readability and naturalness. Repair sentences that force rereading and trim formulaic prose while preserving claims, evidence, genre, dialect, and the writer's voice. Works on selected passages or full drafts."
-    },
-    {
       "name": "humanizer-zh",
       "source": "./plugins/humanizer-zh",
       "description": "编辑或审阅已有的中文稿件。用户要求中文去 AI 味、去套话或翻译腔、润色得更自然或更好读时使用。按读者和文体改语序、话题衔接与口吻，保留原意、证据和作者声音。适用于指定段落或整篇中文正文。"

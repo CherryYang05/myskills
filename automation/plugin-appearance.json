@@ -26,11 +26,6 @@
       "concept": "中字与中文改稿笔",
       "glyph": "<rect x=\"28\" y=\"36\" width=\"48\" height=\"34\" rx=\"1\"/><path d=\"M52 22v62M27 102h35\"/><path d=\"m78 90 20-20 8 8-20 20-11 3ZM92 76l8 8\"/>"
     },
-    "humanizer-en": {
-      "brandColor": "#355F81",
-      "concept": "英文字母与校订线",
-      "glyph": "<path d=\"m29 80 24-49 24 49M39 61h28M27 99h74\"/><path d=\"m84 65 8 8 14-18\"/>"
-    },
     "impeccable": {
       "brandColor": "#6250A4",
       "concept": "精修钻石与星芒",

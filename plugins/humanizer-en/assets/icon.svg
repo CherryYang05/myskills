@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <title>humanizer-en — 英文字母与校订线</title>
-  <rect width="128" height="128" rx="30" fill="#355F81"/>
-  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
-  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m29 80 24-49 24 49M39 61h28M27 99h74"/><path d="m84 65 8 8 14-18"/>
-  </g>
-</svg>
