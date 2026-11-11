@@ -36,6 +36,11 @@
       "concept": "连接节点与流程图",
       "glyph": "<rect x=\"47\" y=\"18\" width=\"34\" height=\"26\" rx=\"5\"/><rect x=\"18\" y=\"79\" width=\"36\" height=\"29\" rx=\"5\"/><rect x=\"74\" y=\"79\" width=\"36\" height=\"29\" rx=\"5\"/><path d=\"M64 44v16M36 79V60h56v19\"/><circle cx=\"64\" cy=\"60\" r=\"3\" fill=\"#fff\" stroke=\"none\"/>"
     },
+    "lieflat-charts": {
+      "brandColor": "#425B70",
+      "concept": "数据柱与趋势折线",
+      "glyph": "<path d=\"M25 30v66h78M39 83V70h12v13m13 0V61h12v22m13 0V53h12v30M41 53l23-12 13 3 22-17\"/>"
+    },
     "shadcn": {
       "brandColor": "#277A89",
       "concept": "可组合的 UI 模块",
