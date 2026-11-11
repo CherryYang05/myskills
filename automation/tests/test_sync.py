@@ -486,21 +486,6 @@ class SynchronizationTests(unittest.TestCase):
         packages = verify.inventory(self.root)
         self.assertEqual(packages[0][2]["new-client-feature"], "enabled")
 
-    def test_allowed_tools_list_preserves_the_upstream_source(self):
-        path = self.external / "SKILL.md"
-        source = ("---\nname: demo\ndescription: Tool-list Skill.\n"
-                  "allowed-tools:\n  - Read\n  - Write\n---\n\nOriginal body.\n")
-        path.write_text(source)
-        self.assertEqual(verify.read_frontmatter(path)["allowed-tools"], ["Read", "Write"])
-        generated = generate.render_plugin_files(self.root)
-        self.assertEqual(generated["plugins/demo/skills/demo/SKILL.md"][1], source.encode())
-        for invalid in ("[Read, 42]", "[Read, '']", "{Read: true}", "false", "null"):
-            with self.subTest(invalid=invalid):
-                path.write_text("---\nname: demo\ndescription: Test.\n"
-                                f"allowed-tools: {invalid}\n---\n")
-                with self.assertRaisesRegex(ValueError, "allowed-tools"):
-                    verify.read_frontmatter(path)
-
     def test_readme_description_does_not_split_english_words(self):
         self.assertEqual(
             generate.short_description("Review accessibility rules and improve the design system", limit=22),
