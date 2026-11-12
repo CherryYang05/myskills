@@ -10,7 +10,7 @@
 
 | Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |
 |---|---|---|---|
-| [lieflat-charts](./skills/external/lieflat-charts) | 外&#8288;部&#8288;同&#8288;步 | [larashero3-dotcom/lieflat-charts](https://github.com/larashero3-dotcom/lieflat-charts) · `75c697872e62` | 一套模板驱动的数据可视化、PPT 演示与整页报告生成 skill，既能严格从 Lupi、Basics、Glance、Maps 与 Interactive gallery 的真实… |
+| [lieflat-charts](./skills/external/lieflat-charts) | 外&#8288;部&#8288;同&#8288;步 | [larashero3-dotcom/lieflat-charts](https://github.com/larashero3-dotcom/lieflat-charts) · `61697e4d5bad` | 一套模板驱动的数据可视化、PPT 演示与整页报告生成 skill，既能严格从 Lupi、Basics、Glance、Maps 与 Interactive gallery 的真实… |
 | [caveman](./skills/external/caveman) | 外&#8288;部&#8288;同&#8288;步 | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman/tree/main/skills/caveman) · `3dc497a7f858` | Terse caveman voice: answer first, fluff gone, every technical fact kept |
 | [design-taste-frontend](./skills/external/design-taste-frontend) | 外&#8288;部&#8288;同&#8288;步 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/taste-skill) · `f6b76575f949` | tasteskill 2.5.1, the anti-slop frontend skill |
 | [GSAP](./plugins/gsap) | 插件合集 | [项目主页](https://github.com/greensock/gsap-skills) | 包含 8 个 Skill。Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins… |
