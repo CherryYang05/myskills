@@ -4,6 +4,7 @@ import argparse
 import json
 import re
 import shutil
+import subprocess
 from pathlib import Path
 
 from sync import ROOT, CONFIG, local_snapshot
@@ -45,6 +46,39 @@ def short_description(description, limit=88):
     return text.replace("|", r"\|").replace("`", "'")
 
 
+def readme_plugin_order(root, plugins):
+    """External first, then newest first addition; updates and moves keep their age."""
+    added = {}
+    repo = subprocess.run(["git", "-C", str(root), "rev-parse", "--show-toplevel"],
+                          capture_output=True, text=True)
+    if repo.returncode == 0 and Path(repo.stdout.strip()).resolve() == root.resolve():
+        shallow = subprocess.check_output(
+            ["git", "-C", str(root), "rev-parse", "--is-shallow-repository"], text=True
+        ).strip()
+        if shallow == "true":
+            raise ValueError("README ordering requires full Git history; run git fetch --unshallow")
+        members = {(group, directory) for plugin in plugins
+                   for group, directory, _ in plugin["skills"]}
+        for group, directory in sorted(members):
+            times = subprocess.check_output([
+                "git", "-C", str(root), "log", "--follow", "--diff-filter=A", "--format=%at",
+                "--", f"skills/{group}/{directory}/SKILL.md",
+            ], text=True).splitlines()
+            if times:
+                added[group, directory] = min(map(int, times))
+
+    def key(plugin):
+        members = plugin["skills"]
+        # A bundle dates from its first member. Any personal member puts it last.
+        personal = any(group == "personal" for group, _, _ in members)
+        first = min(added.get((group, directory), float("inf"))
+                    for group, directory, _ in members)
+        # New, uncommitted Skills lead their group; ties are reproducible by name.
+        return personal, -first, plugin["name"]
+
+    return sorted(plugins, key=key)
+
+
 def render(root=ROOT):
     packages = inventory(root)
     config = json.loads((root / CONFIG).read_text(encoding="utf-8"))
@@ -63,7 +97,9 @@ def render(root=ROOT):
     }
     cli_paths = ["./skills/external", "./skills/personal"]
     rows = ["| Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |", "|---|---|---|---|"]
-    for plugin in plugin_inventory(root, packages):
+    plugins = plugin_inventory(root, packages)
+    readme_rows = {}
+    for plugin in plugins:
         name = plugin["name"]
         plugin_path = f"./plugins/{name}"
         catalog["plugins"].append({
@@ -87,7 +123,7 @@ def render(root=ROOT):
             label = f"[{plugin['displayName']}]({plugin_path})"
             origin = f"[项目主页]({plugin['homepage']})"
             desc = short_description(plugin["description"])
-            rows.append(f"| {label} | 插件合集 | {origin} | 包含 {len(members)} 个 Skill。{desc} |")
+            readme_rows[plugin["name"]] = f"| {label} | 插件合集 | {origin} | 包含 {len(members)} 个 Skill。{desc} |"
             continue
         group, directory, fields = members[0]
         name = fields["name"]
@@ -103,7 +139,8 @@ def render(root=ROOT):
         else:
             origin = "自研"
             category = "自研"
-        rows.append(f"| {label} | {category} | {origin} | {desc} |")
+        readme_rows[plugin["name"]] = f"| {label} | {category} | {origin} | {desc} |"
+    rows.extend(readme_rows[plugin["name"]] for plugin in readme_plugin_order(root, plugins))
     template = (root / "automation/templates/README.md.tpl").read_text(encoding="utf-8")
     if template.count("{{SKILL_TABLE}}") != 1:
         raise ValueError("README template must contain exactly one {{SKILL_TABLE}} placeholder")
