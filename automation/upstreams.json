@@ -45,13 +45,13 @@
     "repo": "larashero3-dotcom/lieflat-charts",
     "path": "",
     "ref": "main",
-    "sha": "61697e4d5bad90d253e230e1f6cbda8f1db155cf"
+    "sha": "4b4e75bde11cbef44263de769f3705db54bbb277"
   },
   "impeccable": {
     "repo": "pbakaus/impeccable",
     "path": ".agents/skills/impeccable",
     "ref": "main",
-    "sha": "f2baa414a87d9acf1e21ccf776bfaec0262ad6df",
+    "sha": "c4cd1924c389f68d37c687d9c2bbf13f12547c41",
     "preserve": [
       "LICENSE",
       "NOTICE.md"
