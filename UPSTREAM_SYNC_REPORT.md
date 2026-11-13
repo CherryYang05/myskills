@@ -20,8 +20,8 @@
 | gsap-timeline | 无变化 | aed9cfd32777 | aed9cfd32777 | 0 |
 | gsap-utils | 无变化 | aed9cfd32777 | aed9cfd32777 | 0 |
 | humanizer | 无变化 | b48c832f0f80 | b48c832f0f80 | 0 |
-| impeccable | 无变化 | f2baa414a87d | f2baa414a87d | 0 |
-| lieflat-charts | 已同步 | 75c697872e62 | 61697e4d5bad | 3 |
+| impeccable | 已同步 | f2baa414a87d | c4cd1924c389 | 8 |
+| lieflat-charts | 已同步 | 61697e4d5bad | 4b4e75bde11c | 20 |
 | mermaid-diagrams | 无变化 | 3027f20f3181 | 3027f20f3181 | 0 |
 | playwright | 无变化 | 49f948faa925 | 49f948faa925 | 0 |
 | shadcn | 无变化 | 42f3bb63b46a | 42f3bb63b46a | 0 |
@@ -30,12 +30,44 @@
 
 ## 文件变更
 
+### impeccable
+
+上游提交：[c4cd1924c389f68d37c687d9c2bbf13f12547c41](https://github.com/pbakaus/impeccable/commit/c4cd1924c389f68d37c687d9c2bbf13f12547c41)
+
+| 文件路径 | 变化 |
+|---|---|
+| SKILL.md | modified |
+| reference/document.md | modified |
+| reference/live-setup.md | modified |
+| reference/live.md | modified |
+| reference/new-work.md | modified |
+| reference/visualize.md | modified |
+| scripts/VERSION | modified |
+| scripts/engine-checksums.txt | modified |
+
 ### lieflat-charts
 
-上游提交：[61697e4d5bad90d253e230e1f6cbda8f1db155cf](https://github.com/larashero3-dotcom/lieflat-charts/commit/61697e4d5bad90d253e230e1f6cbda8f1db155cf)
+上游提交：[4b4e75bde11cbef44263de769f3705db54bbb277](https://github.com/larashero3-dotcom/lieflat-charts/commit/4b4e75bde11cbef44263de769f3705db54bbb277)
 
 | 文件路径 | 变化 |
 |---|---|
 | README.en.md | modified |
 | README.md | modified |
 | SKILL.md | modified |
+| catalog.md | modified |
+| examples/README.md | modified |
+| presentation-catalog.md | modified |
+| references/presentation.md | modified |
+| scripts/smoke-new-charts.mjs | modified |
+| scripts/validate.mjs | modified |
+| templates/color/lupi-palm.html | modified |
+| templates/color/lupi-porcelain.html | modified |
+| templates/color/lupi-wire.html | modified |
+| templates/lupi-gallery.html | modified |
+| templates/presentations/complete-palm-zh.html | removed |
+| templates/presentations/complete-palm.html | removed |
+| templates/presentations/complete-porcelain-zh.html | removed |
+| templates/presentations/complete-porcelain.html | removed |
+| templates/presentations/complete-wire-zh.html | removed |
+| templates/presentations/complete-wire.html | removed |
+| templates/presentations/index.html | modified |
