@@ -83,6 +83,11 @@
       "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site against best practices\"."
     },
     {
+      "name": "develop-software",
+      "source": "./plugins/develop-software",
+      "description": "为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流。仅在用户明确调用并要求为新项目或既有仓库建立开发规范时使用；支持由用户指定或由 Codex 评估 Simple、Medium、Complex 三档，然后通过需求访谈生成对应的 AGENTS.md、项目文档、Spec、Architecture、ADR、Plan、Roadmap、模板与校验规则。初始化后由仓库规则驱动日常功能、修复和重构，不要在普通开发任务或每个需求中重复调用。"
+    },
+    {
       "name": "ds-mr-reviewer",
       "source": "./plugins/ds-mr-reviewer",
       "description": "MR代码检视工具。提供MR URL，自动分析代码变更、识别功能风险、给出验证场景建议、生成检视报告并发送WeLink通知。当用户提供检视代码的url链接，并且url包含codehub时，必须使用此技能。也支持本地仓库路径输入。"

@@ -87,6 +87,8 @@ claude plugin install humanizer@cherry-skills
 
 ## 仓库维护
 
+中文改稿的样本、盲评与方法依据见 [Humanizer 研究档案](./research/humanizer-zh/README.md)。
+
 - `skills/external/` 保存第三方 Skill 的完整上游快照，来源与固定提交记录在 `automation/upstreams.json`；`skills/personal/` 保存自研 Skill，不受上游同步覆盖。
 - `plugins/`、三个平台的 Marketplace、`skills.sh.json`、本 README 均由 `automation/scripts/generate.py` 生成。README 正文编辑 `automation/templates/README.md.tpl`；插件分组编辑 `automation/plugin-groups.json`；SVG 图标编辑 `automation/plugin-appearance.json`。**不要直接修改生成物**。
 - 每周五北京时间 20:30，GitHub Actions 检查上游；有变动才创建候选 PR，通过 CI 后自动合并。无变化的检查结果留在 Action Summary / Artifact；最近一次实际同步记录见 [UPSTREAM_SYNC_REPORT.md](./UPSTREAM_SYNC_REPORT.md)。

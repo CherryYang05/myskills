@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "develop-software",
+  "version": "1.0.0",
+  "description": "为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流。仅在用户明确调用并要求为新项目或既有仓库建立开发规范时使用；支持由用户指定或由 Codex 评估 Simple、Medium、Complex 三档，然后通过需求访谈生成对应的 AGENTS.md、项目文档、Spec、Architecture、ADR、Plan、Roadmap、模板与校验规则。初始化后由仓库规则驱动日常功能、修复和重构，不要在普通开发任务或每个需求中重复调用。",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/develop-software",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "develop-software",
+        "shortDescription": "为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流。仅在用户明确调用并要求为新项目或既有仓库建立开发规范时使用；支持由用户指定或由 Codex 评估 Simple、Medium、Complex 三档，然后通过需求访谈生…",
+        "longDescription": "为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流。仅在用户明确调用并要求为新项目或既有仓库建立开发规范时使用；支持由用户指定或由 Codex 评估 Simple、Medium、Complex 三档，然后通过需求访谈生成对应的 AGENTS.md、项目文档、Spec、Architecture、ADR、Plan、Roadmap、模板与校验规则。初始化后由仓库规则驱动日常功能、修复和重构，不要在普通开发任务或每个需求中重复调用。",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/CherryYang05/myskills/tree/master/skills/personal/develop-software",
+        "brandColor": "#32645A",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}
