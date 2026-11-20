@@ -90,6 +90,7 @@ claude plugin install humanizer@cherry-skills
 - `skills/external/` 保存第三方 Skill 的完整上游快照，来源与固定提交记录在 `automation/upstreams.json`；`skills/personal/` 保存自研 Skill，不受上游同步覆盖。
 - `plugins/`、三个平台的 Marketplace、`skills.sh.json`、本 README 均由 `automation/scripts/generate.py` 生成。README 正文编辑 `automation/templates/README.md.tpl`；插件分组编辑 `automation/plugin-groups.json`；SVG 图标编辑 `automation/plugin-appearance.json`。**不要直接修改生成物**。
 - 每周五北京时间 20:30，GitHub Actions 检查上游；有变动才创建候选 PR，通过 CI 后自动合并。无变化的检查结果留在 Action Summary / Artifact；最近一次实际同步记录见 [UPSTREAM_SYNC_REPORT.md](./UPSTREAM_SYNC_REPORT.md)。
+- [Actions 运行日志（按月）](https://github.com/CherryYang05/myskills/tree/action-logs/logs/actions) 收录上游同步与技能校验的每次运行和重试，包括成功、失败、取消及无变更的检查。若运行器未能启动，记录器恢复后会从 GitHub 尚可查询的历史补记。点击运行编号可查看原始日志及注释。
 - GitHub 生成与合并成功不保证客户端已刷新。安装和更新结果须在目标客户端核验。
 
 新增第三方 Skill 时，直接提供 GitHub 链接并要求加入仓库即可。来源与许可证审查、代码安全检查、专属图标设计、生成和 CI 的强制要求都集中在 [AGENTS.md](./AGENTS.md)。完整历史可从 Git 提交追溯。
