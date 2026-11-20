@@ -504,6 +504,27 @@ class SynchronizationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "boolean"):
             verify.read_frontmatter(path)
 
+    def test_underscored_upstream_retains_source_and_installs_with_portable_plugin_name(self):
+        source = self.root / sync.EXTERNAL / "demo-slides"
+        self.external.rename(source)
+        config = {"demo-slides": self.config["demo"]}
+        (self.root / sync.CONFIG).write_text(json.dumps(config))
+        raw = b"---\nname: demo_slides\ndescription: Slides.\n---\nKeep demo_slides here.\n"
+        path = source / "SKILL.md"
+        path.write_bytes(raw)
+        self.assertIn("demo_slides", {f["name"] for _, _, f in verify.inventory(self.root)})
+        with self.assertRaisesRegex(ValueError, "invalid Skill name"):
+            verify.read_frontmatter(path, external_directory="other")
+        with self.assertRaisesRegex(ValueError, "invalid Skill name"):
+            verify.read_frontmatter(path)
+        output = generate.render_plugin_files(self.root)
+        entry = "plugins/demo-slides/skills/demo-slides/SKILL.md"
+        self.assertEqual(output[entry][1], raw.replace(b"name: demo_slides", b"name: demo-slides"))
+        self.assertEqual(path.read_bytes(), raw)
+        (self.root / "skills/personal/own/SKILL.md").write_text("---\nname: demo-slides\ndescription: Duplicate.\n---\n")
+        with self.assertRaisesRegex(ValueError, "Duplicate Skill name"):
+            verify.inventory(self.root)
+
 
 if __name__ == "__main__":
     unittest.main()

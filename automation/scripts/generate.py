@@ -7,8 +7,10 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import yaml
+
 from sync import ROOT, CONFIG, local_snapshot
-from verify import inventory
+from verify import FRONT, inventory
 from appearance import load_config as load_appearance_config, render_icon
 from plugin_groups import plugin_inventory
 
@@ -252,10 +254,14 @@ def render_plugin_files(root=ROOT):
         package = {"assets/icon.svg": ("100644", icon_svg)}
         for group, directory, fields in plugin["skills"]:
             source = root / "skills" / group / directory
+            skill_name = fields["name"].replace("_", "-")
             for relative, (mode, content) in sorted(local_snapshot(source).items()):
                 if omit_from_chatgpt_plugin(relative):
                     continue
-                package[f"skills/{fields['name']}/{relative}"] = (mode, content)
+                if relative == "SKILL.md" and fields["name"] != skill_name:
+                    header = yaml.safe_dump({**fields, "name": skill_name}, sort_keys=False, allow_unicode=True)
+                    content = FRONT.sub(lambda _: f"---\n{header}---", content.decode(), count=1).encode()
+                package[f"skills/{skill_name}/{relative}"] = (mode, content)
         package["plugin.json"] = (
             "100644", (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
         )
