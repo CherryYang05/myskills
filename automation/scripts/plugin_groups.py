@@ -53,7 +53,7 @@ def plugin_inventory(root=ROOT, packages=None):
     sources = {f"{group}/{directory}": (group, directory, fields)
                for group, directory, fields in packages}
     groups = load_groups(root)
-    skill_names = {fields["name"] for _, _, fields in packages}
+    skill_names = {fields["name"].replace("_", "-") for _, _, fields in packages}
     membership = {}
     for name, group in groups.items():
         if name in skill_names:
@@ -66,7 +66,7 @@ def plugin_inventory(root=ROOT, packages=None):
     emitted = set()
     for category, directory, fields in packages:
         source = f"{category}/{directory}"
-        name = membership.get(source, fields["name"])
+        name = membership.get(source, fields["name"].replace("_", "-"))
         if name in emitted:
             continue
         emitted.add(name)

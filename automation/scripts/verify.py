@@ -14,7 +14,7 @@ FRONT = re.compile(r"\A---\r?\n(.*?)\r?\n---(?=\r?\n|\Z)", re.DOTALL)
 NAME = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 
 
-def read_frontmatter(file):
+def read_frontmatter(file, *, external_directory=None):
     text = file.read_text(encoding="utf-8")
     match = FRONT.match(text)
     if match is None:
@@ -23,7 +23,11 @@ def read_frontmatter(file):
     if not isinstance(data, dict):
         raise ValueError(f"{file}: YAML metadata must be a mapping")
     name, desc = data.get("name"), data.get("description")
-    if not isinstance(name, str) or not NAME.fullmatch(name) or len(name) > 64:
+    # Some upstreams publish an underscored name. Accept it only if the
+    # registered directory already gives that exact name its portable spelling.
+    portable = name.replace("_", "-") if isinstance(name, str) else ""
+    if (not NAME.fullmatch(portable) or len(portable) > 64
+            or (name != portable and external_directory != portable)):
         raise ValueError(f"{file}: invalid Skill name {name!r}")
     if not isinstance(desc, str) or not desc.strip() or len(desc) > 1024:
         raise ValueError(f"{file}: invalid description")
@@ -54,8 +58,8 @@ def inventory(root=ROOT):
             skill = path / "SKILL.md"
             if not skill.is_file():
                 raise ValueError(f"Unexpected directory without SKILL.md: {path}")
-            fields = read_frontmatter(skill)
-            name = fields["name"]
+            fields = read_frontmatter(skill, external_directory=path.name if group == "external" else None)
+            name = fields["name"].replace("_", "-")
             if name in names:
                 raise ValueError(f"Duplicate Skill name: {name}")
             names.add(name)
