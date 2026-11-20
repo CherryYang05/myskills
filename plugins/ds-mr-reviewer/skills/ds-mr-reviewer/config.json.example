@@ -1,0 +1,17 @@
+{
+  "codehub_token": "黄区CodeHub API 访问令牌，CodeHub网站的用户Token，网站右上角头像->设置->TOKEN管理->新建",
+  "codehub_tokens": {
+    "codehub-g.huawei.com": "检视非黄区和其它域名的MR，在codehub_tokens里按域名配置。此项是绿区CodeHub Token",
+    "open.codehub.huawei.com": "open.codehub.huawei.com的CodeHub Token",
+    "cr-y.codehub.huawei.com": "cr-y.codehub.huawei.com的CodeHub Token"
+  },
+  "welink_notify_ids": "检视完成后，指定人或群组发送消息，多个id用英文逗号隔开，比如：a00123456,93065411204198(无论是否配置，默认都会给MR提交人发送)",
+  "onebox_share_directory_url": "你的onebox目录链接，如：https://onebox.huawei.com/#file/1/xxx",
+  "onebox_username": "你的w3用户名",
+  "onebox_password": "你的w3密码",
+  "onebox_idss_cid": "配你的唯一标识id（登录W3 -> F12 -> 按Ctrl+F -> 搜索 idss_cid 获取） ",
+  "exclude_file_suffix": ".flex,.lightdt,.gitignore,.example,.md",
+  "send_discussion_level": ["高", "中"],
+  "clone_repo_path": "代码仓本地存储路径，如：D:\\tmp，不配置则使用默认路径 ~/.mr-reviewer/project",
+  "max_rules_per_batch": 25
+}

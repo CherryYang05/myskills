@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>blog-writer — 技术文档与写作羽毛笔</title>
+  <rect width="128" height="128" rx="30" fill="#9B623F"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 23h55l17 17v65H27Z"/><path d="M82 23v18h17M39 52h37M39 66h26M39 80h19"/><path d="M58 99q9-29 37-40-3 32-29 38Z"/><path d="m61 100 25-31"/>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+.s-chalk{--face:"Atkinson Hyperlegible",Helvetica,Arial,sans-serif;--paper:#20322C;--ink:#F2F0E6;--mute:#BAC4B7;--grid:rgba(242,240,230,.17);--a:#F2F0E6;--b:#F5D262}
+.s-chalk .slide{--t-title:56px;--w-title:700;--w-strong:700;border-bottom:18px solid #7B5D3F;padding-bottom:22px;
+  background-image:radial-gradient(ellipse at 22% 30%,rgba(255,255,255,.06),transparent 58%),radial-gradient(ellipse at 82% 78%,rgba(255,255,255,.045),transparent 52%)}
+/* progress is a stick of chalk lengthening along the tray */
+.s-chalk .slide .prog{bottom:-18px;height:18px;background:var(--ink);opacity:.9}
+.s-chalk .slide .k.a{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:9px}
+.s-chalk .chart .bar{filter:url(#rough-chalk)}
+.s-chalk .chart .bar.a{fill:url(#hx-chalk);stroke:var(--ink);stroke-width:3.5}
+.s-chalk .hx-line{stroke:var(--ink);stroke-width:6}
+.s-chalk .chart .line{stroke-width:6}
+.s-chalk .chart .pt{fill:var(--paper);stroke-width:5}
+.s-chalk .chart .pt.a,.s-chalk .chart .pt.n{stroke:var(--ink)}.s-chalk .chart .pt.b{stroke:var(--b)}
+.s-chalk .glyph .paper{stroke-width:3.5}
+.s-chalk .glyph .row{fill:rgba(242,240,230,.35)}
+.s-chalk .L-flow li,.s-chalk .L-close li{grid-template-columns:92px 1fr;align-items:center}
+.s-chalk .L-close li{align-items:start}
+.s-chalk .L-flow li::before,.s-chalk .L-close li::before{width:58px;height:58px;border:3.5px solid var(--ink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1}
+.s-chalk .L-models table{border-top:3.5px solid var(--ink)}
+.s-chalk .L-models td,.s-chalk .L-models th{border-bottom:1.5px solid rgba(242,240,230,.4)}
+.s-chalk .L-models tr.focal td{color:var(--b);font-weight:700}
+.s-chalk .L-title h1{font-size:98px}

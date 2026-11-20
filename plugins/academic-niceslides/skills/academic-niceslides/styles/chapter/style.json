@@ -1,0 +1,18 @@
+{
+ "slug": "chapter",
+ "en": "Chapter Colour",
+ "cn": "章节色",
+ "line": "每一章一种底色，翻页时底色一变，听众就知道进入了下一章。",
+ "group": "结构",
+ "family": "Figtree",
+ "fonts": [
+  {
+   "file": "figtree-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "figtree-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ]
+}

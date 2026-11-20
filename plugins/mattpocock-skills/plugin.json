@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mattpocock-skills",
+  "version": "1.0.0",
+  "description": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接。",
+  "author": {
+    "name": "CherryYang05",
+    "url": "https://github.com/CherryYang05"
+  },
+  "homepage": "https://github.com/mattpocock/skills",
+  "repository": "https://github.com/CherryYang05/myskills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Matt Pocock Skills",
+        "shortDescription": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄…",
+        "longDescription": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接。",
+        "developerName": "CherryYang05",
+        "category": "Productivity",
+        "websiteURL": "https://github.com/mattpocock/skills",
+        "brandColor": "#285672",
+        "logo": "./assets/icon.svg",
+        "composerIcon": "./assets/icon.svg"
+      }
+    }
+  }
+}

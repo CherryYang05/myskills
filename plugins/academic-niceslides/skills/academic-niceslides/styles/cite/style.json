@@ -1,0 +1,32 @@
+{
+ "slug": "cite",
+ "en": "Citation Card",
+ "cn": "署名卡",
+ "line": "每一页都带完整出处，四周留足安全边。被截图、被转发之后仍然知道出自哪篇论文。",
+ "group": "传播",
+ "family": "Libre Franklin",
+ "fonts": [
+  {
+   "file": "libre-franklin-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "libre-franklin-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "slots": {
+  "fig": [
+   1069,
+   540
+  ],
+  "coef": [
+   1620,
+   220
+  ],
+  "paperfig": [
+   1069,
+   585
+  ]
+ }
+}

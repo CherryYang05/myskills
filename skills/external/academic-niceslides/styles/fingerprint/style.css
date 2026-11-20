@@ -1,0 +1,26 @@
+.s-fingerprint{--face:"Schibsted Grotesk",Helvetica,Arial,sans-serif;--paper:#F4F4F0;--ink:#0E0E0E;--mute:#55554F;--grid:#D5D5CE;--a:#0E0E0E;--b:#6A3DF0}
+.s-fingerprint .slide{--t-title:58px;--w-title:700;--w-strong:700;padding-bottom:78px;font-variant-numeric:lining-nums}
+.s-fingerprint .slide h2{letter-spacing:-.018em}
+/* the band is drawn from this deck's registered numbers; the part already presented is inked */
+.s-fingerprint .slide .fp{display:block;position:absolute;left:0;bottom:0;width:100%;height:50px}
+.s-fingerprint .fpb{fill:#CDCDC6}.s-fingerprint .fpb.done{fill:var(--ink)}.s-fingerprint .fpb.on.done{fill:var(--b)}
+.s-fingerprint .slide .prog{display:none}
+.s-fingerprint .slide footer{color:var(--ink)}
+.s-fingerprint .chart .line{stroke-width:7;stroke-linecap:butt}
+.s-fingerprint .chart .pt{stroke:none}
+.s-fingerprint .chart .grid{stroke-dasharray:2 8}
+.s-fingerprint .glyph .paper{stroke:none}.s-fingerprint .glyph .a .paper{fill:var(--a)}.s-fingerprint .glyph .b .paper{fill:var(--b)}
+.s-fingerprint .glyph .name,.s-fingerprint .glyph .a .name,.s-fingerprint .glyph .b .name{fill:var(--paper)}.s-fingerprint .glyph .row{fill:var(--paper);opacity:.5}
+.s-fingerprint .L-flow li,.s-fingerprint .L-close li{grid-template-columns:70px 1fr}
+.s-fingerprint .L-flow li::before,.s-fingerprint .L-close li::before{font-weight:700;border-left:10px solid var(--b);padding-left:14px}
+.s-fingerprint .L-flow li{border-top:2px solid var(--ink)}.s-fingerprint .L-flow li:first-child{border-top:none}
+.s-fingerprint .L-models table{border-top:4px solid var(--ink)}
+.s-fingerprint .L-models td,.s-fingerprint .L-models th{border-bottom:1.5px solid var(--grid)}
+.s-fingerprint .L-models tr.focal td{color:var(--b);font-weight:700}
+.s-fingerprint .pf{background:none}.s-fingerprint .pf-img{mix-blend-mode:multiply}
+.s-fingerprint .L-title{padding-bottom:420px}
+.s-fingerprint .L-title .fp{height:340px}
+.s-fingerprint .L-title .fpb{fill:var(--ink)}.s-fingerprint .L-title .fpb.on{fill:var(--b)}
+.s-fingerprint .L-title h1{font-size:92px;letter-spacing:-.03em;line-height:1}
+.s-fingerprint .L-title .words{grid-column:1/9;gap:24px}
+.s-fingerprint .L-title .art{grid-column:10/13;align-self:start}

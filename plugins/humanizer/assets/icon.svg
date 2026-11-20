@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>humanizer — 手写曲线与修订笔尖</title>
+  <rect width="128" height="128" rx="30" fill="#AC526F"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M26 84c10-22 16-22 22-7s15 14 23-6"/><path d="m63 54 28-28 12 12-28 28-18 6Z"/><path d="m85 32 12 12M63 54l12 12M57 72l5-18"/><path d="M26 101h72"/>
+  </g>
+</svg>

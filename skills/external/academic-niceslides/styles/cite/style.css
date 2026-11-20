@@ -1,0 +1,27 @@
+.s-cite{--face:"Libre Franklin",Helvetica,Arial,sans-serif;--paper:#FFFFFF;--ink:#14181F;--mute:#525B69;--grid:#E1E5EA;--a:#334155;--b:#0B7A55}
+/* a white sheet inside a safe margin: crop or screenshot any slide and the source line comes with it */
+.s-cite .slide{--t-title:56px;--w-title:700;--w-strong:700;background:#DDE1E7;padding:104px 150px 60px}
+.s-cite .slide::before{content:"";position:absolute;inset:38px;background:#fff;border-radius:6px;z-index:-1}
+.s-cite .slide footer{border-top:2px solid var(--ink);padding-top:14px;color:var(--ink)}
+.s-cite .slide footer .who>span{display:none}
+.s-cite .slide footer .citeline{display:block;flex:1;font-weight:700}
+.s-cite .slide .prog{left:38px;bottom:38px;height:8px;width:calc(var(--p)*(100% - 76px));background:var(--b);border-radius:0 0 0 6px}
+.s-cite .L-flow li,.s-cite .L-close li{grid-template-columns:86px 1fr;align-items:center}
+.s-cite .L-close li{align-items:start}
+.s-cite .L-flow li::before,.s-cite .L-close li::before{width:54px;height:54px;border-radius:6px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1}
+.s-cite .L-models table{border-top:3px solid var(--ink)}
+.s-cite .L-models td,.s-cite .L-models th{border-bottom:1.5px solid var(--grid)}
+.s-cite .L-models tr.focal td{color:var(--b);font-weight:700}
+.s-cite .glyph .paper{stroke-width:3;rx:6px}
+.s-cite .L-title{padding:120px 150px 110px}
+.s-cite .L-title h1{font-size:96px;letter-spacing:-.025em}
+.s-cite .L-close ol{gap:26px}
+.s-cite .L-close .foot{margin:14px 0 12px}
+.s-cite .L-close .qr{width:128px;height:128px}
+/* two-line credit: the full citation, then who is speaking and how to reach them */
+.s-cite .slide footer{display:grid;grid-template-columns:auto 1fr auto;column-gap:28px;row-gap:0;align-items:center;line-height:1.25}
+.s-cite .slide footer .who{grid-row:1/3}
+.s-cite .slide footer .citeline{grid-column:2;grid-row:1}
+.s-cite .slide footer .byline{grid-column:2;grid-row:2;color:var(--mute)}
+.s-cite .slide footer .sec{display:none}
+.s-cite .slide footer .pg{grid-column:3;grid-row:1/3}

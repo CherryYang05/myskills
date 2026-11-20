@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanizer 中文"
+  short_description: "给中文稿去套话和翻译腔，理顺句间关系，保留作者口吻和证据边界"
+  default_prompt: "用 $humanizer-zh 润色下面这段中文，保留原意和语气，只给我成稿。"

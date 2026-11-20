@@ -1,0 +1,39 @@
+{
+ "slug": "feature",
+ "en": "Side Title",
+ "cn": "侧题特稿",
+ "line": "标题在左栏从上往下排，右边整块留给图。适合宽屏，也适合会后当文章读。",
+ "group": "结构",
+ "family": "Fraunces",
+ "fonts": [
+  {
+   "file": "fraunces-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "fraunces-latin-400-italic.woff2",
+   "weight": 400,
+   "style": "italic"
+  },
+  {
+   "file": "fraunces-latin-600-normal.woff2",
+   "weight": 600
+  }
+ ],
+ "slots": {
+  "fig": [
+   1060,
+   680
+  ],
+  "paperfig": [
+   1060,
+   680
+  ],
+  "glyph_flow": [
+   440,
+   360
+  ]
+ },
+ "title_lines": 6,
+ "fixed_layout": true
+}

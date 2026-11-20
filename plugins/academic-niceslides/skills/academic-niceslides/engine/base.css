@@ -1,0 +1,126 @@
+/* Shared skeleton: the quality floor every style inherits. Styles may restyle, never resize below these. */
+.slide{--t-title:60px;--t-body:36px;--t-small:30px;--t-min:28px;--w-title:600;--w-strong:600;
+  width:1920px;height:1080px;position:relative;overflow:hidden;box-sizing:border-box;isolation:isolate;
+  display:grid;grid-template-columns:repeat(12,1fr);column-gap:32px;grid-template-rows:auto 1fr auto;
+  padding:76px 120px 36px;font-family:var(--face);font-size:var(--t-body);line-height:1.36;
+  color:var(--ink);background:var(--paper);font-variant-numeric:lining-nums;font-kerning:normal;
+  -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.slide *{box-sizing:border-box}
+.slide table{font-variant-numeric:tabular-nums lining-nums}
+.slide p,.slide ol,.slide h1,.slide h2,.slide figure{margin:0;padding:0}
+.slide header{grid-column:1/-1;grid-row:1}
+.slide h2{font-size:var(--t-title);line-height:1.14;font-weight:var(--w-title);text-wrap:balance}
+.slide .main{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:subgrid;padding-top:40px;align-content:start;min-height:0}
+.slide footer{grid-column:1/-1;grid-row:3;display:flex;justify-content:space-between;align-items:baseline;gap:48px;
+  font-size:var(--t-min);line-height:1.3;color:var(--mute)}
+.slide .prog{position:absolute;left:0;bottom:0;height:6px;width:calc(var(--p)*100%);background:var(--ink)}
+.slide .prog b{display:none}
+/* logos: only on the title slide and in the footer; never recoloured, never stretched */
+.slide .logos{display:flex;align-items:center;gap:44px;width:max-content}
+.slide .logos img{height:68px;width:auto;display:block}
+.slide footer .who{display:flex;align-items:center;gap:22px}
+.slide footer img.logo{height:38px;width:auto;display:block}
+/* step-by-step reveal: hidden elements keep their space, so nothing moves when they appear */
+.slide [data-step]{transition:opacity .28s ease}
+.slide [data-step].off{opacity:0;visibility:hidden}
+/* paper figures: shown unaltered; crop, cover and zoom are the only operations */
+.pf{position:relative;overflow:hidden;background:#fff}
+.pf-img{position:absolute;background-repeat:no-repeat;transform-origin:0 0;transition:transform .6s cubic-bezier(.3,0,.2,1),clip-path .6s cubic-bezier(.3,0,.2,1)}
+.pf-img{clip-path:inset(0)}
+.pf-img.zoomed{transform:translate(var(--zx),var(--zy)) scale(var(--zs));clip-path:var(--clip)}
+.pf-img .cover{position:absolute;background:#fff}
+.pf-img .mark{position:absolute;border:5px solid var(--b);transition:opacity .2s}
+.pf-img.zoomed .mark{opacity:0}
+.L-paperfig figure{grid-column:1/9}
+.L-paperfig .notes{grid-column:9/13;display:flex;flex-direction:column;gap:30px;padding-top:6px}
+.L-paperfig .notes .caption{margin-top:auto}
+.L-paperfig .main{align-content:stretch}
+.chart .under{display:none}
+.chart .siglab{font-size:30px;font-weight:var(--w-strong)}
+.slide .k{font-weight:inherit}
+.slide .k.a{color:var(--a-text,var(--a))}.slide .k.b{color:var(--b-text,var(--b))}
+.slide figure{display:flex;flex-direction:column;gap:14px}
+.slide figcaption,.slide .caption{font-size:var(--t-min);line-height:1.34;color:var(--mute);max-width:1500px}
+.slide svg{display:block;overflow:visible}
+/* chart marks */
+.chart text{font-family:var(--face);font-size:28px;fill:var(--ink)}
+.chart .tick,.chart .axlab{fill:var(--mute)}
+.chart .cat{font-size:30px}
+.chart .val{font-size:32px;font-weight:var(--w-strong)}
+.chart .serlab{font-size:30px;font-weight:var(--w-strong)}
+.chart .rowlab{font-size:30px}
+.chart .dimlab{font-size:30px}
+.chart .val.a,.chart .serlab.a{fill:var(--a-text,var(--a))}
+.chart .val.b,.chart .serlab.b,.chart .rowlab.b{fill:var(--b-text,var(--b))}
+.chart .rowlab.b{font-weight:var(--w-strong)}
+.chart line{stroke:var(--ink);stroke-width:2;fill:none}
+.chart .grid{stroke:var(--grid);stroke-width:1.5}
+.chart .axis{stroke:var(--ink);stroke-width:2.5}
+.chart .zero{stroke:var(--ink);stroke-width:2.5}
+.chart .guide{stroke:var(--mute);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
+.chart .dim{stroke:var(--ink);stroke-width:2.5}
+.chart .bar.a{fill:var(--a)}.chart .bar.b{fill:var(--b)}
+.chart .ci{stroke:var(--ink);stroke-width:3}
+.chart .ci.thick{stroke-width:5;stroke-linecap:round}
+.chart .ci.thick.b{stroke:var(--b)}.chart .ci.thick.n{stroke:var(--ink)}
+.chart .line{stroke-width:5;stroke-linecap:round}
+.chart .line.a{stroke:var(--a)}.chart .line.b{stroke:var(--b)}
+.chart .pt{stroke:var(--paper);stroke-width:3}
+.chart .pt.a{fill:var(--a)}.chart .pt.b{fill:var(--b)}.chart .pt.n{fill:var(--ink)}
+/* glyph */
+.glyph .paper{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
+.glyph .row{fill:var(--grid)}
+.glyph .a .name{fill:var(--a)}.glyph .b .name{fill:var(--b)}
+/* layouts */
+.L-fig figure{grid-column:1/9}
+.L-fig .notes{grid-column:9/13;display:flex;flex-direction:column;gap:30px;padding-top:6px}
+.L-flow .anchor{grid-column:1/5;padding-top:14px}
+.L-flow .main{align-content:stretch}
+.L-flow .right{grid-column:5/13;display:flex;flex-direction:column;gap:30px;min-height:0}
+.L-flow ol{list-style:none;counter-reset:s;display:flex;flex-direction:column;flex:1;max-height:580px}
+.L-flow li{counter-increment:s;display:grid;grid-template-columns:72px 1fr;align-items:baseline;align-content:center;flex:1;padding:14px 0}
+.L-flow li::before{content:counter(s);font-weight:var(--w-strong)}
+.L-flow .note{font-size:var(--t-small);line-height:1.36;color:var(--mute)}
+.L-models .main{row-gap:18px;padding-top:30px}
+.L-models figure{grid-column:1/-1}
+.L-models table{grid-column:1/-1;width:100%;border-collapse:collapse;font-size:var(--t-small);line-height:1.2;table-layout:fixed}
+.L-models th,.L-models td{padding:7px 0;text-align:right;font-weight:400}
+.L-models th:first-child,.L-models td:first-child{text-align:left;width:var(--lab,560px)}
+.L-models thead th{font-weight:var(--w-strong)}
+.L-models .caption{grid-column:1/-1}
+.L-close ol{grid-column:1/9;list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:38px;padding-top:8px}
+.L-close li{counter-increment:s;display:grid;grid-template-columns:72px 1fr;align-items:baseline}
+.L-close li::before{content:counter(s);font-weight:var(--w-strong)}
+.L-close .anchor{grid-column:10/13;justify-self:end;padding-top:8px}
+.L-close .foot{grid-column:1/-1;align-self:end;display:flex;justify-content:space-between;align-items:flex-end;gap:60px;margin:30px 0 22px}
+.L-close .refs{font-size:var(--t-min);line-height:1.34;color:var(--mute);max-width:1150px}
+.L-close .qrbox{display:flex;align-items:flex-end;gap:22px;flex:none}
+.L-close .qrnote{font-size:var(--t-min);line-height:1.3;color:var(--mute);max-width:230px;text-align:right}
+.L-close .qr{width:148px;height:148px;display:block;background:#fff;padding:8px;box-sizing:border-box}
+.L-close .main{grid-template-rows:1fr auto;align-content:stretch}
+.L-title{grid-template-rows:1fr;padding:96px 120px 84px}
+.L-title .words{grid-column:1/8;grid-row:1;display:flex;flex-direction:column;gap:34px}
+.L-title .art{grid-column:8/13;grid-row:1;align-self:center;justify-self:end}
+.L-title .logos{margin-top:auto}
+.L-title h1{font-size:104px;line-height:1.04;font-weight:var(--w-title);text-wrap:balance}
+.L-title .sub{font-size:var(--t-body);max-width:1000px}
+.L-title .by{font-size:var(--t-small);color:var(--mute)}
+
+.slide .secnav,.slide .citeline,.slide .fp{display:none}
+.slide .nofact{background:#C4160A;color:#fff;padding:0 .2em}
+
+/* footer byline: speaker and contact, always present when given */
+.slide footer .byline{white-space:nowrap}
+.slide footer .short,.slide footer .citeline{min-width:0}
+/* text formatting the editor can apply */
+.slide .k.s{font-weight:var(--w-strong)}
+.slide .k.e{color:var(--e,var(--ink))}
+.slide .k.m{color:var(--mute)}
+.slide .asset{display:contents}
+/* arrangement chosen per slide in the editor (absent = the style's own layout) */
+.slide.lay.L-fig figure,.slide.lay.L-paperfig figure{grid-column:var(--fc)!important;grid-row:1!important;padding-left:0!important;border-left:0!important}
+.slide.lay.L-fig .notes,.slide.lay.L-paperfig .notes{grid-column:var(--nc)!important;grid-row:1!important;align-self:var(--nv,start)}
+.slide.lay.L-fig .notes{justify-content:var(--nv,flex-start)}
+.slide.lay.L-flow .anchor,.slide.lay.L-close .anchor{grid-column:var(--ac)!important;grid-row:1!important;justify-self:var(--aj,start)!important}
+.slide.lay.L-flow .right,.slide.lay.L-close ol{grid-column:var(--rc)!important;grid-row:1!important}
+.slide footer .sep{word-spacing:.12em}

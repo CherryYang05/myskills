@@ -1,0 +1,386 @@
+{
+ "meta": {
+  "short": "Same résumé, different name",
+  "sections": [
+   "Design",
+   "Results",
+   "Conclusion"
+  ],
+  "logos": [
+   {
+    "file": "assets/logo-institute.svg",
+    "dark": "assets/logo-institute-light.svg",
+    "alt": "Example Institute (placeholder)"
+   },
+   {
+    "file": "assets/logo-project.svg",
+    "dark": "assets/logo-project-light.svg",
+    "alt": "Project Mark (placeholder)"
+   }
+  ],
+  "anchor": {
+   "kind": "pair"
+  },
+  "link": "https://doi.org/10.1257/0002828042002561",
+  "style": "plate",
+  "cite": "Bertrand & Mullainathan (2004), American Economic Review 94(4), 991–1013",
+  "author": "A. Researcher",
+  "email": "a.researcher@example.org"
+ },
+ "slides": [
+  {
+   "id": "title",
+   "layout": "title",
+   "title": "Same résumé, different name: who gets called back?",
+   "sub": "A walk-through of the field experiment by [c|Bertrand and Mullainathan (2004)], with every number recomputed from the public replication data.",
+   "by": "A. Researcher · Example Institute · a.researcher@example.org",
+   "say": "Two résumés, identical in every line except the name at the top. The question is whether that one line changes who gets a call."
+  },
+  {
+   "id": "design",
+   "layout": "flow",
+   "section": 0,
+   "title": "The experiment sent {n} fictitious résumés to real job ads and changed only the name",
+   "steps": [
+    {
+     "t": "Write résumés of higher and lower quality, modelled on real applicants."
+    },
+    {
+     "t": "Give each résumé a [a|White-sounding] or an [b|African-American-sounding] name at random.",
+     "at": 1
+    },
+    {
+     "t": "Send them in reply to help-wanted ads in Boston and Chicago.",
+     "at": 2
+    },
+    {
+     "t": "Record whether the employer calls back to offer an interview.",
+     "at": 3
+    }
+   ],
+   "note": {
+    "t": "Because the name was assigned at random, a difference in callbacks can be attributed to the name itself and not to the applicant's record.",
+    "at": 4
+   },
+   "say": "Walk through the four steps slowly. The point to land is the last line: random assignment is what lets us read the gap as the effect of the name."
+  },
+  {
+   "id": "rates",
+   "layout": "fig",
+   "section": 1,
+   "title": "[a|White-sounding names] drew {ratio} more callbacks than [b|African-American-sounding names]",
+   "chart": {
+    "kind": "bars",
+    "ymax": 12,
+    "ticks": [
+     0,
+     4,
+     8,
+     12
+    ],
+    "unit": "%",
+    "bars": [
+     {
+      "s": "a",
+      "label": [
+       "White-sounding",
+       "names"
+      ],
+      "v": "rate_white",
+      "lo": "rate_white_lo",
+      "hi": "rate_white_hi"
+     },
+     {
+      "s": "b",
+      "label": [
+       "African-American-",
+       "sounding names"
+      ],
+      "v": "rate_black",
+      "lo": "rate_black_lo",
+      "hi": "rate_black_hi"
+     }
+    ],
+    "gap": {
+     "text": [
+      "{gap_pp} percentage",
+      "points apart"
+     ],
+     "at": 1
+    },
+    "sig": {
+     "text": "*** {p_gap}",
+     "at": 2
+    }
+   },
+   "notes": [
+    "Employers called back {rate_white} of the résumés with White-sounding names and {rate_black} of those with African-American-sounding names.",
+    {
+     "t": "Put differently, one callback took about {per_callback_white} résumés under a White-sounding name and about {per_callback_black} under an African-American-sounding one.",
+     "at": 1
+    }
+   ],
+   "caption": "Share of résumés that received a callback, with {ci_level} Wilson intervals; {n_group} résumés in each group. The test is a two-sided test of proportions.",
+   "say": "Show the two bars first and let the room read them. Then the difference, then the test. Do not rush to the stars."
+  },
+  {
+   "id": "slope",
+   "layout": "fig",
+   "section": 1,
+   "title": "Better résumés seemed to help [a|White-sounding names] more, but the gap is too imprecise to confirm",
+   "chart": {
+    "kind": "lines",
+    "ymax": 14,
+    "ticks": [
+     0,
+     4,
+     8,
+     12
+    ],
+    "unit": "%",
+    "x": [
+     "Lower-quality résumé",
+     "Higher-quality résumé"
+    ],
+    "series": [
+     {
+      "s": "a",
+      "label": "White-sounding names",
+      "pos": "above",
+      "pts": [
+       {
+        "v": "rate_white_low",
+        "lo": "rate_white_low_lo",
+        "hi": "rate_white_low_hi"
+       },
+       {
+        "v": "rate_white_high",
+        "lo": "rate_white_high_lo",
+        "hi": "rate_white_high_hi"
+       }
+      ]
+     },
+     {
+      "s": "b",
+      "label": "African-American-sounding names",
+      "pos": "below",
+      "pts": [
+       {
+        "v": "rate_black_low",
+        "lo": "rate_black_low_lo",
+        "hi": "rate_black_low_hi"
+       },
+       {
+        "v": "rate_black_high",
+        "lo": "rate_black_high_lo",
+        "hi": "rate_black_high_hi"
+       }
+      ],
+      "at": 1
+     }
+    ]
+   },
+   "notes": [
+    "Higher quality added {quality_gain_white} percentage points for White-sounding names.",
+    {
+     "t": "For African-American-sounding names it added only {quality_gain_black} points.",
+     "at": 1
+    },
+    {
+     "t": "The difference between these two returns is {m3_blackxhigh_b} points with a standard error of {m3_blackxhigh_se}, so equal returns cannot be ruled out.",
+     "at": 2
+    }
+   ],
+   "caption": "Callback rate by résumé quality, with {ci_level} Wilson intervals.",
+   "say": "Be careful here. The direction is suggestive, but say plainly that the interaction is imprecise and that equal returns cannot be ruled out."
+  },
+  {
+   "id": "models",
+   "layout": "models",
+   "section": 1,
+   "title": "The penalty for an [b|African-American-sounding name] is negative and significant in all four models",
+   "chart": {
+    "kind": "coef",
+    "lim": 6,
+    "ticks": [
+     -4,
+     -2,
+     0,
+     2,
+     4
+    ],
+    "axis": "Change in callback probability, percentage points",
+    "rows": [
+     {
+      "label": "African-American-sounding name",
+      "focal": true,
+      "b": "m4_black_b",
+      "se": "m4_black_se",
+      "lo": "m4_black_lo",
+      "hi": "m4_black_hi"
+     },
+     {
+      "label": "Higher-quality résumé",
+      "at": 1,
+      "b": "m4_high_b",
+      "se": "m4_high_se",
+      "lo": "m4_high_lo",
+      "hi": "m4_high_hi"
+     },
+     {
+      "label": "Name × quality interaction",
+      "at": 1,
+      "b": "m4_blackxhigh_b",
+      "se": "m4_blackxhigh_se",
+      "lo": "m4_blackxhigh_lo",
+      "hi": "m4_blackxhigh_hi"
+     }
+    ]
+   },
+   "table": {
+    "cols": [
+     "(1)",
+     "(2)",
+     "(3)",
+     "(4)"
+    ],
+    "rows": [
+     {
+      "label": "African-American-sounding name",
+      "focal": true,
+      "cells": [
+       [
+        "m1_black_b",
+        "m1_black_se"
+       ],
+       [
+        "m2_black_b",
+        "m2_black_se"
+       ],
+       [
+        "m3_black_b",
+        "m3_black_se"
+       ],
+       [
+        "m4_black_b",
+        "m4_black_se"
+       ]
+      ]
+     },
+     {
+      "label": "Higher-quality résumé",
+      "at": 1,
+      "cells": [
+       null,
+       [
+        "m2_high_b",
+        "m2_high_se"
+       ],
+       [
+        "m3_high_b",
+        "m3_high_se"
+       ],
+       [
+        "m4_high_b",
+        "m4_high_se"
+       ]
+      ]
+     },
+     {
+      "label": "Name × quality interaction",
+      "at": 1,
+      "cells": [
+       null,
+       null,
+       [
+        "m3_blackxhigh_b",
+        "m3_blackxhigh_se"
+       ],
+       [
+        "m4_blackxhigh_b",
+        "m4_blackxhigh_se"
+       ]
+      ]
+     },
+     {
+      "label": "Controls",
+      "text": [
+       "No",
+       "No",
+       "No",
+       "Yes"
+      ],
+      "rule": true
+     },
+     {
+      "label": "Résumés",
+      "cells": [
+       [
+        "n"
+       ],
+       [
+        "n"
+       ],
+       [
+        "n"
+       ],
+       [
+        "n"
+       ]
+      ]
+     }
+    ]
+   },
+   "caption": "Linear probability models of a callback; coefficients in percentage points, robust standard errors in parentheses. The plot shows the last model with {ci_level} intervals. Controls are sex, city and years of experience.",
+   "say": "Start with the first row only. Then bring in the other coefficients and point out that the penalty barely moves across the columns."
+  },
+  {
+   "id": "cities",
+   "layout": "paperfig",
+   "section": 1,
+   "title": "The gap appears in both cities: {gap_boston} points in Boston and {gap_chicago} in Chicago",
+   "figure": {
+    "src": "assets/paper_fig2.png",
+    "source": "Figure 2 of the specimen paper (stand-in drawn by make_paper_figure.py)",
+    "crop": [
+     0,
+     0,
+     1,
+     0.5
+    ],
+    "text_px": 31,
+    "focus": {
+     "box": [
+      0.5,
+      0,
+      0.5,
+      1
+     ],
+     "at": 1
+    }
+   },
+   "notes": [
+    "The published figure reports callback rates for all résumés and separately by city.",
+    {
+     "t": "In Boston the rates are {rate_white_boston} and {rate_black_boston}; in Chicago they are {rate_white_chicago} and {rate_black_chicago}.",
+     "at": 1
+    }
+   ],
+   "caption": "Top row of the original figure, shown unaltered; the panel on résumé quality is left out here.",
+   "say": "This is the figure as published. Zoom into the city panel and read the two pairs of bars aloud."
+  },
+  {
+   "id": "close",
+   "layout": "close",
+   "section": 2,
+   "title": "A name alone changed who was called back, and a stronger résumé did not clearly close the gap",
+   "points": [
+    "Identical résumés drew {ratio} more callbacks under a [a|White-sounding name] than under an [b|African-American-sounding name].",
+    "The penalty remains negative and statistically significant after controlling for résumé quality, sex, city and experience.",
+    "Whether better qualifications pay off less under an African-American-sounding name remains open in these data."
+   ],
+   "refs": "[c|Bertrand, M., & Mullainathan, S. (2004). Are Emily and Greg more employable than Lakisha and Jamal? American Economic Review, 94(4), 991–1013. Data: ResumeNames in the R package AER.]",
+   "say": "Three sentences, in this order. End on the open question, and point to the code for anyone who wants the paper."
+  }
+ ]
+}

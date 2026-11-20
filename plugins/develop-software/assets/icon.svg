@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>develop-software — 同一项目入口分出三个规模档位的开发路径</title>
+  <rect width="128" height="128" rx="30" fill="#32645A"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="47" y="23" width="34" height="20" rx="4"/><path d="M64 43v16M31 72V59h66v13M64 59v13"/><rect x="22" y="73" width="18" height="21" rx="3"/><rect x="55" y="73" width="18" height="21" rx="3"/><rect x="88" y="73" width="18" height="21" rx="3"/>
+  </g>
+</svg>

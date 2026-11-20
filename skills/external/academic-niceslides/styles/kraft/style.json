@@ -1,0 +1,18 @@
+{
+ "slug": "kraft",
+ "en": "Kraft and White Ink",
+ "cn": "牛皮纸",
+ "line": "牛皮纸上的黑墨和白墨。焦点系列用白墨，关键词贴白色标签。",
+ "group": "场地与身份",
+ "family": "Zilla Slab",
+ "fonts": [
+  {
+   "file": "zilla-slab-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "zilla-slab-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ]
+}

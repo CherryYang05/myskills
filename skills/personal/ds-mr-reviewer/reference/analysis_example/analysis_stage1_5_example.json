@@ -1,0 +1,45 @@
+{
+  "scan_files_count": 3,
+  "scan_functions_count": 8,
+  "defect_findings": [
+    {
+      "id": 1,
+      "file": "src/main/java/com/huawei/nce/transavailabilityassuranceservice/srlgdetect/business/impl/FiberGroupBusinessV2Impl.java",
+      "line": 125,
+      "pattern": "空指针解引用(入参未判空)",
+      "category": "指针操作类",
+      "severity": "严重",
+      "description": "函数参数fiberGroup未判空直接访问其成员fiberGroup.getId()，当调用者传入null时会导致空指针异常",
+      "code_snippet": "Long groupId = fiberGroup.getId();",
+      "root_cause": "函数入口未检查指针参数是否为NULL，直接访问成员变量",
+      "fix_suggestion": "在函数入口处添加参数判空检查：if (fiberGroup == null) { throw new IllegalArgumentException(\"fiberGroup cannot be null\"); }",
+      "confidence": "高"
+    },
+    {
+      "id": 2,
+      "file": "src/main/java/com/huawei/nce/transavailabilityassuranceservice/srlgdetect/business/impl/FiberGroupBusinessV2Impl.java",
+      "line": 131,
+      "pattern": "错误处理(分支未返回)",
+      "category": "错误处理类",
+      "severity": "中等",
+      "description": "isNeedSecondAuthException判断逻辑遗漏了部分需要跳过操作日志的场景，错误分支仅打印日志但未返回，继续执行后续逻辑",
+      "code_snippet": "if (isNeedSecondAuthException()) {",
+      "root_cause": "错误处理分支仅记录日志但未中断执行流程，可能导致后续逻辑基于错误状态继续执行",
+      "fix_suggestion": "在错误分支中添加return语句或抛出异常，确保错误状态不会继续传播",
+      "confidence": "高"
+    },
+    {
+      "id": 3,
+      "file": "src/main/java/com/huawei/nce/transavailabilityassuranceservice/srlgdetect/business/impl/FiberGroupBusinessV2Impl.java",
+      "line": 96,
+      "pattern": "整数溢出(无符号加法)",
+      "category": "数值计算类",
+      "severity": "中等",
+      "description": "populateSecondaryAuthMsg方法中length + offset计算可能发生整数溢出，当两个uint32_t值相加超过最大值时会导致回绕",
+      "code_snippet": "populateSecondaryAuthMsg(msg, !isSecondAuthException())",
+      "root_cause": "无符号整数相加未检查溢出，length和offset都是uint32_t类型",
+      "fix_suggestion": "使用checked_add或先检查结果是否在合理范围内：if (length > UINT32_MAX - offset) { throw new OverflowException(); }",
+      "confidence": "中"
+    }
+  ]
+}

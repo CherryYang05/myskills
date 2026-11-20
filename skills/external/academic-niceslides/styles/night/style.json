@@ -1,0 +1,19 @@
+{
+ "slug": "night",
+ "en": "Night Hall",
+ "cn": "夜场",
+ "line": "深蓝黑的大厅用色：暖白文字，一只琥珀色只给焦点。",
+ "group": "场地与身份",
+ "family": "Red Hat Display",
+ "fonts": [
+  {
+   "file": "red-hat-display-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "red-hat-display-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "ground": "dark"
+}

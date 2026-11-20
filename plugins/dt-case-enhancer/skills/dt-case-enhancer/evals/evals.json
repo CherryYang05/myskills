@@ -1,0 +1,74 @@
+{
+  "skill_name": "dt-case-enhancer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "请帮我为fusion/product/taishan_src/fdsa/src/plugins/link_subhealth模块的存量DT用例进行增强补齐。\n\n模块代码目录: fusion/product/taishan_src/fdsa/src/plugins/link_subhealth\n对外头文件目录: fusion/product/taishan_src/fdsa/include\nDT测试代码输出目录: fusion/product/test/fdsa/fdsa_dt_linux/dt_src/link_subhealth\n存量DT用例目录: fusion/product/test/fdsa/fdsa_dt_linux/dt_src/link_subhealth",
+      "expected_output": "应该完成以下步骤:\n1. 收集4个路径信息\n2. 理解代码,生成code_analysis.md\n3. 设计全量场景,生成full_test_scenarios.md\n4. 分析存量DT用例,生成existing_test_scenarios_analysis.md\n5. 对比分析,生成incremental_test_scenarios.md和coverage_comparison_report.md\n6. 生成增量DT用例代码\n7. 编译和调试\n\n每一步都应该等待用户确认,不能自动继续。",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Skill应该直接进入步骤1,不应该再次询问路径信息",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "应该生成code_analysis.md文档",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "应该生成coverage_comparison_report.md文档",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "coverage_comparison_report应该包含覆盖理由列",
+          "passed": false,
+          "evidence": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我需要对link_subhealth模块的DT用例进行增强,补充遗漏的测试场景。",
+      "expected_output": "应该先询问用户收集4个基本信息:\n1. 模块的代码目录在哪里?\n2. 对外头文件目录在哪里?\n3. DT测试代码的输出目录在哪里?\n4. 存量DT用例目录在哪里?\n\n等待用户回答后,再继续后续步骤。",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Skill应该询问4个路径信息",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "应该使用明确的停止指令",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "不应该自问自答",
+          "passed": false,
+          "evidence": ""
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "请帮我补充link_subhealth模块的增量DT用例。",
+      "expected_output": "应该先询问用户收集4个基本信息:\n1. 模块的代码目录在哪里?\n2. 对外头文件目录在哪里?\n3. DT测试代码的输出目录在哪里?\n4. 存量DT用例目录在哪里?\n\n等待用户回答后,再继续后续步骤。",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Skill应该询问4个路径信息",
+          "passed": false,
+          "evidence": ""
+        },
+        {
+          "text": "应该使用明确的停止指令",
+          "passed": false,
+          "evidence": ""
+        }
+      ]
+    }
+  ]
+}

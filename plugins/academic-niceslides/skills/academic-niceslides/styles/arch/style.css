@@ -1,0 +1,24 @@
+.s-arch{--face:"Outfit",Helvetica,Arial,sans-serif;--paper:#F3EADB;--ink:#16403E;--mute:#4C6765;--grid:#DDD0BC;--a:#16403E;--b:#C5523A;--c:#E3A72F}
+.s-arch .slide{--t-title:58px;--w-title:700;--w-strong:700}
+.s-arch .slide h2{max-width:1540px;letter-spacing:-.01em}
+/* the page number stands on the bottom edge in an arch tab; same place on every slide */
+.s-arch .slide footer{padding-right:190px;padding-bottom:8px}
+.s-arch .slide footer .pg{position:absolute;right:104px;bottom:0;width:128px;height:108px;border-radius:64px 64px 0 0;background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-weight:700;padding-top:16px}
+.s-arch .slide .prog{background:var(--c);height:12px}
+.s-arch .anchor,.s-arch .L-title .art{align-self:start;background:var(--c);border-radius:999px 999px 0 0;padding:64px 30px 34px;width:max-content;position:relative}
+.s-arch .glyph .paper{stroke:none}
+.s-arch .L-flow li,.s-arch .L-close li{grid-template-columns:92px 1fr;align-items:center}
+.s-arch .L-close li{align-items:start}
+.s-arch .L-flow li::before,.s-arch .L-close li::before{width:56px;height:62px;border-radius:28px 28px 0 0;background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1;padding-top:6px}
+.s-arch .L-models table{border-bottom:3px solid var(--ink)}
+.s-arch .L-models thead th{background:var(--ink);color:var(--paper);padding:9px 0}
+.s-arch .L-models thead th:last-child,.s-arch .L-models td:last-child{padding-right:20px}
+.s-arch .L-models td:first-child{padding-left:20px}
+.s-arch .L-models tr.rule td{border-top:2px solid var(--ink)}
+.s-arch .L-models tr.focal td{color:var(--b);font-weight:700}
+.s-arch .pf{background:none}.s-arch .pf-img{mix-blend-mode:multiply}
+.s-arch .L-title .art{padding:150px 50px 56px;align-self:end;margin-bottom:-84px}
+.s-arch .L-title .art::before{content:"";position:absolute;inset:44px 44px 0 -44px;background:var(--b);border-radius:999px 999px 0 0;z-index:-1}
+.s-arch .L-title h1{font-size:100px;letter-spacing:-.02em}

@@ -1,0 +1,18 @@
+{
+ "slug": "arch",
+ "en": "Mid-century Arch",
+ "cn": "中古拱形",
+ "line": "奶油底上三只颜色和一个拱形，重复到底。",
+ "family": "Outfit",
+ "fonts": [
+  {
+   "file": "outfit-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "outfit-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "group": "材质"
+}

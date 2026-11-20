@@ -1,0 +1,36 @@
+{
+ "slug": "rail",
+ "en": "Outline Rail",
+ "cn": "侧栏纲要",
+ "line": "左侧一条色栏写着全部章节，讲到哪一章哪一章就亮。Beamer 的侧栏导航，重做一遍。",
+ "group": "结构",
+ "family": "IBM Plex Sans",
+ "fonts": [
+  {
+   "file": "ibm-plex-sans-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "ibm-plex-sans-latin-600-normal.woff2",
+   "weight": 600
+  }
+ ],
+ "slots": {
+  "fig": [
+   962,
+   600
+  ],
+  "coef": [
+   1460,
+   250
+  ],
+  "paperfig": [
+   962,
+   620
+  ],
+  "glyph_flow": [
+   420,
+   350
+  ]
+ }
+}

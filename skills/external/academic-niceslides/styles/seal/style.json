@@ -1,0 +1,23 @@
+{
+ "slug": "seal",
+ "en": "Ink and Seal",
+ "cn": "宣纸朱印",
+ "line": "宣纸、墨色和一方朱砂印：页码盖在印里。",
+ "family": "Literata",
+ "fonts": [
+  {
+   "file": "literata-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "literata-latin-400-italic.woff2",
+   "weight": 400,
+   "style": "italic"
+  },
+  {
+   "file": "literata-latin-600-normal.woff2",
+   "weight": 600
+  }
+ ],
+ "group": "材质"
+}

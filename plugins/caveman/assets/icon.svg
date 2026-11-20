@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>caveman — 简短消息气泡与精炼文字</title>
+  <rect width="128" height="128" rx="30" fill="#715A65"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M29 33h70v52H61L43 99V85H29Z"/><path d="M44 52h39M44 67h26"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+.s-night{--face:"Red Hat Display",Helvetica,Arial,sans-serif;--paper:#0E1320;--ink:#F4F0E6;--mute:#AAB0C2;--grid:rgba(244,240,230,.15);--a:#F4F0E6;--b:#FFB84D}
+.s-night .slide{--t-title:58px;--w-title:700;--w-strong:700}
+.s-night .slide h2{letter-spacing:-.012em}
+.s-night .slide header{padding-bottom:28px;border-bottom:1.5px solid rgba(244,240,230,.28)}
+.s-night .slide footer .pg{color:var(--b);font-weight:700}
+.s-night .slide .prog{height:4px;background:var(--b)}
+.s-night .slide .k.a{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:9px}
+.s-night .chart .pt{stroke-width:4}
+.s-night .chart .line{stroke-width:6}
+.s-night .glyph .paper{fill:#161D30;stroke:none}
+.s-night .glyph .row{fill:rgba(244,240,230,.3)}
+.s-night .L-fig .notes p,.s-night .L-paperfig .notes p:not(.caption){padding-left:26px;border-left:3px solid rgba(244,240,230,.28)}
+.s-night .L-flow li,.s-night .L-close li{grid-template-columns:86px 1fr;align-items:center}
+.s-night .L-close li{align-items:start}
+.s-night .L-flow li::before,.s-night .L-close li::before{color:var(--b);font-size:52px;line-height:1;font-weight:700}
+.s-night .L-flow li{border-bottom:1.5px solid rgba(244,240,230,.18)}
+.s-night .L-models td,.s-night .L-models th{border-bottom:1.5px solid rgba(244,240,230,.2)}
+.s-night .L-models thead th{border-bottom-color:var(--ink)}
+.s-night .L-models tr.focal td{color:var(--b);font-weight:700}
+.s-night .L-title h1{font-size:108px;letter-spacing:-.03em}
+.s-night .L-title .sub{border-left:4px solid var(--b);padding-left:30px}

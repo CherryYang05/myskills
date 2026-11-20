@@ -1,0 +1,18 @@
+{
+ "slug": "fingerprint",
+ "en": "Data Fingerprint",
+ "cn": "数据指纹",
+ "line": "页面底部的条纹由这篇论文自己的数字算出来，换一篇论文就换一副条纹；它同时是进度条。",
+ "group": "场地与身份",
+ "family": "Schibsted Grotesk",
+ "fonts": [
+  {
+   "file": "schibsted-grotesk-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "schibsted-grotesk-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ]
+}

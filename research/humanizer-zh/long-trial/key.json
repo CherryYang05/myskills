@@ -1,0 +1,26 @@
+{
+  "zh1": {
+    "A": "upstream",
+    "B": "final",
+    "C": "previous",
+    "D": "plain"
+  },
+  "zh2": {
+    "A": "previous",
+    "B": "upstream",
+    "C": "final",
+    "D": "plain"
+  },
+  "en1": {
+    "A": "upstream",
+    "B": "final",
+    "C": "plain",
+    "D": "previous"
+  },
+  "en2": {
+    "A": "final",
+    "B": "upstream",
+    "C": "previous",
+    "D": "plain"
+  }
+}
