@@ -13,6 +13,11 @@
       "description": "Build academic talk slides from a paper without AI-slop. Use when the user wants slides, a deck or a talk for a paper, thesis, seminar, conference or defence, or asks to restyle or fix academic slides."
     },
     {
+      "name": "mattpocock-skills",
+      "source": "./plugins/mattpocock-skills",
+      "description": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接。"
+    },
+    {
       "name": "caveman",
       "source": "./plugins/caveman",
       "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\"."
