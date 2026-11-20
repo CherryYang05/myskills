@@ -120,6 +120,11 @@
       "brandColor": "#365F72",
       "concept": "投影幕上的实验曲线与讲台支架",
       "glyph": "<path d=\"M24 26h80M30 27v52h68V27M64 80v12m0 0-18 14m18-14 18 14\"/><path d=\"M40 65h47M42 59l12-12 10 5 19-15\"/><circle cx=\"83\" cy=\"37\" r=\"3\"/>"
+    },
+    "mattpocock-skills": {
+      "brandColor": "#285672",
+      "concept": "从需求清单分出实现路径，再汇入测试通过的勾选框",
+      "glyph": "<rect x=\"22\" y=\"24\" width=\"39\" height=\"49\" rx=\"6\"/><path d=\"M33 39h17M33 51h12M61 48h13q13 0 13 13v7\"/><rect x=\"65\" y=\"68\" width=\"38\" height=\"34\" rx=\"6\"/><path d=\"m73 85 7 7 13-15\"/>"
     }
   }
 }

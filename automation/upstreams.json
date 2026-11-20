@@ -140,5 +140,197 @@
     "path": "",
     "ref": "main",
     "sha": "b77c608a993e65ee44120a6eceeb708a2d8d39ed"
+  },
+  "ask-matt": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/ask-matt",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "diagnosing-bugs": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/diagnosing-bugs",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "grill-with-docs": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/grill-with-docs",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "triage": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/triage",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "improve-codebase-architecture": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/improve-codebase-architecture",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "setup-matt-pocock-skills": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/setup-matt-pocock-skills",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "tdd": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/tdd",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "to-spec": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/to-spec",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "to-tickets": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/to-tickets",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "wayfinder": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/wayfinder",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "implement": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/implement",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "implement-spec": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/implement-spec",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "prototype": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/prototype",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "research": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/research",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "domain-modeling": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/domain-modeling",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "codebase-design": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/codebase-design",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "code-review": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/code-review",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "pr": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/pr",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE",
+    "preserve": [
+      "NOTICE"
+    ]
+  },
+  "retro": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/retro",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "wizard": {
+    "repo": "mattpocock/skills",
+    "path": "skills/engineering/wizard",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "grill-me": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/grill-me",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "grilling": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/grilling",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "handoff": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/handoff",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "teach": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/teach",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "to-questionnaire": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/to-questionnaire",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "wait-what": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/wait-what",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
+  },
+  "writing-for-agents": {
+    "repo": "mattpocock/skills",
+    "path": "skills/productivity/writing-for-agents",
+    "ref": "main",
+    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "root_license": "LICENSE"
   }
 }
