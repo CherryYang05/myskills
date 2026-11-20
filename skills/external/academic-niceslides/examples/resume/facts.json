@@ -1,0 +1,532 @@
+{
+ "n": {
+  "value": 4870.0,
+  "text": "4,870",
+  "how": "rows in data/ResumeNames.csv"
+ },
+ "ci_level": {
+  "value": 95.0,
+  "text": "95%",
+  "how": "confidence level of every interval"
+ },
+ "rate_white": {
+  "value": 9.650924024640657,
+  "text": "9.7%",
+  "how": "callbacks / résumés, White-sounding names (n=2435)"
+ },
+ "rate_white_lo": {
+  "value": 8.540823941237615,
+  "text": "8.5%",
+  "how": "Wilson 95% lower bound, White-sounding names"
+ },
+ "rate_white_hi": {
+  "value": 10.888133078782086,
+  "text": "10.9%",
+  "how": "Wilson 95% upper bound, White-sounding names"
+ },
+ "rate_black": {
+  "value": 6.447638603696099,
+  "text": "6.4%",
+  "how": "callbacks / résumés, African-American-sounding names (n=2435)"
+ },
+ "rate_black_lo": {
+  "value": 5.539098319120905,
+  "text": "5.5%",
+  "how": "Wilson 95% lower bound, African-American-sounding names"
+ },
+ "rate_black_hi": {
+  "value": 7.493378952869826,
+  "text": "7.5%",
+  "how": "Wilson 95% upper bound, African-American-sounding names"
+ },
+ "n_group": {
+  "value": 2435.0,
+  "text": "2,435",
+  "how": "résumés per name group"
+ },
+ "gap_pp": {
+  "value": 3.2032854209445585,
+  "text": "3.2",
+  "how": "rate_white − rate_black, percentage points"
+ },
+ "ratio": {
+  "value": 49.68152866242037,
+  "text": "50%",
+  "how": "rate_white / rate_black − 1"
+ },
+ "per_callback_white": {
+  "value": 10.361702127659575,
+  "text": "10",
+  "how": "1 / rate_white"
+ },
+ "per_callback_black": {
+  "value": 15.509554140127388,
+  "text": "16",
+  "how": "1 / rate_black"
+ },
+ "p_gap": {
+  "value": 3.983886837585077e-05,
+  "text": "p < 0.001",
+  "how": "two-sided two-proportion z-test, z = 4.11"
+ },
+ "rate_white_low": {
+  "value": 8.498349834983498,
+  "text": "8.5%",
+  "how": "callbacks / résumés, white-sounding names, low-quality résumés (n=1212)"
+ },
+ "rate_white_low_lo": {
+  "value": 7.056557839225394,
+  "text": "7.1%",
+  "how": "Wilson 95% lower bound, white-sounding names, low-quality résumés"
+ },
+ "rate_white_low_hi": {
+  "value": 10.202391285953302,
+  "text": "10.2%",
+  "how": "Wilson 95% upper bound, white-sounding names, low-quality résumés"
+ },
+ "rate_white_high": {
+  "value": 10.793131643499592,
+  "text": "10.8%",
+  "how": "callbacks / résumés, white-sounding names, high-quality résumés (n=1223)"
+ },
+ "rate_white_high_lo": {
+  "value": 9.175252852043695,
+  "text": "9.2%",
+  "how": "Wilson 95% lower bound, white-sounding names, high-quality résumés"
+ },
+ "rate_white_high_hi": {
+  "value": 12.656537791725201,
+  "text": "12.7%",
+  "how": "Wilson 95% upper bound, white-sounding names, high-quality résumés"
+ },
+ "rate_white_boston": {
+  "value": 11.634349030470915,
+  "text": "11.6%",
+  "how": "callbacks / résumés, white-sounding names, boston (n=1083)"
+ },
+ "rate_white_boston_lo": {
+  "value": 9.8588950379056,
+  "text": "9.9%",
+  "how": "Wilson 95% lower bound, white-sounding names, boston"
+ },
+ "rate_white_boston_hi": {
+  "value": 13.681011058269787,
+  "text": "13.7%",
+  "how": "Wilson 95% upper bound, white-sounding names, boston"
+ },
+ "rate_white_chicago": {
+  "value": 8.062130177514792,
+  "text": "8.1%",
+  "how": "callbacks / résumés, white-sounding names, chicago (n=1352)"
+ },
+ "rate_white_chicago_lo": {
+  "value": 6.726930130211156,
+  "text": "6.7%",
+  "how": "Wilson 95% lower bound, white-sounding names, chicago"
+ },
+ "rate_white_chicago_hi": {
+  "value": 9.634972463743374,
+  "text": "9.6%",
+  "how": "Wilson 95% upper bound, white-sounding names, chicago"
+ },
+ "quality_gain_white": {
+  "value": 2.2947818085160936,
+  "text": "2.3",
+  "how": "rate_white_high − rate_white_low, percentage points"
+ },
+ "rate_black_low": {
+  "value": 6.188118811881188,
+  "text": "6.2%",
+  "how": "callbacks / résumés, black-sounding names, low-quality résumés (n=1212)"
+ },
+ "rate_black_low_lo": {
+  "value": 4.965177655425917,
+  "text": "5.0%",
+  "how": "Wilson 95% lower bound, black-sounding names, low-quality résumés"
+ },
+ "rate_black_low_hi": {
+  "value": 7.687907802764715,
+  "text": "7.7%",
+  "how": "Wilson 95% upper bound, black-sounding names, low-quality résumés"
+ },
+ "rate_black_high": {
+  "value": 6.704824202780049,
+  "text": "6.7%",
+  "how": "callbacks / résumés, black-sounding names, high-quality résumés (n=1223)"
+ },
+ "rate_black_high_lo": {
+  "value": 5.4343249130844224,
+  "text": "5.4%",
+  "how": "Wilson 95% lower bound, black-sounding names, high-quality résumés"
+ },
+ "rate_black_high_hi": {
+  "value": 8.246453284779246,
+  "text": "8.2%",
+  "how": "Wilson 95% upper bound, black-sounding names, high-quality résumés"
+ },
+ "rate_black_boston": {
+  "value": 7.756232686980609,
+  "text": "7.8%",
+  "how": "callbacks / résumés, black-sounding names, boston (n=1083)"
+ },
+ "rate_black_boston_lo": {
+  "value": 6.308323432758733,
+  "text": "6.3%",
+  "how": "Wilson 95% lower bound, black-sounding names, boston"
+ },
+ "rate_black_boston_hi": {
+  "value": 9.502764507073373,
+  "text": "9.5%",
+  "how": "Wilson 95% upper bound, black-sounding names, boston"
+ },
+ "rate_black_chicago": {
+  "value": 5.399408284023669,
+  "text": "5.4%",
+  "how": "callbacks / résumés, black-sounding names, chicago (n=1352)"
+ },
+ "rate_black_chicago_lo": {
+  "value": 4.316160442435404,
+  "text": "4.3%",
+  "how": "Wilson 95% lower bound, black-sounding names, chicago"
+ },
+ "rate_black_chicago_hi": {
+  "value": 6.7353867606590985,
+  "text": "6.7%",
+  "how": "Wilson 95% upper bound, black-sounding names, chicago"
+ },
+ "quality_gain_black": {
+  "value": 0.5167053908988608,
+  "text": "0.5",
+  "how": "rate_black_high − rate_black_low, percentage points"
+ },
+ "gap_boston": {
+  "value": 3.878116343490306,
+  "text": "3.9",
+  "how": "rate_white_boston − rate_black_boston, percentage points"
+ },
+ "gap_chicago": {
+  "value": 2.662721893491123,
+  "text": "2.7",
+  "how": "rate_white_chicago − rate_black_chicago, percentage points"
+ },
+ "m1_Intercept_b": {
+  "value": 9.650924024640666,
+  "text": "9.7",
+  "how": "OLS linear probability model m1: y ~ black; coefficient ×100"
+ },
+ "m1_Intercept_se": {
+  "value": 0.5985301318980754,
+  "text": "0.6",
+  "how": "HC1 robust standard error ×100, model m1"
+ },
+ "m1_Intercept_lo": {
+  "value": 8.47782652245843,
+  "text": "8.5",
+  "how": "95% CI lower bound, model m1"
+ },
+ "m1_Intercept_hi": {
+  "value": 10.8240215268229,
+  "text": "10.8",
+  "how": "95% CI upper bound, model m1"
+ },
+ "m1_black_b": {
+  "value": -3.203285420944555,
+  "text": "-3.2",
+  "how": "OLS linear probability model m1: y ~ black; coefficient ×100"
+ },
+ "m1_black_se": {
+  "value": 0.7784969307159219,
+  "text": "0.8",
+  "how": "HC1 robust standard error ×100, model m1"
+ },
+ "m1_black_lo": {
+  "value": -4.729111367222735,
+  "text": "-4.7",
+  "how": "95% CI lower bound, model m1"
+ },
+ "m1_black_hi": {
+  "value": -1.6774594746663745,
+  "text": "-1.7",
+  "how": "95% CI upper bound, model m1"
+ },
+ "m2_Intercept_b": {
+  "value": 8.944877033904632,
+  "text": "8.9",
+  "how": "OLS linear probability model m2: y ~ black + high; coefficient ×100"
+ },
+ "m2_Intercept_se": {
+  "value": 0.687268307412137,
+  "text": "0.7",
+  "how": "HC1 robust standard error ×100, model m2"
+ },
+ "m2_Intercept_lo": {
+  "value": 7.597855903661041,
+  "text": "7.6",
+  "how": "95% CI lower bound, model m2"
+ },
+ "m2_Intercept_hi": {
+  "value": 10.291898164148222,
+  "text": "10.3",
+  "how": "95% CI upper bound, model m2"
+ },
+ "m2_black_b": {
+  "value": -3.2032854209445767,
+  "text": "-3.2",
+  "how": "OLS linear probability model m2: y ~ black + high; coefficient ×100"
+ },
+ "m2_black_se": {
+  "value": 0.7783161183069844,
+  "text": "0.8",
+  "how": "HC1 robust standard error ×100, model m2"
+ },
+ "m2_black_lo": {
+  "value": -4.728756981413282,
+  "text": "-4.7",
+  "how": "95% CI lower bound, model m2"
+ },
+ "m2_black_hi": {
+  "value": -1.6778138604758714,
+  "text": "-1.7",
+  "how": "95% CI upper bound, model m2"
+ },
+ "m2_high_b": {
+  "value": 1.4057435997074785,
+  "text": "1.4",
+  "how": "OLS linear probability model m2: y ~ black + high; coefficient ×100"
+ },
+ "m2_high_se": {
+  "value": 0.7780494721296629,
+  "text": "0.8",
+  "how": "HC1 robust standard error ×100, model m2"
+ },
+ "m2_high_lo": {
+  "value": -0.11920534385706123,
+  "text": "-0.1",
+  "how": "95% CI lower bound, model m2"
+ },
+ "m2_high_hi": {
+  "value": 2.9306925432720186,
+  "text": "2.9",
+  "how": "95% CI upper bound, model m2"
+ },
+ "m3_Intercept_b": {
+  "value": 8.498349834983506,
+  "text": "8.5",
+  "how": "OLS linear probability model m3: y ~ black * high; coefficient ×100"
+ },
+ "m3_Intercept_se": {
+  "value": 0.8013253538527351,
+  "text": "0.8",
+  "how": "HC1 robust standard error ×100, model m3"
+ },
+ "m3_Intercept_lo": {
+  "value": 6.92778100153333,
+  "text": "6.9",
+  "how": "95% CI lower bound, model m3"
+ },
+ "m3_Intercept_hi": {
+  "value": 10.068918668433682,
+  "text": "10.1",
+  "how": "95% CI upper bound, model m3"
+ },
+ "m3_black_b": {
+  "value": -2.310231023102325,
+  "text": "-2.3",
+  "how": "OLS linear probability model m3: y ~ black * high; coefficient ×100"
+ },
+ "m3_black_se": {
+  "value": 1.059005280138179,
+  "text": "1.1",
+  "how": "HC1 robust standard error ×100, model m3"
+ },
+ "m3_black_lo": {
+  "value": -4.385843231610907,
+  "text": "-4.4",
+  "how": "95% CI lower bound, model m3"
+ },
+ "m3_black_hi": {
+  "value": -0.23461881459374348,
+  "text": "-0.2",
+  "how": "95% CI upper bound, model m3"
+ },
+ "m3_high_b": {
+  "value": 2.2947818085160985,
+  "text": "2.3",
+  "how": "OLS linear probability model m3: y ~ black * high; coefficient ×100"
+ },
+ "m3_high_se": {
+  "value": 1.1958392513422555,
+  "text": "1.2",
+  "how": "HC1 robust standard error ×100, model m3"
+ },
+ "m3_high_lo": {
+  "value": -0.04902005541406393,
+  "text": "-0.0",
+  "how": "95% CI lower bound, model m3"
+ },
+ "m3_high_hi": {
+  "value": 4.638583672446261,
+  "text": "4.6",
+  "how": "95% CI upper bound, model m3"
+ },
+ "m3_blackxhigh_b": {
+  "value": -1.7780764176172363,
+  "text": "-1.8",
+  "how": "OLS linear probability model m3: y ~ black * high; coefficient ×100"
+ },
+ "m3_blackxhigh_se": {
+  "value": 1.5560500546833533,
+  "text": "1.6",
+  "how": "HC1 robust standard error ×100, model m3"
+ },
+ "m3_blackxhigh_lo": {
+  "value": -4.82787848293819,
+  "text": "-4.8",
+  "how": "95% CI lower bound, model m3"
+ },
+ "m3_blackxhigh_hi": {
+  "value": 1.271725647703718,
+  "text": "1.3",
+  "how": "95% CI upper bound, model m3"
+ },
+ "m4_Intercept_b": {
+  "value": 3.9397852452830415,
+  "text": "3.9",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_Intercept_se": {
+  "value": 1.3408557940955614,
+  "text": "1.3",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_Intercept_lo": {
+  "value": 1.3117561803938866,
+  "text": "1.3",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_Intercept_hi": {
+  "value": 6.567814310172196,
+  "text": "6.6",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_black_b": {
+  "value": -2.3281490070856683,
+  "text": "-2.3",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_black_se": {
+  "value": 1.0593133528566527,
+  "text": "1.1",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_black_lo": {
+  "value": -4.404365027027078,
+  "text": "-4.4",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_black_hi": {
+  "value": -0.25193298714425927,
+  "text": "-0.3",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_high_b": {
+  "value": 2.068445646734466,
+  "text": "2.1",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_high_se": {
+  "value": 1.1942420178817021,
+  "text": "1.2",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_high_lo": {
+  "value": -0.2722256971381096,
+  "text": "-0.3",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_high_hi": {
+  "value": 4.409116990607041,
+  "text": "4.4",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_blackxhigh_b": {
+  "value": -1.765570146792117,
+  "text": "-1.8",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_blackxhigh_se": {
+  "value": 1.5521138368571548,
+  "text": "1.6",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_blackxhigh_lo": {
+  "value": -4.807657366938418,
+  "text": "-4.8",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_blackxhigh_hi": {
+  "value": 1.2765170733541837,
+  "text": "1.3",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_female_b": {
+  "value": 1.7446185890108121,
+  "text": "1.7",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_female_se": {
+  "value": 0.996132676412404,
+  "text": "1.0",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_female_lo": {
+  "value": -0.20776558058099132,
+  "text": "-0.2",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_female_hi": {
+  "value": 3.697002758602616,
+  "text": "3.7",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_boston_b": {
+  "value": 2.8821294418703993,
+  "text": "2.9",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_boston_se": {
+  "value": 0.8865075865147182,
+  "text": "0.9",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_boston_lo": {
+  "value": 1.1446065002800254,
+  "text": "1.1",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_boston_hi": {
+  "value": 4.619652383460774,
+  "text": "4.6",
+  "how": "95% CI upper bound, model m4"
+ },
+ "m4_experience_b": {
+  "value": 0.2619224851371534,
+  "text": "0.3",
+  "how": "OLS linear probability model m4: y ~ black * high + female + boston + experience; coefficient ×100"
+ },
+ "m4_experience_se": {
+  "value": 0.08587384535426398,
+  "text": "0.1",
+  "how": "HC1 robust standard error ×100, model m4"
+ },
+ "m4_experience_lo": {
+  "value": 0.09361284102883374,
+  "text": "0.1",
+  "how": "95% CI lower bound, model m4"
+ },
+ "m4_experience_hi": {
+  "value": 0.430232129245473,
+  "text": "0.4",
+  "how": "95% CI upper bound, model m4"
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "slug": "access",
+ "en": "Large Print",
+ "cn": "无障碍大字",
+ "line": "最小字号和图内文字上调一档，颜色用色盲友好的蓝与橙，再叠一层图案，后排和色觉障碍的听众都读得出。",
+ "group": "传播",
+ "family": "Lexend",
+ "fonts": [
+  {
+   "file": "lexend-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "lexend-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "slots": {
+  "fig": [
+   1109,
+   590
+  ],
+  "paperfig": [
+   1109,
+   610
+  ],
+  "coef": [
+   1680,
+   232
+  ]
+ }
+}

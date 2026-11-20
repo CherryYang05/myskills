@@ -1,0 +1,18 @@
+{
+ "slug": "transit",
+ "en": "Transit Map",
+ "cn": "线路图",
+ "line": "白底上的两条线路：步骤是站点，进度是线路图。",
+ "family": "Overpass",
+ "fonts": [
+  {
+   "file": "overpass-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "overpass-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "group": "材质"
+}

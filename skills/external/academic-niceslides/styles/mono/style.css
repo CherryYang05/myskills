@@ -1,0 +1,22 @@
+.s-mono{--face:"Bitter",Georgia,serif;--paper:#F3F3F1;--ink:#111111;--mute:#4D4D4D;--grid:#D4D4D1;--a:#111111;--b:#111111}
+.s-mono .slide{--t-title:56px;--w-title:700;--w-strong:700}
+.s-mono .slide header{padding-bottom:26px;border-bottom:7px double var(--ink)}
+.s-mono .slide footer{color:var(--ink)}
+.s-mono .slide .prog{height:8px;background:repeating-linear-gradient(90deg,var(--ink) 0 22px,transparent 22px 30px)}
+/* no colour to lean on: solid against hatched, continuous against dashed, filled against hollow */
+.s-mono .slide .k.b{text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:10px}
+.s-mono .slide .k.a{text-decoration:underline dotted;text-decoration-thickness:5px;text-underline-offset:10px}
+.s-mono .chart .bar.b{fill:url(#hx-mono);stroke:var(--ink);stroke-width:3.5}
+.s-mono .hx-line{stroke:var(--ink);stroke-width:5}
+.s-mono .chart .line.b{stroke-dasharray:16 12;stroke-linecap:butt}
+.s-mono .chart .pt.b{fill:var(--paper);stroke:var(--ink);stroke-width:5}
+.s-mono .chart .ci.thick.n{stroke:var(--mute)}.s-mono .chart .pt.n{fill:var(--mute)}
+.s-mono .glyph .b .name{fill:url(#hx-mono);stroke:var(--ink);stroke-width:2}
+.s-mono .L-flow li{border-bottom:1.5px solid var(--ink)}
+.s-mono .L-models table{border-top:7px double var(--ink);border-bottom:7px double var(--ink)}
+.s-mono .L-models thead th{border-bottom:1.5px solid var(--ink)}
+.s-mono .L-models tr.rule td{border-top:1.5px solid var(--ink)}
+.s-mono .L-models tr.focal td{font-weight:700;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:7px}
+.s-mono .pf{background:none}.s-mono .pf-img{mix-blend-mode:multiply;filter:grayscale(1)}
+.s-mono .L-title h1{font-size:98px}
+.s-mono .L-title .words{border-top:7px double var(--ink);padding-top:44px}

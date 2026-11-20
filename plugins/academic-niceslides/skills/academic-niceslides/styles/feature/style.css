@@ -1,0 +1,32 @@
+.s-feature{--face:"Fraunces",Georgia,serif;--paper:#FBF8F2;--ink:#1B1B1B;--mute:#5F5B54;--grid:#E2DCD0;--a:#1B1B1B;--b:#1C774A}
+/* the title runs down a left column; the right two thirds belong to the evidence */
+.s-feature .slide{--t-title:48px;grid-template-rows:auto 1fr auto auto;padding:84px 120px 36px}
+.s-feature .slide header{grid-column:1/5;grid-row:1;padding-right:8px}
+.s-feature .slide h2{line-height:1.12;font-weight:600;letter-spacing:-.01em}
+.s-feature .slide footer{grid-row:4;border-top:1.5px solid var(--ink);padding-top:12px;margin-top:22px}
+.s-feature .slide .prog{height:5px}
+.s-feature .slide:not(.L-models) .main{display:contents}
+.s-feature .L-fig figure,.s-feature .L-paperfig figure,.s-feature .L-flow .right,.s-feature .L-close ol{grid-column:5/13;grid-row:1/3;border-left:1.5px solid var(--ink);padding-left:48px}
+.s-feature .L-fig .notes,.s-feature .L-paperfig .notes{grid-column:1/5;grid-row:2;font-size:30px;line-height:1.42;padding-top:34px;gap:22px}
+.s-feature .L-fig .notes p:first-child::first-letter{font-size:30px}
+.s-feature figcaption,.s-feature .caption,.s-feature .L-flow .note{font-style:italic}
+.s-feature .L-flow .anchor,.s-feature .L-close .anchor{grid-column:1/5;grid-row:2;align-self:end;justify-self:start;padding:0 0 6px}
+.s-feature .L-flow .right{gap:26px}
+.s-feature .L-flow li{border-bottom:1px solid var(--grid)}
+.s-feature .L-flow li::before,.s-feature .L-close li::before{font-style:italic;font-size:44px;line-height:1;color:var(--b)}
+.s-feature .L-close ol{padding-top:0}
+.s-feature .L-close .foot{grid-column:5/13;grid-row:3;padding-left:48px;margin:18px 0 0}
+.s-feature .L-close .refs{max-width:760px}
+.s-feature .L-models header{grid-column:1/-1}
+.s-feature .L-models h2{font-size:54px}
+.s-feature .L-models .main{grid-row:2/4}
+.s-feature .L-models table{border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.s-feature .L-models thead th{border-bottom:1.5px solid var(--ink)}
+.s-feature .L-models tr.rule td{border-top:1.5px solid var(--ink)}
+.s-feature .L-models tr.focal td{color:var(--b);font-weight:600}
+.s-feature .glyph .paper{fill:#fff;stroke-width:2}
+.s-feature .pf{background:none}.s-feature .pf-img{mix-blend-mode:multiply}
+.s-feature .L-title{grid-template-rows:1fr}
+.s-feature .L-title h1{font-size:108px;font-weight:400;letter-spacing:-.03em;line-height:1}
+.s-feature .L-title .sub{font-style:italic}
+.s-feature .L-title .words{border-top:1.5px solid var(--ink);padding-top:40px}

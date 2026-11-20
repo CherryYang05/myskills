@@ -1,0 +1,26 @@
+.s-marker{--face:"Public Sans",Helvetica,Arial,sans-serif;--paper:#FFFFFF;--ink:#121212;--mute:#595959;--grid:#E2E2E2;--a:#121212;--b:#FFE500;--b-text:#121212}
+.s-marker .slide{--t-title:58px;--w-title:700;--w-strong:700}
+.s-marker .slide h2{letter-spacing:-.012em}
+/* one yellow marker: it highlights the focal series wherever that series appears */
+.s-marker .slide .k.b{background:var(--b);padding:0 .14em;margin:0 -.04em;border-radius:.08em .32em .1em .28em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.s-marker .slide .k.a{text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:9px}
+.s-marker .slide footer{border-top:3px solid var(--ink);padding-top:12px;color:var(--ink)}
+.s-marker .chart .bar{stroke:var(--ink);stroke-width:4}
+.s-marker .chart .bar.a{fill:var(--paper)}
+.s-marker .chart .under.b{display:block;stroke:var(--b);stroke-width:26;stroke-linecap:round}
+.s-marker .chart .line,.s-marker .chart .ci.thick.b{stroke:var(--ink)}
+.s-marker .chart .pt{stroke:var(--ink);stroke-width:4}
+.s-marker .chart .pt.a,.s-marker .chart .pt.n{fill:var(--ink)}
+.s-marker .glyph .paper{stroke-width:4}
+.s-marker .L-flow li,.s-marker .L-close li{grid-template-columns:92px 1fr;align-items:center}
+.s-marker .L-close li{align-items:start}
+.s-marker .L-flow li::before,.s-marker .L-close li::before{width:58px;height:58px;border-radius:50%;background:var(--b);
+  display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1}
+.s-marker .L-models table{border-top:3px solid var(--ink)}
+.s-marker .L-models td,.s-marker .L-models th{border-bottom:1.5px solid var(--grid)}
+.s-marker .L-models tr.focal td{background:var(--b);font-weight:700}
+.s-marker .L-models td:first-child{padding-left:14px}.s-marker .L-models td:last-child,.s-marker .L-models th:last-child{padding-right:14px}
+.s-marker .L-title h1{font-size:100px;letter-spacing:-.03em;line-height:1.12;display:inline;
+  background:linear-gradient(transparent 60%,var(--b) 60%,var(--b) 90%,transparent 90%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.s-marker .L-title .words{gap:0}
+.s-marker .L-title .sub{margin-top:44px}.s-marker .L-title .by{margin-top:26px}

@@ -1,0 +1,19 @@
+{
+ "slug": "chalk",
+ "en": "Chalkboard",
+ "cn": "黑板",
+ "line": "深绿黑板上的白粉笔和一支黄粉笔，唯一的深色风格。",
+ "family": "Atkinson Hyperlegible",
+ "fonts": [
+  {
+   "file": "atkinson-hyperlegible-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "atkinson-hyperlegible-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "ground": "dark",
+ "group": "材质"
+}

@@ -1,0 +1,29 @@
+.s-access{--face:"Lexend",Helvetica,Arial,sans-serif;--paper:#FFFFFF;--ink:#000000;--mute:#3D3D3D;--grid:#D9D9D9;--a:#0072B2;--b:#C25400}
+/* one size up everywhere; colour never carries the meaning alone */
+.s-access .slide{--t-title:58px;--t-body:40px;--t-small:32px;--t-min:30px;--w-title:700;--w-strong:700;line-height:1.4}
+.s-access .slide h2{letter-spacing:-.01em}
+.s-access .slide header{padding-bottom:22px;border-bottom:5px solid var(--ink)}
+.s-access .slide footer{color:var(--ink)}
+.s-access .slide .prog{height:12px}
+.s-access .slide .k.b{text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:9px}
+.s-access .chart text{font-size:30px}.s-access .chart .cat{font-size:30px}.s-access .chart .rowlab,.s-access .chart .serlab,.s-access .chart .dimlab,.s-access .chart .siglab{font-size:32px}.s-access .chart .val{font-size:34px}
+.s-access .chart .bar.b{fill:url(#hx-access);stroke:var(--b);stroke-width:4}
+.s-access .hx-line{stroke:var(--b);stroke-width:8}
+.s-access .chart .line{stroke-width:7}.s-access .chart .line.b{stroke-dasharray:20 12;stroke-linecap:butt}
+.s-access .chart .pt.b{fill:var(--paper);stroke:var(--b);stroke-width:6}
+.s-access .chart .ci{stroke-width:4}
+.s-access .L-fig .notes,.s-access .L-paperfig .notes{font-size:36px}
+.s-access .L-close ol{grid-column:1/10;gap:28px}
+.s-access .L-flow li,.s-access .L-close li{grid-template-columns:96px 1fr;align-items:center}
+.s-access .L-close li{align-items:start}
+.s-access .L-flow li::before,.s-access .L-close li::before{width:62px;height:62px;border:5px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1;font-size:32px}
+.s-access .L-flow .note{color:var(--ink)}
+.s-access .L-models table{border-top:5px solid var(--ink)}
+.s-access .L-models td,.s-access .L-models th{border-bottom:2px solid var(--grid)}
+.s-access .L-models tr.focal td{color:var(--b);font-weight:700;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+.s-access .glyph .paper{stroke-width:4}
+.s-access .L-title h1{font-size:96px;letter-spacing:-.025em}
+.s-access .L-close .foot{margin:10px 0 8px}
+.s-access .L-close .qr{width:118px;height:118px}
+.s-access .L-close .refs{max-width:1240px}
+.s-access .L-close ol{gap:22px;padding-top:0}

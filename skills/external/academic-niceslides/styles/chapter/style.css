@@ -1,0 +1,24 @@
+.s-chapter{--face:"Figtree",Helvetica,Arial,sans-serif;--paper:#F3F0E9;--ink:#1B1B1B;--mute:#4A4A48;--grid:rgba(0,0,0,.13);--a:#1B1B1B;--b:#CF3F26}
+.s-chapter .slide{--t-title:58px;--w-title:700;--w-strong:700;padding-bottom:58px}
+/* one ground colour per section: the room sees the chapter change */
+.s-chapter .slide[data-sec="0"]{--paper:#E8E3F6}.s-chapter .slide[data-sec="1"]{--paper:#DCEFE2}.s-chapter .slide[data-sec="2"]{--paper:#FBE4D0}
+.s-chapter .slide[data-sec="3"]{--paper:#DBEAF5}.s-chapter .slide[data-sec="4"]{--paper:#F5EBC6}.s-chapter .slide[data-sec="5"]{--paper:#F4DDE4}
+.s-chapter .slide footer{color:var(--ink);align-items:center}
+.s-chapter .slide footer .sec{background:var(--ink);color:var(--paper);padding:5px 26px 6px;border-radius:999px;font-weight:700}
+.s-chapter .slide .prog{left:120px;right:120px;width:auto;bottom:24px;height:10px;background:none;display:flex;gap:8px}
+.s-chapter .slide .prog b{display:block;flex:1;border-radius:5px;background:rgba(0,0,0,.14)}
+.s-chapter .slide .prog b.done{background:var(--ink)}.s-chapter .slide .prog b.cur{background:var(--b)}
+.s-chapter .chart .bar{rx:10px}
+.s-chapter .chart .line{stroke-width:7}
+.s-chapter .glyph .paper{fill:#fff;stroke:none;rx:16px}
+.s-chapter .glyph .name,.s-chapter .glyph .row{rx:6px}
+.s-chapter .L-flow li,.s-chapter .L-close li{grid-template-columns:104px 1fr;align-items:center}
+.s-chapter .L-close li{align-items:start}
+.s-chapter .L-flow li::before,.s-chapter .L-close li::before{width:72px;height:50px;border-radius:25px;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1}
+.s-chapter .L-models table{border-collapse:separate;border-spacing:0 6px}
+.s-chapter .L-models td{background:rgba(255,255,255,.55);padding:8px 0}
+.s-chapter .L-models td:first-child{padding-left:22px;border-radius:999px 0 0 999px}.s-chapter .L-models td:last-child,.s-chapter .L-models th:last-child{padding-right:22px}
+.s-chapter .L-models td:last-child{border-radius:0 999px 999px 0}
+.s-chapter .L-models tr.focal td{background:#fff;color:var(--b);font-weight:700}
+.s-chapter .pf{background:none}.s-chapter .pf-img{mix-blend-mode:multiply}
+.s-chapter .L-title h1{font-size:104px;letter-spacing:-.025em}

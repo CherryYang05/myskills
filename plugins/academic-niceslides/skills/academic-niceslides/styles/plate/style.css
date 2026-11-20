@@ -1,0 +1,21 @@
+.s-plate{--face:"Source Serif 4",Georgia,serif;--paper:#F5F0E5;--ink:#221C16;--mute:#6A6055;--grid:#DCD3C3;--a:#2D4B66;--b:#9B3122}
+.s-plate .slide{--t-title:60px}
+.s-plate .slide header{padding-bottom:30px;border-bottom:2px solid var(--ink)}
+.s-plate .slide footer{border-top:1px solid var(--ink);padding-top:14px}
+.s-plate .slide .prog{height:4px}
+.s-plate figcaption,.s-plate .caption,.s-plate .L-flow .note{font-style:italic}
+.s-plate .L-fig .notes,.s-plate .L-paperfig .notes{font-size:32px;line-height:1.4;padding-left:20px}
+.s-plate .L-flow li{border-bottom:1px solid var(--grid)}
+.s-plate .L-models table{border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.s-plate .L-models thead th{border-bottom:1.5px solid var(--ink)}
+.s-plate .L-models tr.rule td{border-top:1.5px solid var(--ink)}
+.s-plate .L-models tr.focal td{color:var(--b);font-weight:600}
+.s-plate .glyph .paper{fill:#FBF8F1;stroke-width:2}
+/* title page: a centred monograph title between a thick and a thin rule */
+.s-plate .L-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 240px}
+.s-plate .L-title .art{margin-bottom:40px}
+.s-plate .L-title .logos{margin-top:38px;justify-content:center}
+.s-plate .pf{background:none}.s-plate .pf-img{mix-blend-mode:multiply}
+.s-plate .L-title .words{display:flex;flex-direction:column;align-items:center;gap:34px;border-top:6px double var(--ink);border-bottom:6px double var(--ink);padding:40px 0 36px}
+.s-plate .L-title h1{font-size:88px;font-weight:600;max-width:1300px}
+.s-plate .L-title .sub{font-style:italic}
