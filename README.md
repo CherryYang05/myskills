@@ -25,14 +25,14 @@
 | [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `b48c832f0f80` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
 | [deep-research](./skills/external/deep-research) | 外&#8288;部&#8288;同&#8288;步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `bd57330f63f4` | Universal deep research agent team |
 | [skill-creator](./skills/external/skill-creator) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator) · `b9e19e6f4477` | Create new skills, modify and improve existing skills, and measure skill performance |
-| [develop-software](./skills/personal/develop-software) | 自研 | 自研 | 为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流 |
+| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
 | [ds-mr-reviewer](./skills/personal/ds-mr-reviewer) | 自研 | 自研 | MR代码检视工具 |
+| [develop-software](./skills/personal/develop-software) | 自研 | 自研 | 为软件项目一次性初始化、迁移或重新校准可长期复用的 SDD 工作流 |
 | [skill-dev-sop](./skills/personal/skill-dev-sop) | 自研 | 自研 | 固化 Agent 驱动的通用软件开发标准流程——需求分析、系统设计（架构总览/模块边界/依赖方向）、项目初始化（AGENTS.md）、模块与任务拆分、逐个功能的设计文档（含耦合… |
 | [skill-dev-flow](./skills/personal/skill-dev-flow) | 自研 | 自研 | 固化 Agent 驱动的完整开发流程——从需求分析、项目初始化（AGENTS.md）、需求拆分（模块/功能/任务），到逐个功能的设计文档、实现、收尾归档 |
 | [dt-case-generator](./skills/personal/dt-case-generator) | 自研 | 自研 | 使用CodeAgent生成DT(开发者自测试)用例 |
 | [dt-case-enhancer](./skills/personal/dt-case-enhancer) | 自研 | 自研 | 使用CodeAgent对已有DT用例进行增强补齐 |
-| [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [skill-iterate](./skills/personal/skill-iterate) | 自研 | 自研 | 对其他 skill 的输出进行人工标注驱动的自迭代优化，修改 SKILL.md 让未来输出更好 |
 | [skill-os-setup](./skills/personal/skill-os-setup) | 自研 | 自研 | 用于维护 EasyNewOS 仓库 |
 
