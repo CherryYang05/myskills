@@ -10,6 +10,7 @@
 
 | Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |
 |---|---|---|---|
+| [Matt Pocock Skills](./plugins/mattpocock-skills) | 插件合集 | [项目主页](https://github.com/mattpocock/skills) | 包含 27 个 Skill。Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接 |
 | [academic_niceslides](./skills/external/academic-niceslides) | 外&#8288;部&#8288;同&#8288;步 | [kingofwinter1994/academic_niceslides](https://github.com/kingofwinter1994/academic_niceslides) · `b77c608a993e` | Build academic talk slides from a paper without AI-slop |
 | [lieflat-charts](./skills/external/lieflat-charts) | 外&#8288;部&#8288;同&#8288;步 | [larashero3-dotcom/lieflat-charts](https://github.com/larashero3-dotcom/lieflat-charts) · `4b4e75bde11c` | 一套模板驱动的数据可视化、PPT 演示与整页报告生成 skill，既能严格从 Lupi、Basics、Glance、Maps 与 Interactive gallery 的真实… |
 | [caveman](./skills/external/caveman) | 外&#8288;部&#8288;同&#8288;步 | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman/tree/main/skills/caveman) · `3dc497a7f858` | Terse caveman voice: answer first, fluff gone, every technical fact kept |
