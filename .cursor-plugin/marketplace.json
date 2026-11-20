@@ -8,6 +8,11 @@
   },
   "plugins": [
     {
+      "name": "academic-niceslides",
+      "source": "./plugins/academic-niceslides",
+      "description": "Build academic talk slides from a paper without AI-slop. Use when the user wants slides, a deck or a talk for a paper, thesis, seminar, conference or defence, or asks to restyle or fix academic slides."
+    },
+    {
       "name": "caveman",
       "source": "./plugins/caveman",
       "description": "Terse caveman voice: answer first, fluff gone, every technical fact kept. Use for /caveman, \"caveman mode\", \"talk like caveman\", \"be brief\", \"less tokens\". Stays on until \"stop caveman\" or \"normal mode\"."

@@ -3,7 +3,7 @@
     "repo": "Imbad0202/academic-research-skills",
     "path": "deep-research",
     "ref": "main",
-    "sha": "6d9388674de1ad0437ad95db3d52f92b92204d84"
+    "sha": "bd57330f63f4b089dde8fdef9bf5f009ecc89f0c"
   },
   "humanizer": {
     "repo": "blader/humanizer",
@@ -51,7 +51,7 @@
     "repo": "pbakaus/impeccable",
     "path": ".agents/skills/impeccable",
     "ref": "main",
-    "sha": "c4cd1924c389f68d37c687d9c2bbf13f12547c41",
+    "sha": "b49177d32788f2dc585c42831d845dacf1ebed2c",
     "preserve": [
       "LICENSE",
       "NOTICE.md"

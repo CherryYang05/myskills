@@ -1,0 +1,18 @@
+{
+ "slug": "mono",
+ "en": "One Ink",
+ "cn": "单色墨",
+ "line": "只有一种墨。两组数据靠实心与斜线、实线与虚线区分，黑白打印、复印、电子墨水屏都不丢信息。",
+ "group": "传播",
+ "family": "Bitter",
+ "fonts": [
+  {
+   "file": "bitter-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "bitter-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ]
+}

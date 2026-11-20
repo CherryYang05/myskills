@@ -1,0 +1,18 @@
+{
+ "slug": "riso",
+ "en": "Two-ink Riso",
+ "cn": "双色孔版",
+ "line": "米色纸上只印两只墨：蓝与橙，叠印处出现第三色。",
+ "family": "Bricolage Grotesque",
+ "fonts": [
+  {
+   "file": "bricolage-grotesque-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "bricolage-grotesque-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "group": "材质"
+}

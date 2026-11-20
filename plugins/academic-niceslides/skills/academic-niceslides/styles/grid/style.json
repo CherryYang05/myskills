@@ -1,0 +1,29 @@
+{
+ "slug": "grid",
+ "en": "Swiss Grid",
+ "cn": "瑞士网格",
+ "line": "白底、黑与一只红：粗体左对齐，一切挂在同一条横线上。",
+ "family": "Archivo",
+ "fonts": [
+  {
+   "file": "archivo-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "archivo-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "slots": {
+  "fig": [
+   1109,
+   580
+  ],
+  "paperfig": [
+   1109,
+   600
+  ]
+ },
+ "group": "材质",
+ "fig_side": "r"
+}

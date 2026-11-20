@@ -1,0 +1,26 @@
+.s-seal{--face:"Literata",Georgia,serif;--paper:#F6F2E8;--ink:#1B1A18;--mute:#68635A;--grid:#DDD6C8;--a:#1B1A18;--b:#B5271C}
+.s-seal .slide{--t-title:56px}
+.s-seal .slide::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.3;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .42  0 0 0 0 .4  0 0 0 .6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+/* a brush stroke that runs dry under the title */
+.s-seal .slide header{padding-bottom:26px;border-bottom:4px solid;border-image:linear-gradient(90deg,var(--ink) 0,var(--ink) 50%,transparent 96%) 1}
+/* the page number is stamped in a cinnabar seal */
+.s-seal .slide footer{padding-right:150px;padding-bottom:22px}
+.s-seal .slide footer .pg{position:absolute;right:120px;bottom:40px;width:98px;height:98px;border-radius:7px;background:var(--b);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-weight:600}
+.s-seal .slide .prog{height:4px}
+.s-seal figcaption,.s-seal .caption,.s-seal .L-flow .note{font-style:italic}
+.s-seal .chart .bar.a{fill:url(#wash-seal)}
+.s-seal .wash-0{stop-color:#1B1A18}.s-seal .wash-1{stop-color:#8E897F}
+.s-seal .glyph .paper{fill:#FCFAF4;stroke-width:2}
+.s-seal .L-flow li,.s-seal .L-close li{grid-template-columns:92px 1fr;align-items:center}
+.s-seal .L-close li{align-items:start}
+.s-seal .L-flow li::before,.s-seal .L-close li::before{width:56px;height:56px;border-radius:5px;background:var(--b);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1}
+.s-seal .L-models table{border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.s-seal .L-models thead th{border-bottom:1.5px solid var(--ink)}
+.s-seal .L-models tr.rule td{border-top:1.5px solid var(--ink)}
+.s-seal .L-models tr.focal td{color:var(--b);font-weight:600}
+.s-seal .pf{background:none}.s-seal .pf-img{mix-blend-mode:multiply}
+.s-seal .L-title .words{border-left:7px solid var(--ink);padding-left:52px}
+.s-seal .L-title h1{font-size:96px;font-weight:600}
+.s-seal .L-title .sub{font-style:italic}

@@ -1,0 +1,18 @@
+{
+ "slug": "marker",
+ "en": "Highlighter",
+ "cn": "荧光笔",
+ "line": "白纸黑字，只有一支黄色荧光笔负责强调。",
+ "family": "Public Sans",
+ "fonts": [
+  {
+   "file": "public-sans-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "public-sans-latin-700-normal.woff2",
+   "weight": 700
+  }
+ ],
+ "group": "材质"
+}

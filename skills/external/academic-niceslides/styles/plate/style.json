@@ -1,0 +1,23 @@
+{
+ "slug": "plate",
+ "en": "Journal Plate",
+ "cn": "期刊图版",
+ "line": "象牙纸上的学术专著：衬线、发丝线、图版与边注。",
+ "family": "Source Serif 4",
+ "fonts": [
+  {
+   "file": "source-serif-4-latin-400-normal.woff2",
+   "weight": 400
+  },
+  {
+   "file": "source-serif-4-latin-400-italic.woff2",
+   "weight": 400,
+   "style": "italic"
+  },
+  {
+   "file": "source-serif-4-latin-600-normal.woff2",
+   "weight": 600
+  }
+ ],
+ "group": "材质"
+}
