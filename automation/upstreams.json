@@ -134,5 +134,11 @@
     "ref": "main",
     "sha": "aed9cfd3277740755f6bfc1155c7aa645403b760",
     "root_license": "LICENSE"
+  },
+  "academic-niceslides": {
+    "repo": "kingofwinter1994/academic_niceslides",
+    "path": "",
+    "ref": "main",
+    "sha": "b77c608a993e65ee44120a6eceeb708a2d8d39ed"
   }
 }

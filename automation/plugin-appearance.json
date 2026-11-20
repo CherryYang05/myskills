@@ -115,6 +115,11 @@
       "brandColor": "#487646",
       "concept": "运动曲线与动画关键点，统一 GSAP 系列入口",
       "glyph": "<path d=\"M21 92c22 0 23-56 49-56 15 0 23 15 37 15\"/><circle cx=\"21\" cy=\"92\" r=\"6\"/><circle cx=\"70\" cy=\"36\" r=\"6\"/><circle cx=\"107\" cy=\"51\" r=\"6\"/>"
+    },
+    "academic-niceslides": {
+      "brandColor": "#365F72",
+      "concept": "投影幕上的实验曲线与讲台支架",
+      "glyph": "<path d=\"M24 26h80M30 27v52h68V27M64 80v12m0 0-18 14m18-14 18 14\"/><path d=\"M40 65h47M42 59l12-12 10 5 19-15\"/><circle cx=\"83\" cy=\"37\" r=\"3\"/>"
     }
   }
 }
