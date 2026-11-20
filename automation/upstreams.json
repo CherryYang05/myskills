@@ -27,7 +27,7 @@
     "repo": "vercel-labs/agent-skills",
     "path": "skills/web-design-guidelines",
     "ref": "main",
-    "sha": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62"
+    "sha": "5a37a6329fbad3666c3207392a6a7c0110e92efb"
   },
   "shadcn": {
     "repo": "shadcn-ui/ui",
