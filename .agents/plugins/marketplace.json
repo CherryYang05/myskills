@@ -17,6 +17,18 @@
       "category": "Productivity"
     },
     {
+      "name": "archify",
+      "source": {
+        "source": "local",
+        "path": "./plugins/archify"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
       "name": "mattpocock-skills",
       "source": {
         "source": "local",
