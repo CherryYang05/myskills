@@ -332,5 +332,11 @@
     "ref": "main",
     "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
     "root_license": "LICENSE"
+  },
+  "archify": {
+    "repo": "tt-a1i/archify",
+    "path": "archify",
+    "ref": "main",
+    "sha": "62f3a995eb26ee23f784bdea4a7992340078e9be"
   }
 }
