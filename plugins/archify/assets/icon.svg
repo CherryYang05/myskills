@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <title>archify — 交互架构节点、连接路径与聚焦放大镜</title>
+  <rect width="128" height="128" rx="30" fill="#315F78"/>
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="22" y="25" width="30" height="23" rx="5"/><rect x="79" y="25" width="27" height="23" rx="5"/><rect x="22" y="79" width="30" height="23" rx="5"/><path d="M52 36h27M37 48v31M52 90h12M93 48v13"/><circle cx="84" cy="82" r="19"/><path d="m98 96 12 12M76 82h16M84 74v16"/>
+  </g>
+</svg>

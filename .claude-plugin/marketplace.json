@@ -12,6 +12,11 @@
       "description": "Build academic talk slides from a paper without AI-slop. Use when the user wants slides, a deck or a talk for a paper, thesis, seminar, conference or defence, or asks to restyle or fix academic slides."
     },
     {
+      "name": "archify",
+      "source": "./plugins/archify",
+      "description": "Create validated architecture, workflow, sequence, data-flow, lifecycle/state, ERD, class, tree, timeline, and waterfall diagrams as explorable standalone HTML with dark/light themes, motion and image/SVG/WebM export. Accept requirements or Mermaid; inspect repository evidence for code-backed diagrams. Also investigate local repository architecture health, coupling and refactoring scope with source-backed Code Analysis. Use when visualizing systems, API calls, pipelines, schemas, histories, timings, or everyday steps, parts, relationships and states. Also turn an answer into a one-page explainer, with the conclusion first, structured panels, native diagrams and charts, when the user asks for a page, an explainer or an answer to share (做成一页, 用页面讲), and by default unasked for a complex flow, diagnosis, comparison or test report; an [archify explainer: on-demand] rules line limits pages to requests. Optionally add a guided story and video export to an existing native diagram. Not for dashboards."
+    },
+    {
       "name": "mattpocock-skills",
       "source": "./plugins/mattpocock-skills",
       "description": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接。"
