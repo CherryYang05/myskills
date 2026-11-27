@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mattpocock-skills",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接。",
   "author": {
     "name": "CherryYang05",

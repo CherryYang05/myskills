@@ -3,7 +3,7 @@
     "repo": "Imbad0202/academic-research-skills",
     "path": "deep-research",
     "ref": "main",
-    "sha": "d120dfd598a013c4453187b8a20353acecce16b8"
+    "sha": "62f5c2a0e66d2f38324d9dbc7313f0d006637fec"
   },
   "humanizer": {
     "repo": "blader/humanizer",
@@ -51,7 +51,7 @@
     "repo": "pbakaus/impeccable",
     "path": ".agents/skills/impeccable",
     "ref": "main",
-    "sha": "b49177d32788f2dc585c42831d845dacf1ebed2c",
+    "sha": "2fc5e1459efbbf06d92c7306517c286bf12490cf",
     "preserve": [
       "LICENSE",
       "NOTICE.md"
@@ -201,7 +201,7 @@
     "repo": "mattpocock/skills",
     "path": "skills/engineering/to-tickets",
     "ref": "main",
-    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "sha": "bbadaa631c37af594e5a05c9cefacd9956136b18",
     "root_license": "LICENSE"
   },
   "wayfinder": {
@@ -243,7 +243,7 @@
     "repo": "mattpocock/skills",
     "path": "skills/engineering/domain-modeling",
     "ref": "main",
-    "sha": "abeeaf95660ba9e8b7c753eb38f441ca707a8823",
+    "sha": "bbadaa631c37af594e5a05c9cefacd9956136b18",
     "root_license": "LICENSE"
   },
   "codebase-design": {
@@ -337,6 +337,6 @@
     "repo": "tt-a1i/archify",
     "path": "archify",
     "ref": "main",
-    "sha": "62f3a995eb26ee23f784bdea4a7992340078e9be"
+    "sha": "d6b0f71f25a3337ed2fcd09c973cacf67be7baba"
   }
 }
