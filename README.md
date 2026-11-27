@@ -10,7 +10,7 @@
 
 | Skill / 插件 | 类型 | 来源 / 当前版本 | 说明 |
 |---|---|---|---|
-| [archify](./skills/external/archify) | 外&#8288;部&#8288;同&#8288;步 | [tt-a1i/archify](https://github.com/tt-a1i/archify/tree/main/archify) · `62f3a995eb26` | Create validated architecture, workflow, sequence, data-flow, lifecycle/state, ERD… |
+| [archify](./skills/external/archify) | 外&#8288;部&#8288;同&#8288;步 | [tt-a1i/archify](https://github.com/tt-a1i/archify/tree/main/archify) · `d6b0f71f25a3` | Create validated architecture, workflow, sequence, data-flow, lifecycle/state, ERD… |
 | [Matt Pocock Skills](./plugins/mattpocock-skills) | 插件合集 | [项目主页](https://github.com/mattpocock/skills) | 包含 27 个 Skill。Matt Pocock 的软件工程与工作流技能，涵盖需求澄清、规格与任务拆分、测试驱动开发、故障诊断、代码评审和会话交接 |
 | [academic_niceslides](./skills/external/academic-niceslides) | 外&#8288;部&#8288;同&#8288;步 | [kingofwinter1994/academic_niceslides](https://github.com/kingofwinter1994/academic_niceslides) · `b77c608a993e` | Build academic talk slides from a paper without AI-slop |
 | [lieflat-charts](./skills/external/lieflat-charts) | 外&#8288;部&#8288;同&#8288;步 | [larashero3-dotcom/lieflat-charts](https://github.com/larashero3-dotcom/lieflat-charts) · `4b4e75bde11c` | 一套模板驱动的数据可视化、PPT 演示与整页报告生成 skill，既能严格从 Lupi、Basics、Glance、Maps 与 Interactive gallery 的真实… |
@@ -18,13 +18,13 @@
 | [design-taste-frontend](./skills/external/design-taste-frontend) | 外&#8288;部&#8288;同&#8288;步 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/taste-skill) · `f6b76575f949` | tasteskill 2.5.1, the anti-slop frontend skill |
 | [GSAP](./plugins/gsap) | 插件合集 | [项目主页](https://github.com/greensock/gsap-skills) | 包含 8 个 Skill。Build and optimize GSAP animations with core tweens, timelines, ScrollTrigger, plugins… |
 | [playwright](./skills/external/playwright) | 外&#8288;部&#8288;同&#8288;步 | [openai/skills](https://github.com/openai/skills/tree/main/skills/.curated/playwright) · `49f948faa925` | Use when the task requires automating a real browser from the terminal (navigation, form… |
-| [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `b49177d32788` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
+| [impeccable](./skills/external/impeccable) | 外&#8288;部&#8288;同&#8288;步 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable/tree/main/.agents/skills/impeccable) · `2fc5e1459efb` | Use when the user wants to design, redesign, shape, critique, audit, polish, simplify… |
 | [mermaid-diagrams](./skills/external/mermaid-diagrams) | 外&#8288;部&#8288;同&#8288;步 | [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/tree/main/skills/mermaid-diagrams) · `3027f20f3181` | Comprehensive guide for creating software diagrams using Mermaid syntax |
 | [shadcn](./skills/external/shadcn) | 外&#8288;部&#8288;同&#8288;步 | [shadcn-ui/ui](https://github.com/shadcn-ui/ui/tree/main/skills/shadcn) · `42f3bb63b46a` | Manages shadcn components and projects — adding, searching, fixing, debugging, styling… |
 | [frontend-design](./skills/external/frontend-design) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design) · `ca45fc496a34` | Guidance for distinctive, intentional visual design when building new UI or reshaping an… |
 | [web-design-guidelines](./skills/external/web-design-guidelines) | 外&#8288;部&#8288;同&#8288;步 | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) · `5a37a6329fba` | Review UI code for Web Interface Guidelines compliance |
 | [humanizer](./skills/external/humanizer) | 外&#8288;部&#8288;同&#8288;步 | [blader/humanizer](https://github.com/blader/humanizer) · `b48c832f0f80` | Rewrite AI-sounding text so it reads like the writer without changing what it says |
-| [deep-research](./skills/external/deep-research) | 外&#8288;部&#8288;同&#8288;步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `d120dfd598a0` | Universal deep research agent team |
+| [deep-research](./skills/external/deep-research) | 外&#8288;部&#8288;同&#8288;步 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills/tree/main/deep-research) · `62f5c2a0e66d` | Universal deep research agent team |
 | [skill-creator](./skills/external/skill-creator) | 外&#8288;部&#8288;同&#8288;步 | [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/skill-creator) · `b9e19e6f4477` | Create new skills, modify and improve existing skills, and measure skill performance |
 | [blog-writer](./skills/personal/skill-blog-writer) | 自研 | 自研 | 从 ChatGPT 学习对话、笔记或实践记录写出可独立阅读的中文博客，也支持对已有稿件审校 |
 | [humanizer-zh](./skills/personal/humanizer-zh) | 自研 | 自研 | 编辑或审阅已有的中文稿件 |
